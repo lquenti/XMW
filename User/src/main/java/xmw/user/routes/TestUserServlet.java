@@ -1,4 +1,4 @@
-package xmw.user;
+package xmw.user.routes;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -7,10 +7,9 @@ import jakarta.servlet.http.*;
 
 import org.basex.core.*;
 import org.basex.core.cmd.*;
-import org.basex.query.*;
 
-@WebServlet(name="userServlet", value="/UserServlet")
-public class UserServlet extends HttpServlet {
+@WebServlet(name="testUserServlet", value="/test/UserServlet")
+public class TestUserServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // Define the database name
