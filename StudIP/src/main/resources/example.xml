@@ -1,0 +1,22 @@
+<Schedules>
+    <Schedule username="hbrosen">
+        <Course id="c1" semester="ws2425">
+            <Name>Informatik I</Name>
+            <Lecturer id="u_hbrosen" /> <!-- Multiple möglich -->
+            <Faculty>Computer Science</Faculty>
+            <MaxStudentCount count="300" /> <!-- Optional -->
+            <Lectures>
+                <Lecture
+                        time_begin="2024-01-01T14:15"
+                        time_end="2024-01-01T15:45"
+                        room_id="1337" />
+                <Lecture
+                        time_begin="2024-01-08T14:15"
+                        time_end="2024-01-08T15:45"
+                        room_id="1337" />
+            </Lectures>
+            <Exam id="1"/>
+            <Exam id="2"/>
+        </Course>
+    </Schedule>
+</Schedules>
