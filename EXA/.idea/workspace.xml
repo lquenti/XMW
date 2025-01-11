@@ -9,8 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e08a0624-4ad7-49a1-b0b9-80aa9b9e5fcf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mockData/lectures.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mockData/lectures.xml" afterDir="false" />
+    <list default="true" id="e08a0624-4ad7-49a1-b0b9-80aa9b9e5fcf" name="Changes" comment="add courses">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/ExamServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/ExamServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/ExamsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/ExamsServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/collection.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/collection.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,6 +209,15 @@
       <updated>1736602393507</updated>
       <workItem from="1736602394524" duration="4574000" />
     </task>
+    <task id="LOCAL-00001" summary="add courses">
+      <option name="closed" value="true" />
+      <created>1736621245031</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1736621245031</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,6 +225,48 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update /lecturer endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="update /lecturer endpoint" />
+    <MESSAGE value="add courses" />
+    <option name="LAST_COMMIT_MESSAGE" value="add courses" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
+          <line>179</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
+          <line>194</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
+          <line>213</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/ExamsServlet.java</url>
+          <line>88</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
+          <line>163</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
+          <line>164</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
+          <line>154</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

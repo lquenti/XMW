@@ -3,6 +3,7 @@ package xmw.exa.db;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,27 +87,6 @@ public class DB {
         }
     }
 
-    public List<String> getLecturerNames() {
-        List<String> names = new ArrayList<>();
-        // Use collection to access the database contents
-        String query = String.format(
-                "for $lecturer in collection('%s/lecturers.xml')/Lectureres/Lecturer " +
-                        "return concat($lecturer/firstname/text(), ' ', $lecturer/name/text())",
-                DB_NAME);
-
-        try {
-            String result = new XQuery(query).execute(context);
-            for (String name : result.split("\n")) {
-                if (!name.trim().isEmpty()) {
-                    names.add(name.trim());
-                }
-            }
-        } catch (BaseXException e) {
-            throw new RuntimeException("Failed to query lecturers: " + e.getMessage(), e);
-        }
-        return names;
-    }
-
     public List<Lecturer> getAllLecturers() {
         List<Lecturer> lecturers = new ArrayList<>();
         String query = String.format(
@@ -155,6 +135,89 @@ public class DB {
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern);
         java.util.regex.Matcher m = p.matcher(xml);
         return m.find() ? m.group(1).trim() : "";
+    }
+
+    public List<Course> getAllCourses() {
+        List<Course> courses = new ArrayList<>();
+        String query = String.format(
+                "for $c in collection('%s/courses.xml')/Course/Course " +
+                        "return element course { " +
+                        "  element id { $c/id/text() }, " +
+                        "  element name { $c/name/text() }, " +
+                        "  element faculty { $c/faculty/text() }, " +
+                        "  element lecturerId { $c/lecturer_id/text() }, " +
+                        "  element maxStudents { $c/max_students/text() }, " +
+                        "  element semesterId { $c/semester_id/text() } " +
+                        "}",
+                DB_NAME);
+
+        try {
+            String result = new XQuery(query).execute(context);
+            String[] courseElements = result.split("</course>");
+            for (String element : courseElements) {
+                if (element.trim().isEmpty())
+                    continue;
+
+                Course course = new Course();
+
+                // Extract fields
+                course.setId(Integer.parseInt(extractValue(element, "id")));
+                course.setName(extractValue(element, "name"));
+                course.setFaculty(extractValue(element, "faculty"));
+                course.setLecturerId(Integer.parseInt(extractValue(element, "lecturerId")));
+                course.setMaxStudents(Integer.parseInt(extractValue(element, "maxStudents")));
+                course.setSemesterId(Integer.parseInt(extractValue(element, "semesterId")));
+
+                courses.add(course);
+            }
+        } catch (BaseXException e) {
+            throw new RuntimeException("Failed to query courses: " + e.getMessage(), e);
+        }
+        return courses;
+    }
+
+    public List<Exam> getAllExams() {
+        List<Exam> exams = new ArrayList<>();
+        String query = String.format(
+                "for $e in collection('%s/exams.xml')/Exams/Exam " +
+                        "return element exam { " +
+                        "  element id { $e/id/text() }, " +
+                        "  element courseId { $e/course_id/text() }, " +
+                        "  element date { $e/date/text() }, " +
+                        "  element isOnline { $e/is_online/text() }, " +
+                        "  element isWritten { $e/is_written/text() }, " +
+                        "  element roomOrLink { $e/room_or_link/text() } "
+                        +
+                        "}",
+                DB_NAME);
+
+        try {
+            String result = new XQuery(query).execute(context);
+            String[] examElements = result.split("</exam>");
+            for (String element : examElements) {
+                if (element.trim().isEmpty())
+                    continue;
+
+                Exam exam = new Exam();
+
+                // Extract id from attribute
+                String idPattern = "id=\"([^\"]*)\"";
+
+                exam.setId(Integer.parseInt(extractValue(element, "id")));
+
+                // Extract other fields
+                exam.setCourseId(Integer.parseInt(extractValue(element, "courseId")));
+                exam.setDate(LocalDateTime.parse(extractValue(element, "date")));
+                exam.setOnline(Boolean.parseBoolean(extractValue(element, "isOnline")));
+                exam.setWritten(Boolean.parseBoolean(extractValue(element, "isWritten")));
+                exam.setRoomOrLink(extractValue(element, "roomOrLink"));
+
+                exams.add(exam);
+            }
+        } catch (BaseXException e) {
+            throw new RuntimeException("Failed to query exams: " + e.getMessage(), e);
+        }
+        return exams;
     }
 
     public void close() {

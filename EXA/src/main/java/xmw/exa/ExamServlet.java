@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
+import xmw.exa.db.Exam;
 import xmw.exa.util.HtmlUtil;
 
 @WebServlet(name = "exam", urlPatterns = "/exams/*")
@@ -70,20 +71,15 @@ public class ExamServlet extends HttpServlet {
                 response.setCharacterEncoding("UTF-8");
                 PrintWriter out = response.getWriter();
 
-                // Query for a more readable format
-                query = String.format(
-                        "let $exam := collection('%s/exams.xml')/Exams/Exam[id = %s] " +
-                                "return map { " +
-                                "  'id': $exam/id/string(), " +
-                                "  'course_id': $exam/course_id/string(), " +
-                                "  'date': $exam/date/string(), " +
-                                "  'is_online': $exam/is_online/string(), " +
-                                "  'is_written': $exam/is_written/string(), " +
-                                "  'room_or_link': $exam/room_or_link/string() " +
-                                "}",
-                        "exa", examId);
+                int numExamId = Integer.parseInt(examId);
 
-                result = new XQuery(query).execute(db.getContext());
+                Exam exam = DB
+                        .getInstance()
+                        .getAllExams()
+                        .stream()
+                        .filter(
+                                e -> numExamId == e.getId())
+                        .findFirst().orElse(null);
 
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
@@ -91,13 +87,16 @@ public class ExamServlet extends HttpServlet {
                 out.println("<body>");
                 out.println("<h1>Exam Details</h1>");
                 out.println("<div class='exam-details'>");
-                out.println("<p><strong>ID:</strong> " + extractValue(result, "id") + "</p>");
-                out.println("<p><strong>Course ID:</strong> " + extractValue(result, "course_id") + "</p>");
-                out.println("<p><strong>Date:</strong> " + extractValue(result, "date") + "</p>");
+                out.println("<p><strong>ID:</strong> " + exam.getId() + "</p>");
+                out.println("<p><strong>Course ID:</strong> "
+                        + "<a href='" + HtmlUtil.BASE_URL + "/courses/" + exam.getCourseId() + "'>"
+                        + exam.getCourseId()
+                        + "</a></p>");
+                out.println("<p><strong>Date:</strong> " + exam.getDate() + "</p>");
 
-                boolean isOnline = "1".equals(extractValue(result, "is_online"));
-                boolean isWritten = "1".equals(extractValue(result, "is_written"));
-                String location = extractValue(result, "room_or_link");
+                boolean isOnline = exam.isOnline();
+                boolean isWritten = exam.isWritten();
+                String location = exam.getRoomOrLink();
 
                 out.println("<p><strong>Type:</strong> " + (isOnline ? "Online" : "On-site") + ", " +
                         (isWritten ? "Written" : "Oral") + "</p>");
@@ -113,13 +112,6 @@ public class ExamServlet extends HttpServlet {
         } catch (BaseXException e) {
             throw new IOException("Failed to query exam: " + e.getMessage(), e);
         }
-    }
-
-    private String extractValue(String result, String key) {
-        String pattern = "'" + key + "': '([^']*)'";
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern);
-        java.util.regex.Matcher m = p.matcher(result);
-        return m.find() ? m.group(1) : "";
     }
 
     @Override

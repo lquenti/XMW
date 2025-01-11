@@ -1,3 +1,5 @@
+<jsp:useBean id="name" scope="request" type="java.lang.String"/>
+<jsp:useBean id="message" scope="request" type="java.lang.String"/>
 <%@ page contentType="text/html;charset=UTF-8" import="xmw.exa.util.HtmlUtil"
 language="java" %>
 <html>

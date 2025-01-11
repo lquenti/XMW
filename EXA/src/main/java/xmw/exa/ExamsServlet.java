@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import xmw.exa.db.Course;
 import xmw.exa.db.DB;
 import xmw.exa.util.HtmlUtil;
 
@@ -85,25 +86,27 @@ public class ExamsServlet extends HttpServlet {
 
                 String id = extractValue(element, "id");
                 String date = extractValue(element, "date");
-                String location = extractValue(element, "room_or_link");
-                boolean isOnline = "1".equals(extractValue(element, "is_online"));
-                boolean isWritten = "1".equals(extractValue(element, "is_written"));
+                int courseId = Integer.parseInt(extractValue(element, "course_id"));
+
+                Course course = DB.getInstance().getAllCourses().stream()
+                        .filter(c -> c.getId() == courseId)
+                        .findFirst().orElse(null);
 
                 message.append("<li>")
                         .append("<a href=\"" + HtmlUtil.BASE_URL + "/exams/").append(id).append("\">")
                         .append("Exam ").append(id)
-                        .append(" (").append(date).append(")")
                         .append("</a>")
-                        .append(" - ")
-                        .append(isOnline ? "Online" : "On-site")
-                        .append(", ")
-                        .append(isWritten ? "Written" : "Oral")
-                        .append(" @ ")
-                        .append(location)
-                        .append("</li>");
+                        .append(" on ")
+                        .append(date.split("T")[0])
+                        .append(" at ")
+                        .append(date.split("T")[1], 0, 5)
+                        .append(" for ")
+                        .append("<a href=\"" + HtmlUtil.BASE_URL + "/courses/").append(course.getId()).append("\">")
+                        .append(course.getName())
+                        .append("</a>");
+
             }
             message.append("</ul>");
-            message.append("<p><small>View as: <a href='?format=xml'>XML</a></small></p>");
 
             request.setAttribute("message", message.toString());
 
