@@ -14,27 +14,26 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.Course;
 import xmw.exa.db.DB;
-import xmw.exa.db.Lecturer;
 import xmw.exa.util.HtmlUtil;
 
-@WebServlet(name = "exams", value = "/exams")
-public class ExamsServlet extends HttpServlet {
+@WebServlet(name = "lectures", value = "/lectures")
+public class LecturesServlet extends HttpServlet {
     private String name;
     private DB db;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Override
     public void init() {
-        name = "Exams";
+        name = "Lectures";
         db = DB.getInstance();
     }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String pathInfo = request.getServletPath();
-        if (pathInfo.equals("/exams/all")) {
+        if (pathInfo.equals("/lectures/all")) {
             String queryString = request.getQueryString();
-            response.sendRedirect(HtmlUtil.BASE_URL + "/exams" + (queryString != null ? "?" + queryString : ""));
+            response.sendRedirect(HtmlUtil.BASE_URL + "/lectures" + (queryString != null ? "?" + queryString : ""));
             return;
         }
 
@@ -43,18 +42,17 @@ public class ExamsServlet extends HttpServlet {
 
         if (isXmlFormat) {
             try {
-                // Query for the complete exams XML with proper indentation
+                // Query for the complete lectures XML with proper indentation
                 String query = String.format(
-                        "let $exams := collection('%s/exams.xml')/Exams " +
-                                "return serialize(element exams { " +
-                                "  for $e in $exams/Exam " +
-                                "  return element exam { " +
-                                "    element id { $e/id/text() }, " +
-                                "    element course_id { $e/course_id/text() }, " +
-                                "    element date { $e/date/text() }, " +
-                                "    element is_online { $e/is_online/text() }, " +
-                                "    element is_written { $e/is_written/text() }, " +
-                                "    element room_or_link { $e/room_or_link/text() } " +
+                        "let $lectures := collection('%s/lectures.xml')/Lectures " +
+                                "return serialize(element lectures { " +
+                                "  for $l in $lectures/Lecture " +
+                                "  return element lecture { " +
+                                "    element id { $l/id/text() }, " +
+                                "    element course_id { $l/course_id/text() }, " +
+                                "    element start { $l/start/text() }, " +
+                                "    element end { $l/end/text() }, " +
+                                "    element room_or_link { $l/room_or_link/text() } " +
                                 "  } " +
                                 "}, map { 'method': 'xml', 'indent': 'yes' })",
                         "exa");
@@ -70,7 +68,7 @@ public class ExamsServlet extends HttpServlet {
                 out.flush();
                 return;
             } catch (BaseXException e) {
-                throw new IOException("Failed to query exams: " + e.getMessage(), e);
+                throw new IOException("Failed to query lectures: " + e.getMessage(), e);
             }
         }
 
@@ -78,53 +76,45 @@ public class ExamsServlet extends HttpServlet {
         response.setContentType("text/html");
         request.setAttribute("name", this.name);
 
-        // Get all exams and courses
-        var exams = db.getAllExams();
+        // Get all lectures and courses
+        var lectures = db.getAllLectures();
         var courses = db.getAllCourses();
         var semesters = db.getAllSemesters();
 
         StringBuilder message = new StringBuilder();
 
-        // Group exams by semester through their courses
+        // Group lectures by semester through their courses
         for (var semester : semesters) {
-            var semesterExams = exams.stream()
-                    .filter(e -> {
+            var semesterLectures = lectures.stream()
+                    .filter(l -> {
                         var course = courses.stream()
-                                .filter(c -> c.getId() == e.getCourseId())
+                                .filter(c -> c.getId() == l.getCourseId())
                                 .findFirst()
                                 .orElse(null);
                         return course != null && course.getSemesterId() == semester.getId();
                     })
-                    .sorted((e1, e2) -> e1.getDate().compareTo(e2.getDate()))
+                    .sorted((l1, l2) -> l1.getStart().compareTo(l2.getStart()))
                     .toList();
 
-            if (!semesterExams.isEmpty()) {
+            if (!semesterLectures.isEmpty()) {
                 message.append("<h2>").append(semester.getName()).append("</h2><ul>");
 
-                for (var exam : semesterExams) {
+                for (var lecture : semesterLectures) {
                     Course course = courses.stream()
-                            .filter(c -> c.getId() == exam.getCourseId())
+                            .filter(c -> c.getId() == lecture.getCourseId())
                             .findFirst().orElse(null);
 
-                    // Get lecturer information
-                    Lecturer lecturer = course != null ? course.getLecturer() : null;
-
                     message.append("<li>")
-                            .append("<a href=\"" + HtmlUtil.BASE_URL + "/exams/").append(exam.getId()).append("\">")
-                            .append(exam.getDate().format(DATE_FORMATTER))
+                            .append("<a href=\"" + HtmlUtil.BASE_URL + "/lectures/").append(lecture.getId())
+                            .append("\">")
+                            .append(lecture.getStart().format(DATE_FORMATTER))
                             .append(" - ")
-                            .append(exam.getRoomOrLink())
+                            .append(lecture.getRoomOrLink())
                             .append("</a>")
                             .append(" for ")
                             .append("<a href=\"" + HtmlUtil.BASE_URL + "/courses/").append(course.getId()).append("\">")
                             .append(course.getName())
-                            .append("</a>")
-                            .append(" by ")
-                            .append(lecturer != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
-                                    HtmlUtil.BASE_URL,
-                                    lecturer.getUsername(),
-                                    lecturer.getFullName())
-                                    : "Unknown Lecturer");
+                            .append("</a>");
                     message.append("</li>");
                 }
                 message.append("</ul>");
@@ -139,13 +129,6 @@ public class ExamsServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private String extractValue(String xml, String tag) {
-        String pattern = String.format("<%s>([^<]*)</%s>", tag, tag);
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern);
-        java.util.regex.Matcher m = p.matcher(xml);
-        return m.find() ? m.group(1).trim() : "";
     }
 
     @Override

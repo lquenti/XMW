@@ -2,6 +2,7 @@ package xmw.exa;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
 
 import org.basex.core.BaseXException;
 import org.basex.core.cmd.XQuery;
@@ -10,12 +11,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import xmw.exa.db.Course;
 import xmw.exa.db.DB;
+import xmw.exa.db.Lecturer;
 import xmw.exa.util.HtmlUtil;
 
 @WebServlet(name = "exam", urlPatterns = "/exams/*")
 public class ExamServlet extends HttpServlet {
     private DB db;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Override
     public void init() {
@@ -30,8 +34,17 @@ public class ExamServlet extends HttpServlet {
             return;
         }
 
-        // Extract exam ID from path (remove leading slash)
+        // Remove leading slash
         String examId = pathInfo.substring(1);
+
+        // Handle /all endpoint
+        if (examId.equals("all")) {
+            String queryString = request.getQueryString();
+            response.sendRedirect(HtmlUtil.BASE_URL + "/exams" + (queryString != null ? "?" + queryString : ""));
+            return;
+        }
+
+        // Validate exam ID
         if (!examId.matches("\\d+")) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid exam ID");
             return;
@@ -45,7 +58,16 @@ public class ExamServlet extends HttpServlet {
             String query = String.format(
                     "let $exam := collection('%s/exams.xml')/Exams/Exam[id = %s] " +
                             "return if ($exam) then " +
-                            "  serialize($exam, map { 'method': 'xml', 'indent': 'yes' }) " +
+                            "  serialize(element exams { " +
+                            "    element exam { " +
+                            "      element id { $exam/id/text() }, " +
+                            "      element course_id { $exam/course_id/text() }, " +
+                            "      element date { $exam/date/text() }, " +
+                            "      element is_online { $exam/is_online/text() }, " +
+                            "      element is_written { $exam/is_written/text() }, " +
+                            "      element room_or_link { $exam/room_or_link/text() } " +
+                            "    } " +
+                            "  }, map { 'method': 'xml', 'indent': 'yes' }) " +
                             "else ()",
                     "exa", examId);
 
@@ -70,20 +92,20 @@ public class ExamServlet extends HttpServlet {
                 response.setCharacterEncoding("UTF-8");
                 PrintWriter out = response.getWriter();
 
-                // Query for a more readable format
-                query = String.format(
-                        "let $exam := collection('%s/exams.xml')/Exams/Exam[id = %s] " +
-                                "return map { " +
-                                "  'id': $exam/id/string(), " +
-                                "  'course_id': $exam/course_id/string(), " +
-                                "  'date': $exam/date/string(), " +
-                                "  'is_online': $exam/is_online/string(), " +
-                                "  'is_written': $exam/is_written/string(), " +
-                                "  'room_or_link': $exam/room_or_link/string() " +
-                                "}",
-                        "exa", examId);
+                int numExamId = Integer.parseInt(examId);
+                var exam = db.getAllExams().stream()
+                        .filter(e -> numExamId == e.getId())
+                        .findFirst()
+                        .orElse(null);
 
-                result = new XQuery(query).execute(db.getContext());
+                if (exam == null) {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Exam not found");
+                    return;
+                }
+
+                // Get associated course and lecturer
+                Course course = exam.getCourse();
+                Lecturer lecturer = course != null ? course.getLecturer() : null;
 
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
@@ -91,13 +113,26 @@ public class ExamServlet extends HttpServlet {
                 out.println("<body>");
                 out.println("<h1>Exam Details</h1>");
                 out.println("<div class='exam-details'>");
-                out.println("<p><strong>ID:</strong> " + extractValue(result, "id") + "</p>");
-                out.println("<p><strong>Course ID:</strong> " + extractValue(result, "course_id") + "</p>");
-                out.println("<p><strong>Date:</strong> " + extractValue(result, "date") + "</p>");
+                out.println("<p><strong>ID:</strong> " + exam.getId() + "</p>");
+                out.println("<p><strong>Course:</strong> "
+                        + (course != null ? String.format("<a href='%s/courses/%d'>%s</a>",
+                                HtmlUtil.BASE_URL,
+                                course.getId(),
+                                course.getName())
+                                : "Unknown Course")
+                        + "</p>");
+                out.println("<p><strong>Lecturer:</strong> "
+                        + (lecturer != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
+                                HtmlUtil.BASE_URL,
+                                lecturer.getUsername(),
+                                lecturer.getFullName())
+                                : "Unknown Lecturer")
+                        + "</p>");
+                out.println("<p><strong>Date:</strong> " + exam.getDate().format(DATE_FORMATTER) + "</p>");
 
-                boolean isOnline = "1".equals(extractValue(result, "is_online"));
-                boolean isWritten = "1".equals(extractValue(result, "is_written"));
-                String location = extractValue(result, "room_or_link");
+                boolean isOnline = exam.isOnline();
+                boolean isWritten = exam.isWritten();
+                String location = exam.getRoomOrLink();
 
                 out.println("<p><strong>Type:</strong> " + (isOnline ? "Online" : "On-site") + ", " +
                         (isWritten ? "Written" : "Oral") + "</p>");
@@ -113,13 +148,6 @@ public class ExamServlet extends HttpServlet {
         } catch (BaseXException e) {
             throw new IOException("Failed to query exam: " + e.getMessage(), e);
         }
-    }
-
-    private String extractValue(String result, String key) {
-        String pattern = "'" + key + "': '([^']*)'";
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern);
-        java.util.regex.Matcher m = p.matcher(result);
-        return m.find() ? m.group(1) : "";
     }
 
     @Override

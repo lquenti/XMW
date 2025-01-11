@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import xmw.exa.db.Course;
 import xmw.exa.db.DB;
 import xmw.exa.util.HtmlUtil;
 
@@ -27,6 +28,13 @@ public class CoursesServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String pathInfo = request.getServletPath();
+        if (pathInfo.equals("/courses/all")) {
+            String queryString = request.getQueryString();
+            response.sendRedirect(HtmlUtil.BASE_URL + "/courses" + (queryString != null ? "?" + queryString : ""));
+            return;
+        }
+
         // Check format parameter
         boolean isXmlFormat = "xml".equals(request.getParameter("format"));
 
@@ -34,8 +42,18 @@ public class CoursesServlet extends HttpServlet {
             try {
                 // Query for the complete courses XML with proper indentation
                 String query = String.format(
-                        "let $courses := collection('%s/courses.xml')/Course " +
-                                "return serialize($courses, map { 'method': 'xml', 'indent': 'yes' })",
+                        "let $courses := collection('%s/courses.xml')/Courses " +
+                                "return serialize(element courses { " +
+                                "  for $c in $courses/Course " +
+                                "  return element course { " +
+                                "    element faculty { $c/faculty/text() }, " +
+                                "    element id { $c/id/text() }, " +
+                                "    element lecturer_id { $c/lecturer_id/text() }, " +
+                                "    element max_students { $c/max_students/text() }, " +
+                                "    element name { $c/name/text() }, " +
+                                "    element semester_id { $c/semester_id/text() } " +
+                                "  } " +
+                                "}, map { 'method': 'xml', 'indent': 'yes' })",
                         "exa");
 
                 String result = new XQuery(query).execute(db.getContext());
@@ -58,63 +76,59 @@ public class CoursesServlet extends HttpServlet {
         request.setAttribute("name", this.name);
 
         try {
-            // Query for all courses with formatted output
-            String query = String.format(
-                    "for $course in collection('%s/courses.xml')/Course/Course " +
-                            "order by xs:integer($course/id) " +
-                            "return element course { " +
-                            "  $course/id, " +
-                            "  $course/n, " +
-                            "  $course/faculty, " +
-                            "  $course/lecturer_id, " +
-                            "  $course/max_students, " +
-                            "  $course/semester_id " +
-                            "}",
-                    "exa");
+            // Query for all courses with lecturer information
+            var courses = db.getAllCourses();
+            var lecturers = db.getAllLecturers();
+            var semesters = db.getAllSemesters();
 
-            String result = new XQuery(query).execute(db.getContext());
+            StringBuilder message = new StringBuilder();
 
-            StringBuilder message = new StringBuilder("<ul>");
-            String[] courseElements = result.split("</course>");
+            // Group courses by semester
+            for (var semester : semesters) {
+                var semesterCourses = courses.stream()
+                        .filter(c -> c.getSemesterId() == semester.getId())
+                        .toList();
 
-            for (String element : courseElements) {
-                if (element.trim().isEmpty())
-                    continue;
+                if (!semesterCourses.isEmpty()) {
+                    message.append("<h2>").append(semester.getName()).append("</h2><ul>");
 
-                String id = extractValue(element, "id");
-                String name = extractValue(element, "n");
-                String faculty = extractValue(element, "faculty");
-                String maxStudents = extractValue(element, "max_students");
+                    for (Course course : semesterCourses) {
+                        // Find the lecturer for this course
+                        String lecturerName = lecturers.stream()
+                                .filter(l -> l.getId() == course.getLecturerId())
+                                .map(l -> String.format("<a href='%s/lecturers/%s'>%s</a>",
+                                        HtmlUtil.BASE_URL,
+                                        l.getUsername(),
+                                        l.getFullName()))
+                                .findFirst()
+                                .orElse("Unknown Lecturer");
 
-                message.append("<li>")
-                        .append("<a href=\"" + HtmlUtil.BASE_URL + "/courses/").append(id).append("\">")
-                        .append(name)
-                        .append("</a>")
-                        .append(" - Faculty: ").append(faculty)
-                        .append(" (Max Students: ").append(maxStudents).append(")")
-                        .append("</li>");
+                        message.append("<li>")
+                                .append("<a href=\"").append(HtmlUtil.BASE_URL).append("/courses/")
+                                .append(course.getId())
+                                .append("\">")
+                                .append(course.getName())
+                                .append("</a>")
+                                .append(" - Faculty: ")
+                                .append(course.getFaculty())
+                                .append(" (Max Students: ")
+                                .append(course.getMaxStudents())
+                                .append(")")
+                                .append(" - Held by: ")
+                                .append(lecturerName)
+                                .append("</li>");
+                    }
+                    message.append("</ul>");
+                }
             }
-            message.append("</ul>");
-            message.append("<p><small>View as: <a href='?format=xml'>XML</a></small></p>");
 
             request.setAttribute("message", message.toString());
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/collection.jsp");
-            try {
-                dispatcher.forward(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } catch (BaseXException e) {
-            throw new IOException("Failed to query courses: " + e.getMessage(), e);
+            dispatcher.forward(request, response);
+        } catch (Exception e) {
+            throw new IOException("Failed to process courses: " + e.getMessage(), e);
         }
-    }
-
-    private String extractValue(String xml, String tag) {
-        String pattern = String.format("<%s>([^<]*)</%s>", tag, tag);
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern);
-        java.util.regex.Matcher m = p.matcher(xml);
-        return m.find() ? m.group(1).trim() : "";
     }
 
     @Override

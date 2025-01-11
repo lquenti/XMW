@@ -1,12 +1,23 @@
 package xmw.exa.db;
 
+import java.util.List;
+
 public class Lecturer {
     private String username;
     private String faculty;
     private String name;
     private String firstname;
+    private int id;
 
     // Getters and setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -44,6 +55,13 @@ public class Lecturer {
         return firstname + " " + name;
     }
 
+    // Relationship methods
+    public List<Course> getCourses() {
+        return DB.getInstance().getAllCourses().stream()
+                .filter(course -> course.getLecturerId() == id)
+                .toList();
+    }
+
     @Override
     public String toString() {
         return "Lecturer{" +
@@ -51,6 +69,7 @@ public class Lecturer {
                 ", faculty='" + faculty + '\'' +
                 ", name='" + name + '\'' +
                 ", firstname='" + firstname + '\'' +
+                ", id=" + id +
                 '}';
     }
 }

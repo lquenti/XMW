@@ -79,13 +79,14 @@ public class LecturerServlet extends HttpServlet {
                 out.println("<body>");
                 out.println("<h1>Lecturer Details</h1>");
                 out.println("<div class='lecturer-details'>");
+                out.println("<p><strong>ID:</strong> " + lecturer.getId() + "</p>");
                 out.println("<p><strong>Username:</strong> " + lecturer.getUsername() + "</p>");
                 out.println("<p><strong>Name:</strong> "
                         + lecturer.getFullName() + "</p>");
                 out.println("<p><strong>Faculty:</strong> "
                         + (lecturer.getFaculty() != null ? lecturer.getFaculty() : "No Faculty") + "</p>");
                 out.println("</div>");
-                out.println("<p><a href='" + HtmlUtil.BASE_URL +"/lecturers'>Back to Lecturers List</a></p>");
+                out.println("<p><a href='" + HtmlUtil.BASE_URL + "/lecturers'>Back to Lecturers List</a></p>");
                 out.println("<p><small>View as: <a href='?format=xml'>XML</a></small></p>");
                 out.println("</body>");
                 out.println("</html>");

@@ -2,6 +2,7 @@ package xmw.exa;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
 
 import org.basex.core.BaseXException;
 import org.basex.core.cmd.XQuery;
@@ -15,7 +16,9 @@ import xmw.exa.util.HtmlUtil;
 
 @WebServlet(name = "course", urlPatterns = "/courses/*")
 public class CourseServlet extends HttpServlet {
+    private String name;
     private DB db;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Override
     public void init() {
@@ -30,8 +33,17 @@ public class CourseServlet extends HttpServlet {
             return;
         }
 
-        // Extract course ID from path (remove leading slash)
+        // Remove leading slash
         String courseId = pathInfo.substring(1);
+
+        // Handle /all endpoint
+        if (courseId.equals("all")) {
+            String queryString = request.getQueryString();
+            response.sendRedirect(HtmlUtil.BASE_URL + "/courses" + (queryString != null ? "?" + queryString : ""));
+            return;
+        }
+
+        // Validate course ID
         if (!courseId.matches("\\d+")) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid course ID");
             return;
@@ -43,9 +55,18 @@ public class CourseServlet extends HttpServlet {
         try {
             // Query for the specific course
             String query = String.format(
-                    "let $course := collection('%s/courses.xml')/Course/Course[id = %s] " +
+                    "let $course := collection('%s/courses.xml')/Courses/Course[id = %s] " +
                             "return if ($course) then " +
-                            "  serialize($course, map { 'method': 'xml', 'indent': 'yes' }) " +
+                            "  serialize(element courses { " +
+                            "    element course { " +
+                            "      element faculty { $course/faculty/text() }, " +
+                            "      element id { $course/id/text() }, " +
+                            "      element lecturer_id { $course/lecturer_id/text() }, " +
+                            "      element max_students { $course/max_students/text() }, " +
+                            "      element name { $course/name/text() }, " +
+                            "      element semester_id { $course/semester_id/text() } " +
+                            "    } " +
+                            "  }, map { 'method': 'xml', 'indent': 'yes' }) " +
                             "else ()",
                     "exa", courseId);
 
@@ -70,20 +91,22 @@ public class CourseServlet extends HttpServlet {
                 response.setCharacterEncoding("UTF-8");
                 PrintWriter out = response.getWriter();
 
-                // Query for a more readable format
-                query = String.format(
-                        "let $course := collection('%s/courses.xml')/Course/Course[id = %s] " +
-                                "return map { " +
-                                "  'id': $course/id/string(), " +
-                                "  'name': $course/n/string(), " +
-                                "  'faculty': $course/faculty/string(), " +
-                                "  'lecturer_id': $course/lecturer_id/string(), " +
-                                "  'max_students': $course/max_students/string(), " +
-                                "  'semester_id': $course/semester_id/string() " +
-                                "}",
-                        "exa", courseId);
+                int numCourseId = Integer.parseInt(courseId);
+                var course = db.getAllCourses().stream()
+                        .filter(c -> c.getId() == numCourseId)
+                        .findFirst()
+                        .orElse(null);
 
-                result = new XQuery(query).execute(db.getContext());
+                if (course == null) {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Course not found");
+                    return;
+                }
+
+                // Find the lecturer
+                var lecturer = db.getAllLecturers().stream()
+                        .filter(l -> l.getId() == course.getLecturerId())
+                        .findFirst()
+                        .orElse(null);
 
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
@@ -91,12 +114,61 @@ public class CourseServlet extends HttpServlet {
                 out.println("<body>");
                 out.println("<h1>Course Details</h1>");
                 out.println("<div class='course-details'>");
-                out.println("<p><strong>ID:</strong> " + extractValue(result, "id") + "</p>");
-                out.println("<p><strong>Name:</strong> " + extractValue(result, "name") + "</p>");
-                out.println("<p><strong>Faculty:</strong> " + extractValue(result, "faculty") + "</p>");
-                out.println("<p><strong>Lecturer ID:</strong> " + extractValue(result, "lecturer_id") + "</p>");
-                out.println("<p><strong>Max Students:</strong> " + extractValue(result, "max_students") + "</p>");
-                out.println("<p><strong>Semester ID:</strong> " + extractValue(result, "semester_id") + "</p>");
+                out.println("<p><strong>ID:</strong> " + course.getId() + "</p>");
+                out.println("<p><strong>Name:</strong> " + course.getName() + "</p>");
+                out.println("<p><strong>Faculty:</strong> " + course.getFaculty() + "</p>");
+                out.println("<p><strong>Lecturer:</strong> " +
+                        (lecturer != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
+                                HtmlUtil.BASE_URL,
+                                lecturer.getUsername(),
+                                lecturer.getFullName())
+                                : "Unknown Lecturer")
+                        + "</p>");
+                out.println("<p><strong>Max Students:</strong> " + course.getMaxStudents() + "</p>");
+                out.println("<p><strong>Semester ID:</strong> " + course.getSemesterId() + "</p>");
+
+                // Add lectures section
+                out.println("<h2>Lectures</h2>");
+                var lectures = course.getLectures();
+                if (!lectures.isEmpty()) {
+                    out.println("<ul>");
+                    for (var lecture : lectures) {
+                        out.println("<li>");
+                        out.println(String.format("<a href='%s/lectures/%d'>%s - %s</a>",
+                                HtmlUtil.BASE_URL,
+                                lecture.getId(),
+                                lecture.getStart().format(DATE_FORMATTER),
+                                lecture.getRoomOrLink()));
+                        out.println("</li>");
+                    }
+                    out.println("</ul>");
+                } else {
+                    out.println("<p>No lectures scheduled</p>");
+                }
+
+                // Add exams section
+                out.println("<h2>Exams</h2>");
+                var exams = course.getExams().stream()
+                        .sorted((e1, e2) -> e1.getDate().compareTo(e2.getDate()))
+                        .toList();
+                if (!exams.isEmpty()) {
+                    out.println("<ul>");
+                    for (var exam : exams) {
+                        out.println("<li>");
+                        out.println(String.format("<a href='%s/exams/%d'>%s - %s</a> (%s%s)",
+                                HtmlUtil.BASE_URL,
+                                exam.getId(),
+                                exam.getDate().format(DATE_FORMATTER),
+                                exam.getRoomOrLink(),
+                                exam.isOnline() ? "Online" : "In-person",
+                                exam.isWritten() ? ", Written" : ""));
+                        out.println("</li>");
+                    }
+                    out.println("</ul>");
+                } else {
+                    out.println("<p>No exams scheduled</p>");
+                }
+
                 out.println("</div>");
                 out.println("<p><a href='" + HtmlUtil.BASE_URL + "/courses'>Back to Courses List</a></p>");
                 out.println("<p><small>View as: <a href='?format=xml'>XML</a></small></p>");

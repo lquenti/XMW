@@ -2,52 +2,62 @@
 <Lectureres>
    <Lecturer username="schmitt.samara">
       <faculty null="true" />
+      <id>1</id>
+      <firstname>Delbert</firstname>
       <name>Considine</name>
-      <firstname>Delbert </firstname>
    </Lecturer>
    <Lecturer username="powlowski.kevon">
       <faculty null="true" />
-      <name>Beier</name>
+      <id>2</id>
       <firstname>Jacynthe</firstname>
+      <name>Beier</name>
    </Lecturer>
    <Lecturer username="schmeler.mallie">
       <faculty>aut</faculty>
-      <name>Stracke</name>
+      <id>3</id>
       <firstname>Bernice</firstname>
+      <name>Stracke</name>
    </Lecturer>
    <Lecturer username="lerdman">
       <faculty>aspernatur</faculty>
-      <name>Mayer</name>
+      <id>4</id>
       <firstname>Karine</firstname>
+      <name>Mayer</name>
    </Lecturer>
    <Lecturer username="terrill33">
       <faculty>non</faculty>
-      <name>Ferry</name>
+      <id>5</id>
       <firstname>Aylin</firstname>
+      <name>Ferry</name>
    </Lecturer>
    <Lecturer username="iliana.rowe">
       <faculty>neque</faculty>
-      <name>Kub</name>
+      <id>6</id>
       <firstname>Nella</firstname>
+      <name>Kub</name>
    </Lecturer>
    <Lecturer username="elinor21">
       <faculty>eveniet</faculty>
-      <name>Harris</name>
+      <id>7</id>
       <firstname>Riley</firstname>
+      <name>Harris</name>
    </Lecturer>
    <Lecturer username="dveum">
       <faculty>ut</faculty>
-      <name>Wehner</name>
+      <id>8</id>
       <firstname>Bettie</firstname>
+      <name>Wehner</name>
    </Lecturer>
    <Lecturer username="kuhn.ashtyn">
       <faculty null="true" />
-      <name>O'Hara</name>
+      <id>9</id>
       <firstname>Marques</firstname>
+      <name>O'Hara</name>
    </Lecturer>
    <Lecturer username="jzboncak">
       <faculty>eius</faculty>
-      <name>Watsica</name>
+      <id>10</id>
       <firstname>Tad</firstname>
+      <name>Watsica</name>
    </Lecturer>
 </Lectureres>
