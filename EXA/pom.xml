@@ -17,6 +17,14 @@
         <junit.version>5.11.0-M2</junit.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>basex</id>
+            <name>BaseX Maven Repository</name>
+            <url>https://files.basex.org/maven</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>jakarta.servlet</groupId>
@@ -35,6 +43,11 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.basex</groupId>
+            <artifactId>basex</artifactId>
+            <version>7.6</version>
         </dependency>
     </dependencies>
 
