@@ -59,6 +59,13 @@ public class Exam {
         this.roomOrLink = roomOrLink;
     }
 
+    // Relationship methods
+    public Course getCourse() {
+        return DB.getInstance().getAllCourses().stream()
+                .filter(course -> course.getId() == courseId)
+                .findFirst().orElse(null);
+    }
+
     @Override
     public String toString() {
         return "Exam{" +

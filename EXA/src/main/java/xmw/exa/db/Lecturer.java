@@ -1,5 +1,7 @@
 package xmw.exa.db;
 
+import java.util.List;
+
 public class Lecturer {
     private String username;
     private String faculty;
@@ -51,6 +53,13 @@ public class Lecturer {
     // Helper method to get full name
     public String getFullName() {
         return firstname + " " + name;
+    }
+
+    // Relationship methods
+    public List<Course> getCourses() {
+        return DB.getInstance().getAllCourses().stream()
+                .filter(course -> course.getLecturerId() == id)
+                .toList();
     }
 
     @Override

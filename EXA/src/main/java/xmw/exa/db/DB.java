@@ -222,6 +222,41 @@ public class DB {
         return exams;
     }
 
+    public List<Semester> getAllSemesters() {
+        List<Semester> semesters = new ArrayList<>();
+        String query = String.format(
+                "for $s in collection('%s/semesters.xml')/Semesters/Semester " +
+                        "return element semester { " +
+                        "  element id { $s/id/text() }, " +
+                        "  element name { $s/n/text() }, " +
+                        "  element start { $s/start/text() }, " +
+                        "  element end { $s/end/text() } " +
+                        "}",
+                DB_NAME);
+
+        try {
+            String result = new XQuery(query).execute(context);
+            String[] semesterElements = result.split("</semester>");
+            for (String element : semesterElements) {
+                if (element.trim().isEmpty())
+                    continue;
+
+                Semester semester = new Semester();
+
+                // Extract fields
+                semester.setId(Integer.parseInt(extractValue(element, "id")));
+                semester.setName(extractValue(element, "name"));
+                semester.setStart(LocalDateTime.parse(extractValue(element, "start")));
+                semester.setEnd(LocalDateTime.parse(extractValue(element, "end")));
+
+                semesters.add(semester);
+            }
+        } catch (BaseXException e) {
+            throw new RuntimeException("Failed to query semesters: " + e.getMessage(), e);
+        }
+        return semesters;
+    }
+
     public void close() {
         try {
             new Close().execute(context);

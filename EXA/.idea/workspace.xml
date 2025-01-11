@@ -10,11 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e08a0624-4ad7-49a1-b0b9-80aa9b9e5fcf" name="Changes" comment="update exams overview">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/CourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/CourseServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/CoursesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/CoursesServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/LecturerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/LecturerServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/Course.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/Exam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/Exam.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/Lecturer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

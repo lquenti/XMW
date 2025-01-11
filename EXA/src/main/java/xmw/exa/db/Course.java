@@ -1,5 +1,7 @@
 package xmw.exa.db;
 
+import java.util.List;
+
 public class Course {
     private int id;
     private String name; // 'n' in XML
@@ -39,8 +41,7 @@ public class Course {
 
     public Lecturer getLecturer() {
         return DB.getInstance().getAllLecturers().stream().filter(
-                lecturer -> lecturer.getId() == lecturerId).findFirst().orElse(null
-        );
+                lecturer -> lecturer.getId() == lecturerId).findFirst().orElse(null);
     }
 
     public void setLecturerId(int lecturerId) {
@@ -61,6 +62,17 @@ public class Course {
 
     public void setSemesterId(int semesterId) {
         this.semesterId = semesterId;
+    }
+
+    public Semester getSemester() {
+        return DB.getInstance().getAllSemesters().stream().filter(
+                semester -> semester.getId() == semesterId).findFirst().orElse(null);
+    }
+
+    public List<Exam> getExams() {
+        return DB.getInstance().getAllExams().stream()
+                .filter(exam -> exam.getCourseId() == id)
+                .toList();
     }
 
     @Override
