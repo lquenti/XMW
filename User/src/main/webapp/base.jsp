@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Auth Server</title>
@@ -9,6 +10,9 @@
 <main>
     ${domHtml}
 </main>
+<footer>
+    <img src="http://www.dbis.informatik.uni-goettingen.de/Icons/ROTATINGGLOBE.GIF" alt="Globe">
+</footer>
 </body>
 <style>
     html {
@@ -31,6 +35,10 @@
     }
     p, pre {
         margin: 0
+    }
+    footer img {
+        display: block;
+        margin: 10px auto;
     }
     .payload, .response {
         padding-left: 5px;

@@ -1,0 +1,33 @@
+<Users>
+  <User username="hbrosen">
+    <name>Brosenne</name>
+    <firstname>Hendrik</firstname>
+    <faculty>Computer Science</faculty>
+    <group id="g_lecturer">Lecturer</group>
+    <group id="g_employee">Employee</group>
+  </User>
+  <User>
+    <Username>hehe</Username>
+    <Password>haha</Password>
+  </User>
+  <User>
+    <Username>hehe</Username>
+    <Password>haha</Password>
+  </User>
+  <User>
+    <Username>hehe</Username>
+    <Password>haha</Password>
+  </User>
+  <User>
+    <Username>hehe</Username>
+    <Password>haha</Password>
+  </User>
+  <User>
+    <Username>hehe</Username>
+    <Password>haha</Password>
+  </User>
+  <User>
+    <Username>hehe</Username>
+    <Password>haha</Password>
+  </User>
+</Users>
