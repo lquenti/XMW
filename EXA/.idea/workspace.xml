@@ -10,8 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e08a0624-4ad7-49a1-b0b9-80aa9b9e5fcf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/ExamsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/ExamsServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mockData/exams.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mockData/exams.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mockData/lectures.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mockData/lectures.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
