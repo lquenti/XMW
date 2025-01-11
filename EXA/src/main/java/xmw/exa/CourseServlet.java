@@ -128,6 +128,29 @@ public class CourseServlet extends HttpServlet {
                     out.println("<p>No lectures scheduled</p>");
                 }
 
+                // Add exams section
+                out.println("<h2>Exams</h2>");
+                var exams = course.getExams().stream()
+                        .sorted((e1, e2) -> e1.getDate().compareTo(e2.getDate()))
+                        .toList();
+                if (!exams.isEmpty()) {
+                    out.println("<ul>");
+                    for (var exam : exams) {
+                        out.println("<li>");
+                        out.println(String.format("<a href='%s/exams/%d'>%s - %s</a> (%s%s)",
+                                HtmlUtil.BASE_URL,
+                                exam.getId(),
+                                exam.getDate().format(DATE_FORMATTER),
+                                exam.getRoomOrLink(),
+                                exam.isOnline() ? "Online" : "In-person",
+                                exam.isWritten() ? ", Written" : ""));
+                        out.println("</li>");
+                    }
+                    out.println("</ul>");
+                } else {
+                    out.println("<p>No exams scheduled</p>");
+                }
+
                 out.println("</div>");
                 out.println("<p><a href='" + HtmlUtil.BASE_URL + "/courses'>Back to Courses List</a></p>");
                 out.println("<p><small>View as: <a href='?format=xml'>XML</a></small></p>");

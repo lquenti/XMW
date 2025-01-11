@@ -2,6 +2,7 @@ package xmw.exa;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
 
 import org.basex.core.BaseXException;
 import org.basex.core.cmd.XQuery;
@@ -10,13 +11,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import xmw.exa.db.Course;
 import xmw.exa.db.DB;
-import xmw.exa.db.Exam;
+import xmw.exa.db.Lecturer;
 import xmw.exa.util.HtmlUtil;
 
 @WebServlet(name = "exam", urlPatterns = "/exams/*")
 public class ExamServlet extends HttpServlet {
     private DB db;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Override
     public void init() {
@@ -72,14 +75,19 @@ public class ExamServlet extends HttpServlet {
                 PrintWriter out = response.getWriter();
 
                 int numExamId = Integer.parseInt(examId);
+                var exam = db.getAllExams().stream()
+                        .filter(e -> numExamId == e.getId())
+                        .findFirst()
+                        .orElse(null);
 
-                Exam exam = DB
-                        .getInstance()
-                        .getAllExams()
-                        .stream()
-                        .filter(
-                                e -> numExamId == e.getId())
-                        .findFirst().orElse(null);
+                if (exam == null) {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Exam not found");
+                    return;
+                }
+
+                // Get associated course and lecturer
+                Course course = exam.getCourse();
+                Lecturer lecturer = course != null ? course.getLecturer() : null;
 
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
@@ -88,11 +96,21 @@ public class ExamServlet extends HttpServlet {
                 out.println("<h1>Exam Details</h1>");
                 out.println("<div class='exam-details'>");
                 out.println("<p><strong>ID:</strong> " + exam.getId() + "</p>");
-                out.println("<p><strong>Course ID:</strong> "
-                        + "<a href='" + HtmlUtil.BASE_URL + "/courses/" + exam.getCourseId() + "'>"
-                        + exam.getCourseId()
-                        + "</a></p>");
-                out.println("<p><strong>Date:</strong> " + exam.getDate() + "</p>");
+                out.println("<p><strong>Course:</strong> "
+                        + (course != null ? String.format("<a href='%s/courses/%d'>%s</a>",
+                                HtmlUtil.BASE_URL,
+                                course.getId(),
+                                course.getName())
+                                : "Unknown Course")
+                        + "</p>");
+                out.println("<p><strong>Lecturer:</strong> "
+                        + (lecturer != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
+                                HtmlUtil.BASE_URL,
+                                lecturer.getUsername(),
+                                lecturer.getFullName())
+                                : "Unknown Lecturer")
+                        + "</p>");
+                out.println("<p><strong>Date:</strong> " + exam.getDate().format(DATE_FORMATTER) + "</p>");
 
                 boolean isOnline = exam.isOnline();
                 boolean isWritten = exam.isWritten();

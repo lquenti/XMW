@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.Course;
 import xmw.exa.db.DB;
+import xmw.exa.db.Lecturer;
 import xmw.exa.util.HtmlUtil;
 
 @WebServlet(name = "exams", value = "/exams")
@@ -88,16 +89,26 @@ public class ExamsServlet extends HttpServlet {
                             .filter(c -> c.getId() == exam.getCourseId())
                             .findFirst().orElse(null);
 
+                    // Get lecturer information
+                    Lecturer lecturer = course != null ? course.getLecturer() : null;
+
                     message.append("<li>")
                             .append("<a href=\"" + HtmlUtil.BASE_URL + "/exams/").append(exam.getId()).append("\">")
-                            .append("Exam ").append(exam.getId())
-                            .append("</a>")
-                            .append(" on ")
                             .append(exam.getDate().format(DATE_FORMATTER))
+                            .append(" - ")
+                            .append(exam.getRoomOrLink())
+                            .append("</a>")
                             .append(" for ")
                             .append("<a href=\"" + HtmlUtil.BASE_URL + "/courses/").append(course.getId()).append("\">")
                             .append(course.getName())
-                            .append("</a>");
+                            .append("</a>")
+                            .append(" by ")
+                            .append(lecturer != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
+                                    HtmlUtil.BASE_URL,
+                                    lecturer.getUsername(),
+                                    lecturer.getFullName())
+                                    : "Unknown Lecturer");
+                    message.append("</li>");
                 }
                 message.append("</ul>");
             }
