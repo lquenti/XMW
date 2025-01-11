@@ -20,6 +20,7 @@ import xmw.exa.util.HtmlUtil;
 public class LecturersServlet extends HttpServlet {
     private String name;
     private DB db;
+    private static final String DB_NAME = "exa";
 
     @Override
     public void init() {
@@ -38,7 +39,7 @@ public class LecturersServlet extends HttpServlet {
                 String query = String.format(
                         "let $lecturers := collection('%s/lecturers.xml')/Lectureres " +
                                 "return serialize($lecturers, map { 'method': 'xml', 'indent': 'yes' })",
-                        "exa");
+                        DB_NAME);
 
                 String result = new XQuery(query).execute(db.getContext());
 
