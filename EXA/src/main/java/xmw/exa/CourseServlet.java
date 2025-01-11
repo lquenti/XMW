@@ -2,7 +2,16 @@ package xmw.exa;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.time.format.DateTimeFormatter;
+
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
 
 import org.basex.core.cmd.XQuery;
 
@@ -54,16 +63,14 @@ public class CourseServlet extends HttpServlet {
         String query = String.format(
                 "let $course := collection('%s/courses.xml')/Courses/Course[id = %s] " +
                         "return if ($course) then " +
-                        "  serialize(element courses { " +
-                        "    element course { " +
-                        "      element faculty { $course/faculty/text() }, " +
-                        "      element id { $course/id/text() }, " +
-                        "      element lecturer_id { $course/lecturer_id/text() }, " +
-                        "      element max_students { $course/max_students/text() }, " +
-                        "      element name { $course/name/text() }, " +
-                        "      element semester_id { $course/semester_id/text() } " +
-                        "    } " +
-                        "  }, map { 'method': 'xml', 'indent': 'yes' }) " +
+                        "  element course { " +
+                        "    attribute id { $course/id/text() }, " +
+                        "    attribute semester_id { $course/semester_id/text() }, " +
+                        "    element faculty { $course/faculty/text() }, " +
+                        "    element lecturer_id { $course/lecturer_id/text() }, " +
+                        "    element max_students { $course/max_students/text() }, " +
+                        "    element name { $course/name/text() } " +
+                        "  } " +
                         "else ()",
                 "exa", courseId);
 
@@ -75,12 +82,57 @@ public class CourseServlet extends HttpServlet {
         }
 
         if (isXmlFormat) {
-            // Return XML response
             response.setContentType("application/xml");
             response.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-            out.println(result);
+
+            // Transform using StAX
+            try {
+                XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+                XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
+                XMLStreamReader reader = inputFactory.createXMLStreamReader(new StringReader(result));
+                StringWriter stringWriter = new StringWriter();
+                XMLStreamWriter writer = outputFactory.createXMLStreamWriter(stringWriter);
+
+                writer.writeStartDocument("UTF-8", "1.0");
+
+                while (reader.hasNext()) {
+                    int event = reader.next();
+                    switch (event) {
+                        case XMLStreamConstants.START_ELEMENT:
+                            String elementName = reader.getLocalName();
+                            writer.writeStartElement(elementName);
+
+                            // Copy all attributes
+                            for (int i = 0; i < reader.getAttributeCount(); i++) {
+                                writer.writeAttribute(
+                                        reader.getAttributeLocalName(i),
+                                        reader.getAttributeValue(i));
+                            }
+                            break;
+
+                        case XMLStreamConstants.CHARACTERS:
+                            if (!reader.isWhiteSpace()) {
+                                writer.writeCharacters(reader.getText());
+                            }
+                            break;
+
+                        case XMLStreamConstants.END_ELEMENT:
+                            writer.writeEndElement();
+                            break;
+                    }
+                }
+
+                writer.writeEndDocument();
+                writer.flush();
+                reader.close();
+                writer.close();
+
+                out.println(stringWriter.toString());
+            } catch (XMLStreamException e) {
+                throw new IOException("Error transforming XML", e);
+            }
+
             out.flush();
         } else {
             // Return HTML response
