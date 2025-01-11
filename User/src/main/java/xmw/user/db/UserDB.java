@@ -5,17 +5,17 @@ import org.basex.core.Context;
 import org.basex.core.cmd.CreateDB;
 import org.basex.query.QueryException;
 import org.basex.query.QueryProcessor;
+import xmw.user.utils.UserContextListener;
 
 public class UserDB {
     private static UserDB instance;
     private Context ctx;
-    private final String db_path = "/home/lquenti/code/XMW/test.xml";
     private static final Object lock = new Object();
 
     private UserDB() {
         ctx = new Context();
         try {
-            new CreateDB("UserDB", db_path).execute(ctx);
+            new CreateDB("UserDB", UserContextListener.USER_PATH).execute(ctx);
         } catch (BaseXException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -28,7 +28,7 @@ public class UserDB {
     }
 
     public static void flushToDisk() throws QueryException {
-        String query = "file:write(\"" + instance.db_path + "\", /)";
+        String query = "file:write(\"" + UserContextListener.USER_PATH + "\", /)";
         synchronized (lock) {
             QueryProcessor proc = new QueryProcessor(query, instance.ctx);
             proc.execute();
