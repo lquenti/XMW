@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import xmw.exa.db.Course;
 import xmw.exa.db.DB;
 import xmw.exa.util.HtmlUtil;
 
@@ -59,43 +60,30 @@ public class CoursesServlet extends HttpServlet {
 
         try {
             // Query for all courses with formatted output
-            String query = String.format(
-                    "for $course in collection('%s/courses.xml')/Course/Course " +
-                            "order by xs:integer($course/id) " +
-                            "return element course { " +
-                            "  $course/id, " +
-                            "  $course/n, " +
-                            "  $course/faculty, " +
-                            "  $course/lecturer_id, " +
-                            "  $course/max_students, " +
-                            "  $course/semester_id " +
-                            "}",
-                    "exa");
-
-            String result = new XQuery(query).execute(db.getContext());
-
             StringBuilder message = new StringBuilder("<ul>");
-            String[] courseElements = result.split("</course>");
+            var courses = DB.getInstance().getAllCourses();
 
-            for (String element : courseElements) {
-                if (element.trim().isEmpty())
+            for (Course element : courses) {
+                if (element == null) {
                     continue;
-
-                String id = extractValue(element, "id");
-                String name = extractValue(element, "n");
-                String faculty = extractValue(element, "faculty");
-                String maxStudents = extractValue(element, "max_students");
+                }
 
                 message.append("<li>")
-                        .append("<a href=\"" + HtmlUtil.BASE_URL + "/courses/").append(id).append("\">")
-                        .append(name)
+                        .append("<a href=\"" + HtmlUtil.BASE_URL + "/courses/")
+                        .append(element.getId())
+                        .append("\">")
+                        .append(element.getName())
                         .append("</a>")
-                        .append(" - Faculty: ").append(faculty)
-                        .append(" (Max Students: ").append(maxStudents).append(")")
+                        .append(" - Faculty: ")
+                        .append(element.getFaculty())
+                        .append(" (Max Students: ")
+                        .append(element.getMaxStudents())
+                        .append(")")
+                        .append(" - Held by: ")
+                        .append(element.getLecturer())
                         .append("</li>");
             }
             message.append("</ul>");
-            message.append("<p><small>View as: <a href='?format=xml'>XML</a></small></p>");
 
             request.setAttribute("message", message.toString());
 

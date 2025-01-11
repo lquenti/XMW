@@ -37,6 +37,12 @@ public class Course {
         return lecturerId;
     }
 
+    public Lecturer getLecturer() {
+        return DB.getInstance().getAllLecturers().stream().filter(
+                lecturer -> lecturer.getId() == lecturerId).findFirst().orElse(null
+        );
+    }
+
     public void setLecturerId(int lecturerId) {
         this.lecturerId = lecturerId;
     }
