@@ -1,63 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Lectureres>
-   <Lecturer>
+   <Lecturer username="schmitt.samara">
       <faculty null="true" />
-      <id>1</id>
-      <name>Delbert Considine</name>
-      <username>schmitt.samara</username>
+      <name>Considine</name>
+      <firstname>Delbert </firstname>
    </Lecturer>
-   <Lecturer>
+   <Lecturer username="powlowski.kevon">
       <faculty null="true" />
-      <id>2</id>
-      <name>Jacynthe Beier</name>
-      <username>powlowski.kevon</username>
+      <name>Beier</name>
+      <firstname>Jacynthe</firstname>
    </Lecturer>
-   <Lecturer>
+   <Lecturer username="schmeler.mallie">
       <faculty>aut</faculty>
-      <id>3</id>
-      <name>Bernice Stracke</name>
-      <username>schmeler.mallie</username>
+      <name>Stracke</name>
+      <firstname>Bernice</firstname>
    </Lecturer>
-   <Lecturer>
+   <Lecturer username="lerdman">
       <faculty>aspernatur</faculty>
-      <id>4</id>
-      <name>Karine Mayer</name>
-      <username>lerdman</username>
+      <name>Mayer</name>
+      <firstname>Karine</firstname>
    </Lecturer>
-   <Lecturer>
+   <Lecturer username="terrill33">
       <faculty>non</faculty>
-      <id>5</id>
-      <name>Aylin Ferry</name>
-      <username>terrill33</username>
+      <name>Ferry</name>
+      <firstname>Aylin</firstname>
    </Lecturer>
-   <Lecturer>
+   <Lecturer username="iliana.rowe">
       <faculty>neque</faculty>
-      <id>6</id>
-      <name>Nella Kub</name>
-      <username>iliana.rowe</username>
+      <name>Kub</name>
+      <firstname>Nella</firstname>
    </Lecturer>
-   <Lecturer>
+   <Lecturer username="elinor21">
       <faculty>eveniet</faculty>
-      <id>7</id>
-      <name>Riley Harris</name>
-      <username>elinor21</username>
+      <name>Harris</name>
+      <firstname>Riley</firstname>
    </Lecturer>
-   <Lecturer>
+   <Lecturer username="dveum">
       <faculty>ut</faculty>
-      <id>8</id>
-      <name>Bettie Wehner</name>
-      <username>dveum</username>
+      <name>Wehner</name>
+      <firstname>Bettie</firstname>
    </Lecturer>
-   <Lecturer>
+   <Lecturer username="kuhn.ashtyn">
       <faculty null="true" />
-      <id>9</id>
-      <name>Marques O'Hara</name>
-      <username>kuhn.ashtyn</username>
+      <name>O'Hara</name>
+      <firstname>Marques</firstname>
    </Lecturer>
-   <Lecturer>
+   <Lecturer username="jzboncak">
       <faculty>eius</faculty>
-      <id>10</id>
-      <name>Tad Watsica</name>
-      <username>jzboncak</username>
+      <name>Watsica</name>
+      <firstname>Tad</firstname>
    </Lecturer>
 </Lectureres>
