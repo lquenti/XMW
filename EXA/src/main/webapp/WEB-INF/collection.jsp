@@ -9,6 +9,7 @@ language="java" %>
   <body>
     <h1>${name}</h1>
     <main>
+      <a href="<%= HtmlUtil.BASE_URL%>"> Back to Exa Home </a>
       <div>${message}</div>
       <a href="<%= HtmlUtil.BASE_URL%>"> Back to Overview </a>
       <p>
