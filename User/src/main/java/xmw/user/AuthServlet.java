@@ -1,8 +1,11 @@
 package xmw.user;
 
 import java.io.IOException;
+
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import org.basex.core.Context;
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
@@ -11,6 +14,18 @@ import javax.xml.transform.stream.*;
 
 @WebServlet(name = "authServlet", value = "/auth")
 public class AuthServlet extends HttpServlet {
+    private Context context;
+
+    @Override
+    public void init() throws ServletException {
+        context = new Context();
+
+    }
+
+    @Override
+    public void destroy() {
+        context.close();
+    }
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -106,10 +121,5 @@ public class AuthServlet extends HttpServlet {
             res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void destroy() {
-        // Cleanup code if needed
     }
 }
