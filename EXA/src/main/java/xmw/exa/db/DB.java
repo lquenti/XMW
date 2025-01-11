@@ -228,7 +228,7 @@ public class DB {
                 "for $s in collection('%s/semesters.xml')/Semesters/Semester " +
                         "return element semester { " +
                         "  element id { $s/id/text() }, " +
-                        "  element name { $s/n/text() }, " +
+                        "  element name { $s/name/text() }, " +
                         "  element start { $s/start/text() }, " +
                         "  element end { $s/end/text() } " +
                         "}",

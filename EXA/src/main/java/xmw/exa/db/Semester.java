@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Semester {
     private int id;
-    private String name; // 'n' in XML
+    private String name;
     private LocalDateTime start;
     private LocalDateTime end;
 

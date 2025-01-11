@@ -62,39 +62,48 @@ public class CoursesServlet extends HttpServlet {
             // Query for all courses with lecturer information
             var courses = db.getAllCourses();
             var lecturers = db.getAllLecturers();
+            var semesters = db.getAllSemesters();
 
-            StringBuilder message = new StringBuilder("<ul>");
-            for (Course course : courses) {
-                if (course == null) {
-                    continue;
+            StringBuilder message = new StringBuilder();
+
+            // Group courses by semester
+            for (var semester : semesters) {
+                var semesterCourses = courses.stream()
+                        .filter(c -> c.getSemesterId() == semester.getId())
+                        .toList();
+
+                if (!semesterCourses.isEmpty()) {
+                    message.append("<h2>").append(semester.getName()).append("</h2><ul>");
+
+                    for (Course course : semesterCourses) {
+                        // Find the lecturer for this course
+                        String lecturerName = lecturers.stream()
+                                .filter(l -> l.getId() == course.getLecturerId())
+                                .map(l -> String.format("<a href='%s/lecturers/%s'>%s</a>",
+                                        HtmlUtil.BASE_URL,
+                                        l.getUsername(),
+                                        l.getFullName()))
+                                .findFirst()
+                                .orElse("Unknown Lecturer");
+
+                        message.append("<li>")
+                                .append("<a href=\"").append(HtmlUtil.BASE_URL).append("/courses/")
+                                .append(course.getId())
+                                .append("\">")
+                                .append(course.getName())
+                                .append("</a>")
+                                .append(" - Faculty: ")
+                                .append(course.getFaculty())
+                                .append(" (Max Students: ")
+                                .append(course.getMaxStudents())
+                                .append(")")
+                                .append(" - Held by: ")
+                                .append(lecturerName)
+                                .append("</li>");
+                    }
+                    message.append("</ul>");
                 }
-
-                // Find the lecturer for this course
-                String lecturerName = lecturers.stream()
-                        .filter(l -> l.getId() == course.getLecturerId())
-                        .map(l -> String.format("<a href='%s/lecturers/%s'>%s</a>",
-                                HtmlUtil.BASE_URL,
-                                l.getUsername(),
-                                l.getFullName()))
-                        .findFirst()
-                        .orElse("Unknown Lecturer");
-
-                message.append("<li>")
-                        .append("<a href=\"").append(HtmlUtil.BASE_URL).append("/courses/")
-                        .append(course.getId())
-                        .append("\">")
-                        .append(course.getName())
-                        .append("</a>")
-                        .append(" - Faculty: ")
-                        .append(course.getFaculty())
-                        .append(" (Max Students: ")
-                        .append(course.getMaxStudents())
-                        .append(")")
-                        .append(" - Held by: ")
-                        .append(lecturerName)
-                        .append("</li>");
             }
-            message.append("</ul>");
 
             request.setAttribute("message", message.toString());
 
