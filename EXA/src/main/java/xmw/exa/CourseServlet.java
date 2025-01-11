@@ -2,6 +2,7 @@ package xmw.exa;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
 
 import org.basex.core.BaseXException;
 import org.basex.core.cmd.XQuery;
@@ -15,7 +16,9 @@ import xmw.exa.util.HtmlUtil;
 
 @WebServlet(name = "course", urlPatterns = "/courses/*")
 public class CourseServlet extends HttpServlet {
+    private String name;
     private DB db;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Override
     public void init() {
@@ -105,6 +108,26 @@ public class CourseServlet extends HttpServlet {
                         + "</p>");
                 out.println("<p><strong>Max Students:</strong> " + course.getMaxStudents() + "</p>");
                 out.println("<p><strong>Semester ID:</strong> " + course.getSemesterId() + "</p>");
+
+                // Add lectures section
+                out.println("<h2>Lectures</h2>");
+                var lectures = course.getLectures();
+                if (!lectures.isEmpty()) {
+                    out.println("<ul>");
+                    for (var lecture : lectures) {
+                        out.println("<li>");
+                        out.println(String.format("<a href='%s/lectures/%d'>%s - %s</a>",
+                                HtmlUtil.BASE_URL,
+                                lecture.getId(),
+                                lecture.getStart().format(DATE_FORMATTER),
+                                lecture.getRoomOrLink()));
+                        out.println("</li>");
+                    }
+                    out.println("</ul>");
+                } else {
+                    out.println("<p>No lectures scheduled</p>");
+                }
+
                 out.println("</div>");
                 out.println("<p><a href='" + HtmlUtil.BASE_URL + "/courses'>Back to Courses List</a></p>");
                 out.println("<p><small>View as: <a href='?format=xml'>XML</a></small></p>");

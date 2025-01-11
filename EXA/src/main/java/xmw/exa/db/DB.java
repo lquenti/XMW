@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -255,6 +256,97 @@ public class DB {
             throw new RuntimeException("Failed to query semesters: " + e.getMessage(), e);
         }
         return semesters;
+    }
+
+    private LocalDateTime parseDateTime(String dateTimeStr) {
+        try {
+            // First try direct parsing
+            return LocalDateTime.parse(dateTimeStr);
+        } catch (DateTimeParseException e) {
+            try {
+                // Remove any 'T' that appears in the time portion (after the first T)
+                String[] parts = dateTimeStr.split("T", 2);
+                if (parts.length == 2) {
+                    String datePart = parts[0];
+                    // Handle cases where time part has extra T's and leading/trailing zeros
+                    String timePart = parts[1]
+                            .replace("T", "") // Remove extra T's
+                            .replaceFirst("^(\\d)T:", "$1:") // Remove T between hour and colon
+                            .replaceFirst("^0(\\d):", "$1:") // Remove leading zero from hour
+                            .replaceFirst("^(\\d):", "0$1:") // Add leading zero if hour is single digit
+                            .trim();
+                    String formattedDateTime = datePart + "T" + timePart;
+                    System.out.println("Parsing datetime: " + dateTimeStr + " -> " + formattedDateTime); // Debug print
+                    return LocalDateTime.parse(formattedDateTime);
+                }
+                return LocalDateTime.parse(dateTimeStr);
+            } catch (DateTimeParseException e2) {
+                System.err.println("Failed to parse datetime: " + dateTimeStr + " - " + e2.getMessage());
+                throw e2;
+            }
+        }
+    }
+
+    public List<Lecture> getAllLectures() {
+        List<Lecture> lectures = new ArrayList<>();
+        String query = String.format(
+                "for $l in collection('%s/lectures.xml')/Lectures/Lecture " +
+                        "return element lecture { " +
+                        "  element id { $l/id/text() }, " +
+                        "  element courseId { $l/course_id/text() }, " +
+                        "  element start { $l/start/text() }, " +
+                        "  element end { $l/end/text() }, " +
+                        "  element roomOrLink { $l/room_or_link/text() } " +
+                        "}",
+                DB_NAME);
+
+        try {
+            String result = new XQuery(query).execute(context);
+            System.out.println("Raw XML result: " + result); // Debug print
+
+            // Split on complete lecture tag to avoid partial matches
+            String[] lectureElements = result.split("</lecture>\\s*(?=<lecture>|$)");
+            System.out.println("Found " + lectureElements.length + " lecture elements"); // Debug print
+
+            for (String element : lectureElements) {
+                if (element.trim().isEmpty()) {
+                    continue;
+                }
+
+                try {
+                    Lecture lecture = new Lecture();
+                    String id = extractValue(element, "id");
+                    String courseId = extractValue(element, "courseId");
+                    String start = extractValue(element, "start");
+                    String end = extractValue(element, "end");
+                    String roomOrLink = extractValue(element, "roomOrLink");
+
+                    System.out.println("Processing lecture - ID: " + id + ", CourseID: " + courseId); // Debug print
+
+                    lecture.setId(Integer.parseInt(id));
+                    lecture.setCourseId(Integer.parseInt(courseId));
+                    try {
+                        lecture.setStart(parseDateTime(start));
+                        lecture.setEnd(parseDateTime(end));
+                    } catch (DateTimeParseException e) {
+                        System.err.println("Warning: Failed to parse date for lecture " + id +
+                                " - Start: " + start + ", End: " + end +
+                                " - Error: " + e.getMessage());
+                        continue;
+                    }
+                    lecture.setRoomOrLink(roomOrLink);
+                    lectures.add(lecture);
+                } catch (Exception e) {
+                    System.err.println("Error processing lecture element: " + element);
+                    e.printStackTrace();
+                }
+            }
+        } catch (BaseXException e) {
+            throw new RuntimeException("Failed to query lectures: " + e.getMessage(), e);
+        }
+
+        System.out.println("Total lectures loaded: " + lectures.size()); // Debug print
+        return lectures;
     }
 
     public void close() {

@@ -75,6 +75,14 @@ public class Course {
                 .toList();
     }
 
+    // Relationship methods
+    public List<Lecture> getLectures() {
+        return DB.getInstance().getAllLectures().stream()
+                .filter(lecture -> lecture.getCourseId() == id)
+                .sorted((l1, l2) -> l1.getStart().compareTo(l2.getStart()))
+                .toList();
+    }
+
     @Override
     public String toString() {
         return "Course{" +
