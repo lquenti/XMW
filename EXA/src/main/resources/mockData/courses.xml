@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Course>
+<Courses>
    <Course>
       <faculty>omnis</faculty>
       <id>1</id>
@@ -216,4 +216,4 @@
       <name>possimus</name>
       <semester_id>4</semester_id>
    </Course>
-</Course>
+</Courses>

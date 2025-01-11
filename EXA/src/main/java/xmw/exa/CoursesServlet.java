@@ -42,7 +42,7 @@ public class CoursesServlet extends HttpServlet {
             try {
                 // Query for the complete courses XML with proper indentation
                 String query = String.format(
-                        "let $courses := collection('%s/courses.xml')/Course " +
+                        "let $courses := collection('%s/courses.xml')/Courses " +
                                 "return serialize($courses, map { 'method': 'xml', 'indent': 'yes' })",
                         "exa");
 

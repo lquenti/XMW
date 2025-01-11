@@ -55,9 +55,9 @@ public class CourseServlet extends HttpServlet {
         try {
             // Query for the specific course
             String query = String.format(
-                    "let $course := collection('%s/courses.xml')/Course/Course[id = %s] " +
+                    "let $course := collection('%s/courses.xml')/Courses/Course[id = %s] " +
                             "return if ($course) then " +
-                            "  serialize($course, map { 'method': 'xml', 'indent': 'yes' }) " +
+                            "  serialize(element Courses { $course }, map { 'method': 'xml', 'indent': 'yes' }) " +
                             "else ()",
                     "exa", courseId);
 

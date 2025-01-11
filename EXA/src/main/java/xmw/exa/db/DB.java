@@ -91,7 +91,7 @@ public class DB {
     public List<Lecturer> getAllLecturers() {
         List<Lecturer> lecturers = new ArrayList<>();
         String query = String.format(
-                "for $l in collection('%s/lecturers.xml')/Lectureres/Lecturer " +
+                "for $l in collection('%s/lecturers.xml')/Lecturers/Lecturer " +
                         "return element lecturer { " +
                         "  attribute username { $l/@username }, " +
                         "  element id { $l/id/text() }, " +
@@ -103,29 +103,39 @@ public class DB {
 
         try {
             String result = new XQuery(query).execute(context);
+            System.out.println("Lecturers XML result: " + result); // Debug print
+
             // Parse the XML result into Lecturer objects
             String[] lecturerElements = result.split("</lecturer>");
+            System.out.println("Found " + lecturerElements.length + " lecturer elements"); // Debug print
+
             for (String element : lecturerElements) {
                 if (element.trim().isEmpty())
                     continue;
 
-                Lecturer lecturer = new Lecturer();
+                try {
+                    Lecturer lecturer = new Lecturer();
 
-                // Extract username from attribute
-                String usernamePattern = "username=\"([^\"]*)\"";
-                java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(usernamePattern);
-                java.util.regex.Matcher matcher = pattern.matcher(element);
-                if (matcher.find()) {
-                    lecturer.setUsername(matcher.group(1));
+                    // Extract username from attribute
+                    String usernamePattern = "username=\"([^\"]*)\"";
+                    java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(usernamePattern);
+                    java.util.regex.Matcher matcher = pattern.matcher(element);
+                    if (matcher.find()) {
+                        lecturer.setUsername(matcher.group(1));
+                    }
+
+                    // Extract other fields
+                    lecturer.setId(Integer.parseInt(extractValue(element, "id")));
+                    lecturer.setFaculty(extractValue(element, "faculty"));
+                    lecturer.setName(extractValue(element, "name"));
+                    lecturer.setFirstname(extractValue(element, "firstname"));
+
+                    lecturers.add(lecturer);
+                    System.out.println("Processed lecturer: " + lecturer); // Debug print
+                } catch (Exception e) {
+                    System.err.println("Error processing lecturer element: " + element);
+                    e.printStackTrace();
                 }
-
-                // Extract other fields
-                lecturer.setId(Integer.parseInt(extractValue(element, "id")));
-                lecturer.setFaculty(extractValue(element, "faculty"));
-                lecturer.setName(extractValue(element, "name"));
-                lecturer.setFirstname(extractValue(element, "firstname"));
-
-                lecturers.add(lecturer);
             }
         } catch (BaseXException e) {
             throw new RuntimeException("Failed to query lecturers: " + e.getMessage(), e);
@@ -143,7 +153,7 @@ public class DB {
     public List<Course> getAllCourses() {
         List<Course> courses = new ArrayList<>();
         String query = String.format(
-                "for $c in collection('%s/courses.xml')/Course/Course " +
+                "for $c in collection('%s/courses.xml')/Courses/Course " +
                         "return element course { " +
                         "  element id { $c/id/text() }, " +
                         "  element name { $c/name/text() }, " +
@@ -156,22 +166,32 @@ public class DB {
 
         try {
             String result = new XQuery(query).execute(context);
+            System.out.println("Courses XML result: " + result); // Debug print
+
             String[] courseElements = result.split("</course>");
+            System.out.println("Found " + courseElements.length + " course elements"); // Debug print
+
             for (String element : courseElements) {
                 if (element.trim().isEmpty())
                     continue;
 
-                Course course = new Course();
+                try {
+                    Course course = new Course();
 
-                // Extract fields
-                course.setId(Integer.parseInt(extractValue(element, "id")));
-                course.setName(extractValue(element, "name"));
-                course.setFaculty(extractValue(element, "faculty"));
-                course.setLecturerId(Integer.parseInt(extractValue(element, "lecturerId")));
-                course.setMaxStudents(Integer.parseInt(extractValue(element, "maxStudents")));
-                course.setSemesterId(Integer.parseInt(extractValue(element, "semesterId")));
+                    // Extract fields
+                    course.setId(Integer.parseInt(extractValue(element, "id")));
+                    course.setName(extractValue(element, "name"));
+                    course.setFaculty(extractValue(element, "faculty"));
+                    course.setLecturerId(Integer.parseInt(extractValue(element, "lecturerId")));
+                    course.setMaxStudents(Integer.parseInt(extractValue(element, "maxStudents")));
+                    course.setSemesterId(Integer.parseInt(extractValue(element, "semesterId")));
 
-                courses.add(course);
+                    courses.add(course);
+                    System.out.println("Processed course: " + course); // Debug print
+                } catch (Exception e) {
+                    System.err.println("Error processing course element: " + element);
+                    e.printStackTrace();
+                }
             }
         } catch (BaseXException e) {
             throw new RuntimeException("Failed to query courses: " + e.getMessage(), e);
