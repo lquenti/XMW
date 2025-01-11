@@ -5,7 +5,6 @@ import org.basex.core.Context;
 import org.basex.core.cmd.CreateDB;
 import org.basex.query.QueryException;
 import org.basex.query.QueryProcessor;
-import org.basex.query.value.Value;
 
 public class UserDB {
     private static UserDB instance;

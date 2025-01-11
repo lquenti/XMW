@@ -236,7 +236,7 @@ public class RootServlet extends HttpServlet {
 
         // CRUD Update
         Endpoint updateUser = new Endpoint();
-        updateUser.endpoint = "/update/<username>";
+        updateUser.endpoint = "/update/<USERNAME>";
         updateUser.method = Endpoint.Methods.POST;
         updateUser.requestPayload = new Payload();
         updateUser.requestPayload.mimeType = "text/xml";
@@ -271,7 +271,7 @@ public class RootServlet extends HttpServlet {
 
         // CRUD Delete
         Endpoint deleteUser = new Endpoint();
-        deleteUser.endpoint = "/delete/<username>";
+        deleteUser.endpoint = "/delete/<USERNAME>";
         deleteUser.method = Endpoint.Methods.DELETE;
         deleteUser.requestPayload = null;
         deleteUser.responses = new ArrayList<>();
@@ -395,7 +395,7 @@ public class RootServlet extends HttpServlet {
 
         // GET by Group
         Endpoint getUsersByGroup = new Endpoint();
-        getUsersByGroup.endpoint = "/group/<group_id>";
+        getUsersByGroup.endpoint = "/group/<GROUP_ID>";
         getUsersByGroup.method = Endpoint.Methods.GET;
         getUsersByGroup.requestPayload = null;
         getUsersByGroup.responses = new ArrayList<>();
