@@ -59,28 +59,39 @@ public class CoursesServlet extends HttpServlet {
         request.setAttribute("name", this.name);
 
         try {
-            // Query for all courses with formatted output
-            StringBuilder message = new StringBuilder("<ul>");
-            var courses = DB.getInstance().getAllCourses();
+            // Query for all courses with lecturer information
+            var courses = db.getAllCourses();
+            var lecturers = db.getAllLecturers();
 
-            for (Course element : courses) {
-                if (element == null) {
+            StringBuilder message = new StringBuilder("<ul>");
+            for (Course course : courses) {
+                if (course == null) {
                     continue;
                 }
 
+                // Find the lecturer for this course
+                String lecturerName = lecturers.stream()
+                        .filter(l -> l.getId() == course.getLecturerId())
+                        .map(l -> String.format("<a href='%s/lecturers/%s'>%s</a>",
+                                HtmlUtil.BASE_URL,
+                                l.getUsername(),
+                                l.getFullName()))
+                        .findFirst()
+                        .orElse("Unknown Lecturer");
+
                 message.append("<li>")
-                        .append("<a href=\"" + HtmlUtil.BASE_URL + "/courses/")
-                        .append(element.getId())
+                        .append("<a href=\"").append(HtmlUtil.BASE_URL).append("/courses/")
+                        .append(course.getId())
                         .append("\">")
-                        .append(element.getName())
+                        .append(course.getName())
                         .append("</a>")
                         .append(" - Faculty: ")
-                        .append(element.getFaculty())
+                        .append(course.getFaculty())
                         .append(" (Max Students: ")
-                        .append(element.getMaxStudents())
+                        .append(course.getMaxStudents())
                         .append(")")
                         .append(" - Held by: ")
-                        .append(element.getLecturer())
+                        .append(lecturerName)
                         .append("</li>");
             }
             message.append("</ul>");
@@ -88,21 +99,10 @@ public class CoursesServlet extends HttpServlet {
             request.setAttribute("message", message.toString());
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/collection.jsp");
-            try {
-                dispatcher.forward(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } catch (BaseXException e) {
-            throw new IOException("Failed to query courses: " + e.getMessage(), e);
+            dispatcher.forward(request, response);
+        } catch (Exception e) {
+            throw new IOException("Failed to process courses: " + e.getMessage(), e);
         }
-    }
-
-    private String extractValue(String xml, String tag) {
-        String pattern = String.format("<%s>([^<]*)</%s>", tag, tag);
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern);
-        java.util.regex.Matcher m = p.matcher(xml);
-        return m.find() ? m.group(1).trim() : "";
     }
 
     @Override

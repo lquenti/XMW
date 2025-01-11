@@ -11,9 +11,11 @@
   <component name="ChangeListManager">
     <list default="true" id="e08a0624-4ad7-49a1-b0b9-80aa9b9e5fcf" name="Changes" comment="update exams overview">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/CourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/CourseServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/CoursesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/CoursesServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mockData/lecturers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mockData/lecturers.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/LecturerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/LecturerServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/Lecturer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,17 +243,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
-          <line>179</line>
+          <line>181</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
-          <line>194</line>
+          <line>196</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
-          <line>213</line>
+          <line>215</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -261,17 +263,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
-          <line>163</line>
+          <line>165</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
-          <line>164</line>
+          <line>166</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
-          <line>154</line>
+          <line>156</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>

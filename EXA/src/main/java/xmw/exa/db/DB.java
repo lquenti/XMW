@@ -93,6 +93,7 @@ public class DB {
                 "for $l in collection('%s/lecturers.xml')/Lectureres/Lecturer " +
                         "return element lecturer { " +
                         "  attribute username { $l/@username }, " +
+                        "  element id { $l/id/text() }, " +
                         "  element faculty { if ($l/faculty/@null = 'true') then '' else $l/faculty/text() }, " +
                         "  element name { $l/name/text() }, " +
                         "  element firstname { $l/firstname/text() } " +
@@ -118,6 +119,7 @@ public class DB {
                 }
 
                 // Extract other fields
+                lecturer.setId(Integer.parseInt(extractValue(element, "id")));
                 lecturer.setFaculty(extractValue(element, "faculty"));
                 lecturer.setName(extractValue(element, "name"));
                 lecturer.setFirstname(extractValue(element, "firstname"));

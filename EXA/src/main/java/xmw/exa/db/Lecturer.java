@@ -5,8 +5,17 @@ public class Lecturer {
     private String faculty;
     private String name;
     private String firstname;
+    private int id;
 
     // Getters and setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -51,6 +60,7 @@ public class Lecturer {
                 ", faculty='" + faculty + '\'' +
                 ", name='" + name + '\'' +
                 ", firstname='" + firstname + '\'' +
+                ", id=" + id +
                 '}';
     }
 }
