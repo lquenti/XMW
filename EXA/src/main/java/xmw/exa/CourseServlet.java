@@ -62,6 +62,7 @@ public class CourseServlet extends HttpServlet {
         // Query for the specific course
         String query = String.format(
                 "let $course := collection('%s/courses.xml')/Courses/Course[id = %s] " +
+                        "let $lectures := collection('%s/lectures.xml')/Lectures/Lecture[course_id = %s] " +
                         "return if ($course) then " +
                         "  element course { " +
                         "    attribute id { $course/id/text() }, " +
@@ -69,10 +70,18 @@ public class CourseServlet extends HttpServlet {
                         "    element faculty { $course/faculty/text() }, " +
                         "    element lecturer_id { $course/lecturer_id/text() }, " +
                         "    element max_students { $course/max_students/text() }, " +
-                        "    element name { $course/name/text() } " +
+                        "    element name { $course/name/text() }, " +
+                        "    element lectures { " +
+                        "      for $lecture in $lectures " +
+                        "      return element lecture { " +
+                        "        element id { $lecture/id/text() }, " +
+                        "        element start { $lecture/start/text() }, " +
+                        "        element room_or_link { $lecture/room_or_link/text() } " +
+                        "      } " +
+                        "    } " +
                         "  } " +
                         "else ()",
-                "exa", courseId);
+                "exa", courseId, "exa", courseId);
 
         String result = new XQuery(query).execute(db.getContext());
 
