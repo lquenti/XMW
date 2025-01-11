@@ -203,7 +203,7 @@ public class RootServlet extends HttpServlet {
         getUserNotFound.reason = "User Not Found";
         getUserById.responses.add(getUserNotFound);
 
-        // CRUD Read
+        // CRUD Create
         Endpoint createUser = new Endpoint();
         createUser.endpoint = "/create";
         createUser.method = Endpoint.Methods.POST;
@@ -213,6 +213,7 @@ public class RootServlet extends HttpServlet {
                 <User username="hbrosen">
                   <name>Brosenne</name>
                   <firstname>Hendrik</name>
+                  <password>hunter2</password> <!-- NOTE THE PASSWORD HERE -->
                   <faculty>Computer Science</faculty>
                   <group id="g_lecturer">Lecturer</group>
                   <group id="g_employee">Employee</group>
@@ -244,6 +245,7 @@ public class RootServlet extends HttpServlet {
         <User username="hbrosen">
           <name>Brosenne</name>
           <firstname>Hendrik</firstname>
+          <password>hunter2</password> <!-- NOTE THE PASSWORD HERE -->
           <faculty>Computer Science</faculty>
           <group id="g_lecturer">Lecturer</group>
           <group id="g_employee">Employee</group>

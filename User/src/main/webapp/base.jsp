@@ -8,7 +8,7 @@
 <h1>XMW Auth Server</h1>
 
 <main>
-    ${domHtml}
+        ${domHtml}
 </main>
 <footer>
     <img src="http://www.dbis.informatik.uni-goettingen.de/Icons/ROTATINGGLOBE.GIF" alt="Globe">
@@ -40,12 +40,12 @@
         display: block;
         margin: 10px auto;
     }
-    .payload, .response {
+    .Payload, .Response {
         padding-left: 5px;
         margin-left: 20px;
         border-left: #3366CC 5px dotted;
     }
-    .response + .response {
+    .Response + .Response {
         margin-top: 5px;
     }
 </style>
