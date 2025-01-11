@@ -112,10 +112,26 @@ public class XMLDatabase {
                 courseMap.put("MaxStudentCount", course.getElementsByTagName("MaxStudentCount").item(0).getAttributes().getNamedItem("count").getTextContent());
             }
 
+            courseMap.put("Time", getLecturesString(course.getElementsByTagName("Lectures")));
+
             courses.add(courseMap);
         }
 
         return courses;
+    }
+
+    private String getLecturesString(NodeList lectures) {
+        String time = String.format("Begin: %s \t End: %s \t Room: %s",
+                lectures.item(0).getAttributes().getNamedItem("time_begin"),
+                lectures.item(0).getAttributes().getNamedItem("time_end"),
+                lectures.item(0).getAttributes().getNamedItem("room_id"));
+        for(int i=1;i<lectures.getLength();i++){
+            time += String.format("\nBegin: %s \t End: %s \t Room: %s",
+                    lectures.item(i).getAttributes().getNamedItem("time_begin"),
+                    lectures.item(i).getAttributes().getNamedItem("time_end"),
+                    lectures.item(i).getAttributes().getNamedItem("room_id"));
+        }
+        return time;
     }
 
     public List<Map<String,String>> getScheduleForStudent(String userId) throws Exception {
