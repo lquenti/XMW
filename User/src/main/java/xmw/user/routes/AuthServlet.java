@@ -29,26 +29,6 @@ import java.util.TimerTask;
 
 @WebServlet(name = "authServlet", value = "/auth")
 public class AuthServlet extends HttpServlet {
-    private Context ctx;
-    private String db_path = "/home/lquenti/code/XMW/test.xml";
-    private Timer timer;
-
-
-    @Override
-    public void init() {
-        ctx = new Context();
-        try {
-            new CreateDB("DBExample", db_path).execute(ctx);
-        } catch (BaseXException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void destroy() {
-        ctx.close();
-    }
-
     private static Document generateDOM() throws ParserConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -94,23 +74,6 @@ public class AuthServlet extends HttpServlet {
 
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing parameters");
-        }
-
-
-        QueryProcessor proc;
-
-        proc = new QueryProcessor("for $x in /Users/* return $x", ctx);
-        try {
-            Iter iter = proc.iter();
-            // Iterate through all items and print them
-            for (Item item; (item = iter.next()) != null; ) {
-                System.out.println(item);
-            }
-
-            // Close the query processor
-            proc.close();
-        } catch (QueryException e) {
-            throw new RuntimeException(e);
         }
     }
 }

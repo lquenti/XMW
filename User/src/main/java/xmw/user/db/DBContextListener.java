@@ -19,16 +19,16 @@ public class DBContextListener implements ServletContextListener {
             public void run() {
                 try {
                     UserDB.flushToDisk();
+                    System.out.println("DB saved");
                 } catch (QueryException e) {
                     e.printStackTrace();
                     // better to just go on... maybe it works next time
                 }
-                System.out.println("lol");
             }
         };
         long delay = 5;
         long period = 1000 * 10 * 60; // every 10 min
-        period = 1000 * 5;
+        //period = 1000 * 5;
         timer.scheduleAtFixedRate(task, delay, period);
     }
 
