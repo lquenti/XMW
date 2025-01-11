@@ -1,0 +1,10 @@
+<Users>
+  <User username="hbrosen">
+    <name>Brosenne</name>
+    <firstname>Hendrik</firstname>
+    <password>hunter2</password>
+    <faculty>Computer Science</faculty>
+    <group id="g_lecturer">Lecturer</group>
+    <group id="g_employee">Employee</group>
+  </User>
+</Users>
