@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Semesters>
    <Semester>
-      <end_date>2026-03-31 00:00:00</end_date>
+      <end>2026-03-31T00:00:00</end>
       <id>1</id>
       <name>Winter Semester 2025/2026</name>
-      <start_date>2025-10-01 00:00:00</start_date>
+      <start>2025-10-01T00:00:00</start>
    </Semester>
    <Semester>
-      <end_date>2025-09-30 00:00:00</end_date>
+      <end>2025-09-30T00:00:00</end>
       <id>2</id>
       <name>Summer Semester 2025</name>
-      <start_date>2025-04-01 00:00:00</start_date>
+      <start>2025-04-01T00:00:00</start>
    </Semester>
    <Semester>
-      <end_date>2027-03-31 00:00:00</end_date>
+      <end>2027-03-31T00:00:00</end>
       <id>3</id>
       <name>Winter Semester 2026/2027</name>
-      <start_date>2026-10-01 00:00:00</start_date>
+      <start>2026-10-01T00:00:00</start>
    </Semester>
    <Semester>
-      <end_date>2026-09-30 00:00:00</end_date>
+      <end>2026-09-30T00:00:00</end>
       <id>4</id>
       <name>Summer Semester 2026</name>
-      <start_date>2026-04-01 00:00:00</start_date>
+      <start>2026-04-01T00:00:00</start>
    </Semester>
 </Semesters>
