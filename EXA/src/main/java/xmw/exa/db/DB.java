@@ -91,7 +91,7 @@ public class DB {
     public List<Lecturer> getAllLecturers() {
         List<Lecturer> lecturers = new ArrayList<>();
         String query = String.format(
-                "for $l in collection('%s/lecturers.xml')/Lecturers/Lecturer " +
+                "for $l in collection('%s/lecturers.xml')/Lectureres/Lecturer " +
                         "return element lecturer { " +
                         "  attribute username { $l/@username }, " +
                         "  element id { $l/id/text() }, " +

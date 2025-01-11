@@ -2,9 +2,10 @@ package xmw.exa;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 
-import org.basex.core.BaseXException;
-import org.basex.core.cmd.XQuery;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamWriter;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
@@ -40,34 +41,155 @@ public class CoursesServlet extends HttpServlet {
 
         if (isXmlFormat) {
             try {
-                // Query for the complete courses XML with proper indentation
-                String query = String.format(
-                        "let $courses := collection('%s/courses.xml')/Courses " +
-                                "return serialize(element courses { " +
-                                "  for $c in $courses/Course " +
-                                "  return element course { " +
-                                "    element faculty { $c/faculty/text() }, " +
-                                "    element id { $c/id/text() }, " +
-                                "    element lecturer_id { $c/lecturer_id/text() }, " +
-                                "    element max_students { $c/max_students/text() }, " +
-                                "    element name { $c/name/text() }, " +
-                                "    element semester_id { $c/semester_id/text() } " +
-                                "  } " +
-                                "}, map { 'method': 'xml', 'indent': 'yes' })",
-                        "exa");
+                // Get all data
+                var courses = db.getAllCourses();
+                var allLecturers = db.getAllLecturers();
+                var allExams = db.getAllExams();
 
-                String result = new XQuery(query).execute(db.getContext());
+                // Create XML writer
+                StringWriter stringWriter = new StringWriter();
+                XMLOutputFactory factory = XMLOutputFactory.newInstance();
+                XMLStreamWriter xml = factory.createXMLStreamWriter(stringWriter);
+
+                // Start document
+                xml.writeStartDocument("UTF-8", "1.0");
+                xml.writeStartElement("courses");
+
+                // Write lecturers section
+                xml.writeStartElement("lecturers");
+                for (var course : courses) {
+                    var lecturer = allLecturers.stream()
+                            .filter(l -> l.getId() == course.getLecturerId())
+                            .findFirst()
+                            .orElse(null);
+                    if (lecturer != null) {
+                        xml.writeStartElement("lecturer");
+                        xml.writeStartElement("id");
+                        xml.writeCharacters(String.valueOf(lecturer.getId()));
+                        xml.writeEndElement();
+                        xml.writeStartElement("username");
+                        xml.writeCharacters(lecturer.getUsername());
+                        xml.writeEndElement();
+                        xml.writeStartElement("faculty");
+                        xml.writeCharacters(lecturer.getFaculty());
+                        xml.writeEndElement();
+                        xml.writeStartElement("name");
+                        xml.writeCharacters(lecturer.getName());
+                        xml.writeEndElement();
+                        xml.writeStartElement("firstname");
+                        xml.writeCharacters(lecturer.getFirstname());
+                        xml.writeEndElement();
+                        xml.writeEndElement(); // lecturer
+                    }
+                }
+                xml.writeEndElement(); // lecturers
+
+                // Write courses
+                for (var course : courses) {
+                    xml.writeStartElement("course");
+
+                    xml.writeStartElement("faculty");
+                    xml.writeCharacters(course.getFaculty());
+                    xml.writeEndElement();
+
+                    xml.writeStartElement("id");
+                    xml.writeCharacters(String.valueOf(course.getId()));
+                    xml.writeEndElement();
+
+                    // Write lecturer details
+                    xml.writeStartElement("lecturer");
+                    var lecturer = allLecturers.stream()
+                            .filter(l -> l.getId() == course.getLecturerId())
+                            .findFirst()
+                            .orElse(null);
+                    if (lecturer != null) {
+                        xml.writeStartElement("id");
+                        xml.writeCharacters(String.valueOf(lecturer.getId()));
+                        xml.writeEndElement();
+                        xml.writeStartElement("username");
+                        xml.writeCharacters(lecturer.getUsername());
+                        xml.writeEndElement();
+                        xml.writeStartElement("faculty");
+                        xml.writeCharacters(lecturer.getFaculty());
+                        xml.writeEndElement();
+                        xml.writeStartElement("name");
+                        xml.writeCharacters(lecturer.getName());
+                        xml.writeEndElement();
+                        xml.writeStartElement("firstname");
+                        xml.writeCharacters(lecturer.getFirstname());
+                        xml.writeEndElement();
+                    }
+                    xml.writeEndElement(); // lecturer
+
+                    xml.writeStartElement("max_students");
+                    xml.writeCharacters(String.valueOf(course.getMaxStudents()));
+                    xml.writeEndElement();
+
+                    xml.writeStartElement("name");
+                    xml.writeCharacters(course.getName());
+                    xml.writeEndElement();
+
+                    // Write semester details
+                    var semester = course.getSemester();
+                    xml.writeStartElement("semester");
+                    if (semester != null) {
+                        xml.writeStartElement("id");
+                        xml.writeCharacters(String.valueOf(semester.getId()));
+                        xml.writeEndElement();
+                        xml.writeStartElement("name");
+                        xml.writeCharacters(semester.getName());
+                        xml.writeEndElement();
+                        xml.writeStartElement("start");
+                        xml.writeCharacters(semester.getStart().toString());
+                        xml.writeEndElement();
+                        xml.writeStartElement("end");
+                        xml.writeCharacters(semester.getEnd().toString());
+                        xml.writeEndElement();
+                    }
+                    xml.writeEndElement(); // semester
+
+                    // Write exams
+                    xml.writeStartElement("exams");
+                    var courseExams = allExams.stream()
+                            .filter(e -> e.getCourseId() == course.getId())
+                            .toList();
+                    for (var exam : courseExams) {
+                        xml.writeStartElement("exam");
+                        xml.writeStartElement("id");
+                        xml.writeCharacters(String.valueOf(exam.getId()));
+                        xml.writeEndElement();
+                        xml.writeStartElement("date");
+                        xml.writeCharacters(exam.getDate().toString());
+                        xml.writeEndElement();
+                        xml.writeStartElement("is_online");
+                        xml.writeCharacters(String.valueOf(exam.isOnline()));
+                        xml.writeEndElement();
+                        xml.writeStartElement("is_written");
+                        xml.writeCharacters(String.valueOf(exam.isWritten()));
+                        xml.writeEndElement();
+                        xml.writeStartElement("room_or_link");
+                        xml.writeCharacters(exam.getRoomOrLink());
+                        xml.writeEndElement();
+                        xml.writeEndElement(); // exam
+                    }
+                    xml.writeEndElement(); // exams
+
+                    xml.writeEndElement(); // course
+                }
+
+                xml.writeEndElement(); // courses
+                xml.writeEndDocument();
+                xml.close();
 
                 // Return XML response
                 response.setContentType("application/xml");
                 response.setCharacterEncoding("UTF-8");
                 PrintWriter out = response.getWriter();
-                out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-                out.println(result);
+                out.println(stringWriter.toString());
                 out.flush();
                 return;
-            } catch (BaseXException e) {
-                throw new IOException("Failed to query courses: " + e.getMessage(), e);
+            } catch (Exception e) {
+                throw new IOException("Failed to generate courses XML: " + e.getMessage(), e);
             }
         }
 

@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
 
-import org.basex.core.BaseXException;
-import org.basex.core.cmd.XQuery;
-
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -42,33 +39,64 @@ public class LecturesServlet extends HttpServlet {
 
         if (isXmlFormat) {
             try {
-                // Query for the complete lectures XML with proper indentation
-                String query = String.format(
-                        "let $lectures := collection('%s/lectures.xml')/Lectures " +
-                                "return serialize(element lectures { " +
-                                "  for $l in $lectures/Lecture " +
-                                "  return element lecture { " +
-                                "    element id { $l/id/text() }, " +
-                                "    element course_id { $l/course_id/text() }, " +
-                                "    element start { $l/start/text() }, " +
-                                "    element end { $l/end/text() }, " +
-                                "    element room_or_link { $l/room_or_link/text() } " +
-                                "  } " +
-                                "}, map { 'method': 'xml', 'indent': 'yes' })",
-                        "exa");
+                // Get all lectures using the DB class
+                var lectures = db.getAllLectures();
 
-                String result = new XQuery(query).execute(db.getContext());
+                // Build XML response using StringBuilder for better control
+                StringBuilder xmlBuilder = new StringBuilder();
+                xmlBuilder.append("<lectures>\n");
+
+                for (var lecture : lectures) {
+                    var course = lecture.getCourse();
+
+                    xmlBuilder.append("  <lecture>\n")
+                            .append("    <id>").append(lecture.getId()).append("</id>\n")
+                            .append("    <course>\n");
+
+                    if (course != null) {
+                        xmlBuilder.append("      <id>").append(course.getId()).append("</id>\n")
+                                .append("      <name>").append(course.getName()).append("</name>\n")
+                                .append("      <faculty>").append(course.getFaculty()).append("</faculty>\n");
+
+                        var lecturer = course.getLecturer();
+                        xmlBuilder.append("      <lecturer>\n");
+                        if (lecturer != null) {
+                            xmlBuilder.append("        <id>").append(lecturer.getId()).append("</id>\n")
+                                    .append("        <username>").append(lecturer.getUsername()).append("</username>\n")
+                                    .append("        <name>").append(lecturer.getName()).append("</name>\n")
+                                    .append("        <firstname>").append(lecturer.getFirstname())
+                                    .append("</firstname>\n");
+                        }
+                        xmlBuilder.append("      </lecturer>\n");
+
+                        var semester = course.getSemester();
+                        xmlBuilder.append("      <semester>\n");
+                        if (semester != null) {
+                            xmlBuilder.append("        <id>").append(semester.getId()).append("</id>\n")
+                                    .append("        <name>").append(semester.getName()).append("</name>\n");
+                        }
+                        xmlBuilder.append("      </semester>\n");
+                    }
+
+                    xmlBuilder.append("    </course>\n")
+                            .append("    <start>").append(lecture.getStart()).append("</start>\n")
+                            .append("    <end>").append(lecture.getEnd()).append("</end>\n")
+                            .append("    <room_or_link>").append(lecture.getRoomOrLink()).append("</room_or_link>\n")
+                            .append("  </lecture>\n");
+                }
+
+                xmlBuilder.append("</lectures>");
 
                 // Return XML response
                 response.setContentType("application/xml");
                 response.setCharacterEncoding("UTF-8");
                 PrintWriter out = response.getWriter();
                 out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-                out.println(result);
+                out.println(xmlBuilder.toString());
                 out.flush();
                 return;
-            } catch (BaseXException e) {
-                throw new IOException("Failed to query lectures: " + e.getMessage(), e);
+            } catch (Exception e) {
+                throw new IOException("Failed to generate lectures XML: " + e.getMessage(), e);
             }
         }
 
