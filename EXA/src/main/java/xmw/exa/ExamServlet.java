@@ -34,8 +34,17 @@ public class ExamServlet extends HttpServlet {
             return;
         }
 
-        // Extract exam ID from path (remove leading slash)
+        // Remove leading slash
         String examId = pathInfo.substring(1);
+
+        // Handle /all endpoint
+        if (examId.equals("all")) {
+            String queryString = request.getQueryString();
+            response.sendRedirect(HtmlUtil.BASE_URL + "/exams" + (queryString != null ? "?" + queryString : ""));
+            return;
+        }
+
+        // Validate exam ID
         if (!examId.matches("\\d+")) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid exam ID");
             return;

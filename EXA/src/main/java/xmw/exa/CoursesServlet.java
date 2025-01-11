@@ -28,6 +28,13 @@ public class CoursesServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String pathInfo = request.getServletPath();
+        if (pathInfo.equals("/courses/all")) {
+            String queryString = request.getQueryString();
+            response.sendRedirect(HtmlUtil.BASE_URL + "/courses" + (queryString != null ? "?" + queryString : ""));
+            return;
+        }
+
         // Check format parameter
         boolean isXmlFormat = "xml".equals(request.getParameter("format"));
 

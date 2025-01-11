@@ -33,8 +33,17 @@ public class LectureServlet extends HttpServlet {
             return;
         }
 
-        // Extract lecture ID from path (remove leading slash)
+        // Remove leading slash
         String lectureId = pathInfo.substring(1);
+
+        // Handle /all endpoint
+        if (lectureId.equals("all")) {
+            String queryString = request.getQueryString();
+            response.sendRedirect(HtmlUtil.BASE_URL + "/lectures" + (queryString != null ? "?" + queryString : ""));
+            return;
+        }
+
+        // Validate lecture ID
         if (!lectureId.matches("\\d+")) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid lecture ID");
             return;

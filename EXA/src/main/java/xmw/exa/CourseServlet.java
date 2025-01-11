@@ -33,8 +33,17 @@ public class CourseServlet extends HttpServlet {
             return;
         }
 
-        // Extract course ID from path (remove leading slash)
+        // Remove leading slash
         String courseId = pathInfo.substring(1);
+
+        // Handle /all endpoint
+        if (courseId.equals("all")) {
+            String queryString = request.getQueryString();
+            response.sendRedirect(HtmlUtil.BASE_URL + "/courses" + (queryString != null ? "?" + queryString : ""));
+            return;
+        }
+
+        // Validate course ID
         if (!courseId.matches("\\d+")) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid course ID");
             return;
