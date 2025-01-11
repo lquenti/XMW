@@ -58,7 +58,16 @@ public class ExamServlet extends HttpServlet {
             String query = String.format(
                     "let $exam := collection('%s/exams.xml')/Exams/Exam[id = %s] " +
                             "return if ($exam) then " +
-                            "  serialize($exam, map { 'method': 'xml', 'indent': 'yes' }) " +
+                            "  serialize(element exams { " +
+                            "    element exam { " +
+                            "      element id { $exam/id/text() }, " +
+                            "      element course_id { $exam/course_id/text() }, " +
+                            "      element date { $exam/date/text() }, " +
+                            "      element is_online { $exam/is_online/text() }, " +
+                            "      element is_written { $exam/is_written/text() }, " +
+                            "      element room_or_link { $exam/room_or_link/text() } " +
+                            "    } " +
+                            "  }, map { 'method': 'xml', 'indent': 'yes' }) " +
                             "else ()",
                     "exa", examId);
 

@@ -10,7 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e08a0624-4ad7-49a1-b0b9-80aa9b9e5fcf" name="Changes" comment="update exams overview">
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/collection.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/collection.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/CourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/CourseServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/ExamServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/ExamServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/LectureServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/LectureServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/SemestersServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/SemestersServlet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

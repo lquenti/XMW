@@ -57,7 +57,15 @@ public class LectureServlet extends HttpServlet {
             String query = String.format(
                     "let $lecture := collection('%s/lectures.xml')/Lectures/Lecture[id = %s] " +
                             "return if ($lecture) then " +
-                            "  serialize($lecture, map { 'method': 'xml', 'indent': 'yes' }) " +
+                            "  serialize(element lectures { " +
+                            "    element lecture { " +
+                            "      element id { $lecture/id/text() }, " +
+                            "      element course_id { $lecture/course_id/text() }, " +
+                            "      element start { $lecture/start/text() }, " +
+                            "      element end { $lecture/end/text() }, " +
+                            "      element room_or_link { $lecture/room_or_link/text() } " +
+                            "    } " +
+                            "  }, map { 'method': 'xml', 'indent': 'yes' }) " +
                             "else ()",
                     "exa", lectureId);
 

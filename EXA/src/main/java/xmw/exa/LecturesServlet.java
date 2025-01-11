@@ -45,7 +45,16 @@ public class LecturesServlet extends HttpServlet {
                 // Query for the complete lectures XML with proper indentation
                 String query = String.format(
                         "let $lectures := collection('%s/lectures.xml')/Lectures " +
-                                "return serialize($lectures, map { 'method': 'xml', 'indent': 'yes' })",
+                                "return serialize(element lectures { " +
+                                "  for $l in $lectures/Lecture " +
+                                "  return element lecture { " +
+                                "    element id { $l/id/text() }, " +
+                                "    element course_id { $l/course_id/text() }, " +
+                                "    element start { $l/start/text() }, " +
+                                "    element end { $l/end/text() }, " +
+                                "    element room_or_link { $l/room_or_link/text() } " +
+                                "  } " +
+                                "}, map { 'method': 'xml', 'indent': 'yes' })",
                         "exa");
 
                 String result = new XQuery(query).execute(db.getContext());
