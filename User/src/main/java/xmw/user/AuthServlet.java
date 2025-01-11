@@ -9,8 +9,8 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 
-@WebServlet(name = "loginServlet", value = "/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "authServlet", value = "/auth")
+public class AuthServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
             // Create <example> element with a sample curl command
             Element example = doc.createElement("example");
             example.appendChild(doc.createTextNode(
-                    "curl -X POST -d \"username=yourusername&password=yourpassword\" http://localhost:8080/login"
+                    "curl -X POST -d \"username=yourusername&password=yourpassword\" http://localhost:8080/User_war_exploded/auth"
             ));
             rootElement.appendChild(example);
 
