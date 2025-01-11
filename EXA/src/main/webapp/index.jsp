@@ -1,13 +1,30 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html xml:lang="en">
 <head>
-    <title>JSP - Hello World</title>
+    <title>
+        Exa Service
+    </title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+    <h1>
+        <%= "EXA Services" %>
+    </h1>
+    <br/>
+    <nav>
+    <a href="courses">
+        Courses
+    </a>
+    <a href="lecturers">
+        Lecturers
+    </a>
+
+    </nav>
 </body>
+<style>
+    nav {
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
 </html>
