@@ -22,21 +22,27 @@ public class DB {
             "semesters.xml",
     };
 
-    private static int instances = 0;
+    private static DB instance;
     private final Context context;
 
-    public DB() {
-        if (instances > 0) {
-            throw new IllegalStateException("Cannot create more than one instance of DB");
-        }
-        instances++;
-
+    private DB() {
         context = new Context();
         try {
             initializeDatabase();
         } catch (BaseXException e) {
             throw new RuntimeException("Failed to initialize database: " + e.getMessage(), e);
         }
+    }
+
+    public static synchronized DB getInstance() {
+        if (instance == null) {
+            instance = new DB();
+        }
+        return instance;
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     private void initializeDatabase() throws BaseXException {
@@ -158,6 +164,7 @@ public class DB {
             // Ignore close errors
         } finally {
             context.close();
+            instance = null; // Allow recreation after close
         }
     }
 }
