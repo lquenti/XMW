@@ -1,4 +1,4 @@
-package xmw.user;
+package xmw.user.routes;
 
 import java.io.IOException;
 
@@ -12,8 +12,8 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 
-@WebServlet(name = "authServlet", value = "/auth")
-public class AuthServlet extends HttpServlet {
+@WebServlet(name = "testAuthServlet", value = "/test/auth")
+public class TestAuthServlet extends HttpServlet {
     private Context context;
 
     @Override

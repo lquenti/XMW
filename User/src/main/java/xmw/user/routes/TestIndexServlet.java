@@ -1,4 +1,4 @@
-package xmw.user;
+package xmw.user.routes;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -8,6 +8,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import xmw.user.utils.DOMUtils;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,8 +17,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-@WebServlet(name = "indexServlet", value = "/")
-public class IndexServlet extends HttpServlet {
+@WebServlet(name = "testIndexServlet", value = "/test")
+public class TestIndexServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -42,12 +43,7 @@ public class IndexServlet extends HttpServlet {
             body.appendChild(p);
 
             // Serialize DOM to a string
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            StringWriter writer = new StringWriter();
-            transformer.transform(source, new StreamResult(writer));
-            String domHtml = writer.toString();
+            String domHtml = DOMUtils.documentToString(doc);
 
             // Pass the generated HTML to the JSP
             req.setAttribute("domHtml", domHtml);
