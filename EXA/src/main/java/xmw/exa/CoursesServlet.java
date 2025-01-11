@@ -3,17 +3,23 @@ package xmw.exa;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
 
 import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.Course;
 import xmw.exa.db.DB;
+import xmw.exa.db.Exam;
+import xmw.exa.db.Lecturer;
+import xmw.exa.db.Semester;
 import xmw.exa.util.HtmlUtil;
 
 @WebServlet(name = "courses", value = "/courses")
@@ -28,7 +34,7 @@ public class CoursesServlet extends HttpServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String pathInfo = request.getServletPath();
         if (pathInfo.equals("/courses/all")) {
             String queryString = request.getQueryString();
@@ -42,9 +48,9 @@ public class CoursesServlet extends HttpServlet {
         if (isXmlFormat) {
             try {
                 // Get all data
-                var courses = db.getAllCourses();
-                var allLecturers = db.getAllLecturers();
-                var allExams = db.getAllExams();
+                List<Course> courses = db.getAllCourses();
+                List<Lecturer> allLecturers = db.getAllLecturers();
+                List<Exam> allExams = db.getAllExams();
 
                 // Create XML writer
                 StringWriter stringWriter = new StringWriter();
@@ -55,126 +61,9 @@ public class CoursesServlet extends HttpServlet {
                 xml.writeStartDocument("UTF-8", "1.0");
                 xml.writeStartElement("courses");
 
-                // Write lecturers section
-                xml.writeStartElement("lecturers");
-                for (var course : courses) {
-                    var lecturer = allLecturers.stream()
-                            .filter(l -> l.getId() == course.getLecturerId())
-                            .findFirst()
-                            .orElse(null);
-                    if (lecturer != null) {
-                        xml.writeStartElement("lecturer");
-                        xml.writeStartElement("id");
-                        xml.writeCharacters(String.valueOf(lecturer.getId()));
-                        xml.writeEndElement();
-                        xml.writeStartElement("username");
-                        xml.writeCharacters(lecturer.getUsername());
-                        xml.writeEndElement();
-                        xml.writeStartElement("faculty");
-                        xml.writeCharacters(lecturer.getFaculty());
-                        xml.writeEndElement();
-                        xml.writeStartElement("name");
-                        xml.writeCharacters(lecturer.getName());
-                        xml.writeEndElement();
-                        xml.writeStartElement("firstname");
-                        xml.writeCharacters(lecturer.getFirstname());
-                        xml.writeEndElement();
-                        xml.writeEndElement(); // lecturer
-                    }
-                }
-                xml.writeEndElement(); // lecturers
-
                 // Write courses
-                for (var course : courses) {
-                    xml.writeStartElement("course");
-
-                    xml.writeStartElement("faculty");
-                    xml.writeCharacters(course.getFaculty());
-                    xml.writeEndElement();
-
-                    xml.writeStartElement("id");
-                    xml.writeCharacters(String.valueOf(course.getId()));
-                    xml.writeEndElement();
-
-                    // Write lecturer details
-                    xml.writeStartElement("lecturer");
-                    var lecturer = allLecturers.stream()
-                            .filter(l -> l.getId() == course.getLecturerId())
-                            .findFirst()
-                            .orElse(null);
-                    if (lecturer != null) {
-                        xml.writeStartElement("id");
-                        xml.writeCharacters(String.valueOf(lecturer.getId()));
-                        xml.writeEndElement();
-                        xml.writeStartElement("username");
-                        xml.writeCharacters(lecturer.getUsername());
-                        xml.writeEndElement();
-                        xml.writeStartElement("faculty");
-                        xml.writeCharacters(lecturer.getFaculty());
-                        xml.writeEndElement();
-                        xml.writeStartElement("name");
-                        xml.writeCharacters(lecturer.getName());
-                        xml.writeEndElement();
-                        xml.writeStartElement("firstname");
-                        xml.writeCharacters(lecturer.getFirstname());
-                        xml.writeEndElement();
-                    }
-                    xml.writeEndElement(); // lecturer
-
-                    xml.writeStartElement("max_students");
-                    xml.writeCharacters(String.valueOf(course.getMaxStudents()));
-                    xml.writeEndElement();
-
-                    xml.writeStartElement("name");
-                    xml.writeCharacters(course.getName());
-                    xml.writeEndElement();
-
-                    // Write semester details
-                    var semester = course.getSemester();
-                    xml.writeStartElement("semester");
-                    if (semester != null) {
-                        xml.writeStartElement("id");
-                        xml.writeCharacters(String.valueOf(semester.getId()));
-                        xml.writeEndElement();
-                        xml.writeStartElement("name");
-                        xml.writeCharacters(semester.getName());
-                        xml.writeEndElement();
-                        xml.writeStartElement("start");
-                        xml.writeCharacters(semester.getStart().toString());
-                        xml.writeEndElement();
-                        xml.writeStartElement("end");
-                        xml.writeCharacters(semester.getEnd().toString());
-                        xml.writeEndElement();
-                    }
-                    xml.writeEndElement(); // semester
-
-                    // Write exams
-                    xml.writeStartElement("exams");
-                    var courseExams = allExams.stream()
-                            .filter(e -> e.getCourseId() == course.getId())
-                            .toList();
-                    for (var exam : courseExams) {
-                        xml.writeStartElement("exam");
-                        xml.writeStartElement("id");
-                        xml.writeCharacters(String.valueOf(exam.getId()));
-                        xml.writeEndElement();
-                        xml.writeStartElement("date");
-                        xml.writeCharacters(exam.getDate().toString());
-                        xml.writeEndElement();
-                        xml.writeStartElement("is_online");
-                        xml.writeCharacters(String.valueOf(exam.isOnline()));
-                        xml.writeEndElement();
-                        xml.writeStartElement("is_written");
-                        xml.writeCharacters(String.valueOf(exam.isWritten()));
-                        xml.writeEndElement();
-                        xml.writeStartElement("room_or_link");
-                        xml.writeCharacters(exam.getRoomOrLink());
-                        xml.writeEndElement();
-                        xml.writeEndElement(); // exam
-                    }
-                    xml.writeEndElement(); // exams
-
-                    xml.writeEndElement(); // course
+                for (Course course : courses) {
+                    writeCourseToXml(xml, course, allLecturers, allExams);
                 }
 
                 xml.writeEndElement(); // courses
@@ -197,60 +86,119 @@ public class CoursesServlet extends HttpServlet {
         response.setContentType("text/html");
         request.setAttribute("name", this.name);
 
-        try {
-            // Query for all courses with lecturer information
-            var courses = db.getAllCourses();
-            var lecturers = db.getAllLecturers();
-            var semesters = db.getAllSemesters();
+        // Query for all courses with lecturer information
+        List<Course> courses = db.getAllCourses();
+        List<Lecturer> lecturers = db.getAllLecturers();
+        List<Semester> semesters = db.getAllSemesters();
 
-            StringBuilder message = new StringBuilder();
+        StringBuilder message = new StringBuilder();
 
-            // Group courses by semester
-            for (var semester : semesters) {
-                var semesterCourses = courses.stream()
-                        .filter(c -> c.getSemesterId() == semester.getId())
-                        .toList();
+        // Group courses by semester
+        for (Semester semester : semesters) {
+            List<Course> semesterCourses = courses.stream()
+                    .filter(c -> c.getSemesterId() == semester.getId())
+                    .toList();
 
-                if (!semesterCourses.isEmpty()) {
-                    message.append("<h2>").append(semester.getName()).append("</h2><ul>");
+            if (!semesterCourses.isEmpty()) {
+                message.append("<h2>").append(semester.getName()).append("</h2><ul>");
 
-                    for (Course course : semesterCourses) {
-                        // Find the lecturer for this course
-                        String lecturerName = lecturers.stream()
-                                .filter(l -> l.getId() == course.getLecturerId())
-                                .map(l -> String.format("<a href='%s/lecturers/%s'>%s</a>",
-                                        HtmlUtil.BASE_URL,
-                                        l.getUsername(),
-                                        l.getFullName()))
-                                .findFirst()
-                                .orElse("Unknown Lecturer");
+                for (Course course : semesterCourses) {
+                    // Find the lecturer for this course
+                    String lecturerName = lecturers.stream()
+                            .filter(l -> l.getId() == course.getLecturerId())
+                            .map(l -> String.format("<a href='%s/lecturers/%s'>%s</a>",
+                                    HtmlUtil.BASE_URL,
+                                    l.getUsername(),
+                                    l.getFullName()))
+                            .findFirst()
+                            .orElse("Unknown Lecturer");
 
-                        message.append("<li>")
-                                .append("<a href=\"").append(HtmlUtil.BASE_URL).append("/courses/")
-                                .append(course.getId())
-                                .append("\">")
-                                .append(course.getName())
-                                .append("</a>")
-                                .append(" - Faculty: ")
-                                .append(course.getFaculty())
-                                .append(" (Max Students: ")
-                                .append(course.getMaxStudents())
-                                .append(")")
-                                .append(" - Held by: ")
-                                .append(lecturerName)
-                                .append("</li>");
-                    }
-                    message.append("</ul>");
+                    message.append("<li>")
+                            .append("<a href=\"").append(HtmlUtil.BASE_URL).append("/courses/")
+                            .append(course.getId())
+                            .append("\">")
+                            .append(course.getName())
+                            .append("</a>")
+                            .append(" - Faculty: ")
+                            .append(course.getFaculty())
+                            .append(" (Max Students: ")
+                            .append(course.getMaxStudents())
+                            .append(")")
+                            .append(" - Held by: ")
+                            .append(lecturerName)
+                            .append("</li>");
                 }
+                message.append("</ul>");
             }
-
-            request.setAttribute("message", message.toString());
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/collection.jsp");
-            dispatcher.forward(request, response);
-        } catch (Exception e) {
-            throw new IOException("Failed to process courses: " + e.getMessage(), e);
         }
+
+        request.setAttribute("message", message.toString());
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/collection.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void writeCourseToXml(XMLStreamWriter xml, Course course, List<Lecturer> allLecturers, List<Exam> allExams)
+            throws Exception {
+        xml.writeStartElement("course");
+        xml.writeAttribute("id", String.valueOf(course.getId()));
+        xml.writeAttribute("semester_id", String.valueOf(course.getSemesterId()));
+
+        writeSimpleElement(xml, "faculty", course.getFaculty());
+        writeLecturerElement(xml, course.getLecturerId(), allLecturers);
+        writeSimpleElement(xml, "max_students", String.valueOf(course.getMaxStudents()));
+        writeSimpleElement(xml, "name", course.getName());
+        writeSemesterElement(xml, course.getSemester());
+        writeExamsElement(xml, course.getId(), allExams);
+
+        xml.writeEndElement(); // course
+    }
+
+    private void writeSimpleElement(XMLStreamWriter xml, String elementName, String value) throws Exception {
+        xml.writeStartElement(elementName);
+        xml.writeCharacters(value);
+        xml.writeEndElement();
+    }
+
+    private void writeLecturerElement(XMLStreamWriter xml, long lecturerId, List<Lecturer> allLecturers)
+            throws XMLStreamException {
+        xml.writeStartElement("lecturer");
+        Lecturer lecturer = allLecturers.stream()
+                .filter(l -> l.getId() == lecturerId)
+                .findFirst()
+                .orElse(null);
+        if (lecturer != null) {
+            xml.writeAttribute("id", String.valueOf(lecturer.getId()));
+        }
+        xml.writeEndElement();
+    }
+
+    private void writeSemesterElement(XMLStreamWriter xml, Semester semester) throws Exception {
+        xml.writeStartElement("semester");
+        if (semester != null) {
+            writeSimpleElement(xml, "id", String.valueOf(semester.getId()));
+            writeSimpleElement(xml, "name", semester.getName());
+            writeSimpleElement(xml, "start", semester.getStart().toString());
+            writeSimpleElement(xml, "end", semester.getEnd().toString());
+        }
+        xml.writeEndElement();
+    }
+
+    private void writeExamsElement(XMLStreamWriter xml, long courseId, List<Exam> allExams) throws Exception {
+        xml.writeStartElement("exams");
+        List<Exam> courseExams = allExams.stream()
+                .filter(e -> e.getCourseId() == courseId)
+                .toList();
+        for (Exam exam : courseExams) {
+            xml.writeStartElement("exam");
+            writeSimpleElement(xml, "id", String.valueOf(exam.getId()));
+            writeSimpleElement(xml, "date", exam.getDate().toString());
+            writeSimpleElement(xml, "is_online", String.valueOf(exam.isOnline()));
+            writeSimpleElement(xml, "is_written", String.valueOf(exam.isWritten()));
+            writeSimpleElement(xml, "room_or_link", exam.getRoomOrLink());
+            xml.writeEndElement(); // exam
+        }
+        xml.writeEndElement(); // exams
     }
 
     @Override
