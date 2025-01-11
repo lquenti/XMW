@@ -6,9 +6,9 @@
   <body>
     <h1>${name}</h1>
     <main>
-      <p>
+      <div>
         ${message}
-      </p>
+      </div>
     </main>
   </body>
 </html>
