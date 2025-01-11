@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
 
-import org.basex.core.BaseXException;
 import org.basex.core.cmd.XQuery;
 
 import jakarta.servlet.annotation.WebServlet;
@@ -16,7 +15,6 @@ import xmw.exa.util.HtmlUtil;
 
 @WebServlet(name = "course", urlPatterns = "/courses/*")
 public class CourseServlet extends HttpServlet {
-    private String name;
     private DB db;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -52,141 +50,129 @@ public class CourseServlet extends HttpServlet {
         // Check format parameter
         boolean isXmlFormat = "xml".equals(request.getParameter("format"));
 
-        try {
-            // Query for the specific course
-            String query = String.format(
-                    "let $course := collection('%s/courses.xml')/Courses/Course[id = %s] " +
-                            "return if ($course) then " +
-                            "  serialize(element courses { " +
-                            "    element course { " +
-                            "      element faculty { $course/faculty/text() }, " +
-                            "      element id { $course/id/text() }, " +
-                            "      element lecturer_id { $course/lecturer_id/text() }, " +
-                            "      element max_students { $course/max_students/text() }, " +
-                            "      element name { $course/name/text() }, " +
-                            "      element semester_id { $course/semester_id/text() } " +
-                            "    } " +
-                            "  }, map { 'method': 'xml', 'indent': 'yes' }) " +
-                            "else ()",
-                    "exa", courseId);
+        // Query for the specific course
+        String query = String.format(
+                "let $course := collection('%s/courses.xml')/Courses/Course[id = %s] " +
+                        "return if ($course) then " +
+                        "  serialize(element courses { " +
+                        "    element course { " +
+                        "      element faculty { $course/faculty/text() }, " +
+                        "      element id { $course/id/text() }, " +
+                        "      element lecturer_id { $course/lecturer_id/text() }, " +
+                        "      element max_students { $course/max_students/text() }, " +
+                        "      element name { $course/name/text() }, " +
+                        "      element semester_id { $course/semester_id/text() } " +
+                        "    } " +
+                        "  }, map { 'method': 'xml', 'indent': 'yes' }) " +
+                        "else ()",
+                "exa", courseId);
 
-            String result = new XQuery(query).execute(db.getContext());
+        String result = new XQuery(query).execute(db.getContext());
 
-            if (result.trim().isEmpty()) {
+        if (result.trim().isEmpty()) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Course not found");
+            return;
+        }
+
+        if (isXmlFormat) {
+            // Return XML response
+            response.setContentType("application/xml");
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+            out.println(result);
+            out.flush();
+        } else {
+            // Return HTML response
+            response.setContentType("text/html");
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter out = response.getWriter();
+
+            int numCourseId = Integer.parseInt(courseId);
+            var course = db.getAllCourses().stream()
+                    .filter(c -> c.getId() == numCourseId)
+                    .findFirst()
+                    .orElse(null);
+
+            if (course == null) {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Course not found");
                 return;
             }
 
-            if (isXmlFormat) {
-                // Return XML response
-                response.setContentType("application/xml");
-                response.setCharacterEncoding("UTF-8");
-                PrintWriter out = response.getWriter();
-                out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-                out.println(result);
-                out.flush();
+            // Find the lecturer
+            var lecturer = db.getAllLecturers().stream()
+                    .filter(l -> l.getId() == course.getLecturerId())
+                    .findFirst()
+                    .orElse(null);
+
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head><title>Course Details</title></head>");
+            out.println("<body>");
+            out.println("<h1>Course Details</h1>");
+            out.println("<div class='course-details'>");
+            out.println("<p><strong>ID:</strong> " + course.getId() + "</p>");
+            out.println("<p><strong>Name:</strong> " + course.getName() + "</p>");
+            out.println("<p><strong>Faculty:</strong> " + course.getFaculty() + "</p>");
+            out.println("<p><strong>Lecturer:</strong> " +
+                    (lecturer != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
+                            HtmlUtil.BASE_URL,
+                            lecturer.getUsername(),
+                            lecturer.getFullName())
+                            : "Unknown Lecturer")
+                    + "</p>");
+            out.println("<p><strong>Max Students:</strong> " + course.getMaxStudents() + "</p>");
+            out.println("<p><strong>Semester ID:</strong> " + course.getSemesterId() + "</p>");
+
+            // Add lectures section
+            out.println("<h2>Lectures</h2>");
+            var lectures = course.getLectures();
+            if (!lectures.isEmpty()) {
+                out.println("<ul>");
+                for (var lecture : lectures) {
+                    out.println("<li>");
+                    out.println(String.format("<a href='%s/lectures/%d'>%s - %s</a>",
+                            HtmlUtil.BASE_URL,
+                            lecture.getId(),
+                            lecture.getStart().format(DATE_FORMATTER),
+                            lecture.getRoomOrLink()));
+                    out.println("</li>");
+                }
+                out.println("</ul>");
             } else {
-                // Return HTML response
-                response.setContentType("text/html");
-                response.setCharacterEncoding("UTF-8");
-                PrintWriter out = response.getWriter();
-
-                int numCourseId = Integer.parseInt(courseId);
-                var course = db.getAllCourses().stream()
-                        .filter(c -> c.getId() == numCourseId)
-                        .findFirst()
-                        .orElse(null);
-
-                if (course == null) {
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Course not found");
-                    return;
-                }
-
-                // Find the lecturer
-                var lecturer = db.getAllLecturers().stream()
-                        .filter(l -> l.getId() == course.getLecturerId())
-                        .findFirst()
-                        .orElse(null);
-
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head><title>Course Details</title></head>");
-                out.println("<body>");
-                out.println("<h1>Course Details</h1>");
-                out.println("<div class='course-details'>");
-                out.println("<p><strong>ID:</strong> " + course.getId() + "</p>");
-                out.println("<p><strong>Name:</strong> " + course.getName() + "</p>");
-                out.println("<p><strong>Faculty:</strong> " + course.getFaculty() + "</p>");
-                out.println("<p><strong>Lecturer:</strong> " +
-                        (lecturer != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
-                                HtmlUtil.BASE_URL,
-                                lecturer.getUsername(),
-                                lecturer.getFullName())
-                                : "Unknown Lecturer")
-                        + "</p>");
-                out.println("<p><strong>Max Students:</strong> " + course.getMaxStudents() + "</p>");
-                out.println("<p><strong>Semester ID:</strong> " + course.getSemesterId() + "</p>");
-
-                // Add lectures section
-                out.println("<h2>Lectures</h2>");
-                var lectures = course.getLectures();
-                if (!lectures.isEmpty()) {
-                    out.println("<ul>");
-                    for (var lecture : lectures) {
-                        out.println("<li>");
-                        out.println(String.format("<a href='%s/lectures/%d'>%s - %s</a>",
-                                HtmlUtil.BASE_URL,
-                                lecture.getId(),
-                                lecture.getStart().format(DATE_FORMATTER),
-                                lecture.getRoomOrLink()));
-                        out.println("</li>");
-                    }
-                    out.println("</ul>");
-                } else {
-                    out.println("<p>No lectures scheduled</p>");
-                }
-
-                // Add exams section
-                out.println("<h2>Exams</h2>");
-                var exams = course.getExams().stream()
-                        .sorted((e1, e2) -> e1.getDate().compareTo(e2.getDate()))
-                        .toList();
-                if (!exams.isEmpty()) {
-                    out.println("<ul>");
-                    for (var exam : exams) {
-                        out.println("<li>");
-                        out.println(String.format("<a href='%s/exams/%d'>%s - %s</a> (%s%s)",
-                                HtmlUtil.BASE_URL,
-                                exam.getId(),
-                                exam.getDate().format(DATE_FORMATTER),
-                                exam.getRoomOrLink(),
-                                exam.isOnline() ? "Online" : "In-person",
-                                exam.isWritten() ? ", Written" : ""));
-                        out.println("</li>");
-                    }
-                    out.println("</ul>");
-                } else {
-                    out.println("<p>No exams scheduled</p>");
-                }
-
-                out.println("</div>");
-                out.println("<p><a href='" + HtmlUtil.BASE_URL + "/courses'>Back to Courses List</a></p>");
-                out.println("<p><small>View as: <a href='?format=xml'>XML</a></small></p>");
-                out.println("</body>");
-                out.println("</html>");
-                out.flush();
+                out.println("<p>No lectures scheduled</p>");
             }
 
-        } catch (BaseXException e) {
-            throw new IOException("Failed to query course: " + e.getMessage(), e);
-        }
-    }
+            // Add exams section
+            out.println("<h2>Exams</h2>");
+            var exams = course.getExams().stream()
+                    .sorted((e1, e2) -> e1.getDate().compareTo(e2.getDate()))
+                    .toList();
+            if (!exams.isEmpty()) {
+                out.println("<ul>");
+                for (var exam : exams) {
+                    out.println("<li>");
+                    out.println(String.format("<a href='%s/exams/%d'>%s - %s</a> (%s%s)",
+                            HtmlUtil.BASE_URL,
+                            exam.getId(),
+                            exam.getDate().format(DATE_FORMATTER),
+                            exam.getRoomOrLink(),
+                            exam.isOnline() ? "Online" : "In-person",
+                            exam.isWritten() ? ", Written" : ""));
+                    out.println("</li>");
+                }
+                out.println("</ul>");
+            } else {
+                out.println("<p>No exams scheduled</p>");
+            }
 
-    private String extractValue(String result, String key) {
-        String pattern = "'" + key + "': '([^']*)'";
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern);
-        java.util.regex.Matcher m = p.matcher(result);
-        return m.find() ? m.group(1) : "";
+            out.println("</div>");
+            out.println("<p><a href='" + HtmlUtil.BASE_URL + "/courses'>Back to Courses List</a></p>");
+            out.println("<p><small>View as: <a href='?format=xml'>XML</a></small></p>");
+            out.println("</body>");
+            out.println("</html>");
+            out.flush();
+        }
     }
 
     @Override
