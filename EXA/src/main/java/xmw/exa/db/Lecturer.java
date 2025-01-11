@@ -1,0 +1,56 @@
+package xmw.exa.db;
+
+public class Lecturer {
+    private String username;
+    private String faculty;
+    private String name;
+    private String firstname;
+
+    // Getters and setters
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    // Helper method to get full name
+    public String getFullName() {
+        return firstname + " " + name;
+    }
+
+    @Override
+    public String toString() {
+        return "Lecturer{" +
+                "username='" + username + '\'' +
+                ", faculty='" + faculty + '\'' +
+                ", name='" + name + '\'' +
+                ", firstname='" + firstname + '\'' +
+                '}';
+    }
+}

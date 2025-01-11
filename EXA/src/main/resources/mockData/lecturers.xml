@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Lectureres>
+   <Lecturer username="schmitt.samara">
+      <faculty null="true" />
+      <name>Considine</name>
+      <firstname>Delbert </firstname>
+   </Lecturer>
+   <Lecturer username="powlowski.kevon">
+      <faculty null="true" />
+      <name>Beier</name>
+      <firstname>Jacynthe</firstname>
+   </Lecturer>
+   <Lecturer username="schmeler.mallie">
+      <faculty>aut</faculty>
+      <name>Stracke</name>
+      <firstname>Bernice</firstname>
+   </Lecturer>
+   <Lecturer username="lerdman">
+      <faculty>aspernatur</faculty>
+      <name>Mayer</name>
+      <firstname>Karine</firstname>
+   </Lecturer>
+   <Lecturer username="terrill33">
+      <faculty>non</faculty>
+      <name>Ferry</name>
+      <firstname>Aylin</firstname>
+   </Lecturer>
+   <Lecturer username="iliana.rowe">
+      <faculty>neque</faculty>
+      <name>Kub</name>
+      <firstname>Nella</firstname>
+   </Lecturer>
+   <Lecturer username="elinor21">
+      <faculty>eveniet</faculty>
+      <name>Harris</name>
+      <firstname>Riley</firstname>
+   </Lecturer>
+   <Lecturer username="dveum">
+      <faculty>ut</faculty>
+      <name>Wehner</name>
+      <firstname>Bettie</firstname>
+   </Lecturer>
+   <Lecturer username="kuhn.ashtyn">
+      <faculty null="true" />
+      <name>O'Hara</name>
+      <firstname>Marques</firstname>
+   </Lecturer>
+   <Lecturer username="jzboncak">
+      <faculty>eius</faculty>
+      <name>Watsica</name>
+      <firstname>Tad</firstname>
+   </Lecturer>
+</Lectureres>

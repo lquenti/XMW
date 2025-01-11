@@ -2,6 +2,7 @@ package xmw.exa;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
 
 import org.basex.core.BaseXException;
 import org.basex.core.cmd.XQuery;
@@ -14,14 +15,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
 import xmw.exa.util.HtmlUtil;
 
-@WebServlet(name = "courses", value = "/courses")
-public class CoursesServlet extends HttpServlet {
+@WebServlet(name = "exams", value = "/exams")
+public class ExamsServlet extends HttpServlet {
     private String name;
     private DB db;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Override
     public void init() {
-        name = "Courses";
+        name = "Exams";
         db = DB.getInstance();
     }
 
@@ -32,10 +34,10 @@ public class CoursesServlet extends HttpServlet {
 
         if (isXmlFormat) {
             try {
-                // Query for the complete courses XML with proper indentation
+                // Query for the complete exams XML with proper indentation
                 String query = String.format(
-                        "let $courses := collection('%s/courses.xml')/Course " +
-                                "return serialize($courses, map { 'method': 'xml', 'indent': 'yes' })",
+                        "let $exams := collection('%s/exams.xml')/Exams " +
+                                "return serialize($exams, map { 'method': 'xml', 'indent': 'yes' })",
                         "exa");
 
                 String result = new XQuery(query).execute(db.getContext());
@@ -49,7 +51,7 @@ public class CoursesServlet extends HttpServlet {
                 out.flush();
                 return;
             } catch (BaseXException e) {
-                throw new IOException("Failed to query courses: " + e.getMessage(), e);
+                throw new IOException("Failed to query exams: " + e.getMessage(), e);
             }
         }
 
@@ -58,40 +60,46 @@ public class CoursesServlet extends HttpServlet {
         request.setAttribute("name", this.name);
 
         try {
-            // Query for all courses with formatted output
+            // Query for all exams with formatted output
             String query = String.format(
-                    "for $course in collection('%s/courses.xml')/Course/Course " +
-                            "order by xs:integer($course/id) " +
-                            "return element course { " +
-                            "  $course/id, " +
-                            "  $course/n, " +
-                            "  $course/faculty, " +
-                            "  $course/lecturer_id, " +
-                            "  $course/max_students, " +
-                            "  $course/semester_id " +
+                    "for $exam in collection('%s/exams.xml')/Exams/Exam " +
+                            "order by xs:dateTime($exam/date) " +
+                            "return element exam { " +
+                            "  $exam/id, " +
+                            "  $exam/course_id, " +
+                            "  $exam/date, " +
+                            "  $exam/is_online, " +
+                            "  $exam/is_written, " +
+                            "  $exam/room_or_link " +
                             "}",
                     "exa");
 
             String result = new XQuery(query).execute(db.getContext());
 
             StringBuilder message = new StringBuilder("<ul>");
-            String[] courseElements = result.split("</course>");
+            String[] examElements = result.split("</exam>");
 
-            for (String element : courseElements) {
+            for (String element : examElements) {
                 if (element.trim().isEmpty())
                     continue;
 
                 String id = extractValue(element, "id");
-                String name = extractValue(element, "n");
-                String faculty = extractValue(element, "faculty");
-                String maxStudents = extractValue(element, "max_students");
+                String date = extractValue(element, "date");
+                String location = extractValue(element, "room_or_link");
+                boolean isOnline = "1".equals(extractValue(element, "is_online"));
+                boolean isWritten = "1".equals(extractValue(element, "is_written"));
 
                 message.append("<li>")
-                        .append("<a href=\"" + HtmlUtil.BASE_URL + "/courses/").append(id).append("\">")
-                        .append(name)
+                        .append("<a href=\"" + HtmlUtil.BASE_URL + "/exams/").append(id).append("\">")
+                        .append("Exam ").append(id)
+                        .append(" (").append(date).append(")")
                         .append("</a>")
-                        .append(" - Faculty: ").append(faculty)
-                        .append(" (Max Students: ").append(maxStudents).append(")")
+                        .append(" - ")
+                        .append(isOnline ? "Online" : "On-site")
+                        .append(", ")
+                        .append(isWritten ? "Written" : "Oral")
+                        .append(" @ ")
+                        .append(location)
                         .append("</li>");
             }
             message.append("</ul>");
@@ -106,7 +114,7 @@ public class CoursesServlet extends HttpServlet {
                 e.printStackTrace();
             }
         } catch (BaseXException e) {
-            throw new IOException("Failed to query courses: " + e.getMessage(), e);
+            throw new IOException("Failed to query exams: " + e.getMessage(), e);
         }
     }
 
