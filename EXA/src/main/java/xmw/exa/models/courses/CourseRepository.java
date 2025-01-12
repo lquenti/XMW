@@ -156,6 +156,7 @@ public class CourseRepository extends BaseXmlRepository<Course> {
                 DB.getInstance().dumpToFile();
             } catch (IOException e) {
                 System.err.println(e.getMessage());
+                return false;
             }
             return true;
         } catch (BaseXException e) {

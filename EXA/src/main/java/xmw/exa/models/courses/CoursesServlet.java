@@ -100,7 +100,9 @@ public class CoursesServlet extends HttpServlet {
                     .toList();
 
             if (!semesterCourses.isEmpty()) {
-                message.append("<h2>").append(semester.getName()).append("</h2><ul>");
+                message.append("<h2 class=\"text-xl\">").append(semester.getName())
+                        .append("</h2><ul class=\"list-disc\">");
+                var atagstyles = "class=\"text-blue-600 hover:text-blue-800 flex items-center gap-2\"";
 
                 for (Course course : semesterCourses) {
                     // Find the lecturer for this course
@@ -115,8 +117,7 @@ public class CoursesServlet extends HttpServlet {
 
                     message.append("<li>")
                             .append("<a href=\"").append(Config.BASE_URL).append("/courses/")
-                            .append(course.getId())
-                            .append("\">")
+                            .append(course.getId()).append("\" ").append(atagstyles).append(">")
                             .append(course.getName())
                             .append("</a>")
                             .append(" - Faculty: ")

@@ -2,7 +2,9 @@ package xmw.exa.models.exams;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
@@ -25,6 +27,50 @@ public class ExamsServlet extends HttpServlet {
     public void init() {
         name = "Exams";
         db = DB.getInstance();
+    }
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            // Parse parameters
+            int courseId = Integer.parseInt(request.getParameter("course_id"));
+            String dateTimeStr = request.getParameter("date");
+            boolean isOnline = Boolean.parseBoolean(request.getParameter("is_online"));
+            boolean isWritten = Boolean.parseBoolean(request.getParameter("is_written"));
+            String roomOrLink = request.getParameter("room_or_link");
+
+            // Validate required fields
+            if (dateTimeStr == null || roomOrLink == null) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required fields");
+                return;
+            }
+
+            // Create new exam object
+            Exam exam = new Exam();
+            exam.setCourseId(courseId);
+            exam.setDate(LocalDateTime.parse(dateTimeStr));
+            exam.setOnline(isOnline);
+            exam.setWritten(isWritten);
+            exam.setRoomOrLink(roomOrLink);
+
+            // Create the exam in the database
+            boolean success = db.exams().create(exam);
+
+            if (success) {
+                // Return success response
+                response.setStatus(HttpServletResponse.SC_CREATED);
+                response.sendRedirect(Config.BASE_URL + "/exams");
+            } else {
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to create exam");
+            }
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid course ID format");
+        } catch (DateTimeParseException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                    "Invalid date format. Expected format: yyyy-MM-dd HH:mm");
+        } catch (Exception e) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error creating exam: " + e.getMessage());
+        }
     }
 
     @Override

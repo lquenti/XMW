@@ -13,10 +13,10 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
 import org.basex.core.cmd.XQuery;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,8 +37,10 @@ public class CourseServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String pathInfo = request.getPathInfo();
+
+        // Handle root path (course overview)
         if (pathInfo == null || pathInfo.equals("/")) {
-            response.sendRedirect("/courses");
+            handleCourseOverview(request, response);
             return;
         }
 
@@ -47,8 +49,7 @@ public class CourseServlet extends HttpServlet {
 
         // Handle /all endpoint
         if (courseId.equals("all")) {
-            String queryString = request.getQueryString();
-            response.sendRedirect(Config.BASE_URL + "/courses" + (queryString != null ? "?" + queryString : ""));
+            response.sendRedirect(Config.BASE_URL + "/courses");
             return;
         }
 
@@ -58,6 +59,39 @@ public class CourseServlet extends HttpServlet {
             return;
         }
 
+        handleCourseDetails(request, response, courseId);
+    }
+
+    private void handleCourseOverview(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        boolean isXmlFormat = "xml".equals(request.getParameter("format"));
+
+        if (isXmlFormat) {
+            response.setContentType("application/xml");
+            response.setCharacterEncoding("UTF-8");
+
+            String query = "element courses { " +
+                    "for $course in /root/Courses/Course " +
+                    "return element course { " +
+                    "  attribute id { $course/id/text() }, " +
+                    "  attribute semester_id { $course/semester_id/text() }, " +
+                    "  element faculty { $course/faculty/text() }, " +
+                    "  element lecturer { attribute id { $course/lecturer_id/text() } }, " +
+                    "  element max_students { $course/max_students/text() }, " +
+                    "  element name { $course/name/text() } " +
+                    "} }";
+
+            String result = new XQuery(query).execute(db.getContext());
+            response.getWriter().write(result);
+        } else {
+            request.setAttribute("courses", db.courses().all());
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/course-overview.jsp");
+            dispatcher.forward(request, response);
+        }
+    }
+
+    private void handleCourseDetails(HttpServletRequest request, HttpServletResponse response, String courseId)
+            throws IOException, ServletException {
         // Check format parameter
         boolean isXmlFormat = "xml".equals(request.getParameter("format"));
 
@@ -83,7 +117,7 @@ public class CourseServlet extends HttpServlet {
                         "    } " +
                         "  } " +
                         "else ()",
-                 courseId, courseId);
+                courseId, courseId);
 
         String result = new XQuery(query).execute(db.getContext());
 
