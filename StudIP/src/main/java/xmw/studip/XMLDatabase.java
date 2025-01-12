@@ -59,16 +59,47 @@ public class XMLDatabase {
         return instance;
     }
 
-    public boolean registerStudentToCourse(String userId, String courseId) {
+    public boolean registerStudentToCourse(String userId, String courseId, String semester) {
         try {
-            String query = String.format("... XQuery to register student ...", userId, courseId);
-            String result = new XQuery(query).execute(context);
+            // XQuery to check if the user already has a schedule
+            String checkScheduleQuery = String.format(
+                    "declare namespace ns = 'http://example.com/schema';\n" +
+                            "let $schedules := /Schedules/Schedule[@username='%s']\n" +
+                            "return exists($schedules)",
+                    userId
+            );
+
+            boolean userHasSchedule = Boolean.parseBoolean(new XQuery(checkScheduleQuery).execute(context));
+
+            String xquery;
+
+            if (userHasSchedule) {
+                // User has an existing <Schedule>, add the course to it
+                xquery = String.format(
+                        "declare namespace ns = 'http://example.com/schema';\n" +
+                                "let $schedule := /Schedules/Schedule[@username='%s']\n" +
+                                "return insert node <Course id='%s' semester='%s'/> into $schedule",
+                        userId, courseId, semester
+                );
+            } else {
+                // User does not have a <Schedule>, create a new one with the course
+                xquery = String.format(
+                        "declare namespace ns = 'http://example.com/schema';\n" +
+                                "return insert node <Schedule username='%s'><Course id='%s' semester='%s'/></Schedule> into /Schedules",
+                        userId, courseId, semester
+                );
+            }
+
+            // Execute the XQuery
+            new XQuery(xquery).execute(context);
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
 
     public List<Map<String, String>> getCourses() throws Exception {
         URL url = new URL("http://localhost:8080/exa/courses?format=xml");

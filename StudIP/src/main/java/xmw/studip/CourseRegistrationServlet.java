@@ -51,9 +51,10 @@ public class CourseRegistrationServlet extends HttpServlet {
         XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
 
         String courseId = request.getParameter("courseId");
+        String semesterId = request.getParameter("semesterId");
 
         // Mock course registration logic
-        if (xmlDatabase.registerStudentToCourse(userId, courseId)) {
+        if (xmlDatabase.registerStudentToCourse(userId, courseId, semesterId)) {
             request.setAttribute("message", "Registration successful!");
         } else {
             request.setAttribute("message", "Registration failed! Course not found.");
