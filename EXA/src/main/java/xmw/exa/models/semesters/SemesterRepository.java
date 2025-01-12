@@ -96,7 +96,7 @@ public class SemesterRepository extends BaseXmlRepository<Semester> {
     }
 
     @Override
-    public Semester delete(long id) {
+    public void delete(long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }

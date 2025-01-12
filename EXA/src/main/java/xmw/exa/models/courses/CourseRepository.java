@@ -50,27 +50,14 @@ public class CourseRepository extends BaseXmlRepository<Course> {
 
     @Override
     public Course get(long id) {
-        String query = String.format(
-                "for $c in /root/Courses/Course[id = %d] " +
-                        "return element course { " +
-                        "  attribute id { $c/id/text() }, " +
-                        "  attribute semester_id { $c/semester_id/text() }, " +
-                        "  element faculty { $c/faculty/text() }, " +
-                        "  element lecturer { attribute id { $c/lecturer_id/text() } }, " +
-                        "  element max_students { $c/max_students/text() }, " +
-                        "  element name { $c/name/text() } " +
-                        "}",
-                id);
-
-        try {
-            String result = new XQuery(query).execute(context);
-            if (result.trim().isEmpty()) {
-                return null;
+        var all = this.all();
+        for (var course : all) {
+            if (course.getId() == id) {
+                return course;
             }
-            return parseCourseElement(result);
-        } catch (BaseXException e) {
-            throw new RuntimeException("Failed to query course: " + e.getMessage(), e);
         }
+
+        return null;
     }
 
     private Course parseCourseElement(String element) {
@@ -171,7 +158,22 @@ public class CourseRepository extends BaseXmlRepository<Course> {
     }
 
     @Override
-    public Course delete(long id) {
-        throw new UnsupportedOperationException("not implemented");
+    public void delete(long id) {
+        Course course = this.get(id);
+
+        try {
+            String query = String.format(
+                    "delete node /root/Courses/Course[id = %d]",
+                    id);
+            new XQuery(query).execute(context);
+            try {
+                DB.getInstance().dumpToFile();
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        } catch (BaseXException e) {
+            System.err.println("Failed to delete course: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

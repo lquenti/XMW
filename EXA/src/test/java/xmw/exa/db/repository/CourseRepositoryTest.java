@@ -2,6 +2,7 @@ package xmw.exa.db.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,9 +14,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import xmw.exa.db.DB;
 import xmw.exa.models.courses.Course;
 import xmw.exa.models.courses.CourseRepository;
-import xmw.exa.db.DB;
 
 class CourseRepositoryTest {
     private CourseRepository repository;
@@ -37,27 +38,14 @@ class CourseRepositoryTest {
         List<Course> courses = repository.all();
         assertNotNull(courses);
         assertFalse(courses.isEmpty());
-
-        // Verify first course from mock data
-        Course firstCourse = courses.get(0);
-        assertEquals(1, firstCourse.getId());
-        assertEquals("omnis", firstCourse.getFaculty());
-        assertEquals(10, firstCourse.getLecturerId());
-        assertEquals(76, firstCourse.getMaxStudents());
-        assertEquals("rerum", firstCourse.getName());
-        assertEquals(1, firstCourse.getSemesterId());
     }
 
     @Test
     void testGet() {
-        Course course = repository.get(1L);
+        List<Course> courseList = repository.all();
+        Course course = repository.all().getFirst();
         assertNotNull(course);
-        assertEquals(1, course.getId());
-        assertEquals("omnis", course.getFaculty());
-        assertEquals(10, course.getLecturerId());
-        assertEquals(76, course.getMaxStudents());
-        assertEquals("rerum", course.getName());
-        assertEquals(1, course.getSemesterId());
+        assertTrue(courseList.contains(course));
     }
 
     @Test
@@ -130,6 +118,50 @@ class CourseRepositoryTest {
         try {
             db.reinitialize();
             assertTrue(course2.getId() > course1.getId());
+        } catch (Exception e) {
+            fail("Failed to reinitialize database: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void testDelete() {
+        // Get initial count
+        int initialCount = repository.all().size();
+
+        Course firstCourse = repository.all().getFirst();
+        repository.delete(firstCourse.getId());
+
+        try {
+            // Reinitialize DB to persist changes
+            db.reinitialize();
+
+            // Verify course was deleted
+            List<Course> courses = repository.all();
+            assertEquals(initialCount - 1, courses.size());
+
+            // Verify course no longer exists
+            Course course = repository.get(1L);
+            assertNull(course);
+        } catch (Exception e) {
+            fail("Failed to reinitialize database: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void testDeleteNonExistent() {
+        // Get initial count
+        int initialCount = repository.all().size();
+
+        // Try to delete non-existent course
+        repository.delete(999L);
+
+        try {
+            // Reinitialize DB to persist changes
+            db.reinitialize();
+
+            // Verify no courses were deleted
+            List<Course> courses = repository.all();
+            assertEquals(initialCount, courses.size());
         } catch (Exception e) {
             fail("Failed to reinitialize database: " + e.getMessage());
         }

@@ -110,7 +110,7 @@ public class LectureRepository extends BaseXmlRepository<Lecture> {
     }
 
     @Override
-    public Lecture delete(long id) {
+    public void delete(long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }

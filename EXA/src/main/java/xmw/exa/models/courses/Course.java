@@ -1,6 +1,7 @@
 package xmw.exa.models.courses;
 
 import java.util.List;
+import java.util.Objects;
 
 import xmw.exa.db.DB;
 import xmw.exa.models.exams.Exam;
@@ -13,7 +14,7 @@ import xmw.exa.models.semesters.Semester;
 import xmw.exa.models.semesters.SemesterRepository;
 
 public class Course {
-    private int id;
+    private long id;
     private String name; // 'n' in XML
     private String faculty;
     private int lecturerId;
@@ -21,7 +22,7 @@ public class Course {
     private int semesterId;
 
     // Getters and setters
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -107,5 +108,18 @@ public class Course {
                 ", maxStudents=" + maxStudents +
                 ", semesterId=" + semesterId +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return id == course.id && lecturerId == course.lecturerId && maxStudents == course.maxStudents && semesterId == course.semesterId && Objects.equals(name, course.name) && Objects.equals(faculty, course.faculty);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, faculty, lecturerId, maxStudents, semesterId);
     }
 }
