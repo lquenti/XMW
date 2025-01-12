@@ -28,6 +28,12 @@
         %>
     </select><br><br>
 
+    <label for="action">Action:</label>
+    <select id="action" name="action">
+        <option value="register">Register</option>
+        <option value="deregister">Deregister</option>
+    </select><br><br>
+
     <button type="submit">Register</button>
 </form>
 

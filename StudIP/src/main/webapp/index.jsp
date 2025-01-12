@@ -10,6 +10,7 @@
 <ul>
   <li><a href="register">Register for Courses</a></li>
   <li><a href="schedule">View Weekly Schedule</a></li>
+  <li><a href="flex">FlexNever</a></li>
 </ul>
 </body>
 </html>
