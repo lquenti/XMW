@@ -64,20 +64,33 @@ public class UserDB {
         }
     }
 
-    public static String getUserByUsername(String username) throws BaseXException {
-        String authQuery =
-                "for $user in //User[@username = '" + username + "']" +
-                """
-                return
-                  <User>
-                    { for $attr in $user/@* return $attr }
-                    {
-                      for $child in $user/*\s
-                      where not(local-name() = "password")
-                      return $child
-                    }
-                  </User>
-                """;
+    public static boolean usernameExist(String username) throws QueryException {
+        String authQuery = "//User[@username = '" + username + "']";
+        synchronized (lock) {
+            QueryProcessor proc = new QueryProcessor(authQuery, instance.ctx);
+            return !proc.value().isEmpty();
+        }
+    }
+
+    public static String getUserByUsername(String username, boolean with_password) throws BaseXException {
+
+        String authQuery;
+
+        if (with_password) {
+            authQuery = "//User[@username = '" + username + "']";
+        } else {
+            authQuery = "for $user in //User[@username = '" + username + "']" + """
+                    return
+                      <User>
+                        { for $attr in $user/@* return $attr }
+                        {
+                          for $child in $user/*
+                          where not(local-name() = "password")
+                          return $child
+                        }
+                      </User>
+                    """;
+        }
         synchronized (lock) {
             return new XQuery(authQuery).execute(instance.ctx);
         }

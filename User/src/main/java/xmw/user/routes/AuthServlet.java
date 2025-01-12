@@ -88,7 +88,7 @@ public class AuthServlet extends HttpServlet {
             return;
         }
         if (authenticated) {
-            String result = UserDB.getUserByUsername(username);
+            String result = UserDB.getUserByUsername(username, false);
             res.setContentType("application/xml");
             try (PrintWriter out = res.getWriter()) {
                 out.write(result);

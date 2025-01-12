@@ -33,12 +33,11 @@ import java.util.TimerTask;
 public class TestAddUserServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) {
-        //UserDB.addUserTest();
         try {
             System.out.println(UserDB.authenticate("hbrosen", "hunter2"));
             System.out.println(UserDB.authenticate("hbrosen", "hunter3"));
             System.out.println(UserDB.authenticate("hbrosnn", "hunter2"));
-            System.out.println(UserDB.getUserByUsername("hbrosen"));
+            System.out.println(UserDB.getUserByUsername("hbrosen", false));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
