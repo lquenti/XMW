@@ -3,8 +3,11 @@ package xmw.user.db;
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
 import org.basex.core.cmd.CreateDB;
+import org.basex.core.cmd.XQuery;
+import org.basex.data.Result;
 import org.basex.query.QueryException;
 import org.basex.query.QueryProcessor;
+import org.basex.query.value.Value;
 import xmw.user.utils.UserContextListener;
 
 public class UserDB {
@@ -36,27 +39,47 @@ public class UserDB {
         }
     }
 
-    // TODO remove
-    public static void addUserTest() {
-        String add = "insert node <User>\n" +
-                "  <Username>hehe</Username>\n" +
-                "  <Password>haha</Password>\n" +
-                "</User> into /Users";
-        synchronized (lock) {
-            QueryProcessor proc = new QueryProcessor(add, instance.ctx);
-            try {
-                proc.execute();
-            } catch (QueryException e) {
-                throw new RuntimeException(e);
-            }
-            // Close the query processor
-            proc.close();
-        }
-    }
+//    public static void addUserTest() {
+//        String add = "insert node <User>\n" +
+//                "  <Username>hehe</Username>\n" +
+//                "  <Password>haha</Password>\n" +
+//                "</User> into /Users";
+//        synchronized (lock) {
+//            QueryProcessor proc = new QueryProcessor(add, instance.ctx);
+//            try {
+//                proc.execute();
+//            } catch (QueryException e) {
+//                throw new RuntimeException(e);
+//            }
+//            // Close the query processor
+//            proc.close();
+//        }
+//    }
 
     public static boolean authenticate(String username, String password) throws QueryException {
         String authQuery = "//User[@username = '" + username + "' and password/text() = '" + password + "']";
-        QueryProcessor proc = new QueryProcessor(authQuery, instance.ctx);
-        return !proc.value().isEmpty();
+        synchronized (lock) {
+            QueryProcessor proc = new QueryProcessor(authQuery, instance.ctx);
+            return !proc.value().isEmpty();
+        }
+    }
+
+    public static String getUserByUsername(String username) throws BaseXException {
+        String authQuery =
+                "for $user in //User[@username = '" + username + "']" +
+                """
+                return
+                  <User>
+                    { for $attr in $user/@* return $attr }
+                    {
+                      for $child in $user/*\s
+                      where not(local-name() = "password")
+                      return $child
+                    }
+                  </User>
+                """;
+        synchronized (lock) {
+            return new XQuery(authQuery).execute(instance.ctx);
+        }
     }
 }

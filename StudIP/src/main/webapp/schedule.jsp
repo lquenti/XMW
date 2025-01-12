@@ -13,9 +13,10 @@
 <table border="1">
     <thead>
     <tr>
-        <th>Room ID</th>
-        <th>Time Begin</th>
-        <th>Time End</th>
+        <th>Name</th>
+        <th>Semester</th>
+        <th>Faculty</th>
+        <th>Time</th>
     </tr>
     </thead>
     <tbody>
@@ -25,9 +26,10 @@
             for (Map<String, String> schedule : schedules) {
     %>
     <tr>
-        <td><%= schedule.get("room_id") %></td>
-        <td><%= schedule.get("time_begin") %></td>
-        <td><%= schedule.get("time_end") %></td>
+        <td><%= schedule.get("Name") %></td>
+        <td><%= schedule.get("Semester") %></td>
+        <td><%= schedule.get("Faculty") %></td>
+        <td><%= schedule.get("Time") %></td>
     </tr>
     <%
             }

@@ -38,7 +38,8 @@ public class TestAddUserServlet extends HttpServlet {
             System.out.println(UserDB.authenticate("hbrosen", "hunter2"));
             System.out.println(UserDB.authenticate("hbrosen", "hunter3"));
             System.out.println(UserDB.authenticate("hbrosnn", "hunter2"));
-        } catch (QueryException e) {
+            System.out.println(UserDB.getUserByUsername("hbrosen"));
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

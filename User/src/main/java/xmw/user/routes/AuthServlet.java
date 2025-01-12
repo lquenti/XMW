@@ -17,6 +17,7 @@ import org.basex.query.iter.Iter;
 import org.basex.query.value.item.Item;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import xmw.user.db.UserDB;
 import xmw.user.utils.DOMUtils;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -24,6 +25,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -74,6 +76,30 @@ public class AuthServlet extends HttpServlet {
 
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing parameters");
+            return;
+        }
+
+        boolean authenticated;
+        try {
+            authenticated = UserDB.authenticate(username, password);
+        } catch (QueryException e) {
+            e.printStackTrace();
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Internal Error while trying to authenticate");
+            return;
+        }
+        if (authenticated) {
+            String result = UserDB.getUserByUsername(username);
+            res.setContentType("application/xml");
+            try (PrintWriter out = res.getWriter()) {
+                out.write(result);
+                out.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+                res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error writing response");
+
+            }
+        } else {
+            res.sendError(HttpServletResponse.SC_FORBIDDEN, "Wrong Username or Password");
         }
     }
 }

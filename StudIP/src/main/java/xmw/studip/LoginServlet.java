@@ -33,6 +33,8 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
+        request.setAttribute("test", xmlDatabase.getThing());
         request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
@@ -47,7 +49,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        String loginApiUrl = "http://localhost:8080/auth"; // Replace with actual API URL
+        String loginApiUrl = "http://localhost:8080/User/auth"; // Replace with actual API URL
         URL url = new URL(loginApiUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -85,12 +87,12 @@ public class LoginServlet extends HttpServlet {
             }
 
             // Set a cookie with the user ID
-            Cookie userCookie = new Cookie("xmw_studip_userid", userMap.get("userID"));
+            Cookie userCookie = new Cookie("xmw_studip_userid", username);
             userCookie.setPath("/");
             response.addCookie(userCookie);
 
             request.setAttribute("loginResponse", xmlResponse);
-            request.getRequestDispatcher("/loginResult.jsp").forward(request, response);
+            request.getRequestDispatcher("/login_result.jsp").forward(request, response);
         } else if (connection.getResponseCode() == HttpURLConnection.HTTP_BAD_REQUEST) {
             request.setAttribute("errorMessage", "Invalid login parameters. Please try again.");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
