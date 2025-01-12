@@ -9,12 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e08a0624-4ad7-49a1-b0b9-80aa9b9e5fcf" name="Changes" comment="update exams overview">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/xmw/exa/db/repository/CourseRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/xmw/exa/db/repository/CourseRepositoryTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="e08a0624-4ad7-49a1-b0b9-80aa9b9e5fcf" name="Changes" comment="update exams overview" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,7 +97,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.CourseRepositoryTest.testCreate">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 11.0.2">
     <configuration name="CourseRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="EXA" />
       <extension name="coverage">
@@ -375,7 +370,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseRepository.java</url>
-          <line>128</line>
+          <line>131</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
