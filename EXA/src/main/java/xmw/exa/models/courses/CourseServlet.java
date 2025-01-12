@@ -61,8 +61,8 @@ public class CourseServlet extends HttpServlet {
 
         // Query for the specific course
         String query = String.format(
-                "let $course := collection('%s/courses.xml')/Courses/Course[id = %s] " +
-                        "let $lectures := collection('%s/lectures.xml')/Lectures/Lecture[course_id = %s] " +
+                "let $course := /root/Courses/Course[id = %s] " +
+                        "let $lectures := /root/Lectures/Lecture[course_id = %s] " +
                         "return if ($course) then " +
                         "  element course { " +
                         "    attribute id { $course/id/text() }, " +
@@ -81,7 +81,7 @@ public class CourseServlet extends HttpServlet {
                         "    } " +
                         "  } " +
                         "else ()",
-                "exa", courseId, "exa", courseId);
+                 courseId, courseId);
 
         String result = new XQuery(query).execute(db.getContext());
 

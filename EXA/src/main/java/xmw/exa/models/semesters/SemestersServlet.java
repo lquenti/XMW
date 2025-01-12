@@ -43,7 +43,7 @@ public class SemestersServlet extends HttpServlet {
             try {
                 // Query for the complete semesters XML with proper indentation
                 String query = String.format(
-                        "let $semesters := collection('%s/semesters.xml')/Semesters " +
+                        "let $semesters := /root/Semesters " +
                                 "return serialize(element semesters { " +
                                 "  for $s in $semesters/Semester " +
                                 "  return element semester { " +

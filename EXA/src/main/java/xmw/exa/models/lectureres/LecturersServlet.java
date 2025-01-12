@@ -36,7 +36,7 @@ public class LecturersServlet extends HttpServlet {
             try {
                 // Query for the complete lecturers XML with proper indentation and snake case
                 String query = String.format(
-                        "let $lecturers := collection('%s/lecturers.xml')/Lectureres " +
+                        "let $lecturers := /root/Lectureres " +
                                 "return element lecturers { " +
                                 "  for $l in $lecturers/Lecturer " +
                                 "  return element lecturer { " +
