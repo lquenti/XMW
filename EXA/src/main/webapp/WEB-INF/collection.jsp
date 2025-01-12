@@ -17,4 +17,24 @@
       </p>
     </main>
   </body>
+<style>
+
+  *, :root {
+    max-width: 1280px;
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+
+  h1 {
+    padding-top: 1rem;
+    margin: 0.5rem 4rem;
+  }
+
+  main {
+    max-width: 1280px;
+    margin: 0.5rem 4rem;
+  }
+  ul > * + * {
+    margin-top: 4px;
+  }
+</style>
 </html>
