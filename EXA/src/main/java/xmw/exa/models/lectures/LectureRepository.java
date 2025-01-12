@@ -25,7 +25,6 @@ public class LectureRepository extends BaseXmlRepository<Lecture> {
                         "  element id { $l/id/text() }, " +
                         "  element course_id { $l/course_id/text() }, " +
                         "  element start { $l/start/text() }, " +
-                        "  element end { $l/end/text() }, " +
                         "  element room_or_link { $l/room_or_link/text() } " +
                         "}",
                 DB_NAME);
@@ -55,7 +54,6 @@ public class LectureRepository extends BaseXmlRepository<Lecture> {
                         "  element id { $l/id/text() }, " +
                         "  element course_id { $l/course_id/text() }, " +
                         "  element start { $l/start/text() }, " +
-                        "  element end { $l/end/text() }, " +
                         "  element room_or_link { $l/room_or_link/text() } " +
                         "}",
                 DB_NAME, id);
@@ -76,8 +74,20 @@ public class LectureRepository extends BaseXmlRepository<Lecture> {
             Lecture lecture = new Lecture();
             lecture.setId(Integer.parseInt(extractValue(element, "id")));
             lecture.setCourseId(Integer.parseInt(extractValue(element, "course_id")));
-            lecture.setStart(LocalDateTime.parse(extractValue(element, "start")));
-            lecture.setEnd(LocalDateTime.parse(extractValue(element, "end")));
+
+            // Fix malformed datetime strings by replacing any single digit followed by 'T:'
+            // e.g., "T0T:" -> "T00:", "T1T:" -> "T01:", etc.
+            String startStr = extractValue(element, "start");
+
+            for (int i = 0; i < 10; i++) {
+                startStr = startStr.replace(String.format("T%dT:", i), String.format("T0%d:", i));
+            }
+            for (int i = 10; i < 24; i++) {
+                startStr = startStr.replace(String.format("T%dT:", i), String.format("T%d:", i));
+            }
+
+            lecture.setStart(LocalDateTime.parse(startStr));
+            lecture.setEnd(lecture.getStart()); // Set end time same as start time if not specified
             lecture.setRoomOrLink(extractValue(element, "room_or_link"));
             return lecture;
         } catch (Exception e) {

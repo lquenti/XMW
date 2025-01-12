@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
 import xmw.exa.models.courses.Course;
+import xmw.exa.models.lectureres.Lecturer;
+import xmw.exa.models.semesters.Semester;
 import xmw.exa.util.Config;
 
 @WebServlet(name = "lectures", value = "/lectures")
@@ -41,13 +43,17 @@ public class LecturesServlet extends HttpServlet {
             try {
                 // Get all lectures using the DB class
                 var lectures = db.lectures().all();
+                var courses = db.courses().all();
 
                 // Build XML response using StringBuilder for better control
                 StringBuilder xmlBuilder = new StringBuilder();
                 xmlBuilder.append("<lectures>\n");
 
                 for (var lecture : lectures) {
-                    var course = lecture.getCourse();
+                    Course course = courses.stream()
+                            .filter(c -> c.getId() == lecture.getCourseId())
+                            .findFirst()
+                            .orElse(null);
 
                     xmlBuilder.append("  <lecture>\n")
                             .append("    <id>").append(lecture.getId()).append("</id>\n")
@@ -58,7 +64,7 @@ public class LecturesServlet extends HttpServlet {
                                 .append("      <name>").append(course.getName()).append("</name>\n")
                                 .append("      <faculty>").append(course.getFaculty()).append("</faculty>\n");
 
-                        var lecturer = course.getLecturer();
+                        Lecturer lecturer = course.getLecturer();
                         xmlBuilder.append("      <lecturer>\n");
                         if (lecturer != null) {
                             xmlBuilder.append("        <id>").append(lecturer.getId()).append("</id>\n")
@@ -69,7 +75,7 @@ public class LecturesServlet extends HttpServlet {
                         }
                         xmlBuilder.append("      </lecturer>\n");
 
-                        var semester = course.getSemester();
+                        Semester semester = course.getSemester();
                         xmlBuilder.append("      <semester>\n");
                         if (semester != null) {
                             xmlBuilder.append("        <id>").append(semester.getId()).append("</id>\n")
@@ -105,7 +111,7 @@ public class LecturesServlet extends HttpServlet {
         request.setAttribute("name", this.name);
 
         // Get all lectures and courses
-        var lectures = db.lecturers().all();
+        var lectures = db.lectures().all();
         var courses = db.courses().all();
         var semesters = db.semesters().all();
 
@@ -114,9 +120,9 @@ public class LecturesServlet extends HttpServlet {
         // Group lectures by semester through their courses
         for (var semester : semesters) {
             var semesterLectures = lectures.stream()
-                    .filter(l -> {
+                    .filter(lecture -> {
                         var course = courses.stream()
-                                .filter(c -> c.getId() == l.getCourseId())
+                                .filter(c -> c.getId() == lecture.getCourseId())
                                 .findFirst()
                                 .orElse(null);
                         return course != null && course.getSemesterId() == semester.getId();

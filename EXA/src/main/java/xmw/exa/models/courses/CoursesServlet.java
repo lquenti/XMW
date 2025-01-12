@@ -1,5 +1,14 @@
 package xmw.exa.models.courses;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.List;
+
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,21 +17,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
 import xmw.exa.models.exams.Exam;
-import xmw.exa.models.exams.ExamRepository;
 import xmw.exa.models.lectureres.Lecturer;
-import xmw.exa.models.lectureres.LecturerRepository;
 import xmw.exa.models.lectures.Lecture;
 import xmw.exa.models.semesters.Semester;
-import xmw.exa.models.semesters.SemesterRepository;
 import xmw.exa.util.Config;
-
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.List;
 
 @WebServlet(name = "courses", value = "/courses")
 public class CoursesServlet extends HttpServlet {
@@ -151,7 +149,11 @@ public class CoursesServlet extends HttpServlet {
         writeSimpleElement(xml, "max_students", String.valueOf(course.getMaxStudents()));
         writeSimpleElement(xml, "name", course.getName());
         writeSemesterElement(xml, course.getSemester());
-        writeLecturesElement(xml, course.getLectures());
+
+        // Get lectures for this course
+        List<Lecture> lectures = course.getLectures();
+        writeLecturesElement(xml, lectures);
+
         writeExamsElement(xml, course.getId(), allExams);
 
         xml.writeEndElement(); // course
@@ -210,7 +212,6 @@ public class CoursesServlet extends HttpServlet {
             xml.writeStartElement("lecture");
             writeSimpleElement(xml, "id", String.valueOf(lecture.getId()));
             writeSimpleElement(xml, "start", lecture.getStart().toString());
-            writeSimpleElement(xml, "end", lecture.getEnd().toString());
             writeSimpleElement(xml, "room_or_link", lecture.getRoomOrLink());
             xml.writeEndElement(); // lecture
         }

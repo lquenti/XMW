@@ -11,20 +11,11 @@
   <component name="ChangeListManager">
     <list default="true" id="e08a0624-4ad7-49a1-b0b9-80aa9b9e5fcf" name="Changes" comment="update exams overview">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CoursesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CoursesServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/Exam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/Exam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/ExamServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/ExamServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/ExamsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/ExamsServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectureres/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectureres/Lecturer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectureres/LecturerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectureres/LecturerServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectureres/LecturersServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectureres/LecturersServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/Lecture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/Lecture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/LectureServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/LectureServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/LectureRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/LectureRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/LecturesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/LecturesServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/semesters/Semester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/semesters/Semester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/semesters/SemestersServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/semesters/SemestersServlet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

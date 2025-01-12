@@ -68,7 +68,7 @@ public class CourseServlet extends HttpServlet {
                         "    attribute id { $course/id/text() }, " +
                         "    attribute semester_id { $course/semester_id/text() }, " +
                         "    element faculty { $course/faculty/text() }, " +
-                        "    element lecturer_id { $course/lecturer_id/text() }, " +
+                        "    element lecturer { attribute id { $course/lecturer_id/text() } }, " +
                         "    element max_students { $course/max_students/text() }, " +
                         "    element name { $course/name/text() }, " +
                         "    element lectures { " +

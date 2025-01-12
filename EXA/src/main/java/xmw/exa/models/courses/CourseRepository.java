@@ -23,10 +23,10 @@ public class CourseRepository extends BaseXmlRepository<Course> {
                         "return element course { " +
                         "  attribute id { $c/id/text() }, " +
                         "  attribute semester_id { $c/semester_id/text() }, " +
-                        "  element name { $c/name/text() }, " +
                         "  element faculty { $c/faculty/text() }, " +
-                        "  element lecturer_id { $c/lecturer_id/text() }, " +
-                        "  element max_students { $c/max_students/text() } " +
+                        "  element lecturer { attribute id { $c/lecturer_id/text() } }, " +
+                        "  element max_students { $c/max_students/text() }, " +
+                        "  element name { $c/name/text() } " +
                         "}",
                 DB_NAME);
 
@@ -55,10 +55,10 @@ public class CourseRepository extends BaseXmlRepository<Course> {
                         "return element course { " +
                         "  attribute id { $c/id/text() }, " +
                         "  attribute semester_id { $c/semester_id/text() }, " +
-                        "  element name { $c/name/text() }, " +
                         "  element faculty { $c/faculty/text() }, " +
-                        "  element lecturer_id { $c/lecturer_id/text() }, " +
-                        "  element max_students { $c/max_students/text() } " +
+                        "  element lecturer { attribute id { $c/lecturer_id/text() } }, " +
+                        "  element max_students { $c/max_students/text() }, " +
+                        "  element name { $c/name/text() } " +
                         "}",
                 DB_NAME, id);
 
@@ -93,10 +93,17 @@ public class CourseRepository extends BaseXmlRepository<Course> {
                 course.setSemesterId(Integer.parseInt(semesterIdMatcher.group(1)));
             }
 
+            // Extract lecturer ID from lecturer element's id attribute
+            String lecturerIdPattern = "<lecturer[^>]*id=\"([^\"]*)\"";
+            java.util.regex.Pattern lecturerIdRegex = java.util.regex.Pattern.compile(lecturerIdPattern);
+            java.util.regex.Matcher lecturerIdMatcher = lecturerIdRegex.matcher(element);
+            if (lecturerIdMatcher.find()) {
+                course.setLecturerId(Integer.parseInt(lecturerIdMatcher.group(1)));
+            }
+
             // Extract other fields
             course.setName(extractValue(element, "name"));
             course.setFaculty(extractValue(element, "faculty"));
-            course.setLecturerId(Integer.parseInt(extractValue(element, "lecturer_id")));
             course.setMaxStudents(Integer.parseInt(extractValue(element, "max_students")));
             return course;
         } catch (Exception e) {
@@ -125,7 +132,7 @@ public class CourseRepository extends BaseXmlRepository<Course> {
                     "<Course>" +
                             "  <faculty>%s</faculty>" +
                             "  <id>%d</id>" +
-                            "  <lecturer_id>%d</lecturer_id>" +
+                            "  <lecturer id=\"%d\"/>" +
                             "  <max_students>%d</max_students>" +
                             "  <name>%s</name>" +
                             "  <semester_id>%d</semester_id>" +
