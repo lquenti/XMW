@@ -135,4 +135,30 @@ public class UserDB {
             return new XQuery(authQuery).execute(instance.ctx);
         }
     }
+
+    public static String getAllUsersOfGroup(String groupname, boolean with_password) throws BaseXException {
+        String authQuery;
+        if (with_password) {
+            authQuery = "<Users>{/Users/User[./group/text() = '" + groupname + "' or ./group/@id = '" + groupname + "']}</Users>";
+        } else {
+            authQuery = "<Users>"
+                    + "{"
+                    + "for $user in /Users/User[./group/text() = '" + groupname + "' or ./group/@id = '" + groupname + "']"
+                    + " return"
+                    + " <User>"
+                    + "{ for $attr in $user/@* return $attr }"
+                    + "{"
+                    + "  for $child in $user/*"
+                    + "  where not(local-name() = \"password\")"
+                    + "  return $child"
+                    + "}"
+                    + " </User>"
+                    + "}"
+                    + "</Users>";
+        }
+        synchronized (lock) {
+            return new XQuery(authQuery).execute(instance.ctx);
+        }
+    }
+
 }

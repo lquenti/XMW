@@ -397,7 +397,7 @@ public class RootServlet extends HttpServlet {
 
         // GET by Group
         Endpoint getUsersByGroup = new Endpoint();
-        getUsersByGroup.endpoint = "/group/<GROUP_ID>";
+        getUsersByGroup.endpoint = "/group/<GROUP_ID> (case sensitive)";
         getUsersByGroup.method = Endpoint.Methods.GET;
         getUsersByGroup.requestPayload = null;
         getUsersByGroup.responses = new ArrayList<>();
