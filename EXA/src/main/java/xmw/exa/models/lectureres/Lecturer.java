@@ -60,7 +60,7 @@ public class Lecturer {
 
     // Relationship methods
     public List<Course> getCourses() {
-        return DB.getInstance().getAllCourses().stream()
+        return DB.getInstance().courses().all().stream()
                 .filter(course -> course.getLecturerId() == id)
                 .toList();
     }

@@ -93,7 +93,7 @@ public class ExamServlet extends HttpServlet {
                 PrintWriter out = response.getWriter();
 
                 int numExamId = Integer.parseInt(examId);
-                var exam = db.getAllExams().stream()
+                var exam = db.exams().all().stream()
                         .filter(e -> numExamId == e.getId())
                         .findFirst()
                         .orElse(null);

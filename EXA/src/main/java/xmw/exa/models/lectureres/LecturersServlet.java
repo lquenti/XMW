@@ -69,7 +69,7 @@ public class LecturersServlet extends HttpServlet {
         response.setContentType("text/html");
         request.setAttribute("name", this.name);
 
-        List<Lecturer> lecturers = db.getAllLecturers();
+        List<Lecturer> lecturers = db.lecturers().all();
         StringBuilder message = new StringBuilder("<ul>");
         for (Lecturer lecturer : lecturers) {
             message

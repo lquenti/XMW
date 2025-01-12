@@ -42,7 +42,7 @@ public class ExamsServlet extends HttpServlet {
         if (isXmlFormat) {
             try {
                 // Get all exams using the DB class
-                var exams = db.getAllExams();
+                var exams = db.exams().all();
 
                 // Build XML response using StringBuilder for better control
                 StringBuilder xmlBuilder = new StringBuilder();
@@ -108,9 +108,9 @@ public class ExamsServlet extends HttpServlet {
         request.setAttribute("name", this.name);
 
         // Get all exams and courses
-        var exams = db.getAllExams();
-        var courses = db.getAllCourses();
-        var semesters = db.getAllSemesters();
+        var exams = db.exams().all();
+        var courses = db.courses().all();
+        var semesters = db.semesters().all();
 
         StringBuilder message = new StringBuilder();
 

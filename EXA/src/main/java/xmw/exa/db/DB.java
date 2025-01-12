@@ -172,32 +172,6 @@ public class DB {
         initializeDatabase();
     }
 
-    // Alias methods that delegate to repositories
-    @Deprecated
-    public List<Lecturer> getAllLecturers() {
-        return lecturerRepository.all();
-    }
-
-    @Deprecated
-    public List<Course> getAllCourses() {
-        return courseRepository.all();
-    }
-
-    @Deprecated
-    public List<Exam> getAllExams() {
-        return examRepository.all();
-    }
-
-    @Deprecated
-    public List<Semester> getAllSemesters() {
-        return semesterRepository.all();
-    }
-
-    @Deprecated
-    public List<Lecture> getAllLectures() {
-        return lectureRepository.all();
-    }
-
     public static void close(Context context) {
         try {
             new Close().execute(context);

@@ -150,7 +150,7 @@ public class CourseServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
 
             int numCourseId = Integer.parseInt(courseId);
-            var course = db.getAllCourses().stream()
+            var course = db.courses().all().stream()
                     .filter(c -> c.getId() == numCourseId)
                     .findFirst()
                     .orElse(null);
@@ -161,7 +161,7 @@ public class CourseServlet extends HttpServlet {
             }
 
             // Find the lecturer
-            var lecturer = db.getAllLecturers().stream()
+            var lecturer = db.lecturers().all().stream()
                     .filter(l -> l.getId() == course.getLecturerId())
                     .findFirst()
                     .orElse(null);

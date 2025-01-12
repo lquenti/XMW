@@ -47,7 +47,7 @@ public class Semester {
 
     // Relationship methods
     public List<Course> getCourses() {
-        return DB.getInstance().getAllCourses().stream()
+        return DB.getInstance().courses().all().stream()
                 .filter(course -> course.getSemesterId() == id)
                 .toList();
     }

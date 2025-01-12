@@ -75,7 +75,7 @@ public class SemestersServlet extends HttpServlet {
         request.setAttribute("name", this.name);
 
         // Get all semesters
-        var semesters = db.getAllSemesters();
+        var semesters = db.semesters().all();
 
         StringBuilder message = new StringBuilder();
         message.append("<ul>");

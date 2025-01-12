@@ -98,7 +98,7 @@ public class LecturerServlet extends HttpServlet {
     }
 
     private Lecturer getLecturer(String username) {
-        return db.getAllLecturers().stream()
+        return db.lecturers().all().stream()
                 .filter(l -> l.getUsername().equals(username))
                 .findFirst()
                 .orElse(null);

@@ -1,14 +1,5 @@
 package xmw.exa.models.courses;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.List;
-
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
-
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,10 +8,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
 import xmw.exa.models.exams.Exam;
+import xmw.exa.models.exams.ExamRepository;
 import xmw.exa.models.lectureres.Lecturer;
+import xmw.exa.models.lectureres.LecturerRepository;
 import xmw.exa.models.lectures.Lecture;
 import xmw.exa.models.semesters.Semester;
+import xmw.exa.models.semesters.SemesterRepository;
 import xmw.exa.util.Config;
+
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.List;
 
 @WebServlet(name = "courses", value = "/courses")
 public class CoursesServlet extends HttpServlet {
@@ -48,9 +50,9 @@ public class CoursesServlet extends HttpServlet {
         if (isXmlFormat) {
             try {
                 // Get all data
-                List<Course> courses = db.getAllCourses();
-                List<Lecturer> allLecturers = db.getAllLecturers();
-                List<Exam> allExams = db.getAllExams();
+                List<Course> courses = db.courses().all();
+                List<Lecturer> allLecturers = db.lecturers().all();
+                List<Exam> allExams = db.exams().all();
 
                 // Create XML writer
                 StringWriter stringWriter = new StringWriter();
@@ -87,9 +89,9 @@ public class CoursesServlet extends HttpServlet {
         request.setAttribute("name", this.name);
 
         // Query for all courses with lecturer information
-        List<Course> courses = db.getAllCourses();
-        List<Lecturer> lecturers = db.getAllLecturers();
-        List<Semester> semesters = db.getAllSemesters();
+        List<Course> courses = db.courses().all();
+        List<Lecturer> lecturers = db.lecturers().all();
+        List<Semester> semesters = db.semesters().all();
 
         StringBuilder message = new StringBuilder();
 

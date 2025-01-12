@@ -91,7 +91,7 @@ public class LectureServlet extends HttpServlet {
                 PrintWriter out = response.getWriter();
 
                 int numLectureId = Integer.parseInt(lectureId);
-                var lecture = db.getAllLectures().stream()
+                var lecture = db.lectures().all().stream()
                         .filter(l -> l.getId() == numLectureId)
                         .findFirst()
                         .orElse(null);

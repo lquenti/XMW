@@ -64,7 +64,7 @@ public class Exam {
 
     // Relationship methods
     public Course getCourse() {
-        return DB.getInstance().getAllCourses().stream()
+        return DB.getInstance().courses().all().stream()
                 .filter(course -> course.getId() == courseId)
                 .findFirst().orElse(null);
     }
