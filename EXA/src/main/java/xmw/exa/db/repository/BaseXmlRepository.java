@@ -3,10 +3,11 @@ package xmw.exa.db.repository;
 import java.io.IOException;
 
 import org.basex.core.Context;
+import xmw.exa.util.Config;
 
 public abstract class BaseXmlRepository<T> implements Repository<T> {
     protected final Context context;
-    protected static final String DB_NAME = "exa";
+    public static final String DB_NAME = Config.BASE_URL.replace("/", "");
 
     protected BaseXmlRepository(Context context) {
         this.context = context;

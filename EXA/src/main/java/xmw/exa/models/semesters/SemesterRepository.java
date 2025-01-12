@@ -20,14 +20,13 @@ public class SemesterRepository extends BaseXmlRepository<Semester> {
     public List<Semester> all() {
         List<Semester> semesters = new ArrayList<>();
         String query = String.format(
-                "for $s in collection('%s/semesters.xml')/Semesters/Semester " +
+                "for $s in /root/Semesters/Semester " +
                         "return element semester { " +
                         "  element id { $s/id/text() }, " +
                         "  element name { $s/name/text() }, " +
                         "  element start { $s/start/text() }, " +
                         "  element end { $s/end/text() } " +
-                        "}",
-                DB_NAME);
+                        "}");
 
         try {
             String result = new XQuery(query).execute(context);
@@ -49,14 +48,14 @@ public class SemesterRepository extends BaseXmlRepository<Semester> {
     @Override
     public Semester getById(long id) {
         String query = String.format(
-                "for $s in collection('%s/semesters.xml')/Semesters/Semester[id = %d] " +
+                "for $s in /root/Semesters/Semester[id = %d] " +
                         "return element semester { " +
                         "  element id { $s/id/text() }, " +
                         "  element name { $s/name/text() }, " +
                         "  element start { $s/start/text() }, " +
                         "  element end { $s/end/text() } " +
                         "}",
-                DB_NAME, id);
+                 id);
 
         try {
             String result = new XQuery(query).execute(context);

@@ -39,11 +39,11 @@ public class LecturerServlet extends HttpServlet {
         try {
             // Query for the specific lecturer's XML with proper indentation
             String query = String.format(
-                    "let $lecturer := collection('%s/lecturers.xml')/Lectureres/Lecturer[@username = '%s'] " +
+                    "let $lecturer := /root/Lectureres/Lecturer[@username = '%s'] " +
                             "return if ($lecturer) then " +
                             "  serialize($lecturer, map { 'method': 'xml', 'indent': 'yes' }) " +
                             "else ()",
-                    "exa", username.replace("'", "''"));
+                    username.replace("'", "''"));
 
             String result = new XQuery(query).execute(db.getContext());
 

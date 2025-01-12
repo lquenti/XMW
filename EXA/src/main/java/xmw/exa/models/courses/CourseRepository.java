@@ -18,17 +18,15 @@ public class CourseRepository extends BaseXmlRepository<Course> {
     @Override
     public List<Course> all() {
         List<Course> courses = new ArrayList<>();
-        String query = String.format(
-                "for $c in collection('%s/courses.xml')/Courses/Course " +
-                        "return element course { " +
-                        "  attribute id { $c/id/text() }, " +
-                        "  attribute semester_id { $c/semester_id/text() }, " +
-                        "  element faculty { $c/faculty/text() }, " +
-                        "  element lecturer { attribute id { $c/lecturer_id/text() } }, " +
-                        "  element max_students { $c/max_students/text() }, " +
-                        "  element name { $c/name/text() } " +
-                        "}",
-                DB_NAME);
+        String query = "for $c in /root/Courses/Course " +
+                "return element course { " +
+                "  attribute id { $c/id/text() }, " +
+                "  attribute semester_id { $c/semester_id/text() }, " +
+                "  element faculty { $c/faculty/text() }, " +
+                "  element lecturer { attribute id { $c/lecturer_id/text() } }, " +
+                "  element max_students { $c/max_students/text() }, " +
+                "  element name { $c/name/text() } " +
+                "}";
 
         try {
             String result = new XQuery(query).execute(context);
@@ -51,7 +49,7 @@ public class CourseRepository extends BaseXmlRepository<Course> {
     @Override
     public Course getById(long id) {
         String query = String.format(
-                "for $c in collection('%s/courses.xml')/Courses/Course[id = %d] " +
+                "for $c in /root/Courses/Course[id = %d] " +
                         "return element course { " +
                         "  attribute id { $c/id/text() }, " +
                         "  attribute semester_id { $c/semester_id/text() }, " +
@@ -118,7 +116,7 @@ public class CourseRepository extends BaseXmlRepository<Course> {
         try {
             // Find the highest existing ID
             String maxIdQuery = String.format(
-                    "let $maxId := max(collection('%s/courses.xml')/Courses/Course/id/text()) " +
+                    "let $maxId := max(/root/Courses/Course/id/text()) " +
                             "return if ($maxId) then $maxId else 0",
                     DB_NAME);
             String maxIdResult = new XQuery(maxIdQuery).execute(context);
@@ -146,7 +144,7 @@ public class CourseRepository extends BaseXmlRepository<Course> {
 
             // Add the new course to the existing courses
             String query = String.format(
-                    "let $courses := collection('%s/courses.xml')/Courses " +
+                    "let $courses := /root/Courses " +
                             "return insert node %s as last into $courses",
                     DB_NAME,
                     courseXml);

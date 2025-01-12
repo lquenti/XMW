@@ -55,7 +55,7 @@ public class LectureServlet extends HttpServlet {
         try {
             // Query for the specific lecture
             String query = String.format(
-                    "let $lecture := collection('%s/lectures.xml')/Lectures/Lecture[id = %s] " +
+                    "let $lecture := /root/Lectures/Lecture[id = %s] " +
                             "return if ($lecture) then " +
                             "  serialize(element lectures { " +
                             "    element lecture { " +
@@ -67,7 +67,7 @@ public class LectureServlet extends HttpServlet {
                             "    } " +
                             "  }, map { 'method': 'xml', 'indent': 'yes' }) " +
                             "else ()",
-                    "exa", lectureId);
+                    lectureId);
 
             String result = new XQuery(query).execute(db.getContext());
 

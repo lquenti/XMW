@@ -20,7 +20,7 @@ public class LectureRepository extends BaseXmlRepository<Lecture> {
     public List<Lecture> all() {
         List<Lecture> lectures = new ArrayList<>();
         String query = String.format(
-                "for $l in collection('%s/lectures.xml')/Lectures/Lecture " +
+                "for $l in /root/Lectures/Lecture " +
                         "return element lecture { " +
                         "  element id { $l/id/text() }, " +
                         "  element course_id { $l/course_id/text() }, " +
@@ -49,14 +49,14 @@ public class LectureRepository extends BaseXmlRepository<Lecture> {
     @Override
     public Lecture getById(long id) {
         String query = String.format(
-                "for $l in collection('%s/lectures.xml')/Lectures/Lecture[id = %d] " +
+                "for $l in /root/Lectures/Lecture[id = %d] " +
                         "return element lecture { " +
                         "  element id { $l/id/text() }, " +
                         "  element course_id { $l/course_id/text() }, " +
                         "  element start { $l/start/text() }, " +
                         "  element room_or_link { $l/room_or_link/text() } " +
                         "}",
-                DB_NAME, id);
+                id);
 
         try {
             String result = new XQuery(query).execute(context);
