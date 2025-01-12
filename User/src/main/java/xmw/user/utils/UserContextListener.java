@@ -31,6 +31,36 @@ public class UserContextListener implements ServletContextListener {
                 <group id="g_lecturer">Lecturer</group>
                 <group id="g_employee">Employee</group>
               </User>
+              <User username="wmay">
+                <name>May</name>
+                <firstname>Wolfgang</firstname>
+                <password>m0nd14l</password>
+                <faculty>Computer Science</faculty>
+                <group id="g_lecturer">Lecturer</group>
+                <group id="g_employee">Employee</group>
+                <group id="g_professor">Professor</group>
+              </User>
+              <User username="lars.quentin">
+                <name>Quentin</name>
+                <firstname>Lars</firstname>
+                <password>bobbydocuments</password>
+                <faculty>Computer Science</faculty>
+                <group id="g_student">Student</group>
+              </User>
+              <User username="frederik.hennecke">
+                <name>Hennecke</name>
+                <firstname>Frederik</firstname>
+                <password>1234</password>
+                <faculty>Computer Science</faculty>
+                <group id="g_student">Student</group>
+              </User>
+              <User username="v.mattfeld">
+                <name>Mattfeld</name>
+                <firstname>Valerius Albert Gongjus</firstname>
+                <password>hunter3</password>
+                <faculty>Computer Science</faculty>
+                <group id="g_student">Student</group>
+              </User>
             </Users>
             """;
 
