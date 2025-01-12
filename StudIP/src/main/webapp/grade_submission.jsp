@@ -29,6 +29,7 @@
 </head>
 <body>
 <h1>Grade Submission</h1>
+<a href="index.jsp">Main Site</a>
 
 <!-- Exam Selection -->
 <form method="GET">

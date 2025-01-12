@@ -4,6 +4,8 @@ import org.basex.core.BaseXException;
 import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.XQuery;
 import org.basex.core.Context;
+import org.basex.query.QueryException;
+import org.basex.query.QueryProcessor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -24,48 +26,41 @@ import java.util.Map;
 
 public class XMLDatabase {
     private static XMLDatabase instance;
-    private static final String DB_NAME = "ScheduleDB";
+    private static final String DB_NAME = "StudDB";
+    private static final Object lock = new Object();
 
     // Initialize BaseX context
     private Context context;
 
-    // Define the XML content
-    private static final String EXAMPLE_XML =
-            """   
-                 <StudIP>
-                    <Schedules>
-                        <Schedule username="hbrosen">
-                            <Course id="1" semester="ws2425">
-                            </Course>
-                        </Schedule>
-                    </Schedules>
-                    <Exams>
-                        <Registration username="hbrosen">
-                            <Exam id="1">
-                            </Exam>
-                        </Registration>
-                    </Exams>
-                    <Grades>
-                        <Grade username="hbrosen">
-                            <Exam id="13">1.0</Exam>
-                        </Grade>
-                    </Grades>
-                 </StudIP>
-                   \s""";
-
     private XMLDatabase() {
         try {
             // Connect to BaseX server
-            context = new Context();
-            new CreateDB(DB_NAME, EXAMPLE_XML).execute(context);
+            synchronized (lock) {
+                context = new Context();
+                new CreateDB(DB_NAME, AppContextListener.USER_PATH).execute(context);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public static void init() {
+        instance = new XMLDatabase();
+    }
+
+    public static void flushToDisk() throws QueryException, BaseXException {
+        String query = "file:write(\"" + AppContextListener.USER_PATH + "\", /)";
+        synchronized (lock) {
+            XQuery proc = new XQuery(query);
+            proc.execute(instance.context);
+        }
+    }
+
     public static synchronized XMLDatabase getInstance() {
-        if (instance == null) {
-            instance = new XMLDatabase();
+        synchronized (lock) {
+            if (instance == null) {
+                instance = new XMLDatabase();
+            }
         }
         return instance;
     }
@@ -79,8 +74,10 @@ public class XMLDatabase {
                             "return exists($schedules)",
                     userId
             );
-
-            boolean userHasSchedule = Boolean.parseBoolean(new XQuery(checkScheduleQuery).execute(context));
+            boolean userHasSchedule;
+            synchronized (lock) {
+                userHasSchedule = Boolean.parseBoolean(new XQuery(checkScheduleQuery).execute(context));
+            }
 
             String xquery;
 
@@ -102,7 +99,9 @@ public class XMLDatabase {
             }
 
             // Execute the XQuery
-            new XQuery(xquery).execute(context);
+            synchronized (lock) {
+                new XQuery(xquery).execute(context);
+            }
 
             return true;
         } catch (Exception e) {
@@ -122,7 +121,9 @@ public class XMLDatabase {
             );
 
             // Execute the XQuery
-            new XQuery(xquery).execute(context);
+            synchronized (lock) {
+                new XQuery(xquery).execute(context);
+            }
 
             return true;
         } catch (BaseXException e) {
@@ -198,22 +199,6 @@ public class XMLDatabase {
         return courses;
     }
 
-    private String getLecturesString(NodeList lectures) {
-        Element tmp = (Element) lectures.item(0);
-        StringBuilder time = new StringBuilder(String.format("Begin: %s \t End: %s \t Room: %s",
-                tmp.getElementsByTagName("start").item(0).getTextContent(),
-                tmp.getElementsByTagName("end").item(0).getTextContent(),
-                tmp.getElementsByTagName("room_or_link").item(0).getTextContent()));
-        for(int i=1;i<lectures.getLength();i++){
-            tmp = (Element) lectures.item(i);
-            time.append(String.format("\nBegin: %s \t End: %s \t Room: %s",
-                    tmp.getElementsByTagName("start").item(0).getTextContent(),
-                    tmp.getElementsByTagName("end").item(0).getTextContent(),
-                    tmp.getElementsByTagName("room_or_link").item(0).getTextContent()));
-        }
-        return time.toString();
-    }
-
     public List<Map<String,String>> getScheduleForStudent(String userId) throws Exception {
         List<Map<String, String>> schedule = new ArrayList<>();
         try {
@@ -225,7 +210,10 @@ public class XMLDatabase {
                                 <CourseID>{$course/@id/string()}</CourseID>
                                 <Semester>{$course/@semester/string()}</Semester>
                               </CourseDetail>""", userId);
-            String result = new XQuery(query).execute(context);
+            String result;
+            synchronized (lock) {
+                result = new XQuery(query).execute(context);
+            }
             for(String r: result.split("\n")) {
                 if(!r.isEmpty())
                     schedule.add(parseLectureResults(r));
@@ -290,10 +278,6 @@ public class XMLDatabase {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public String getThing() {
-        return "";
     }
 
     public List<Map<String, String>> getExams() throws Exception {
@@ -400,7 +384,11 @@ public class XMLDatabase {
                     userId
             );
 
-            boolean examExists = Boolean.parseBoolean(new XQuery(checkExamsQuery).execute(context));
+            boolean examExists;
+
+            synchronized (lock) {
+                examExists = Boolean.parseBoolean(new XQuery(checkExamsQuery).execute(context));
+            }
 
             String xquery;
 
@@ -422,7 +410,9 @@ public class XMLDatabase {
             }
 
             // Execute the XQuery
-            new XQuery(xquery).execute(context);
+            synchronized (lock) {
+                new XQuery(xquery).execute(context);
+            }
 
             return true;
         } catch (BaseXException e) {
@@ -442,7 +432,9 @@ public class XMLDatabase {
             );
 
             // Execute the XQuery
-            new XQuery(xquery).execute(context);
+            synchronized (lock) {
+                new XQuery(xquery).execute(context);
+            }
 
             return true;
         } catch (BaseXException e) {
@@ -462,7 +454,10 @@ public class XMLDatabase {
             );
 
             // Execute the XQuery and process the results
-            String result = new XQuery(xquery).execute(context);
+            String result;
+            synchronized (lock) {
+                result = new XQuery(xquery).execute(context);
+            }
             String[] ids = result.split("\\n");
             List<String> examIds = new ArrayList<>();
 
@@ -531,7 +526,10 @@ public class XMLDatabase {
                     studentId, examId
             );
 
-            boolean gradeExists = Boolean.parseBoolean(new XQuery(checkGradeQuery).execute(context));
+            boolean gradeExists;
+            synchronized (lock) {
+                gradeExists = Boolean.parseBoolean(new XQuery(checkGradeQuery).execute(context));
+            }
 
             String xquery;
 
@@ -553,7 +551,9 @@ public class XMLDatabase {
             }
 
             // Execute the XQuery
-            new XQuery(xquery).execute(context);
+            synchronized (lock) {
+                new XQuery(xquery).execute(context);
+            }
 
             return true;
         } catch (BaseXException e) {
@@ -572,7 +572,10 @@ public class XMLDatabase {
             );
 
             // Execute the XQuery and process the results
-            String result = new XQuery(xquery).execute(context);
+            String result;
+            synchronized (lock) {
+                result = new XQuery(xquery).execute(context);
+            }
             String[] entries = result.split("\\n");
             List<Map<String, String>> grades = new ArrayList<>();
 

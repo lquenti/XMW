@@ -14,6 +14,7 @@
 </head>
 <body>
 <h1>Exam Registration</h1>
+<a href="index.jsp">Main Site</a>
 
 <p style="text-align: center; color: green;">
     <% String message = (String) request.getAttribute("message");
