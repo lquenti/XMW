@@ -4,10 +4,8 @@ import org.basex.core.BaseXException;
 import org.basex.core.Context;
 import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.XQuery;
-import org.basex.data.Result;
 import org.basex.query.QueryException;
 import org.basex.query.QueryProcessor;
-import org.basex.query.value.Value;
 import xmw.user.utils.UserContextListener;
 
 import java.io.IOException;
@@ -108,6 +106,33 @@ public class UserDB {
                 throw new RuntimeException(e);
             }
             proc.close();
+        }
+    }
+
+    public static String getAllUsers(boolean with_password) throws BaseXException {
+        String authQuery;
+        if (with_password) {
+            authQuery = "/";
+        } else {
+            authQuery = """
+                    <Users>
+                    {
+                    for $user in /Users/User
+                    return
+                    <User>
+                    { for $attr in $user/@* return $attr }
+                    {
+                      for $child in $user/*
+                      where not(local-name() = "password")
+                      return $child
+                    }
+                    </User>
+                    }
+                    </Users>
+                    """;
+        }
+        synchronized (lock) {
+            return new XQuery(authQuery).execute(instance.ctx);
         }
     }
 }
