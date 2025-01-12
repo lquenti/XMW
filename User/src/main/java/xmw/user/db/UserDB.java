@@ -119,7 +119,7 @@ public class UserDB {
             authQuery = """
                     <Users>
                     {
-                    for $user in /Users
+                    for $user in /Users/User
                     return
                     <User>
                     { for $attr in $user/@* return $attr }
