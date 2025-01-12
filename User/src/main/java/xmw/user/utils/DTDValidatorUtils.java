@@ -50,6 +50,16 @@ public class DTDValidatorUtils {
             ]>
             """;
 
+    public static final String DTD_BULK_REQUEST = """
+            <!DOCTYPE Users [
+                <!ELEMENT Users (User*)>
+                <!ELEMENT User EMPTY>
+                <!ATTLIST User
+                  username CDATA #REQUIRED
+                >
+            ]>
+            """;
+
     // Default does not throw anything...
     private static final ErrorHandler WARNINGS_OKAY_HANDLER = new ErrorHandler() {
         @Override
@@ -96,5 +106,9 @@ public class DTDValidatorUtils {
 
     public static boolean validateWithoutPassword(String xml) throws IOException {
         return validateXMLSnippet(xml, DTD_WITHOUT_PASSWORD);
+    }
+
+    public static boolean validateBulkRequest(String xml) throws IOException {
+        return validateXMLSnippet(xml, DTD_BULK_REQUEST);
     }
 }
