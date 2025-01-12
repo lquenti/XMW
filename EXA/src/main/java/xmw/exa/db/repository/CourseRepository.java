@@ -105,4 +105,51 @@ public class CourseRepository extends BaseXmlRepository<Course> {
             return null;
         }
     }
+
+    @Override
+    public boolean create(Course data) {
+        try {
+            // Find the highest existing ID
+            String maxIdQuery = String.format(
+                    "let $maxId := max(collection('%s/courses.xml')/Courses/Course/id/text()) " +
+                            "return if ($maxId) then $maxId else 0",
+                    DB_NAME);
+            String maxIdResult = new XQuery(maxIdQuery).execute(context);
+            int nextId = Integer.parseInt(maxIdResult.trim()) + 1;
+
+            // Set the new ID
+            data.setId(nextId);
+
+            // Create XML representation of the course
+            String courseXml = String.format(
+                    "<Course>" +
+                            "  <faculty>%s</faculty>" +
+                            "  <id>%d</id>" +
+                            "  <lecturer_id>%d</lecturer_id>" +
+                            "  <max_students>%d</max_students>" +
+                            "  <name>%s</name>" +
+                            "  <semester_id>%d</semester_id>" +
+                            "</Course>",
+                    data.getFaculty(),
+                    data.getId(),
+                    data.getLecturerId(),
+                    data.getMaxStudents(),
+                    data.getName(),
+                    data.getSemesterId());
+
+            // Add the new course to the existing courses
+            String query = String.format(
+                    "let $courses := collection('%s/courses.xml')/Courses " +
+                            "return insert node %s as last into $courses",
+                    DB_NAME,
+                    courseXml);
+
+            new XQuery(query).execute(context);
+            return true;
+        } catch (BaseXException e) {
+            System.err.println("Failed to create course: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

@@ -89,4 +89,10 @@ public class ExamRepository extends BaseXmlRepository<Exam> {
             return null;
         }
     }
+
+    @Override
+    public boolean create(Exam data) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'create'");
+    }
 }

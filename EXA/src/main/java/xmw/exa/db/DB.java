@@ -103,28 +103,58 @@ public class DB {
         }
     }
 
+    public CourseRepository courses() {
+        return courseRepository;
+    }
+
+    public LecturerRepository lecturers() {
+        return lecturerRepository;
+    }
+
+    public ExamRepository exams() {
+        return examRepository;
+    }
+
+    public LectureRepository lectures() {
+        return lectureRepository;
+    }
+
+    public SemesterRepository semesters() {
+        return semesterRepository;
+    }
+
+    public void reinitialize() throws BaseXException {
+        DB.close(context);
+        initializeDatabase();
+    }
+
     // Alias methods that delegate to repositories
+    @Deprecated
     public List<Lecturer> getAllLecturers() {
         return lecturerRepository.all();
     }
 
+    @Deprecated
     public List<Course> getAllCourses() {
         return courseRepository.all();
     }
 
+    @Deprecated
     public List<Exam> getAllExams() {
         return examRepository.all();
     }
 
+    @Deprecated
     public List<Semester> getAllSemesters() {
         return semesterRepository.all();
     }
 
+    @Deprecated
     public List<Lecture> getAllLectures() {
         return lectureRepository.all();
     }
 
-    public void close() {
+    public static void close(Context context) {
         try {
             new Close().execute(context);
         } catch (BaseXException e) {

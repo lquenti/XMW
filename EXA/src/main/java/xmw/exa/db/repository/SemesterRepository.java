@@ -83,4 +83,10 @@ public class SemesterRepository extends BaseXmlRepository<Semester> {
             return null;
         }
     }
+
+    @Override
+    public boolean create(Semester data) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'create'");
+    }
 }
