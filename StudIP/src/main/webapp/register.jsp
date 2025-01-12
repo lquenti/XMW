@@ -19,8 +19,9 @@
                     String courseId = course.get("CourseID");
                     String name = course.get("Name");
                     String faculty = course.get("Faculty");
+                    String semester = course.get("Semester");
         %>
-        <option value="<%= courseId %>"><%= faculty + ": " + name %></option>
+        <option value="<%= courseId %>"><%= faculty + ": " + name + " (" + semester + ")" %></option>
         <%
                 }
             }

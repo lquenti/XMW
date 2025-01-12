@@ -87,7 +87,7 @@ public class LoginServlet extends HttpServlet {
             }
 
             // Set a cookie with the user ID
-            Cookie userCookie = new Cookie("xmw_studip_userid", userMap.get("userID"));
+            Cookie userCookie = new Cookie("xmw_studip_userid", username);
             userCookie.setPath("/");
             response.addCookie(userCookie);
 

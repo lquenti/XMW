@@ -86,4 +86,10 @@ public class LectureRepository extends BaseXmlRepository<Lecture> {
             return null;
         }
     }
+
+    @Override
+    public boolean create(Lecture data) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'create'");
+    }
 }

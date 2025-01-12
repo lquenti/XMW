@@ -6,4 +6,6 @@ public interface Repository<T> {
     List<T> all();
 
     T getById(long id);
+
+    boolean create(T data);
 }
