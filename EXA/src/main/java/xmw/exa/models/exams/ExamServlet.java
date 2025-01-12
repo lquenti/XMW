@@ -1,4 +1,4 @@
-package xmw.exa;
+package xmw.exa.models.exams;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,10 +11,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import xmw.exa.db.Course;
 import xmw.exa.db.DB;
-import xmw.exa.db.Lecturer;
-import xmw.exa.util.HtmlUtil;
+import xmw.exa.models.courses.Course;
+import xmw.exa.models.lectureres.Lecturer;
+import xmw.exa.util.Config;
 
 @WebServlet(name = "exam", urlPatterns = "/exams/*")
 public class ExamServlet extends HttpServlet {
@@ -40,7 +40,7 @@ public class ExamServlet extends HttpServlet {
         // Handle /all endpoint
         if (examId.equals("all")) {
             String queryString = request.getQueryString();
-            response.sendRedirect(HtmlUtil.BASE_URL + "/exams" + (queryString != null ? "?" + queryString : ""));
+            response.sendRedirect(Config.BASE_URL + "/exams" + (queryString != null ? "?" + queryString : ""));
             return;
         }
 
@@ -93,7 +93,7 @@ public class ExamServlet extends HttpServlet {
                 PrintWriter out = response.getWriter();
 
                 int numExamId = Integer.parseInt(examId);
-                var exam = db.getAllExams().stream()
+                var exam = db.exams().all().stream()
                         .filter(e -> numExamId == e.getId())
                         .findFirst()
                         .orElse(null);
@@ -116,14 +116,14 @@ public class ExamServlet extends HttpServlet {
                 out.println("<p><strong>ID:</strong> " + exam.getId() + "</p>");
                 out.println("<p><strong>Course:</strong> "
                         + (course != null ? String.format("<a href='%s/courses/%d'>%s</a>",
-                                HtmlUtil.BASE_URL,
+                                Config.BASE_URL,
                                 course.getId(),
                                 course.getName())
                                 : "Unknown Course")
                         + "</p>");
                 out.println("<p><strong>Lecturer:</strong> "
                         + (lecturer != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
-                                HtmlUtil.BASE_URL,
+                                Config.BASE_URL,
                                 lecturer.getUsername(),
                                 lecturer.getFullName())
                                 : "Unknown Lecturer")
@@ -138,7 +138,7 @@ public class ExamServlet extends HttpServlet {
                         (isWritten ? "Written" : "Oral") + "</p>");
                 out.println("<p><strong>" + (isOnline ? "Link" : "Room") + ":</strong> " + location + "</p>");
                 out.println("</div>");
-                out.println("<p><a href='" + HtmlUtil.BASE_URL + "/exams'>Back to Exams List</a></p>");
+                out.println("<p><a href='" + Config.BASE_URL + "/exams'>Back to Exams List</a></p>");
                 out.println("<p><small>View as: <a href='?format=xml'>XML</a></small></p>");
                 out.println("</body>");
                 out.println("</html>");

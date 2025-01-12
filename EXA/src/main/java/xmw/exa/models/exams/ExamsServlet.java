@@ -1,4 +1,4 @@
-package xmw.exa;
+package xmw.exa.models.exams;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,28 +9,30 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import xmw.exa.db.Course;
 import xmw.exa.db.DB;
-import xmw.exa.util.HtmlUtil;
+import xmw.exa.models.courses.Course;
+import xmw.exa.models.lectureres.Lecturer;
+import xmw.exa.models.semesters.Semester;
+import xmw.exa.util.Config;
 
-@WebServlet(name = "lectures", value = "/lectures")
-public class LecturesServlet extends HttpServlet {
+@WebServlet(name = "exams", value = "/exams")
+public class ExamsServlet extends HttpServlet {
     private String name;
     private DB db;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Override
     public void init() {
-        name = "Lectures";
+        name = "Exams";
         db = DB.getInstance();
     }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String pathInfo = request.getServletPath();
-        if (pathInfo.equals("/lectures/all")) {
+        if (pathInfo.equals("/exams/all")) {
             String queryString = request.getQueryString();
-            response.sendRedirect(HtmlUtil.BASE_URL + "/lectures" + (queryString != null ? "?" + queryString : ""));
+            response.sendRedirect(Config.BASE_URL + "/exams" + (queryString != null ? "?" + queryString : ""));
             return;
         }
 
@@ -39,18 +41,18 @@ public class LecturesServlet extends HttpServlet {
 
         if (isXmlFormat) {
             try {
-                // Get all lectures using the DB class
-                var lectures = db.getAllLectures();
+                // Get all exams using the DB class
+                var exams = db.exams().all();
 
                 // Build XML response using StringBuilder for better control
                 StringBuilder xmlBuilder = new StringBuilder();
-                xmlBuilder.append("<lectures>\n");
+                xmlBuilder.append("<exams>\n");
 
-                for (var lecture : lectures) {
-                    var course = lecture.getCourse();
+                for (var exam : exams) {
+                    var course = exam.getCourse();
 
-                    xmlBuilder.append("  <lecture>\n")
-                            .append("    <id>").append(lecture.getId()).append("</id>\n")
+                    xmlBuilder.append("  <exam>\n")
+                            .append("    <id>").append(exam.getId()).append("</id>\n")
                             .append("    <course>\n");
 
                     if (course != null) {
@@ -79,13 +81,14 @@ public class LecturesServlet extends HttpServlet {
                     }
 
                     xmlBuilder.append("    </course>\n")
-                            .append("    <start>").append(lecture.getStart()).append("</start>\n")
-                            .append("    <end>").append(lecture.getEnd()).append("</end>\n")
-                            .append("    <room_or_link>").append(lecture.getRoomOrLink()).append("</room_or_link>\n")
-                            .append("  </lecture>\n");
+                            .append("    <date>").append(exam.getDate()).append("</date>\n")
+                            .append("    <is_online>").append(exam.isOnline()).append("</is_online>\n")
+                            .append("    <is_written>").append(exam.isWritten()).append("</is_written>\n")
+                            .append("    <room_or_link>").append(exam.getRoomOrLink()).append("</room_or_link>\n")
+                            .append("  </exam>\n");
                 }
 
-                xmlBuilder.append("</lectures>");
+                xmlBuilder.append("</exams>");
 
                 // Return XML response
                 response.setContentType("application/xml");
@@ -96,7 +99,7 @@ public class LecturesServlet extends HttpServlet {
                 out.flush();
                 return;
             } catch (Exception e) {
-                throw new IOException("Failed to generate lectures XML: " + e.getMessage(), e);
+                throw new IOException("Failed to generate exams XML: " + e.getMessage(), e);
             }
         }
 
@@ -104,45 +107,53 @@ public class LecturesServlet extends HttpServlet {
         response.setContentType("text/html");
         request.setAttribute("name", this.name);
 
-        // Get all lectures and courses
-        var lectures = db.getAllLectures();
-        var courses = db.getAllCourses();
-        var semesters = db.getAllSemesters();
+        // Get all exams and courses
+        var exams = db.exams().all();
+        var courses = db.courses().all();
+        var semesters = db.semesters().all();
 
         StringBuilder message = new StringBuilder();
 
-        // Group lectures by semester through their courses
-        for (var semester : semesters) {
-            var semesterLectures = lectures.stream()
-                    .filter(l -> {
+        // Group exams by semester through their courses
+        for (Semester semester : semesters) {
+            var semesterExams = exams.stream()
+                    .filter(e -> {
                         var course = courses.stream()
-                                .filter(c -> c.getId() == l.getCourseId())
+                                .filter(c -> c.getId() == e.getCourseId())
                                 .findFirst()
                                 .orElse(null);
                         return course != null && course.getSemesterId() == semester.getId();
                     })
-                    .sorted((l1, l2) -> l1.getStart().compareTo(l2.getStart()))
+                    .sorted((e1, e2) -> e1.getDate().compareTo(e2.getDate()))
                     .toList();
 
-            if (!semesterLectures.isEmpty()) {
+            if (!semesterExams.isEmpty()) {
                 message.append("<h2>").append(semester.getName()).append("</h2><ul>");
 
-                for (var lecture : semesterLectures) {
+                for (Exam exam : semesterExams) {
                     Course course = courses.stream()
-                            .filter(c -> c.getId() == lecture.getCourseId())
+                            .filter(c -> c.getId() == exam.getCourseId())
                             .findFirst().orElse(null);
 
+                    // Get lecturer information
+                    Lecturer lecturer = course != null ? course.getLecturer() : null;
+
                     message.append("<li>")
-                            .append("<a href=\"" + HtmlUtil.BASE_URL + "/lectures/").append(lecture.getId())
-                            .append("\">")
-                            .append(lecture.getStart().format(DATE_FORMATTER))
+                            .append("<a href=\"" + Config.BASE_URL + "/exams/").append(exam.getId()).append("\">")
+                            .append(exam.getDate().format(DATE_FORMATTER))
                             .append(" - ")
-                            .append(lecture.getRoomOrLink())
+                            .append(exam.getRoomOrLink())
                             .append("</a>")
                             .append(" for ")
-                            .append("<a href=\"" + HtmlUtil.BASE_URL + "/courses/").append(course.getId()).append("\">")
+                            .append("<a href=\"" + Config.BASE_URL + "/courses/").append(course.getId()).append("\">")
                             .append(course.getName())
-                            .append("</a>");
+                            .append("</a>")
+                            .append(" by ")
+                            .append(lecturer != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
+                                    Config.BASE_URL,
+                                    lecturer.getUsername(),
+                                    lecturer.getFullName())
+                                    : "Unknown Lecturer");
                     message.append("</li>");
                 }
                 message.append("</ul>");
@@ -157,6 +168,13 @@ public class LecturesServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private String extractValue(String xml, String tag) {
+        String pattern = String.format("<%s>([^<]*)</%s>", tag, tag);
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern);
+        java.util.regex.Matcher m = p.matcher(xml);
+        return m.find() ? m.group(1).trim() : "";
     }
 
     @Override

@@ -1,4 +1,7 @@
-package xmw.exa.db;
+package xmw.exa.models.semesters;
+
+import xmw.exa.models.courses.Course;
+import xmw.exa.db.DB;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -44,7 +47,7 @@ public class Semester {
 
     // Relationship methods
     public List<Course> getCourses() {
-        return DB.getInstance().getAllCourses().stream()
+        return DB.getInstance().courses().all().stream()
                 .filter(course -> course.getSemesterId() == id)
                 .toList();
     }

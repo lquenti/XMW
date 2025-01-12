@@ -1,6 +1,16 @@
-package xmw.exa.db;
+package xmw.exa.models.courses;
 
 import java.util.List;
+
+import xmw.exa.db.DB;
+import xmw.exa.models.exams.Exam;
+import xmw.exa.models.exams.ExamRepository;
+import xmw.exa.models.lectureres.Lecturer;
+import xmw.exa.models.lectureres.LecturerRepository;
+import xmw.exa.models.lectures.Lecture;
+import xmw.exa.models.lectures.LectureRepository;
+import xmw.exa.models.semesters.Semester;
+import xmw.exa.models.semesters.SemesterRepository;
 
 public class Course {
     private int id;
@@ -40,7 +50,8 @@ public class Course {
     }
 
     public Lecturer getLecturer() {
-        return DB.getInstance().getAllLecturers().stream().filter(
+        var repo = new LecturerRepository(DB.getInstance().getContext());
+        return repo.all().stream().filter(
                 lecturer -> lecturer.getId() == lecturerId).findFirst().orElse(null);
     }
 
@@ -65,19 +76,22 @@ public class Course {
     }
 
     public Semester getSemester() {
-        return DB.getInstance().getAllSemesters().stream().filter(
+        var repo = new SemesterRepository(DB.getInstance().getContext());
+        return repo.all().stream().filter(
                 semester -> semester.getId() == semesterId).findFirst().orElse(null);
     }
 
     public List<Exam> getExams() {
-        return DB.getInstance().getAllExams().stream()
+        var repo = new ExamRepository(DB.getInstance().getContext());
+        return repo.all().stream()
                 .filter(exam -> exam.getCourseId() == id)
                 .toList();
     }
 
     // Relationship methods
     public List<Lecture> getLectures() {
-        return DB.getInstance().getAllLectures().stream()
+        var repo = new LectureRepository(DB.getInstance().getContext());
+        return repo.all().stream()
                 .filter(lecture -> lecture.getCourseId() == id)
                 .sorted((l1, l2) -> l1.getStart().compareTo(l2.getStart()))
                 .toList();

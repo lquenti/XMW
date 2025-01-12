@@ -13,7 +13,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import xmw.exa.db.Course;
+import xmw.exa.models.courses.Course;
+import xmw.exa.models.courses.CourseRepository;
 import xmw.exa.db.DB;
 
 class CourseRepositoryTest {

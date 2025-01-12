@@ -1,4 +1,4 @@
-package xmw.exa;
+package xmw.exa.models.courses;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
-import xmw.exa.util.HtmlUtil;
+import xmw.exa.util.Config;
 
 @WebServlet(name = "course", urlPatterns = "/courses/*")
 public class CourseServlet extends HttpServlet {
@@ -46,7 +46,7 @@ public class CourseServlet extends HttpServlet {
         // Handle /all endpoint
         if (courseId.equals("all")) {
             String queryString = request.getQueryString();
-            response.sendRedirect(HtmlUtil.BASE_URL + "/courses" + (queryString != null ? "?" + queryString : ""));
+            response.sendRedirect(Config.BASE_URL + "/courses" + (queryString != null ? "?" + queryString : ""));
             return;
         }
 
@@ -68,7 +68,7 @@ public class CourseServlet extends HttpServlet {
                         "    attribute id { $course/id/text() }, " +
                         "    attribute semester_id { $course/semester_id/text() }, " +
                         "    element faculty { $course/faculty/text() }, " +
-                        "    element lecturer_id { $course/lecturer_id/text() }, " +
+                        "    element lecturer { attribute id { $course/lecturer_id/text() } }, " +
                         "    element max_students { $course/max_students/text() }, " +
                         "    element name { $course/name/text() }, " +
                         "    element lectures { " +
@@ -150,7 +150,7 @@ public class CourseServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
 
             int numCourseId = Integer.parseInt(courseId);
-            var course = db.getAllCourses().stream()
+            var course = db.courses().all().stream()
                     .filter(c -> c.getId() == numCourseId)
                     .findFirst()
                     .orElse(null);
@@ -161,7 +161,7 @@ public class CourseServlet extends HttpServlet {
             }
 
             // Find the lecturer
-            var lecturer = db.getAllLecturers().stream()
+            var lecturer = db.lecturers().all().stream()
                     .filter(l -> l.getId() == course.getLecturerId())
                     .findFirst()
                     .orElse(null);
@@ -177,7 +177,7 @@ public class CourseServlet extends HttpServlet {
             out.println("<p><strong>Faculty:</strong> " + course.getFaculty() + "</p>");
             out.println("<p><strong>Lecturer:</strong> " +
                     (lecturer != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
-                            HtmlUtil.BASE_URL,
+                            Config.BASE_URL,
                             lecturer.getUsername(),
                             lecturer.getFullName())
                             : "Unknown Lecturer")
@@ -193,7 +193,7 @@ public class CourseServlet extends HttpServlet {
                 for (var lecture : lectures) {
                     out.println("<li>");
                     out.println(String.format("<a href='%s/lectures/%d'>%s - %s</a>",
-                            HtmlUtil.BASE_URL,
+                            Config.BASE_URL,
                             lecture.getId(),
                             lecture.getStart().format(DATE_FORMATTER),
                             lecture.getRoomOrLink()));
@@ -214,7 +214,7 @@ public class CourseServlet extends HttpServlet {
                 for (var exam : exams) {
                     out.println("<li>");
                     out.println(String.format("<a href='%s/exams/%d'>%s - %s</a> (%s%s)",
-                            HtmlUtil.BASE_URL,
+                            Config.BASE_URL,
                             exam.getId(),
                             exam.getDate().format(DATE_FORMATTER),
                             exam.getRoomOrLink(),
@@ -228,7 +228,7 @@ public class CourseServlet extends HttpServlet {
             }
 
             out.println("</div>");
-            out.println("<p><a href='" + HtmlUtil.BASE_URL + "/courses'>Back to Courses List</a></p>");
+            out.println("<p><a href='" + Config.BASE_URL + "/courses'>Back to Courses List</a></p>");
             out.println("<p><small>View as: <a href='?format=xml'>XML</a></small></p>");
             out.println("</body>");
             out.println("</html>");

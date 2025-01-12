@@ -1,4 +1,7 @@
-package xmw.exa.db;
+package xmw.exa.models.lectureres;
+
+import xmw.exa.models.courses.Course;
+import xmw.exa.db.DB;
 
 import java.util.List;
 
@@ -57,7 +60,7 @@ public class Lecturer {
 
     // Relationship methods
     public List<Course> getCourses() {
-        return DB.getInstance().getAllCourses().stream()
+        return DB.getInstance().courses().all().stream()
                 .filter(course -> course.getLecturerId() == id)
                 .toList();
     }

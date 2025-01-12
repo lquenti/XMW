@@ -1,4 +1,4 @@
-package xmw.exa.db.repository;
+package xmw.exa.models.lectureres;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.basex.core.BaseXException;
 import org.basex.core.Context;
 import org.basex.core.cmd.XQuery;
 
-import xmw.exa.db.Lecturer;
+import xmw.exa.db.repository.BaseXmlRepository;
 
 public class LecturerRepository extends BaseXmlRepository<Lecturer> {
 

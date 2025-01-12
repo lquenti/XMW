@@ -1,4 +1,4 @@
-package xmw.exa.db.repository;
+package xmw.exa.models.exams;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import org.basex.core.BaseXException;
 import org.basex.core.Context;
 import org.basex.core.cmd.XQuery;
 
-import xmw.exa.db.Exam;
+import xmw.exa.db.repository.BaseXmlRepository;
 
 public class ExamRepository extends BaseXmlRepository<Exam> {
 

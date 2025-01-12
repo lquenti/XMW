@@ -1,13 +1,15 @@
-package xmw.exa.db;
+package xmw.exa.models.lectures;
+
+import xmw.exa.models.courses.Course;
+import xmw.exa.db.DB;
 
 import java.time.LocalDateTime;
 
-public class Exam {
+public class Lecture {
     private int id;
     private int courseId;
-    private LocalDateTime date;
-    private boolean isOnline;
-    private boolean isWritten;
+    private LocalDateTime start;
+    private LocalDateTime end;
     private String roomOrLink;
 
     // Getters and setters
@@ -27,28 +29,20 @@ public class Exam {
         this.courseId = courseId;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public LocalDateTime getStart() {
+        return start;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void setStart(LocalDateTime start) {
+        this.start = start;
     }
 
-    public boolean isOnline() {
-        return isOnline;
+    public LocalDateTime getEnd() {
+        return end;
     }
 
-    public void setOnline(boolean online) {
-        isOnline = online;
-    }
-
-    public boolean isWritten() {
-        return isWritten;
-    }
-
-    public void setWritten(boolean written) {
-        isWritten = written;
+    public void setEnd(LocalDateTime end) {
+        this.end = end;
     }
 
     public String getRoomOrLink() {
@@ -61,19 +55,18 @@ public class Exam {
 
     // Relationship methods
     public Course getCourse() {
-        return DB.getInstance().getAllCourses().stream()
+        return DB.getInstance().courses().all().stream()
                 .filter(course -> course.getId() == courseId)
                 .findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
-        return "Exam{" +
+        return "Lecture{" +
                 "id=" + id +
                 ", courseId=" + courseId +
-                ", date=" + date +
-                ", isOnline=" + isOnline +
-                ", isWritten=" + isWritten +
+                ", start=" + start +
+                ", end=" + end +
                 ", roomOrLink='" + roomOrLink + '\'' +
                 '}';
     }
