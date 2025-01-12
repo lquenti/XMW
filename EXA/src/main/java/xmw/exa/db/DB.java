@@ -2,11 +2,8 @@ package xmw.exa.db;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.Arrays;
-import java.util.List;
 
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
@@ -70,6 +67,15 @@ public class DB {
 
     private void initializeDatabase() throws BaseXException {
         try {
+            // Close any existing context first
+            if (context != null) {
+                try {
+                    new Close().execute(context);
+                } catch (Exception e) {
+                    // Ignore close errors
+                }
+            }
+
             var xml = Files.readString(new File(Config.FLUSH_FILE_PATH).toPath());
             new CreateDB(BaseXmlRepository.DB_NAME).execute(context);
             var addQuery = CourseUtil.addQuery(xml);
@@ -100,13 +106,28 @@ public class DB {
     }
 
     public void reinitialize() throws BaseXException {
-        DB.close(context);
-        initializeDatabase();
+        try {
+            // Close existing context
+            if (context != null) {
+                try {
+                    new Close().execute(context);
+                } catch (Exception e) {
+                    // Ignore close errors
+                }
+            }
+            initializeDatabase();
+        } catch (Exception e) {
+            throw new BaseXException("Failed to reinitialize database: " + e.getMessage());
+        }
     }
 
-    public void dumpToFile(String outputPath) throws BaseXException, IOException {
+    public void dumpToFile() throws IOException {
+        dumpToFile(Config.FLUSH_FILE_PATH);
+    }
+
+    public void dumpToFile(String outputPath) throws IOException {
         // Create a query that combines all collections into a single XML document
-        String query = String.format("/root");
+        String query = "/root";
 
         String result = new XQuery(query).execute(context);
 
@@ -118,13 +139,14 @@ public class DB {
     }
 
     public static void close(Context context) {
-        try {
-            new Close().execute(context);
-        } catch (BaseXException e) {
-            // Ignore close errors
-        } finally {
+        if (context != null) {
+            try {
+                new Close().execute(context);
+            } catch (Exception e) {
+                // Ignore close errors
+            }
             context.close();
-            instance = null; // Allow recreation after close
         }
+        instance = null; // Allow recreation after close
     }
 }

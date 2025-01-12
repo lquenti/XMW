@@ -1,5 +1,6 @@
 package xmw.exa.models.courses;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.basex.core.BaseXException;
 import org.basex.core.Context;
 import org.basex.core.cmd.XQuery;
 
+import xmw.exa.db.DB;
 import xmw.exa.db.repository.BaseXmlRepository;
 
 public class CourseRepository extends BaseXmlRepository<Course> {
@@ -47,28 +49,15 @@ public class CourseRepository extends BaseXmlRepository<Course> {
     }
 
     @Override
-    public Course getById(long id) {
-        String query = String.format(
-                "for $c in /root/Courses/Course[id = %d] " +
-                        "return element course { " +
-                        "  attribute id { $c/id/text() }, " +
-                        "  attribute semester_id { $c/semester_id/text() }, " +
-                        "  element faculty { $c/faculty/text() }, " +
-                        "  element lecturer { attribute id { $c/lecturer_id/text() } }, " +
-                        "  element max_students { $c/max_students/text() }, " +
-                        "  element name { $c/name/text() } " +
-                        "}",
-                DB_NAME, id);
-
-        try {
-            String result = new XQuery(query).execute(context);
-            if (result.trim().isEmpty()) {
-                return null;
+    public Course get(long id) {
+        var all = this.all();
+        for (var course : all) {
+            if (course.getId() == id) {
+                return course;
             }
-            return parseCourseElement(result);
-        } catch (BaseXException e) {
-            throw new RuntimeException("Failed to query course: " + e.getMessage(), e);
         }
+
+        return null;
     }
 
     private Course parseCourseElement(String element) {
@@ -96,7 +85,10 @@ public class CourseRepository extends BaseXmlRepository<Course> {
             java.util.regex.Pattern lecturerIdRegex = java.util.regex.Pattern.compile(lecturerIdPattern);
             java.util.regex.Matcher lecturerIdMatcher = lecturerIdRegex.matcher(element);
             if (lecturerIdMatcher.find()) {
-                course.setLecturerId(Integer.parseInt(lecturerIdMatcher.group(1)));
+                String lecturerId = lecturerIdMatcher.group(1);
+                if (!lecturerId.isEmpty()) {
+                    course.setLecturerId(Integer.parseInt(lecturerId));
+                }
             }
 
             // Extract other fields
@@ -115,10 +107,8 @@ public class CourseRepository extends BaseXmlRepository<Course> {
     public boolean create(Course data) {
         try {
             // Find the highest existing ID
-            String maxIdQuery = String.format(
-                    "let $maxId := max(/root/Courses/Course/id/text()) " +
-                            "return if ($maxId) then $maxId else 0",
-                    DB_NAME);
+            String maxIdQuery = "let $maxId := max(/root/Courses/Course/id/text()) " +
+                    "return if ($maxId) then $maxId else 0";
             String maxIdResult = new XQuery(maxIdQuery).execute(context);
             int nextId = Integer.parseInt(maxIdResult.trim()) + 1;
 
@@ -130,7 +120,7 @@ public class CourseRepository extends BaseXmlRepository<Course> {
                     "<Course>" +
                             "  <faculty>%s</faculty>" +
                             "  <id>%d</id>" +
-                            "  <lecturer id=\"%d\"/>" +
+                            "  <lecturer_id>%d</lecturer_id>" +
                             "  <max_students>%d</max_students>" +
                             "  <name>%s</name>" +
                             "  <semester_id>%d</semester_id>" +
@@ -146,15 +136,44 @@ public class CourseRepository extends BaseXmlRepository<Course> {
             String query = String.format(
                     "let $courses := /root/Courses " +
                             "return insert node %s as last into $courses",
-                    DB_NAME,
                     courseXml);
 
             new XQuery(query).execute(context);
+            try {
+                DB.getInstance().dumpToFile();
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
             return true;
         } catch (BaseXException e) {
             System.err.println("Failed to create course: " + e.getMessage());
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public Course update(Course data) {
+        throw new UnsupportedOperationException("not implemented");
+    }
+
+    @Override
+    public void delete(long id) {
+        Course course = this.get(id);
+
+        try {
+            String query = String.format(
+                    "delete node /root/Courses/Course[id = %d]",
+                    id);
+            new XQuery(query).execute(context);
+            try {
+                DB.getInstance().dumpToFile();
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        } catch (BaseXException e) {
+            System.err.println("Failed to delete course: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

@@ -48,7 +48,7 @@ public class LecturerRepository extends BaseXmlRepository<Lecturer> {
     }
 
     @Override
-    public Lecturer getById(long id) {
+    public Lecturer get(long id) {
         String query = String.format(
                 "for $l in /root/Lectureres/Lecturer[id = %d] " +
                         "return element lecturer { " +
@@ -58,7 +58,7 @@ public class LecturerRepository extends BaseXmlRepository<Lecturer> {
                         "  element first_name { $l/firstname/text() }, " +
                         "  element last_name { $l/name/text() } " +
                         "}",
-                 id);
+                id);
 
         try {
             String result = new XQuery(query).execute(context);
@@ -108,5 +108,17 @@ public class LecturerRepository extends BaseXmlRepository<Lecturer> {
     public boolean create(Lecturer data) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'create'");
+    }
+
+    @Override
+    public Lecturer update(Lecturer data) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    @Override
+    public void delete(long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 }

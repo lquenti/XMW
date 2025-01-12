@@ -46,7 +46,7 @@ public class SemesterRepository extends BaseXmlRepository<Semester> {
     }
 
     @Override
-    public Semester getById(long id) {
+    public Semester get(long id) {
         String query = String.format(
                 "for $s in /root/Semesters/Semester[id = %d] " +
                         "return element semester { " +
@@ -55,7 +55,7 @@ public class SemesterRepository extends BaseXmlRepository<Semester> {
                         "  element start { $s/start/text() }, " +
                         "  element end { $s/end/text() } " +
                         "}",
-                 id);
+                id);
 
         try {
             String result = new XQuery(query).execute(context);
@@ -87,5 +87,17 @@ public class SemesterRepository extends BaseXmlRepository<Semester> {
     public boolean create(Semester data) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'create'");
+    }
+
+    @Override
+    public Semester update(Semester data) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    @Override
+    public void delete(long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 }

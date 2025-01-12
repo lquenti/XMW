@@ -19,17 +19,15 @@ public class ExamRepository extends BaseXmlRepository<Exam> {
     @Override
     public List<Exam> all() {
         List<Exam> exams = new ArrayList<>();
-        String query = String.format(
-                "for $e in /root/Exams/Exam " +
-                        "return element exam { " +
-                        "  element id { $e/id/text() }, " +
-                        "  element course_id { $e/course_id/text() }, " +
-                        "  element date { $e/date/text() }, " +
-                        "  element is_online { $e/is_online/text() }, " +
-                        "  element is_written { $e/is_written/text() }, " +
-                        "  element room_or_link { $e/room_or_link/text() } " +
-                        "}",
-                DB_NAME);
+        String query = "for $e in /root/Exams/Exam " +
+                "return element exam { " +
+                "  element id { $e/id/text() }, " +
+                "  element course_id { $e/course_id/text() }, " +
+                "  element date { $e/date/text() }, " +
+                "  element is_online { $e/is_online/text() }, " +
+                "  element is_written { $e/is_written/text() }, " +
+                "  element room_or_link { $e/room_or_link/text() } " +
+                "}";
 
         try {
             String result = new XQuery(query).execute(context);
@@ -49,7 +47,7 @@ public class ExamRepository extends BaseXmlRepository<Exam> {
     }
 
     @Override
-    public Exam getById(long id) {
+    public Exam get(long id) {
         String query = String.format(
                 "for $e in /root/Exams/Exam[id = %d] " +
                         "return element exam { " +
@@ -94,5 +92,17 @@ public class ExamRepository extends BaseXmlRepository<Exam> {
     public boolean create(Exam data) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'create'");
+    }
+
+    @Override
+    public Exam update(Exam data) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    @Override
+    public void delete(long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 }
