@@ -1,0 +1,48 @@
+package xmw.studip;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+@WebServlet("/flex")
+public class ExamServlet extends HttpServlet {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            // Fetch exams from XMLDatabase
+            XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
+            List<Map<String, String>> exams = xmlDatabase.getExams();
+
+            List<String> registeredExamIds = xmlDatabase.getAllExamIDs(AuthUtil.getLoggedInUserId(request));
+
+            List<Map<String, String>> registeredExams = new ArrayList<>();
+            for(Map<String, String> exam: exams){
+                if(registeredExamIds.contains(exam.get("examId")))
+                    registeredExams.add(exam);
+            }
+
+            // Set exams as a request attribute
+            request.setAttribute("exams", registeredExams);
+
+            // Forward to JSP to display exams
+            request.getRequestDispatcher("/show_exams.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("Error fetching exams.");
+        }
+    }
+}
+

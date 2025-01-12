@@ -52,12 +52,21 @@ public class CourseRegistrationServlet extends HttpServlet {
 
         String courseId = request.getParameter("courseId");
         String semesterId = request.getParameter("semesterId");
+        String action = request.getParameter("action");
 
         // Mock course registration logic
-        if (xmlDatabase.registerStudentToCourse(userId, courseId, semesterId)) {
-            request.setAttribute("message", "Registration successful!");
-        } else {
-            request.setAttribute("message", "Registration failed! Course not found.");
+        if("register".equalsIgnoreCase(action)){
+            if (xmlDatabase.registerStudentToCourse(userId, courseId, semesterId)) {
+                request.setAttribute("message", "Registration successful!");
+            } else {
+                request.setAttribute("message", "Registration failed! Course not found.");
+            }
+        } else if ("deregister".equalsIgnoreCase(action)) {
+            if (xmlDatabase.deregisterStudentFromCourse(userId, courseId, semesterId)) {
+                request.setAttribute("message", "Deregistration successful!");
+            } else {
+                request.setAttribute("message", "Deregistration failed! Course not found.");
+            }
         }
         doGet(request, response);
     }
