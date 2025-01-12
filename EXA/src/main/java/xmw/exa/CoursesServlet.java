@@ -156,7 +156,7 @@ public class CoursesServlet extends HttpServlet {
         xml.writeEndElement(); // course
     }
 
-    private void writeSimpleElement(XMLStreamWriter xml, String elementName, String value) throws Exception {
+    private void writeSimpleElement(XMLStreamWriter xml, String elementName, String value) throws XMLStreamException {
         xml.writeStartElement(elementName);
         xml.writeCharacters(value);
         xml.writeEndElement();
