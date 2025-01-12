@@ -615,6 +615,38 @@ public class XMLDatabase {
         return roles;
     }
 
+    public Map<String, String> getUserInfo(String UserId) throws IOException {
+        String loginApiUrl = "http://localhost:8080/User/id/" + UserId;
+        URL url = new URL(loginApiUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        connection.setDoOutput(true);
+
+        Document doc;
+        Map<String, String> userInfo = new HashMap<>();
+        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            String xmlResponse = new String(connection.getInputStream().readAllBytes());
+
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = null;
+            try {
+                builder = factory.newDocumentBuilder();
+                doc = builder.parse(new ByteArrayInputStream(xmlResponse.getBytes()));
+            } catch (SAXException | ParserConfigurationException | IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            NodeList nodeList = doc.getElementsByTagName("User");
+            Element currentUser = (Element) nodeList.item(0);
+            userInfo.put("username", currentUser.getAttribute("username"));
+            userInfo.put("name", currentUser.getElementsByTagName("name").item(0).getTextContent());
+            userInfo.put("firstname", currentUser.getElementsByTagName("firstname").item(0).getTextContent());
+            userInfo.put("faculty", currentUser.getElementsByTagName("faculty").item(0).getTextContent());
+        }
+        return userInfo;
+    }
+
     public List<Map<String, String>> getExamsAsLecturer(String LecturerId) throws Exception {
         List<Map<String, String>> exams = getExams();
         List<Map<String, String>> currentExams = new ArrayList<>();

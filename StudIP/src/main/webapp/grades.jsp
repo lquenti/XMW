@@ -46,6 +46,10 @@
   %>
   </tbody>
 </table>
+<!-- Button to generate certificate -->
+<form method="POST" action="generateCertificate">
+  <button type="submit">Generate Certificate</button>
+</form>
 </body>
 </html>
 

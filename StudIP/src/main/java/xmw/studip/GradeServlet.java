@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,4 +44,6 @@ public class GradeServlet extends HttpServlet {
             response.getWriter().write("Error fetching exams.");
         }
     }
+
+
 }
