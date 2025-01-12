@@ -13,20 +13,14 @@ import org.basex.core.cmd.Close;
 import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.XQuery;
 
-import xmw.exa.models.courses.Course;
 import xmw.exa.models.courses.CourseRepository;
-import xmw.exa.models.exams.Exam;
 import xmw.exa.models.exams.ExamRepository;
-import xmw.exa.models.lectureres.Lecturer;
 import xmw.exa.models.lectureres.LecturerRepository;
-import xmw.exa.models.lectures.Lecture;
 import xmw.exa.models.lectures.LectureRepository;
-import xmw.exa.models.semesters.Semester;
 import xmw.exa.models.semesters.SemesterRepository;
 import xmw.exa.util.Config;
 
 public class DB {
-    private static final String DB_NAME = "exa";
     private static final String[] MOCK_XML_FILES = {
             "courses.xml",
             "exams.xml",
@@ -37,6 +31,7 @@ public class DB {
 
     private static DB instance;
     private final Context context;
+    public static final String DB_NAME = "exa";
     private final LecturerRepository lecturerRepository;
     private final CourseRepository courseRepository;
     private final ExamRepository examRepository;
@@ -52,11 +47,11 @@ public class DB {
         }
 
         // Initialize repositories
-        this.lecturerRepository = new LecturerRepository(context);
-        this.courseRepository = new CourseRepository(context);
-        this.examRepository = new ExamRepository(context);
-        this.lectureRepository = new LectureRepository(context);
-        this.semesterRepository = new SemesterRepository(context);
+        this.lecturerRepository = new LecturerRepository(context, DB_NAME);
+        this.courseRepository = new CourseRepository(context, DB_NAME);
+        this.examRepository = new ExamRepository(context, DB_NAME);
+        this.lectureRepository = new LectureRepository(context, DB_NAME);
+        this.semesterRepository = new SemesterRepository(context, DB_NAME);
     }
 
     public static synchronized DB getInstance() {
@@ -129,17 +124,11 @@ public class DB {
     }
 
     private String loadFromResource(String xmlFile) throws IOException {
-        String resourcePath = "/mockData/" + xmlFile;
-        InputStream is = DB.class.getResourceAsStream(resourcePath);
+        String resourcePath = "mockData/" + xmlFile;
+        InputStream is = getClass().getClassLoader().getResourceAsStream(resourcePath);
 
         if (is == null) {
-            // Try without leading slash if first attempt fails
-            resourcePath = "mockData/" + xmlFile;
-            is = DB.class.getResourceAsStream(resourcePath);
-        }
-
-        if (is == null) {
-            throw new IOException("Could not find resource: " + xmlFile + " (tried with and without leading slash)");
+            throw new IOException("Could not find resource: " + xmlFile + " in mockData/");
         }
 
         try (InputStream input = is) {
@@ -170,6 +159,58 @@ public class DB {
     public void reinitialize() throws BaseXException {
         DB.close(context);
         initializeDatabase();
+    }
+
+    public void dumpToFile(String outputPath) throws BaseXException, IOException {
+        dumpToFile(outputPath, false);
+    }
+
+    public void dumpToFlushFile() throws BaseXException, IOException {
+        dumpToFile(Config.FLUSH_FILE_PATH, true);
+    }
+
+    private void dumpToFile(String outputPath, boolean isFlushFormat) throws BaseXException, IOException {
+        // Create a query that combines all collections
+        String query;
+        if (isFlushFormat) {
+            query = String.format(
+                    "let $courses := collection('%1$s/courses.xml')/Courses/Course\n" +
+                            "let $exams := collection('%1$s/exams.xml')/Exams/Exam\n" +
+                            "let $lecturers := collection('%1$s/lecturers.xml')/Lectureres/Lecturer\n" +
+                            "let $lectures := collection('%1$s/lectures.xml')/Lectures/Lecture\n" +
+                            "let $semesters := collection('%1$s/semesters.xml')/Semesters/Semester\n" +
+                            "return\n" +
+                            "<root>\n" +
+                            "  <Courses>{$courses}</Courses>\n" +
+                            "  <Exams>{$exams}</Exams>\n" +
+                            "  <Lectureres>{$lecturers}</Lectureres>\n" +
+                            "  <Lectures>{$lectures}</Lectures>\n" +
+                            "  <Semesters>{$semesters}</Semesters>\n" +
+                            "</root>",
+                    DB_NAME);
+        } else {
+            query = String.format(
+                    "let $collections := (\n" +
+                            "  collection('%1$s/courses.xml')/Courses,\n" +
+                            "  collection('%1$s/exams.xml')/Exams,\n" +
+                            "  collection('%1$s/lecturers.xml')/Lectureres,\n" +
+                            "  collection('%1$s/lectures.xml')/Lectures,\n" +
+                            "  collection('%1$s/semesters.xml')/Semesters\n" +
+                            ")\n" +
+                            "return\n" +
+                            "<database>\n" +
+                            "{$collections}\n" +
+                            "</database>",
+                    DB_NAME);
+        }
+
+        String result = new XQuery(query).execute(context);
+
+        // Write the result to the specified file
+        java.nio.file.Files.writeString(
+                new File(outputPath).toPath(),
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + result,
+                StandardCharsets.UTF_8);
     }
 
     public static void close(Context context) {

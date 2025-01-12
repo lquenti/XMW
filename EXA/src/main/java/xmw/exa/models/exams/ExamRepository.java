@@ -12,8 +12,8 @@ import xmw.exa.db.repository.BaseXmlRepository;
 
 public class ExamRepository extends BaseXmlRepository<Exam> {
 
-    public ExamRepository(Context context) {
-        super(context);
+    public ExamRepository(Context context, String dbName) {
+        super(context, dbName);
     }
 
     @Override

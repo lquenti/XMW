@@ -6,10 +6,11 @@ import org.basex.core.Context;
 
 public abstract class BaseXmlRepository<T> implements Repository<T> {
     protected final Context context;
-    protected static final String DB_NAME = "exa";
+    protected final String DB_NAME;
 
-    protected BaseXmlRepository(Context context) {
+    public BaseXmlRepository(Context context, String dbName) {
         this.context = context;
+        this.DB_NAME = dbName;
     }
 
     protected String extractValue(String xml, String tag) {
