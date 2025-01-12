@@ -1,4 +1,4 @@
-package xmw.exa;
+package xmw.exa.models.exams;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,10 +9,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import xmw.exa.db.Course;
 import xmw.exa.db.DB;
-import xmw.exa.db.Lecturer;
-import xmw.exa.util.HtmlUtil;
+import xmw.exa.models.courses.Course;
+import xmw.exa.models.lectureres.Lecturer;
+import xmw.exa.models.semesters.Semester;
+import xmw.exa.util.Config;
 
 @WebServlet(name = "exams", value = "/exams")
 public class ExamsServlet extends HttpServlet {
@@ -31,7 +32,7 @@ public class ExamsServlet extends HttpServlet {
         String pathInfo = request.getServletPath();
         if (pathInfo.equals("/exams/all")) {
             String queryString = request.getQueryString();
-            response.sendRedirect(HtmlUtil.BASE_URL + "/exams" + (queryString != null ? "?" + queryString : ""));
+            response.sendRedirect(Config.BASE_URL + "/exams" + (queryString != null ? "?" + queryString : ""));
             return;
         }
 
@@ -114,7 +115,7 @@ public class ExamsServlet extends HttpServlet {
         StringBuilder message = new StringBuilder();
 
         // Group exams by semester through their courses
-        for (var semester : semesters) {
+        for (Semester semester : semesters) {
             var semesterExams = exams.stream()
                     .filter(e -> {
                         var course = courses.stream()
@@ -129,7 +130,7 @@ public class ExamsServlet extends HttpServlet {
             if (!semesterExams.isEmpty()) {
                 message.append("<h2>").append(semester.getName()).append("</h2><ul>");
 
-                for (var exam : semesterExams) {
+                for (Exam exam : semesterExams) {
                     Course course = courses.stream()
                             .filter(c -> c.getId() == exam.getCourseId())
                             .findFirst().orElse(null);
@@ -138,18 +139,18 @@ public class ExamsServlet extends HttpServlet {
                     Lecturer lecturer = course != null ? course.getLecturer() : null;
 
                     message.append("<li>")
-                            .append("<a href=\"" + HtmlUtil.BASE_URL + "/exams/").append(exam.getId()).append("\">")
+                            .append("<a href=\"" + Config.BASE_URL + "/exams/").append(exam.getId()).append("\">")
                             .append(exam.getDate().format(DATE_FORMATTER))
                             .append(" - ")
                             .append(exam.getRoomOrLink())
                             .append("</a>")
                             .append(" for ")
-                            .append("<a href=\"" + HtmlUtil.BASE_URL + "/courses/").append(course.getId()).append("\">")
+                            .append("<a href=\"" + Config.BASE_URL + "/courses/").append(course.getId()).append("\">")
                             .append(course.getName())
                             .append("</a>")
                             .append(" by ")
                             .append(lecturer != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
-                                    HtmlUtil.BASE_URL,
+                                    Config.BASE_URL,
                                     lecturer.getUsername(),
                                     lecturer.getFullName())
                                     : "Unknown Lecturer");

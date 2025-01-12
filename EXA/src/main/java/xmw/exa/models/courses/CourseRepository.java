@@ -1,4 +1,4 @@
-package xmw.exa.db.repository;
+package xmw.exa.models.courses;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.basex.core.BaseXException;
 import org.basex.core.Context;
 import org.basex.core.cmd.XQuery;
 
-import xmw.exa.db.Course;
+import xmw.exa.db.repository.BaseXmlRepository;
 
 public class CourseRepository extends BaseXmlRepository<Course> {
 

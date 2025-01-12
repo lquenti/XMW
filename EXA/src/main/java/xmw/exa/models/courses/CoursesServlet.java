@@ -1,4 +1,4 @@
-package xmw.exa;
+package xmw.exa.models.courses;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,13 +15,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import xmw.exa.db.Course;
 import xmw.exa.db.DB;
-import xmw.exa.db.Exam;
-import xmw.exa.db.Lecture;
-import xmw.exa.db.Lecturer;
-import xmw.exa.db.Semester;
-import xmw.exa.util.HtmlUtil;
+import xmw.exa.models.exams.Exam;
+import xmw.exa.models.lectureres.Lecturer;
+import xmw.exa.models.lectures.Lecture;
+import xmw.exa.models.semesters.Semester;
+import xmw.exa.util.Config;
 
 @WebServlet(name = "courses", value = "/courses")
 public class CoursesServlet extends HttpServlet {
@@ -39,7 +38,7 @@ public class CoursesServlet extends HttpServlet {
         String pathInfo = request.getServletPath();
         if (pathInfo.equals("/courses/all")) {
             String queryString = request.getQueryString();
-            response.sendRedirect(HtmlUtil.BASE_URL + "/courses" + (queryString != null ? "?" + queryString : ""));
+            response.sendRedirect(Config.BASE_URL + "/courses" + (queryString != null ? "?" + queryString : ""));
             return;
         }
 
@@ -108,14 +107,14 @@ public class CoursesServlet extends HttpServlet {
                     String lecturerName = lecturers.stream()
                             .filter(l -> l.getId() == course.getLecturerId())
                             .map(l -> String.format("<a href='%s/lecturers/%s'>%s</a>",
-                                    HtmlUtil.BASE_URL,
+                                    Config.BASE_URL,
                                     l.getUsername(),
                                     l.getFullName()))
                             .findFirst()
                             .orElse("Unknown Lecturer");
 
                     message.append("<li>")
-                            .append("<a href=\"").append(HtmlUtil.BASE_URL).append("/courses/")
+                            .append("<a href=\"").append(Config.BASE_URL).append("/courses/")
                             .append(course.getId())
                             .append("\">")
                             .append(course.getName())

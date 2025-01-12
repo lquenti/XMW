@@ -1,4 +1,4 @@
-package xmw.exa;
+package xmw.exa.models.semesters;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
-import xmw.exa.util.HtmlUtil;
+import xmw.exa.util.Config;
 
 @WebServlet(name = "semesters", value = "/semesters")
 public class SemestersServlet extends HttpServlet {
@@ -32,7 +32,7 @@ public class SemestersServlet extends HttpServlet {
         String pathInfo = request.getServletPath();
         if (pathInfo.equals("/semesters/all")) {
             String queryString = request.getQueryString();
-            response.sendRedirect(HtmlUtil.BASE_URL + "/semesters" + (queryString != null ? "?" + queryString : ""));
+            response.sendRedirect(Config.BASE_URL + "/semesters" + (queryString != null ? "?" + queryString : ""));
             return;
         }
 

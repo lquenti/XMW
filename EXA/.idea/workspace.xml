@@ -11,14 +11,30 @@
   <component name="ChangeListManager">
     <list default="true" id="e08a0624-4ad7-49a1-b0b9-80aa9b9e5fcf" name="Changes" comment="update exams overview">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/CourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/CoursesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CoursesServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/ExamServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/ExamServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/ExamsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/ExamsServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/LectureServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/LectureServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/LecturerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectureres/LecturerServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/LecturersServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectureres/LecturersServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/LecturesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/LecturesServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/SemestersServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/semesters/SemestersServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/Course.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/Exam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/Exam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/Lecture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/Lecture.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectureres/Lecturer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/Semester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/semesters/Semester.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/BaseXmlRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/BaseXmlRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/CourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/CourseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/ExamRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/ExamRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/LectureRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/LectureRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/LecturerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/LecturerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/Repository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/SemesterRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/SemesterRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/CourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/ExamRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/ExamRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/LectureRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/LectureRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/LecturerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectureres/LecturerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/SemesterRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/semesters/SemesterRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/util/HtmlUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/collection.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/collection.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/xmw/exa/db/repository/CourseRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/xmw/exa/db/repository/CourseRepositoryTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +98,7 @@
     "Maven.EXA [clean].executor": "Run",
     "Maven.EXA [compile].executor": "Run",
     "Maven.EXA [package].executor": "Run",
+    "Maven.EXA [test].executor": "Run",
     "Maven.EXA [validate].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -100,12 +117,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.CourseRepositoryTest">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 11.0.2">
     <configuration name="CourseRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="EXA" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="xmw.exa.db.repository.*" />
+          <option name="PATTERN" value="xmw.exa.courses.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -120,7 +137,7 @@
       <module name="EXA" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="xmw.exa.db.repository.*" />
+          <option name="PATTERN" value="xmw.exa.courses.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -136,7 +153,7 @@
       <module name="EXA" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="xmw.exa.db.repository.*" />
+          <option name="PATTERN" value="xmw.exa.courses.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -310,32 +327,32 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
-          <line>77</line>
+          <line>111</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
-          <line>80</line>
+          <line>132</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
-          <line>86</line>
+          <line>138</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/ExamsServlet.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/ExamsServlet.java</url>
           <line>130</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
-          <line>75</line>
+          <line>109</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/db/DB.java</url>
-          <line>66</line>
+          <line>99</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>

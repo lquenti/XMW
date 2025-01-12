@@ -1,4 +1,7 @@
-package xmw.exa.db;
+package xmw.exa.models.lectureres;
+
+import xmw.exa.models.courses.Course;
+import xmw.exa.db.DB;
 
 import java.util.List;
 

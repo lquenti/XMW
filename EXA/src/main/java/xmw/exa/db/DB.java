@@ -1,8 +1,10 @@
 package xmw.exa.db;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
 
 import org.basex.core.BaseXException;
@@ -11,11 +13,17 @@ import org.basex.core.cmd.Close;
 import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.XQuery;
 
-import xmw.exa.db.repository.CourseRepository;
-import xmw.exa.db.repository.ExamRepository;
-import xmw.exa.db.repository.LectureRepository;
-import xmw.exa.db.repository.LecturerRepository;
-import xmw.exa.db.repository.SemesterRepository;
+import xmw.exa.models.courses.Course;
+import xmw.exa.models.courses.CourseRepository;
+import xmw.exa.models.exams.Exam;
+import xmw.exa.models.exams.ExamRepository;
+import xmw.exa.models.lectureres.Lecturer;
+import xmw.exa.models.lectureres.LecturerRepository;
+import xmw.exa.models.lectures.Lecture;
+import xmw.exa.models.lectures.LectureRepository;
+import xmw.exa.models.semesters.Semester;
+import xmw.exa.models.semesters.SemesterRepository;
+import xmw.exa.util.Config;
 
 public class DB {
     private static final String DB_NAME = "exa";
@@ -63,11 +71,37 @@ public class DB {
     }
 
     private void initializeDatabase() throws BaseXException {
-        // Create a new empty database
-        new CreateDB(DB_NAME).execute(context);
+        try {
+            ensureDataDirectoryExists();
+            List<String> xmlFilesToLoad = determineXmlFilesToLoad();
+            createEmptyDatabase();
+            loadXmlFiles(xmlFilesToLoad);
+        } catch (IOException e) {
+            throw new BaseXException("Failed to initialize database: " + e.getMessage());
+        }
+    }
 
-        // Load each XML file from resources
-        for (String xmlFile : MOCK_XML_FILES) {
+    private void ensureDataDirectoryExists() throws IOException {
+        File dataDir = new File(Config.XMW_DATA_PATH);
+        if (!dataDir.exists() && !dataDir.mkdirs()) {
+            throw new IOException("Could not create directory: " + Config.XMW_DATA_PATH);
+        }
+    }
+
+    private List<String> determineXmlFilesToLoad() {
+        File flushFile = new File(Config.FLUSH_FILE_PATH);
+        if (flushFile.exists()) {
+            return List.of(flushFile.getAbsolutePath());
+        }
+        return Arrays.asList(MOCK_XML_FILES);
+    }
+
+    private void createEmptyDatabase() throws BaseXException {
+        new CreateDB(DB_NAME).execute(context);
+    }
+
+    private void loadXmlFiles(List<String> xmlFiles) throws BaseXException {
+        for (String xmlFile : xmlFiles) {
             try {
                 loadXMLFile(xmlFile);
             } catch (IOException e) {
@@ -77,6 +111,24 @@ public class DB {
     }
 
     private void loadXMLFile(String xmlFile) throws IOException, BaseXException {
+        String xml;
+        if (Arrays.asList(MOCK_XML_FILES).contains(xmlFile)) {
+            // Handle as resource file
+            xml = loadFromResource(xmlFile);
+        } else {
+            // Handle as direct file path (for flush file)
+            xml = new String(java.nio.file.Files.readAllBytes(new File(xmlFile).toPath()), StandardCharsets.UTF_8);
+        }
+
+        // Use XQuery to add the document to the database
+        String addQuery = String.format("db:add('%s', '%s', '%s')",
+                DB_NAME,
+                xml.replace("'", "''"), // Escape single quotes in XML
+                new File(xmlFile).getName()); // Use just the filename part
+        new XQuery(addQuery).execute(context);
+    }
+
+    private String loadFromResource(String xmlFile) throws IOException {
         String resourcePath = "/mockData/" + xmlFile;
         InputStream is = DB.class.getResourceAsStream(resourcePath);
 
@@ -91,15 +143,7 @@ public class DB {
         }
 
         try (InputStream input = is) {
-            // Read the XML content
-            String xml = new String(input.readAllBytes(), StandardCharsets.UTF_8);
-
-            // Use XQuery to add the document to the database
-            String addQuery = String.format("db:add('%s', '%s', '%s')",
-                    DB_NAME,
-                    xml.replace("'", "''"), // Escape single quotes in XML
-                    xmlFile);
-            new XQuery(addQuery).execute(context);
+            return new String(input.readAllBytes(), StandardCharsets.UTF_8);
         }
     }
 

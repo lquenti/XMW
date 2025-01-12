@@ -1,4 +1,4 @@
-package xmw.exa;
+package xmw.exa.models.lectureres;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,8 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
-import xmw.exa.db.Lecturer;
-import xmw.exa.util.HtmlUtil;
+import xmw.exa.util.Config;
 
 @WebServlet(name = "lecturers", value = "/lecturers")
 public class LecturersServlet extends HttpServlet {
@@ -75,7 +74,7 @@ public class LecturersServlet extends HttpServlet {
         for (Lecturer lecturer : lecturers) {
             message
                     .append("<li>")
-                    .append("<a href=\"" + HtmlUtil.BASE_URL + "/lecturers/")
+                    .append("<a href=\"" + Config.BASE_URL + "/lecturers/")
                     .append(lecturer.getUsername())
                     .append("\">")
                     .append(lecturer.getFirstname()).append(" ").append(lecturer.getName())

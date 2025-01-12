@@ -1,4 +1,4 @@
-package xmw.exa;
+package xmw.exa.models.lectures;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,9 +11,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import xmw.exa.db.Course;
 import xmw.exa.db.DB;
-import xmw.exa.util.HtmlUtil;
+import xmw.exa.models.courses.Course;
+import xmw.exa.util.Config;
 
 @WebServlet(name = "lecture", urlPatterns = "/lectures/*")
 public class LectureServlet extends HttpServlet {
@@ -39,7 +39,7 @@ public class LectureServlet extends HttpServlet {
         // Handle /all endpoint
         if (lectureId.equals("all")) {
             String queryString = request.getQueryString();
-            response.sendRedirect(HtmlUtil.BASE_URL + "/lectures" + (queryString != null ? "?" + queryString : ""));
+            response.sendRedirect(Config.BASE_URL + "/lectures" + (queryString != null ? "?" + queryString : ""));
             return;
         }
 
@@ -113,7 +113,7 @@ public class LectureServlet extends HttpServlet {
                 out.println("<p><strong>ID:</strong> " + lecture.getId() + "</p>");
                 out.println("<p><strong>Course:</strong> " +
                         (course != null ? String.format("<a href='%s/courses/%d'>%s</a>",
-                                HtmlUtil.BASE_URL,
+                                Config.BASE_URL,
                                 course.getId(),
                                 course.getName())
                                 : "Unknown Course")
@@ -123,7 +123,7 @@ public class LectureServlet extends HttpServlet {
                 out.println("<p><strong>Room/Link:</strong> " + lecture.getRoomOrLink() + "</p>");
                 out.println("</div>");
                 out.println(
-                        "<p><a href='" + HtmlUtil.BASE_URL + "/courses/" + course.getId() + "'>Back to Course</a></p>");
+                        "<p><a href='" + Config.BASE_URL + "/courses/" + course.getId() + "'>Back to Course</a></p>");
                 out.println("<p><small>View as: <a href='?format=xml'>XML</a></small></p>");
                 out.println("</body>");
                 out.println("</html>");

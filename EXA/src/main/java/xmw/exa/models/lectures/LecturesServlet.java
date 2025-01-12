@@ -1,4 +1,4 @@
-package xmw.exa;
+package xmw.exa.models.lectures;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,9 +9,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import xmw.exa.db.Course;
 import xmw.exa.db.DB;
-import xmw.exa.util.HtmlUtil;
+import xmw.exa.models.courses.Course;
+import xmw.exa.util.Config;
 
 @WebServlet(name = "lectures", value = "/lectures")
 public class LecturesServlet extends HttpServlet {
@@ -30,7 +30,7 @@ public class LecturesServlet extends HttpServlet {
         String pathInfo = request.getServletPath();
         if (pathInfo.equals("/lectures/all")) {
             String queryString = request.getQueryString();
-            response.sendRedirect(HtmlUtil.BASE_URL + "/lectures" + (queryString != null ? "?" + queryString : ""));
+            response.sendRedirect(Config.BASE_URL + "/lectures" + (queryString != null ? "?" + queryString : ""));
             return;
         }
 
@@ -133,14 +133,14 @@ public class LecturesServlet extends HttpServlet {
                             .findFirst().orElse(null);
 
                     message.append("<li>")
-                            .append("<a href=\"" + HtmlUtil.BASE_URL + "/lectures/").append(lecture.getId())
+                            .append("<a href=\"" + Config.BASE_URL + "/lectures/").append(lecture.getId())
                             .append("\">")
                             .append(lecture.getStart().format(DATE_FORMATTER))
                             .append(" - ")
                             .append(lecture.getRoomOrLink())
                             .append("</a>")
                             .append(" for ")
-                            .append("<a href=\"" + HtmlUtil.BASE_URL + "/courses/").append(course.getId()).append("\">")
+                            .append("<a href=\"" + Config.BASE_URL + "/courses/").append(course.getId()).append("\">")
                             .append(course.getName())
                             .append("</a>");
                     message.append("</li>");
