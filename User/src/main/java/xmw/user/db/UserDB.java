@@ -110,4 +110,31 @@ public class UserDB {
             proc.close();
         }
     }
+
+    public static String getAllUsers(boolean with_password) throws BaseXException {
+        String authQuery;
+        if (with_password) {
+            authQuery = "/";
+        } else {
+            authQuery = """
+                    <Users>
+                    {
+                    for $user in /Users
+                    return
+                    <User>
+                    { for $attr in $user/@* return $attr }
+                    {
+                      for $child in $user/*
+                      where not(local-name() = "password")
+                      return $child
+                    }
+                    </User>
+                    }
+                    </Users>
+                    """;
+        }
+        synchronized (lock) {
+            return new XQuery(authQuery).execute(instance.ctx);
+        }
+    }
 }
