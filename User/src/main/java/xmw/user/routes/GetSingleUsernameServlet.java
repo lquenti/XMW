@@ -32,7 +32,7 @@ public class GetSingleUsernameServlet extends HttpServlet {
         boolean usernameExists = false;
         try {
             usernameExists = UserDB.usernameExist(username);
-        } catch (QueryException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             // this is basically the same as false
         }
