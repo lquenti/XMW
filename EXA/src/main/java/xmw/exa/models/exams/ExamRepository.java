@@ -49,7 +49,7 @@ public class ExamRepository extends BaseXmlRepository<Exam> {
     }
 
     @Override
-    public Exam getById(long id) {
+    public Exam get(long id) {
         String query = String.format(
                 "for $e in /root/Exams/Exam[id = %d] " +
                         "return element exam { " +
@@ -94,5 +94,17 @@ public class ExamRepository extends BaseXmlRepository<Exam> {
     public boolean create(Exam data) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'create'");
+    }
+
+    @Override
+    public Exam update(Exam data) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    @Override
+    public Exam delete(long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 }

@@ -47,7 +47,7 @@ public class LectureRepository extends BaseXmlRepository<Lecture> {
     }
 
     @Override
-    public Lecture getById(long id) {
+    public Lecture get(long id) {
         String query = String.format(
                 "for $l in /root/Lectures/Lecture[id = %d] " +
                         "return element lecture { " +
@@ -101,5 +101,17 @@ public class LectureRepository extends BaseXmlRepository<Lecture> {
     public boolean create(Lecture data) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'create'");
+    }
+
+    @Override
+    public Lecture update(Lecture data) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    @Override
+    public Lecture delete(long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 }

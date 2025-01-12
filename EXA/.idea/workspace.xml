@@ -9,7 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e08a0624-4ad7-49a1-b0b9-80aa9b9e5fcf" name="Changes" comment="update exams overview" />
+    <list default="true" id="e08a0624-4ad7-49a1-b0b9-80aa9b9e5fcf" name="Changes" comment="update exams overview">
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/db/repository/Repository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/ExamRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/ExamRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectureres/LecturerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectureres/LecturerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/LectureRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/LectureRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/semesters/SemesterRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/semesters/SemesterRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/xmw/exa/db/repository/CourseRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/xmw/exa/db/repository/CourseRepositoryTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -145,7 +153,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CourseRepositoryTest.testGetById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CourseRepositoryTest.testGet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="EXA" />
       <extension name="coverage">
         <pattern>
@@ -155,13 +163,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="xmw.exa.db.repository" />
       <option name="MAIN_CLASS_NAME" value="xmw.exa.db.repository.CourseRepositoryTest" />
-      <option name="METHOD_NAME" value="testGetById" />
+      <option name="METHOD_NAME" value="testGet" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CourseRepositoryTest.testGetByIdNonExistent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CourseRepositoryTest.testGetNonExistent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="EXA" />
       <extension name="coverage">
         <pattern>
@@ -171,7 +179,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="xmw.exa.db.repository" />
       <option name="MAIN_CLASS_NAME" value="xmw.exa.db.repository.CourseRepositoryTest" />
-      <option name="METHOD_NAME" value="testGetByIdNonExistent" />
+      <option name="METHOD_NAME" value="testGetNonExistent" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -277,7 +285,7 @@
     <list>
       <item itemvalue="JUnit.CourseRepositoryTest.testCreateAutoIncrementId" />
       <item itemvalue="JUnit.CourseRepositoryTest.testGetById" />
-      <item itemvalue="JUnit.CourseRepositoryTest.testGetByIdNonExistent" />
+      <item itemvalue="JUnit.CourseRepositoryTest.testGetNonExistent" />
       <item itemvalue="JUnit.CourseRepositoryTest" />
       <item itemvalue="JUnit.CourseRepositoryTest.testCreate" />
       <item itemvalue="Tomcat Server.Tomcat 11.0.2" />
@@ -286,7 +294,7 @@
       <list>
         <item itemvalue="JUnit.CourseRepositoryTest.testCreate" />
         <item itemvalue="JUnit.CourseRepositoryTest.testCreateAutoIncrementId" />
-        <item itemvalue="JUnit.CourseRepositoryTest.testGetByIdNonExistent" />
+        <item itemvalue="JUnit.CourseRepositoryTest.testGetNonExistent" />
         <item itemvalue="JUnit.CourseRepositoryTest.testGetById" />
         <item itemvalue="JUnit.CourseRepositoryTest" />
       </list>
@@ -338,51 +346,5 @@
     <MESSAGE value="add courses" />
     <MESSAGE value="update exams overview" />
     <option name="LAST_COMMIT_MESSAGE" value="update exams overview" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/ExamsServlet.java</url>
-          <line>130</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CoursesServlet.java</url>
-          <line>55</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CoursesServlet.java</url>
-          <line>93</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/xmw/exa/db/repository/CourseRepositoryTest.java</url>
-          <line>92</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <condition expression="course.id == 28" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseRepository.java</url>
-          <line>100</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseRepository.java</url>
-          <line>131</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/xmw/exa/db/repository/CourseRepositoryTest.java</url>
-          <line>83</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.NumberFormatException" package="java.lang" />
-          <option name="timeStamp" value="21" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

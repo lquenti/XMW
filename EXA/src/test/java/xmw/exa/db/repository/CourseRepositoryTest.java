@@ -49,8 +49,8 @@ class CourseRepositoryTest {
     }
 
     @Test
-    void testGetById() {
-        Course course = repository.getById(1L);
+    void testGet() {
+        Course course = repository.get(1L);
         assertNotNull(course);
         assertEquals(1, course.getId());
         assertEquals("omnis", course.getFaculty());
@@ -61,8 +61,8 @@ class CourseRepositoryTest {
     }
 
     @Test
-    void testGetByIdNonExistent() {
-        Course course = repository.getById(999);
+    void testGetNonExistent() {
+        Course course = repository.get(999);
         assertNull(course);
     }
 
@@ -93,7 +93,7 @@ class CourseRepositoryTest {
             assertEquals(initialCount + 1, courses.size());
 
             // Get the newly created course
-            Course createdCourse = repository.getById(newCourse.getId());
+            Course createdCourse = repository.get(newCourse.getId());
             assertNotNull(createdCourse);
             assertEquals(newCourse.getName(), createdCourse.getName());
             assertEquals(newCourse.getFaculty(), createdCourse.getFaculty());

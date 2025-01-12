@@ -49,7 +49,7 @@ public class CourseRepository extends BaseXmlRepository<Course> {
     }
 
     @Override
-    public Course getById(long id) {
+    public Course get(long id) {
         String query = String.format(
                 "for $c in /root/Courses/Course[id = %d] " +
                         "return element course { " +
@@ -163,5 +163,15 @@ public class CourseRepository extends BaseXmlRepository<Course> {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public Course update(Course data) {
+        throw new UnsupportedOperationException("not implemented");
+    }
+
+    @Override
+    public Course delete(long id) {
+        throw new UnsupportedOperationException("not implemented");
     }
 }
