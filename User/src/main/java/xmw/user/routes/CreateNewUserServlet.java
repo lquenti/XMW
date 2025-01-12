@@ -18,18 +18,7 @@ public class CreateNewUserServlet extends HttpServlet {
         ServletUtils.doGetOnlyAvailableForPOST(req, res);
     }
 
-    @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        // Extract XML
-        String xml;
-        try {
-            xml = ServletUtils.extractPOSTData(req);
-        } catch (IOException e) {
-            e.printStackTrace();
-            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error reading POST data");
-            return;
-        }
-
+    public static void doAdd(String xml, HttpServletRequest req, HttpServletResponse res) throws IOException {
         // validate dtd
         if (!DTDValidatorUtils.validateWithPassword(xml)) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid XML sent");
@@ -57,6 +46,21 @@ public class CreateNewUserServlet extends HttpServlet {
         UserDB.addUserNode(xml);
 
         // return 200
+    }
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        // Extract XML
+        String xml;
+        try {
+            xml = ServletUtils.extractPOSTData(req);
+        } catch (IOException e) {
+            e.printStackTrace();
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error reading POST data");
+            return;
+        }
+
+        CreateNewUserServlet.doAdd(xml, req, res);
     }
 }
 

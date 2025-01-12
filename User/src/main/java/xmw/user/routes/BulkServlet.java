@@ -29,7 +29,6 @@ public class BulkServlet  extends HttpServlet {
         }
     }
 
-    // TODO find out whether partial or not
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
         // exract xml from POST

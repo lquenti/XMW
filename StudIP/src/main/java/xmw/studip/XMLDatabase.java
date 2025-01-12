@@ -177,10 +177,20 @@ public class XMLDatabase {
             }
             if (course.getElementsByTagName("lectures").getLength() > 0) {
                 Element lectures = (Element) course.getElementsByTagName("lectures").item(0);
-                courseMap.put("Time", getLecturesString(lectures.getElementsByTagName("lecture")));
+
+                NodeList n = lectures.getElementsByTagName("lecture");
+                for(int j=0;j<n.getLength();j++){
+                    Element lecture_elem = (Element) n.item(j);
+                    courseMap.put("Begin"+j, lecture_elem.getElementsByTagName("start").item(0).getTextContent());
+                    courseMap.put("End"+j, lecture_elem.getElementsByTagName("end").item(0).getTextContent());
+                    courseMap.put("Location"+j, lecture_elem.getElementsByTagName("room_or_link").item(0).getTextContent());
+                }
             }
-            else
-                courseMap.put("Time", "-");
+            else {
+                courseMap.put("Begin0", "-");
+                courseMap.put("End0", "-");
+                courseMap.put("Location0", "-");
+            }
 
             courses.add(courseMap);
         }

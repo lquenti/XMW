@@ -421,6 +421,10 @@ public class RootServlet extends HttpServlet {
         root.appendChild(bulkGetUsers.toHTML(doc));
         root.appendChild(getUsersByGroup.toHTML(doc));
 
+        Element formElem = doc.createElement("h3");
+        formElem.setTextContent("Also a test form is available unter ./form");
+        root.appendChild(formElem);
+
         return doc;
     }
 
