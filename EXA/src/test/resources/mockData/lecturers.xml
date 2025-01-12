@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Lectureres>
+   <Lecturer username="schmitt.samara">
+      <faculty null="true" />
+      <id>1</id>
+      <firstname>Delbert</firstname>
+      <name>Considine</name>
+   </Lecturer>
+   <Lecturer username="powlowski.kevon">
+      <faculty null="true" />
+      <id>2</id>
+      <firstname>Jacynthe</firstname>
+      <name>Beier</name>
+   </Lecturer>
+   <Lecturer username="schmeler.mallie">
+      <faculty>aut</faculty>
+      <id>3</id>
+      <firstname>Bernice</firstname>
+      <name>Stracke</name>
+   </Lecturer>
+   <Lecturer username="lerdman">
+      <faculty>aspernatur</faculty>
+      <id>4</id>
+      <firstname>Karine</firstname>
+      <name>Mayer</name>
+   </Lecturer>
+   <Lecturer username="terrill33">
+      <faculty>non</faculty>
+      <id>5</id>
+      <firstname>Aylin</firstname>
+      <name>Ferry</name>
+   </Lecturer>
+   <Lecturer username="iliana.rowe">
+      <faculty>neque</faculty>
+      <id>6</id>
+      <firstname>Nella</firstname>
+      <name>Kub</name>
+   </Lecturer>
+   <Lecturer username="elinor21">
+      <faculty>eveniet</faculty>
+      <id>7</id>
+      <firstname>Riley</firstname>
+      <name>Harris</name>
+   </Lecturer>
+   <Lecturer username="dveum">
+      <faculty>ut</faculty>
+      <id>8</id>
+      <firstname>Bettie</firstname>
+      <name>Wehner</name>
+   </Lecturer>
+   <Lecturer username="kuhn.ashtyn">
+      <faculty null="true" />
+      <id>9</id>
+      <firstname>Marques</firstname>
+      <name>O'Hara</name>
+   </Lecturer>
+   <Lecturer username="jzboncak">
+      <faculty>eius</faculty>
+      <id>10</id>
+      <firstname>Tad</firstname>
+      <name>Watsica</name>
+   </Lecturer>
+</Lectureres>

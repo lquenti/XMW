@@ -11,11 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e08a0624-4ad7-49a1-b0b9-80aa9b9e5fcf" name="Changes" comment="update exams overview">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CoursesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CoursesServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/LectureRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/LectureRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/LecturesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/lectures/LecturesServlet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +72,7 @@
     "JUnit.CourseRepositoryTest.executor": "Run",
     "JUnit.CourseRepositoryTest.testCreate.executor": "Run",
     "JUnit.CourseRepositoryTest.testGetAll.executor": "Run",
+    "JUnit.CoursesServletTest.executor": "Run",
     "Maven.EXA [clean].executor": "Run",
     "Maven.EXA [compile].executor": "Run",
     "Maven.EXA [package].executor": "Run",
@@ -98,7 +95,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 11.0.2">
+  <component name="RunManager" selected="JUnit.CoursesServletTest">
     <configuration name="CourseRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="EXA" />
       <extension name="coverage">
@@ -142,6 +139,21 @@
       <option name="MAIN_CLASS_NAME" value="xmw.exa.db.repository.CourseRepositoryTest" />
       <option name="METHOD_NAME" value="testGetAll" />
       <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CoursesServletTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="EXA" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="xmw.exa.models.courses.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="xmw.exa.models.courses" />
+      <option name="MAIN_CLASS_NAME" value="xmw.exa.models.courses.CoursesServletTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -244,6 +256,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.CoursesServletTest" />
       <item itemvalue="JUnit.CourseRepositoryTest" />
       <item itemvalue="JUnit.CourseRepositoryTest.testCreate" />
       <item itemvalue="JUnit.CourseRepositoryTest.testGetAll" />
@@ -251,6 +264,7 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CoursesServletTest" />
         <item itemvalue="JUnit.CourseRepositoryTest" />
         <item itemvalue="JUnit.CourseRepositoryTest.testCreate" />
         <item itemvalue="JUnit.CourseRepositoryTest.testGetAll" />
@@ -274,6 +288,7 @@
       <option name="presentableId" value="Default" />
       <updated>1736602393507</updated>
       <workItem from="1736602394524" duration="4574000" />
+      <workItem from="1736673911180" duration="994000" />
     </task>
     <task id="LOCAL-00001" summary="add courses">
       <option name="closed" value="true" />
