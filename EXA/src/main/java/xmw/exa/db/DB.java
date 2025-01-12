@@ -13,15 +13,10 @@ import org.basex.core.cmd.Close;
 import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.XQuery;
 
-import xmw.exa.models.courses.Course;
 import xmw.exa.models.courses.CourseRepository;
-import xmw.exa.models.exams.Exam;
 import xmw.exa.models.exams.ExamRepository;
-import xmw.exa.models.lectureres.Lecturer;
 import xmw.exa.models.lectureres.LecturerRepository;
-import xmw.exa.models.lectures.Lecture;
 import xmw.exa.models.lectures.LectureRepository;
-import xmw.exa.models.semesters.Semester;
 import xmw.exa.models.semesters.SemesterRepository;
 import xmw.exa.util.Config;
 
@@ -170,6 +165,31 @@ public class DB {
     public void reinitialize() throws BaseXException {
         DB.close(context);
         initializeDatabase();
+    }
+
+    public void dumpToFile(String outputPath) throws BaseXException, IOException {
+        // Create a query that combines all collections into a single XML document
+        String query = String.format(
+                "let $collections := (" +
+                        "  collection('%1$s/courses.xml')/Courses," +
+                        "  collection('%1$s/exams.xml')/Exams," +
+                        "  collection('%1$s/lecturers.xml')/Lectureres," +
+                        "  collection('%1$s/lectures.xml')/Lectures," +
+                        "  collection('%1$s/semesters.xml')/Semesters" +
+                        ")" +
+                        "return " +
+                        "<database>" +
+                        "{$collections}" +
+                        "</database>",
+                DB_NAME);
+
+        String result = new XQuery(query).execute(context);
+
+        // Write the result to the specified file
+        java.nio.file.Files.writeString(
+                new File(outputPath).toPath(),
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + result,
+                StandardCharsets.UTF_8);
     }
 
     public static void close(Context context) {
