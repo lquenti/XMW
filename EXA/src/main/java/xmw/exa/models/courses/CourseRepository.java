@@ -98,7 +98,10 @@ public class CourseRepository extends BaseXmlRepository<Course> {
             java.util.regex.Pattern lecturerIdRegex = java.util.regex.Pattern.compile(lecturerIdPattern);
             java.util.regex.Matcher lecturerIdMatcher = lecturerIdRegex.matcher(element);
             if (lecturerIdMatcher.find()) {
-                course.setLecturerId(Integer.parseInt(lecturerIdMatcher.group(1)));
+                String lecturerId = lecturerIdMatcher.group(1);
+                if (!lecturerId.isEmpty()) {
+                    course.setLecturerId(Integer.parseInt(lecturerId));
+                }
             }
 
             // Extract other fields
@@ -130,7 +133,7 @@ public class CourseRepository extends BaseXmlRepository<Course> {
                     "<Course>" +
                             "  <faculty>%s</faculty>" +
                             "  <id>%d</id>" +
-                            "  <lecturer id=\"%d\"/>" +
+                            "  <lecturer_id>%d</lecturer_id>" +
                             "  <max_students>%d</max_students>" +
                             "  <name>%s</name>" +
                             "  <semester_id>%d</semester_id>" +
