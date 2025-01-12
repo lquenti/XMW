@@ -35,10 +35,20 @@ public class LecturersServlet extends HttpServlet {
 
         if (isXmlFormat) {
             try {
-                // Query for the complete lecturers XML with proper indentation
+                // Query for the complete lecturers XML with proper indentation and snake case
                 String query = String.format(
                         "let $lecturers := collection('%s/lecturers.xml')/Lectureres " +
-                                "return serialize($lecturers, map { 'method': 'xml', 'indent': 'yes' })",
+                                "return element lecturers { " +
+                                "  for $l in $lecturers/Lecturer " +
+                                "  return element lecturer { " +
+                                "    attribute id { $l/id/text() }, " +
+                                "    attribute username { $l/@username }, " +
+                                "    element faculty { if ($l/faculty/@null = 'true') then '' else $l/faculty/text() }, "
+                                +
+                                "    element first_name { $l/firstname/text() }, " +
+                                "    element last_name { $l/name/text() } " +
+                                "  } " +
+                                "}",
                         DB_NAME);
 
                 String result = new XQuery(query).execute(db.getContext());

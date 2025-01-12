@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.Course;
 import xmw.exa.db.DB;
 import xmw.exa.db.Exam;
+import xmw.exa.db.Lecture;
 import xmw.exa.db.Lecturer;
 import xmw.exa.db.Semester;
 import xmw.exa.util.HtmlUtil;
@@ -149,12 +150,13 @@ public class CoursesServlet extends HttpServlet {
         writeSimpleElement(xml, "max_students", String.valueOf(course.getMaxStudents()));
         writeSimpleElement(xml, "name", course.getName());
         writeSemesterElement(xml, course.getSemester());
+        writeLecturesElement(xml, course.getLectures());
         writeExamsElement(xml, course.getId(), allExams);
 
         xml.writeEndElement(); // course
     }
 
-    private void writeSimpleElement(XMLStreamWriter xml, String elementName, String value) throws Exception {
+    private void writeSimpleElement(XMLStreamWriter xml, String elementName, String value) throws XMLStreamException {
         xml.writeStartElement(elementName);
         xml.writeCharacters(value);
         xml.writeEndElement();
@@ -199,6 +201,19 @@ public class CoursesServlet extends HttpServlet {
             xml.writeEndElement(); // exam
         }
         xml.writeEndElement(); // exams
+    }
+
+    private void writeLecturesElement(XMLStreamWriter xml, List<Lecture> lectures) throws Exception {
+        xml.writeStartElement("lectures");
+        for (Lecture lecture : lectures) {
+            xml.writeStartElement("lecture");
+            writeSimpleElement(xml, "id", String.valueOf(lecture.getId()));
+            writeSimpleElement(xml, "start", lecture.getStart().toString());
+            writeSimpleElement(xml, "end", lecture.getEnd().toString());
+            writeSimpleElement(xml, "room_or_link", lecture.getRoomOrLink());
+            xml.writeEndElement(); // lecture
+        }
+        xml.writeEndElement(); // lectures
     }
 
     @Override
