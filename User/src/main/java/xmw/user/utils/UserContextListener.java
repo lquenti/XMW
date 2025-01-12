@@ -53,6 +53,7 @@ public class UserContextListener implements ServletContextListener {
                 <password>1234</password>
                 <faculty>Computer Science</faculty>
                 <group id="g_student">Student</group>
+                <group id="g_employee">Employee</group>
               </User>
               <User username="v.mattfeld">
                 <name>Mattfeld</name>
