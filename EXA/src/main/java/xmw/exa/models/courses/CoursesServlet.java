@@ -165,17 +165,23 @@ public class CoursesServlet extends HttpServlet {
         xml.writeEndElement();
     }
 
-    private void writeLecturerElement(XMLStreamWriter xml, int lecturerId, List<Lecturer> allLecturers)
+    private void writeLecturerElement(XMLStreamWriter xml, long lecturerId, List<Lecturer> allLecturers)
             throws XMLStreamException {
         xml.writeStartElement("lecturer");
-        xml.writeAttribute("id", String.valueOf(lecturerId));
+        Lecturer lecturer = allLecturers.stream()
+                .filter(l -> l.getId() == lecturerId)
+                .findFirst()
+                .orElse(null);
+        if (lecturer != null) {
+            xml.writeAttribute("id", String.valueOf(lecturer.getId()));
+        }
         xml.writeEndElement();
     }
 
-    private void writeSemesterElement(XMLStreamWriter xml, Semester semester) throws XMLStreamException {
+    private void writeSemesterElement(XMLStreamWriter xml, Semester semester) throws Exception {
         xml.writeStartElement("semester");
         if (semester != null) {
-            xml.writeAttribute("id", String.valueOf(semester.getId()));
+            writeSimpleElement(xml, "id", String.valueOf(semester.getId()));
             writeSimpleElement(xml, "name", semester.getName());
             writeSimpleElement(xml, "start", semester.getStart().toString());
             writeSimpleElement(xml, "end", semester.getEnd().toString());
@@ -183,7 +189,7 @@ public class CoursesServlet extends HttpServlet {
         xml.writeEndElement();
     }
 
-    private void writeExamsElement(XMLStreamWriter xml, int courseId, List<Exam> allExams) throws Exception {
+    private void writeExamsElement(XMLStreamWriter xml, long courseId, List<Exam> allExams) throws Exception {
         xml.writeStartElement("exams");
         List<Exam> courseExams = allExams.stream()
                 .filter(e -> e.getCourseId() == courseId)
@@ -192,9 +198,9 @@ public class CoursesServlet extends HttpServlet {
             xml.writeStartElement("exam");
             writeSimpleElement(xml, "id", String.valueOf(exam.getId()));
             writeSimpleElement(xml, "date", exam.getDate().toString());
-            writeSimpleElement(xml, "room_or_link", exam.getRoomOrLink());
             writeSimpleElement(xml, "is_online", String.valueOf(exam.isOnline()));
             writeSimpleElement(xml, "is_written", String.valueOf(exam.isWritten()));
+            writeSimpleElement(xml, "room_or_link", exam.getRoomOrLink());
             xml.writeEndElement(); // exam
         }
         xml.writeEndElement(); // exams
