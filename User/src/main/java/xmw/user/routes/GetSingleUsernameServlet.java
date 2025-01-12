@@ -2,6 +2,7 @@ package xmw.user.routes;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Optional;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.basex.query.QueryException;
 import xmw.user.db.UserDB;
+import xmw.user.utils.ServletUtils;
 
 @WebServlet(name = "getSingleUsernameServlet", value = "/id/*")
 public class GetSingleUsernameServlet extends HttpServlet {
@@ -17,18 +19,13 @@ public class GetSingleUsernameServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws IOException {
-        String username = req.getPathInfo();
-        if (username == null ||
-                username.length() <= 1) {
-            res.sendError(HttpServletResponse.SC_NOT_FOUND, "Empty Request");
+        Optional<String> maybeUsername = ServletUtils.extractUsernameFromPath(req, res);
+        if (maybeUsername.isEmpty()) {
+            // resp was already handled in there
             return;
         }
-        // Remove leading slash
-        username = username.substring(1);
-        if (username.contains("/")) {
-            res.sendError(HttpServletResponse.SC_NOT_FOUND, "Too many slashes");
-            return;
-        }
+        String username = maybeUsername.get();
+
         boolean usernameExists = false;
         try {
             usernameExists = UserDB.usernameExist(username);

@@ -19,6 +19,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import xmw.user.db.UserDB;
 import xmw.user.utils.DOMUtils;
+import xmw.user.utils.ServletUtils;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,42 +32,9 @@ import java.util.TimerTask;
 
 @WebServlet(name = "authServlet", value = "/auth")
 public class AuthServlet extends HttpServlet {
-    private static Document generateDOM() throws ParserConfigurationException {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document doc = builder.newDocument();
-
-        Element root = doc.createElement("div");
-        doc.appendChild(root);
-        root.appendChild(doc.createTextNode("Please use "));
-        Element method = doc.createElement("code");
-        method.appendChild(doc.createTextNode("POST"));
-        root.appendChild(method);
-        root.appendChild(doc.createTextNode(" for checking auth. Example:"));
-
-        Element pre = doc.createElement("pre");
-        Element code = doc.createElement("code");
-        code.setTextContent("""
-                curl -X POST -d "username=yourusername&password=yourpassword" http://URL_OF_SERVICE/auth    
-                """);
-        pre.appendChild(code);
-        root.appendChild(pre);
-
-        return doc;
-    }
-
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        String innerHtml;
-        try {
-            Document doc = generateDOM();
-            innerHtml = DOMUtils.documentToString(doc);
-            req.setAttribute("domHtml", innerHtml);
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/base.jsp");
-            dispatcher.forward(req, res);
-        } catch (ParserConfigurationException | TransformerException | ServletException e) {
-            res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to generate DOM HTML");
-        }
+        ServletUtils.doGetOnlyAvailableForPOST(req, res);
     }
 
     @Override

@@ -83,14 +83,11 @@ public class UserDB {
         }
     }
 
-    // TODO remove
-    public static void addUserTest() {
-        String add = "insert node <User>\n" +
-                "  <Username>hehe</Username>\n" +
-                "  <Password>haha</Password>\n" +
-                "</User> into /Users";
+    // expects to be checked before that we have no duplication
+    public static void addUserNode(String xml) {
+        String query = "insert node " + xml + " into /Users";
         synchronized (lock) {
-            QueryProcessor proc = new QueryProcessor(add, instance.ctx);
+            QueryProcessor proc = new QueryProcessor(query, instance.ctx);
             try {
                 proc.execute();
             } catch (QueryException e) {
@@ -100,9 +97,9 @@ public class UserDB {
         }
     }
 
-    // expects to be checked before that we have no duplication
-    public static void addUserNode(String xml) {
-        String query = "insert node " + xml + " into /Users";
+    // expects to be checked before that it exists
+    public static void deleteUser(String username) {
+        String query = "delete node /Users/User[@username = '" + username + "']";
         synchronized (lock) {
             QueryProcessor proc = new QueryProcessor(query, instance.ctx);
             try {

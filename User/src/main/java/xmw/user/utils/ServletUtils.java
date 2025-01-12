@@ -1,5 +1,7 @@
 package xmw.user.utils;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.w3c.dom.Document;
@@ -10,11 +12,37 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Optional;
 
 public class ServletUtils {
+    public static void doGetOnlyAvailableForPOST(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
+
+            Element root = doc.createElement("div");
+            doc.appendChild(root);
+            root.appendChild(doc.createTextNode("Only available for "));
+            Element method = doc.createElement("code");
+            method.appendChild(doc.createTextNode("POST"));
+            root.appendChild(method);
+            root.appendChild(doc.createTextNode(". See the documentation"));
+
+
+            String innerHtml = DOMUtils.documentToString(doc);
+            req.setAttribute("domHtml", innerHtml);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/base.jsp");
+            dispatcher.forward(req, res);
+        } catch (ParserConfigurationException | TransformerException | ServletException e) {
+            res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to generate DOM HTML");
+        }
+    }
+
     public static String extractPOSTData(HttpServletRequest req) throws IOException {
         StringBuilder postData = new StringBuilder();
         String line;
@@ -61,5 +89,22 @@ public class ServletUtils {
             throw new IOException("username is null");
         }
         return username;
+    }
+
+    // If None, then we already handled the response
+    public static Optional<String> extractUsernameFromPath(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        String username = req.getPathInfo();
+        if (username == null ||
+                username.length() <= 1) {
+            res.sendError(HttpServletResponse.SC_NOT_FOUND, "Empty Request");
+            return Optional.empty();
+        }
+        // Remove leading slash
+        username = username.substring(1);
+        if (username.contains("/")) {
+            res.sendError(HttpServletResponse.SC_NOT_FOUND, "Too many slashes");
+            return Optional.empty();
+        }
+        return Optional.of(username);
     }
 }
