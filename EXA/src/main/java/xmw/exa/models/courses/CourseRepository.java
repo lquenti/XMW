@@ -112,8 +112,20 @@ public class CourseRepository extends BaseXmlRepository<Course> {
             String maxIdResult = new XQuery(maxIdQuery).execute(context);
             int nextId = Integer.parseInt(maxIdResult.trim()) + 1;
 
-            // Set the new ID
-            data.setId(nextId);
+            // if data has id, use it
+            if (data.getId() > 0) {
+                // ensure the id does not exist olready
+                List<Long> allIds = this.all().stream().map(
+                        Course::getId
+                ).toList();
+
+                if (allIds.contains(data.getId())) {
+                    data.setId(nextId);
+                }
+            } else {
+                // Set the new ID
+                data.setId(nextId);
+            }
 
             // Create XML representation of the course
             String courseXml = String.format(
@@ -139,6 +151,7 @@ public class CourseRepository extends BaseXmlRepository<Course> {
                     courseXml);
 
             new XQuery(query).execute(context);
+
             try {
                 DB.getInstance().dumpToFile();
             } catch (IOException e) {
@@ -154,13 +167,22 @@ public class CourseRepository extends BaseXmlRepository<Course> {
 
     @Override
     public Course update(Course data) {
-        throw new UnsupportedOperationException("not implemented");
+        if (!this.all().stream().map(Course::getId).toList().contains(data.getId())) {
+            return null;
+        }
+        delete(data.getId());
+        if (create(data)) {
+            return this.get(data.getId());
+        }
+        return null;
     }
 
     @Override
     public void delete(long id) {
-        Course course = this.get(id);
-
+        var res = this.all().stream().map(Course::getId).filter(i -> i == id).toList().size();
+        if (res != 1) {
+            return;
+        }
         try {
             String query = String.format(
                     "delete node /root/Courses/Course[id = %d]",

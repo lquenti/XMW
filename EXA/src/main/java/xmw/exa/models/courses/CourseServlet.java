@@ -13,6 +13,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import org.basex.core.cmd.XQuery;
 
 import jakarta.servlet.annotation.WebServlet;
@@ -33,7 +35,7 @@ public class CourseServlet extends HttpServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String pathInfo = request.getPathInfo();
         if (pathInfo == null || pathInfo.equals("/")) {
             response.sendRedirect("/courses");
@@ -147,8 +149,6 @@ public class CourseServlet extends HttpServlet {
             // Return HTML response
             response.setContentType("text/html");
             response.setCharacterEncoding("UTF-8");
-            PrintWriter out = response.getWriter();
-
             int numCourseId = Integer.parseInt(courseId);
             var course = db.courses().all().stream()
                     .filter(c -> c.getId() == numCourseId)
@@ -160,79 +160,9 @@ public class CourseServlet extends HttpServlet {
                 return;
             }
 
-            // Find the lecturer
-            var lecturer = db.lecturers().all().stream()
-                    .filter(l -> l.getId() == course.getLecturerId())
-                    .findFirst()
-                    .orElse(null);
-
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head><title>Course Details</title></head>");
-            out.println("<body>");
-            out.println("<h1>Course Details</h1>");
-            out.println("<div class='course-details'>");
-            out.println("<p><strong>ID:</strong> " + course.getId() + "</p>");
-            out.println("<p><strong>Name:</strong> " + course.getName() + "</p>");
-            out.println("<p><strong>Faculty:</strong> " + course.getFaculty() + "</p>");
-            out.println("<p><strong>Lecturer:</strong> " +
-                    (lecturer != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
-                            Config.BASE_URL,
-                            lecturer.getUsername(),
-                            lecturer.getFullName())
-                            : "Unknown Lecturer")
-                    + "</p>");
-            out.println("<p><strong>Max Students:</strong> " + course.getMaxStudents() + "</p>");
-            out.println("<p><strong>Semester ID:</strong> " + course.getSemesterId() + "</p>");
-
-            // Add lectures section
-            out.println("<h2>Lectures</h2>");
-            var lectures = course.getLectures();
-            if (!lectures.isEmpty()) {
-                out.println("<ul>");
-                for (var lecture : lectures) {
-                    out.println("<li>");
-                    out.println(String.format("<a href='%s/lectures/%d'>%s - %s</a>",
-                            Config.BASE_URL,
-                            lecture.getId(),
-                            lecture.getStart().format(DATE_FORMATTER),
-                            lecture.getRoomOrLink()));
-                    out.println("</li>");
-                }
-                out.println("</ul>");
-            } else {
-                out.println("<p>No lectures scheduled</p>");
-            }
-
-            // Add exams section
-            out.println("<h2>Exams</h2>");
-            var exams = course.getExams().stream()
-                    .sorted((e1, e2) -> e1.getDate().compareTo(e2.getDate()))
-                    .toList();
-            if (!exams.isEmpty()) {
-                out.println("<ul>");
-                for (var exam : exams) {
-                    out.println("<li>");
-                    out.println(String.format("<a href='%s/exams/%d'>%s - %s</a> (%s%s)",
-                            Config.BASE_URL,
-                            exam.getId(),
-                            exam.getDate().format(DATE_FORMATTER),
-                            exam.getRoomOrLink(),
-                            exam.isOnline() ? "Online" : "In-person",
-                            exam.isWritten() ? ", Written" : ""));
-                    out.println("</li>");
-                }
-                out.println("</ul>");
-            } else {
-                out.println("<p>No exams scheduled</p>");
-            }
-
-            out.println("</div>");
-            out.println("<p><a href='" + Config.BASE_URL + "/courses'>Back to Courses List</a></p>");
-            out.println("<p><small>View as: <a href='?format=xml'>XML</a></small></p>");
-            out.println("</body>");
-            out.println("</html>");
-            out.flush();
+            request.setAttribute("course", course);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/course-details.jsp");
+            dispatcher.forward(request, response);
         }
     }
 

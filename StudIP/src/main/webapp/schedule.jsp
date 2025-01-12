@@ -1,22 +1,29 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.List" %>
+<%@ page import="xmw.studip.StylingConstant" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weekly Schedule</title>
+    <title>Schedule</title>
+    <style>
+        <% String css = StylingConstant.CSS; %>
+        <%= css %>
+    </style>
 </head>
 <br>
-<h1>Your Weekly Schedule</h1>
+<h1>Your Schedule</h1>
 <c:out value="${schedules}" />
-<table border="1">
+<table border="1" style="margin: 0 auto">
     <thead>
     <tr>
         <th>Name</th>
         <th>Semester</th>
         <th>Faculty</th>
-        <th>Time</th>
+        <th>Begin</th>
+        <th>End</th>
+        <th>Location</th>
     </tr>
     </thead>
     <tbody>
@@ -29,7 +36,9 @@
         <td><%= schedule.get("Name") %></td>
         <td><%= schedule.get("Semester") %></td>
         <td><%= schedule.get("Faculty") %></td>
-        <td><%= schedule.get("Time") %></td>
+        <td><%= schedule.get("Begin") %></td>
+        <td><%= schedule.get("End") %></td>
+        <td><%= schedule.get("Location") %></td>
     </tr>
     <%
             }

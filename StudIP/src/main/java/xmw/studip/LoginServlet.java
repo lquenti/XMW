@@ -75,7 +75,7 @@ public class LoginServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
 
-            NodeList nodeList = doc.getElementsByTagName("Course");
+            NodeList nodeList = doc.getElementsByTagName("User");
             Map<String, String> userMap = new HashMap<>();
 
             for (int i = 0; i < nodeList.getLength(); i++) {
