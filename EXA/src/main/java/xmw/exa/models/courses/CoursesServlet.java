@@ -212,6 +212,7 @@ public class CoursesServlet extends HttpServlet {
             xml.writeStartElement("lecture");
             writeSimpleElement(xml, "id", String.valueOf(lecture.getId()));
             writeSimpleElement(xml, "start", lecture.getStart().toString());
+            writeSimpleElement(xml, "end", lecture.getEnd().toString());
             writeSimpleElement(xml, "room_or_link", lecture.getRoomOrLink());
             xml.writeEndElement(); // lecture
         }

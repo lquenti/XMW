@@ -85,6 +85,10 @@ class CoursesServletTest {
         assertTrue(firstCourse.contains("<name>"), "Course should have name element");
         assertTrue(firstCourse.contains("<semester>"), "Course should have semester element");
         assertTrue(firstCourse.contains("<lectures>"), "Course should have lectures element");
+        assertTrue(firstCourse.contains("<lecture>"), "Course should have lecture element");
+        assertTrue(firstCourse.contains("<start>"), "Course should have start element");
+        assertTrue(firstCourse.contains("<end>"), "Course should have end element");
+        assertTrue(firstCourse.contains("<room_or_link>"), "Course should have room_or_link element");
         assertTrue(firstCourse.contains("<exams>"), "Course should have exams element");
     }
 }
