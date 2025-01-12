@@ -14,6 +14,7 @@
 </head>
 <body>
 <h1>Your Grades</h1>
+<a href="index.jsp">Main Site</a>
 <table border="1" cellpadding="10">
   <thead>
   <tr>

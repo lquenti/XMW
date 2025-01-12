@@ -14,6 +14,7 @@
 </head>
 <br>
 <h1>Your Schedule</h1>
+<a href="index.jsp">Main Site</a>
 <c:out value="${schedules}" />
 <table border="1" style="margin: 0 auto">
     <thead>

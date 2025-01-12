@@ -14,6 +14,7 @@
 </head>
 <body>
 <h1>Next Exams</h1>
+<a href="index.jsp">Main Site</a>
 <table>
   <thead>
   <tr>

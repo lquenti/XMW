@@ -14,6 +14,7 @@
 </head>
 <body>
 <h1>Register for Courses</h1>
+<a href="index.jsp">Main Site</a>
 <form method="POST" action="register">
     <label for="courseId">Select Course:</label>
     <select id="courseId" name="courseId">

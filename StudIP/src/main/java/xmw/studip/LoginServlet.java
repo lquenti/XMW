@@ -33,8 +33,6 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
-        request.setAttribute("test", xmlDatabase.getThing());
         request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 

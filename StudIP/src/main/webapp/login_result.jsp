@@ -12,6 +12,7 @@
 </head>
 <body>
 <h1>Login Successful</h1>
+<a href="index.jsp">Main Site</a>
 <pre>${loginResponse}</pre>
 <a href="index.jsp">Go back to Home</a>
 </body>
