@@ -1,5 +1,6 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.List" %>
+<%@ page import="xmw.studip.StylingConstant" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,39 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exam Registration</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        h1 {
-            text-align: center;
-            color: #444;
-        }
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            background: white;
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #5d8aa8;
-            color: white;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        .form-container {
-            width: 80%;
-            margin: 20px auto;
-            text-align: center;
-        }
+        <% String css = StylingConstant.CSS; %>
+        <%= css %>
     </style>
 </head>
 <body>

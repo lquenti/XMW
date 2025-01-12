@@ -80,17 +80,50 @@ public class CertificateUtil extends HttpServlet {
 
             // XSLT to transform XML into HTML
             String xslt = """
-                    <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-                        <xsl:output method="html" encoding="UTF-8" indent="yes"/>
-                        <xsl:template match="/Certificate">
-                            <html>
-                                <head>
-                                    <title>Certificate of Grades</title>
-                                </head>
-                                <body>
-                                    <h1>Certificate</h1>
-                                    <h2>User Information</h2>
-                                    <table border="1" cellpadding="10">
+                <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                    <xsl:output method="html" encoding="UTF-8" indent="yes"/>
+                    <xsl:template match="/Certificate">
+                        <html>
+                            <head>
+                                <title>Certificate of Grades</title>
+                                <link rel="stylesheet" href="https://latex.vercel.app/style.css"/>
+                                <style>
+                                    body {
+                                        text-align: center;
+                                        background-color: #3366CC;
+                                    }
+                                    .certificate-container {
+                                        max-width: 800px;
+                                        margin: auto;
+                                        background: #ffffff;
+                                        padding: 20px;
+                                        border-radius: 10px;
+                                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                    }
+                                    h1, h2 {
+                                        color: #333;
+                                    }
+                                    table {
+                                        margin: auto;
+                                        width: 90%;
+                                        border-collapse: collapse;
+                                    }
+                                    th, td {
+                                        border: 1px solid #ddd;
+                                        padding: 10px;
+                                        text-align: left;
+                                    }
+                                    th {
+                                        background-color: #f2f2f2;
+                                    }
+                                </style>
+                            </head>
+                            <body>
+                                <div class="certificate-container">
+                                    <h1>Certificate of Academic Performance</h1>
+                                    <p>This document certifies the academic achievements of the student listed below:</p>
+                                    <h2>Student Information</h2>
+                                    <table>
                                         <tr><th>Field</th><th>Value</th></tr>
                                         <xsl:for-each select="User/*">
                                             <tr>
@@ -100,7 +133,8 @@ public class CertificateUtil extends HttpServlet {
                                         </xsl:for-each>
                                     </table>
                                     <h2>Grades</h2>
-                                    <table border="1" cellpadding="10">
+                                    <p>The following table lists the courses completed along with the grades achieved:</p>
+                                    <table>
                                         <tr>
                                             <th>Course</th>
                                             <th>Grade</th>
@@ -114,11 +148,14 @@ public class CertificateUtil extends HttpServlet {
                                             </tr>
                                         </xsl:for-each>
                                     </table>
-                                </body>
-                            </html>
-                        </xsl:template>
-                    </xsl:stylesheet>
-                    """;
+                                    <p>Issued on: 2025-01-01</p>
+                                    <p>Certified by: <strong>University Administration</strong></p>
+                                </div>
+                            </body>
+                        </html>
+                    </xsl:template>
+                </xsl:stylesheet>
+                """;
 
             // Transform XML using XSLT
             TransformerFactory factory = TransformerFactory.newInstance();
@@ -136,4 +173,5 @@ public class CertificateUtil extends HttpServlet {
             return "<html><body><h1>Error generating certificate</h1></body></html>";
         }
     }
+
 }
