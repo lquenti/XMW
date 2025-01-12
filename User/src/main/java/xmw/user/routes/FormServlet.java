@@ -1,4 +1,4 @@
-package xmw.user.routes.forms;
+package xmw.user.routes;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import xmw.user.routes.CreateNewUserServlet;
+import xmw.user.db.UserDB;
 import xmw.user.utils.DOMUtils;
 import xmw.user.utils.GroupMappings;
 import xmw.user.utils.Pair;
@@ -23,10 +23,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-@WebServlet(name = "createFormServlet", value = "/forms/create")
-public class CreateFormServlet extends HttpServlet {
+@WebServlet(name = "formServlet", value = "/form")
+public class FormServlet extends HttpServlet {
     private static Element createCheckbox(Document doc, String id, String labelName) {
         // Create the container div
         Element checkboxDiv = doc.createElement("div");
@@ -59,12 +58,12 @@ public class CreateFormServlet extends HttpServlet {
 
         // Add a header for the form
         Element h2 = doc.createElement("h2");
-        h2.appendChild(doc.createTextNode("Creation Form"));
+        h2.appendChild(doc.createTextNode("Creation/Update Form"));
         root.appendChild(h2);
 
         // Create the <form> element
         Element form = doc.createElement("form");
-        form.setAttribute("action", contextPath + "/forms/create");
+        form.setAttribute("action", contextPath + "/form");
         form.setAttribute("method", "post");
         root.appendChild(form);
 
@@ -270,7 +269,13 @@ public class CreateFormServlet extends HttpServlet {
         }
         String xml = writer.toString();
 
+        // check if it is already here
+        if (UserDB.usernameExist(username)) {
+            UserDB.deleteUser(username);
+        }
         CreateNewUserServlet.doAdd(xml, req, res);
+
+
 
         // if we got here we succeeded
         res.setContentType("application/xml");

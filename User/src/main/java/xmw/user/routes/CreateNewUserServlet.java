@@ -19,8 +19,6 @@ public class CreateNewUserServlet extends HttpServlet {
     }
 
     public static void doAdd(String xml, HttpServletRequest req, HttpServletResponse res) throws IOException {
-
-        System.out.println(xml);
         // validate dtd
         if (!DTDValidatorUtils.validateWithPassword(xml)) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid XML sent");
