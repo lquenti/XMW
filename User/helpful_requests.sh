@@ -95,3 +95,13 @@ curl -X POST \
        <group id="g_lecturer">Lecturer</group>
        <group id="g_employee">Employee</group>
      </User>'
+
+# Bulk post
+curl -X POST \
+  http://localhost:8080/User_war_exploded/bulk \
+  -H 'Content-Type: application/xml' \
+  -d '<Users>
+      <User username="hbrosen"/>
+      <User username="wmay"/>
+      <User username="cdamm"/>
+     </Users>'

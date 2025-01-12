@@ -9,6 +9,7 @@ import org.basex.query.QueryProcessor;
 import xmw.user.utils.UserContextListener;
 
 import java.io.IOException;
+import java.util.List;
 
 public class UserDB {
     private static UserDB instance;
@@ -155,6 +156,38 @@ public class UserDB {
                     + " </User>"
                     + "}"
                     + "</Users>";
+        }
+        synchronized (lock) {
+            return new XQuery(authQuery).execute(instance.ctx);
+        }
+    }
+
+    public static String getSpecificBulkUsers(List<String> usernames, boolean with_password) throws BaseXException {
+        String formattedUsernames = String.join("\", \"", usernames);
+        formattedUsernames = "(\"" + formattedUsernames + "\")";
+
+        String authQuery = "declare variable $usernames := " + formattedUsernames + ";\n";
+        if (with_password) {
+            authQuery += """
+            /Users/User[@username = $usernames]
+            """;
+        } else {
+            authQuery += """
+                <Users>
+                {
+                for $user in /Users/User[@username = $usernames]
+                return
+                <User>
+                { for $attr in $user/@* return $attr }
+                {
+                  for $child in $user/*
+                  where not(local-name() = "password")
+                  return $child
+                }
+                </User>
+                }
+                </Users>
+                """;
         }
         synchronized (lock) {
             return new XQuery(authQuery).execute(instance.ctx);

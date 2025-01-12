@@ -306,7 +306,7 @@ public class RootServlet extends HttpServlet {
 
         Response bulkSuccess = new Response();
         bulkSuccess.returnCode = 200;
-        bulkSuccess.reason = "All Users Exist";
+        bulkSuccess.reason = "Successful response (may not be all)";
         bulkSuccess.payload = new Payload();
         bulkSuccess.payload.mimeType = "application/xml";
         bulkSuccess.payload.payload = """
@@ -329,30 +329,6 @@ public class RootServlet extends HttpServlet {
         </Users>
         """;
         bulkOperation.responses.add(bulkSuccess);
-
-        Response bulkPartialContent = new Response();
-        bulkPartialContent.returnCode = 206;
-        bulkPartialContent.reason = "Partial Content: Some Users Not Found";
-        bulkPartialContent.payload = new Payload();
-        bulkPartialContent.payload.mimeType = "application/xml";
-        bulkPartialContent.payload.payload = """
-        <Users>
-          <User username="hbrosen">
-            <name>Brosenne</name>
-            <firstname>Hendrik</firstname>
-            <faculty>Computer Science</faculty>
-            <group id="g_lecturer">Lecturer</group>
-            <group id="g_employee">Employee</group>
-          </User>
-          <!-- Users that were not found are omitted -->
-        </Users>
-        """;
-        bulkOperation.responses.add(bulkPartialContent);
-
-        Response bulkNotFound = new Response();
-        bulkNotFound.returnCode = 404;
-        bulkNotFound.reason = "None of the Users were found";
-        bulkOperation.responses.add(bulkNotFound);
 
         Response bulkBadRequest = new Response();
         bulkBadRequest.returnCode = 400;
