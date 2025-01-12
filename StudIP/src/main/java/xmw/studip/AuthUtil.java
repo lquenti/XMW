@@ -19,6 +19,6 @@ public class AuthUtil {
                 }
             }
         }
-        return "hbrosen"; // for testing purposes
+        return null; // for testing purposes
     }
 }

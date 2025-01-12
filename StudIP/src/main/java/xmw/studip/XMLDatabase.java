@@ -36,7 +36,7 @@ public class XMLDatabase {
             """
                     <Schedules>
                         <Schedule username="hbrosen">
-                            <Course id="c1" semester="ws2425">
+                            <Course id="1" semester="ws2425">
                             </Course>
                         </Schedule>
                     </Schedules>
@@ -71,7 +71,7 @@ public class XMLDatabase {
     }
 
     public List<Map<String, String>> getCourses() throws Exception {
-        URL url = new URL("http://localhost:8080/courses/all");
+        URL url = new URL("http://localhost:8080/exa/courses?format=xml");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
 
@@ -96,23 +96,29 @@ public class XMLDatabase {
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(new ByteArrayInputStream(xmlString.getBytes()));
 
-        NodeList nodeList = doc.getElementsByTagName("Course");
+        NodeList nodeList = doc.getElementsByTagName("course");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             Element course = (Element) nodeList.item(i);
 
             Map<String, String> courseMap = new HashMap<>();
             courseMap.put("CourseID", course.getAttribute("id"));
-            courseMap.put("Semester", course.getAttribute("semester"));
-            courseMap.put("Name", course.getElementsByTagName("Name").item(0).getTextContent());
-            courseMap.put("Faculty", course.getElementsByTagName("Faculty").item(0).getTextContent());
+            courseMap.put("Semester", course.getAttribute("semester_id"));
+            courseMap.put("Name", course.getElementsByTagName("name").item(0).getTextContent());
+            courseMap.put("Faculty", course.getElementsByTagName("faculty").item(0).getTextContent());
+            Element tmp = (Element) course.getElementsByTagName("lecturer").item(0);
+            courseMap.put("LecturerID", tmp.getAttribute("id"));
 
             // MaxStudentCount is optional
-            if (course.getElementsByTagName("MaxStudentCount").getLength() > 0) {
-                courseMap.put("MaxStudentCount", course.getElementsByTagName("MaxStudentCount").item(0).getAttributes().getNamedItem("count").getTextContent());
+            if (course.getElementsByTagName("max_students").getLength() > 0) {
+                courseMap.put("MaxStudentCount", course.getElementsByTagName("max_students").item(0).getTextContent());
             }
-
-            courseMap.put("Time", getLecturesString(course.getElementsByTagName("Lectures")));
+            if (course.getElementsByTagName("lectures").getLength() > 0) {
+                Element lectures = (Element) course.getElementsByTagName("lectures").item(0);
+                courseMap.put("Time", getLecturesString(lectures.getElementsByTagName("lecture")));
+            }
+            else
+                courseMap.put("Time", "-");
 
             courses.add(courseMap);
         }
@@ -121,17 +127,19 @@ public class XMLDatabase {
     }
 
     private String getLecturesString(NodeList lectures) {
-        String time = String.format("Begin: %s \t End: %s \t Room: %s",
-                lectures.item(0).getAttributes().getNamedItem("time_begin"),
-                lectures.item(0).getAttributes().getNamedItem("time_end"),
-                lectures.item(0).getAttributes().getNamedItem("room_id"));
+        Element tmp = (Element) lectures.item(0);
+        StringBuilder time = new StringBuilder(String.format("Begin: %s \t End: %s \t Room: %s",
+                tmp.getElementsByTagName("start").item(0).getTextContent(),
+                tmp.getElementsByTagName("end").item(0).getTextContent(),
+                tmp.getElementsByTagName("room_or_link").item(0).getTextContent()));
         for(int i=1;i<lectures.getLength();i++){
-            time += String.format("\nBegin: %s \t End: %s \t Room: %s",
-                    lectures.item(i).getAttributes().getNamedItem("time_begin"),
-                    lectures.item(i).getAttributes().getNamedItem("time_end"),
-                    lectures.item(i).getAttributes().getNamedItem("room_id"));
+            tmp = (Element) lectures.item(i);
+            time.append(String.format("\nBegin: %s \t End: %s \t Room: %s",
+                    tmp.getElementsByTagName("start").item(0).getTextContent(),
+                    tmp.getElementsByTagName("end").item(0).getTextContent(),
+                    tmp.getElementsByTagName("room_or_link").item(0).getTextContent()));
         }
-        return time;
+        return time.toString();
     }
 
     public List<Map<String,String>> getScheduleForStudent(String userId) throws Exception {
@@ -139,15 +147,17 @@ public class XMLDatabase {
         try {
             String query = String.format(
                     """
-                            for $course in /Schedules/Schedule[%s = $username]/Course
+                            for $course in /Schedules/Schedule[@username = \"%s\"]/Course
                             return
                               <CourseDetail>
-                                <CourseID>{$course/@id}</CourseID>
-                                <Semester>{$course/@semester}</Semester>
+                                <CourseID>{$course/@id/string()}</CourseID>
+                                <Semester>{$course/@semester/string()}</Semester>
                               </CourseDetail>""", userId);
             String result = new XQuery(query).execute(context);
-            for(String r: result.split("\n"))
-                schedule.add(parseLectureResults(r));
+            for(String r: result.split("\n")) {
+                if(!r.isEmpty())
+                    schedule.add(parseLectureResults(r));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -155,7 +165,7 @@ public class XMLDatabase {
 
         for(Map<String, String> s: schedule){
             for(Map<String, String> c: courses){
-                if(s.get("CourseID").equals(c.get("CourseID"))){
+                if(s.getOrDefault("CourseID", "-").equals(c.getOrDefault("CourseID", "-"))){
                     s.putAll(c);
                 }
             }
@@ -187,8 +197,8 @@ public class XMLDatabase {
 
                     // Create a map for this Lecture's attributes
                     Map<String, String> lectureMap = new HashMap<>();
-                    lectureMap.put("Semester", lectureElement.getAttribute("Semester"));
-                    lectureMap.put("CourseID", lectureElement.getAttribute("CourseID"));
+                    lectureMap.put("Semester", lectureElement.getElementsByTagName("Semester").item(0).getTextContent());
+                    lectureMap.put("CourseID", lectureElement.getElementsByTagName("CourseID").item(0).getTextContent());
 
                     // Add the map to the list
                     lecture.putAll(lectureMap);
@@ -208,5 +218,9 @@ public class XMLDatabase {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public String getThing() {
+        return "";
     }
 }

@@ -17,9 +17,10 @@
             if (courses != null) {
                 for (Map<String, String> course : courses) {
                     String courseId = course.get("CourseID");
-                    String semester = course.get("Semester");
+                    String name = course.get("Name");
+                    String faculty = course.get("Faculty");
         %>
-        <option value="<%= courseId %>"><%= semester %></option>
+        <option value="<%= courseId %>"><%= faculty + ": " + name %></option>
         <%
                 }
             }
