@@ -104,9 +104,13 @@ public class DB {
         initializeDatabase();
     }
 
-    public void dumpToFile(String outputPath) throws BaseXException, IOException {
+    public void dumpToFile() throws IOException {
+        dumpToFile(Config.FLUSH_FILE_PATH);
+    }
+
+    public void dumpToFile(String outputPath) throws IOException {
         // Create a query that combines all collections into a single XML document
-        String query = String.format("/root");
+        String query = "/root";
 
         String result = new XQuery(query).execute(context);
 
@@ -119,9 +123,11 @@ public class DB {
 
     public static void close(Context context) {
         try {
+            DB.getInstance().dumpToFile();
             new Close().execute(context);
-        } catch (BaseXException e) {
-            // Ignore close errors
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         } finally {
             context.close();
             instance = null; // Allow recreation after close

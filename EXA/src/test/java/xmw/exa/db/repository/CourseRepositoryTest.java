@@ -50,7 +50,7 @@ class CourseRepositoryTest {
 
     @Test
     void testGetById() {
-        Course course = repository.getById(1);
+        Course course = repository.getById(1L);
         assertNotNull(course);
         assertEquals(1, course.getId());
         assertEquals("omnis", course.getFaculty());

@@ -1,5 +1,6 @@
 package xmw.exa.models.courses;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.basex.core.BaseXException;
 import org.basex.core.Context;
 import org.basex.core.cmd.XQuery;
 
+import xmw.exa.db.DB;
 import xmw.exa.db.repository.BaseXmlRepository;
 
 public class CourseRepository extends BaseXmlRepository<Course> {
@@ -58,7 +60,7 @@ public class CourseRepository extends BaseXmlRepository<Course> {
                         "  element max_students { $c/max_students/text() }, " +
                         "  element name { $c/name/text() } " +
                         "}",
-                DB_NAME, id);
+                id);
 
         try {
             String result = new XQuery(query).execute(context);
@@ -115,10 +117,8 @@ public class CourseRepository extends BaseXmlRepository<Course> {
     public boolean create(Course data) {
         try {
             // Find the highest existing ID
-            String maxIdQuery = String.format(
-                    "let $maxId := max(/root/Courses/Course/id/text()) " +
-                            "return if ($maxId) then $maxId else 0",
-                    DB_NAME);
+            String maxIdQuery = "let $maxId := max(/root/Courses/Course/id/text()) " +
+                    "return if ($maxId) then $maxId else 0";
             String maxIdResult = new XQuery(maxIdQuery).execute(context);
             int nextId = Integer.parseInt(maxIdResult.trim()) + 1;
 
@@ -146,10 +146,14 @@ public class CourseRepository extends BaseXmlRepository<Course> {
             String query = String.format(
                     "let $courses := /root/Courses " +
                             "return insert node %s as last into $courses",
-                    DB_NAME,
                     courseXml);
 
             new XQuery(query).execute(context);
+            try {
+                DB.getInstance().dumpToFile();
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
             return true;
         } catch (BaseXException e) {
             System.err.println("Failed to create course: " + e.getMessage());
