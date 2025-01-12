@@ -2,7 +2,6 @@ package xmw.exa.db.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -153,7 +152,7 @@ class CourseRepositoryTest {
         int initialCount = repository.all().size();
 
         // Try to delete non-existent course
-        repository.delete(999L);
+        repository.delete(9099L);
 
         try {
             // Reinitialize DB to persist changes
@@ -162,6 +161,68 @@ class CourseRepositoryTest {
             // Verify no courses were deleted
             List<Course> courses = repository.all();
             assertEquals(initialCount, courses.size());
+        } catch (Exception e) {
+            fail("Failed to reinitialize database: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void testUpdate() {
+        // Get an existing course
+        Course existingCourse = repository.all().getFirst();
+        long originalId = existingCourse.getId();
+
+        // Modify the course
+        String newName = "Updated Course Name";
+        String newFaculty = "Updated Faculty";
+        existingCourse.setName(newName);
+        existingCourse.setFaculty(newFaculty);
+
+        // Update the course
+        Course updatedCourse = repository.update(existingCourse);
+
+        try {
+
+            // Verify the update
+            assertNotNull(updatedCourse);
+            assertEquals(originalId, updatedCourse.getId());
+            assertEquals(newName, updatedCourse.getName());
+            assertEquals(newFaculty, updatedCourse.getFaculty());
+
+            // Verify the update persisted
+            Course retrievedCourse = repository.get(originalId);
+            assertNotNull(retrievedCourse);
+            assertEquals(newName, retrievedCourse.getName());
+            assertEquals(newFaculty, retrievedCourse.getFaculty());
+        } catch (Exception e) {
+            fail("Failed to reinitialize database: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void testUpdateNonExistent() {
+        // Create a course with non-existent ID
+        Course nonExistentCourse = new Course();
+        nonExistentCourse.setId(999);
+        nonExistentCourse.setName("Non-existent Course");
+        nonExistentCourse.setFaculty("Test Faculty");
+        nonExistentCourse.setLecturerId(1);
+        nonExistentCourse.setMaxStudents(50);
+        nonExistentCourse.setSemesterId(1);
+
+        // Try to update non-existent course
+        Course result = repository.update(nonExistentCourse);
+
+        try {
+            // Reinitialize DB to persist changes
+            db.reinitialize();
+
+            // Verify the update failed
+            assertNull(result);
+
+            // Verify the course doesn't exist
+            Course retrievedCourse = repository.get(999);
+            assertNull(retrievedCourse);
         } catch (Exception e) {
             fail("Failed to reinitialize database: " + e.getMessage());
         }
