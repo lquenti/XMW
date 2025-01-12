@@ -11,12 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e08a0624-4ad7-49a1-b0b9-80aa9b9e5fcf" name="Changes" comment="update exams overview">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CourseServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CoursesServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/courses/CoursesServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/ExamRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/ExamRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/ExamsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmw/exa/models/exams/ExamsServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/collection.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/collection.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/course-details.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/course-details.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

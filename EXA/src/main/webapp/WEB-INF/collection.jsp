@@ -1,7 +1,10 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %> <%@ taglib prefix="fmt"
+                                                            uri="jakarta.tags.fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %> <%@ page
 import="xmw.exa.util.Config" %>
 <jsp:useBean id="name" scope="request" type="java.lang.String" />
 <jsp:useBean id="message" scope="request" type="java.lang.String" />
+<jsp:useBean id="courses" scope="request" type="java.util.List" />
 <!DOCTYPE html>
 <html xml:lang="en">
   <head>
@@ -50,6 +53,92 @@ import="xmw.exa.util.Config" %>
           View as XML
         </a>
       </div>
+
+      <div class="create-form">
+        <h3>Create New Exam</h3>
+        <form
+          action="${pageContext.request.contextPath}/exams"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <div class="form-group">
+            <label for="course_id">Course:</label>
+            <select name="course_id" id="course_id" required>
+              <c:forEach var="course" items="${courses}">
+                <option value="${course.id}">${course.name}</option>
+              </c:forEach>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="date">Date and Time:</label>
+            <input type="datetime-local" name="date" id="date" required />
+          </div>
+
+          <div class="form-group">
+            <label for="is_online">Online Exam:</label>
+            <input type="checkbox" name="is_online" id="is_online" />
+          </div>
+
+          <div class="form-group">
+            <label for="is_written">Written Exam:</label>
+            <input type="checkbox" name="is_written" id="is_written" />
+          </div>
+
+          <div class="form-group">
+            <label for="room_or_link">Room/Link:</label>
+            <input type="text" name="room_or_link" id="room_or_link" required />
+          </div>
+
+          <button type="submit">Create Exam</button>
+        </form>
+      </div>
+
+      <style>
+        .create-form {
+          max-width: 500px;
+          margin: 20px 0;
+          padding: 20px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+        }
+
+        .form-group {
+          margin-bottom: 15px;
+        }
+
+        .form-group label {
+          display: block;
+          margin-bottom: 5px;
+          font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="datetime-local"],
+        .form-group select {
+          width: 100%;
+          padding: 8px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+        }
+
+        .form-group input[type="checkbox"] {
+          margin-right: 5px;
+        }
+
+        button[type="submit"] {
+          background-color: #4caf50;
+          color: white;
+          padding: 10px 15px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+          background-color: #45a049;
+        }
+      </style>
     </div>
   </body>
 </html>

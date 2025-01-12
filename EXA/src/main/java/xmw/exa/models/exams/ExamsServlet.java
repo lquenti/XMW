@@ -7,21 +7,24 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
 import xmw.exa.models.courses.Course;
+import xmw.exa.models.courses.CourseRepository;
 import xmw.exa.models.lectureres.Lecturer;
 import xmw.exa.models.semesters.Semester;
 import xmw.exa.util.Config;
 
 @WebServlet(name = "exams", value = "/exams")
+@MultipartConfig
 public class ExamsServlet extends HttpServlet {
     private String name;
     private DB db;
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     @Override
     public void init() {
@@ -35,8 +38,8 @@ public class ExamsServlet extends HttpServlet {
             // Parse parameters
             int courseId = Integer.parseInt(request.getParameter("course_id"));
             String dateTimeStr = request.getParameter("date");
-            boolean isOnline = Boolean.parseBoolean(request.getParameter("is_online"));
-            boolean isWritten = Boolean.parseBoolean(request.getParameter("is_written"));
+            boolean isOnline = request.getParameter("is_online") != null;
+            boolean isWritten = request.getParameter("is_written") != null;
             String roomOrLink = request.getParameter("room_or_link");
 
             // Validate required fields
@@ -48,7 +51,7 @@ public class ExamsServlet extends HttpServlet {
             // Create new exam object
             Exam exam = new Exam();
             exam.setCourseId(courseId);
-            exam.setDate(LocalDateTime.parse(dateTimeStr));
+            exam.setDate(LocalDateTime.parse(dateTimeStr, DATE_FORMATTER));
             exam.setOnline(isOnline);
             exam.setWritten(isWritten);
             exam.setRoomOrLink(roomOrLink);
@@ -67,7 +70,7 @@ public class ExamsServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid course ID format");
         } catch (DateTimeParseException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-                    "Invalid date format. Expected format: yyyy-MM-dd HH:mm");
+                    "Invalid date format. Expected format: yyyy-MM-ddTHH:mm");
         } catch (Exception e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error creating exam: " + e.getMessage());
         }
@@ -152,6 +155,7 @@ public class ExamsServlet extends HttpServlet {
         // HTML response
         response.setContentType("text/html");
         request.setAttribute("name", this.name);
+        request.setAttribute("courses", new CourseRepository(DB.getInstance().getContext()).all());
 
         // Get all exams and courses
         var exams = db.exams().all();

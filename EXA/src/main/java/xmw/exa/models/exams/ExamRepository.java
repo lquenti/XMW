@@ -96,7 +96,6 @@ public class ExamRepository extends BaseXmlRepository<Exam> {
                 data.setId(nextId);
             }
 
-
             String examXML = String.format(
                     "<Exam>\n" +
                             "      <course_id>%d</course_id>\n" +
@@ -111,10 +110,10 @@ public class ExamRepository extends BaseXmlRepository<Exam> {
                     data.getId(),
                     data.isOnline() ? 1 : 0,
                     data.isWritten() ? 1 : 0,
-                    data.getRoomOrLink()
-            );
+                    data.getRoomOrLink());
 
-            String query = String.format("let $exams := /root/Exams" + "return insert node %s as last in $exams", examXML);
+            String query = String.format("let $exams := /root/Exams " +
+                    "return insert node %s as last into $exams", examXML);
 
             new XQuery(query).execute(context);
 
