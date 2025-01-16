@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   app:
     build: .
@@ -18,4 +16,4 @@ services:
 
 volumes:
   xml_data:
-    driver: local
+    name: xmw_xml_data

@@ -6,29 +6,23 @@
     "service": "app",
     "workspaceFolder": "/workspace",
     "customizations": {
-        "intellij": {
-            "plugins": [
-                "com.intellij.java",
-                "MavenRunHelper",
-                "Docker"
+        "vscode": {
+            "extensions": [
+                "vscjava.vscode-java-pack",
+                "redhat.java",
+                "vscjava.vscode-maven"
             ]
         }
-    },
-    "features": {
-        "ghcr.io/devcontainers/features/java:1": {
-            "version": "17",
-            "installMaven": "true"
-        },
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
     },
     "remoteUser": "root",
     "mounts": [
         "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
-        "source=xml_data,target=/root/xmw_data,type=volume"
+        "source=${localEnv:HOME}/.m2,target=/root/.m2,type=bind,consistency=cached"
     ],
     "forwardPorts": [
         8888,
         8080
     ],
-    "postCreateCommand": "mvn install -DskipTests"
+    "postCreateCommand": "mvn install -DskipTests",
+    "shutdownAction": "stopCompose"
 }
