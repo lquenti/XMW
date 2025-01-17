@@ -351,2441 +351,1751 @@
         </Lecturer>
     </Lectureres>
     <Lectures>
-        <Lecture>
-            <course_id>1</course_id>
-            <end>2026-03-11T0T:19:06</end>
-            <id>1</id>
-            <room_or_link>http://www.goldner.com/fuga-cupiditate-et-a-non-est-quod-aut</room_or_link>
+        <Lecture id="1" course="1">
             <start>2026-03-10T2T:44:06</start>
+            <end>2026-03-11T0T:19:06</end>
+            <room_or_link>http://www.goldner.com/fuga-cupiditate-et-a-non-est-quod-aut</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>1</course_id>
-            <end>2025-12-19T21:59:36</end>
-            <id>2</id>
-            <room_or_link>Room 7175</room_or_link>
+        <Lecture id="2" course="1">
             <start>2025-12-19T20:27:36</start>
+            <end>2025-12-19T21:59:36</end>
+            <room_or_link>Room 7175</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>1</course_id>
-            <end>2026-03-13T08:42:33</end>
-            <id>3</id>
-            <room_or_link>Room 3761</room_or_link>
+        <Lecture id="3" course="1">
             <start>2026-03-13T0T:41:33</start>
+            <end>2026-03-13T08:42:33</end>
+            <room_or_link>Room 3761</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>1</course_id>
-            <end>2026-01-11T2T:44:10</end>
-            <id>4</id>
-            <room_or_link>http://willms.com/officia-hic-qui-nulla-molestiae-odio.html</room_or_link>
+        <Lecture id="4" course="1">
             <start>2026-01-11T2T:05:10</start>
+            <end>2026-01-11T2T:44:10</end>
+            <room_or_link>http://willms.com/officia-hic-qui-nulla-molestiae-odio.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>1</course_id>
-            <end>2026-02-12T0T:33:50</end>
-            <id>5</id>
-            <room_or_link>Room 59837</room_or_link>
+        <Lecture id="5" course="1">
             <start>2026-02-11T2T:54:50</start>
+            <end>2026-02-12T0T:33:50</end>
+            <room_or_link>Room 59837</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>1</course_id>
-            <end>2025-12-13T1T:01:24</end>
-            <id>6</id>
-            <room_or_link>http://welch.com/</room_or_link>
+        <Lecture id="6" course="1">
             <start>2025-12-13T1T:34:24</start>
+            <end>2025-12-13T1T:01:24</end>
+            <room_or_link>http://welch.com/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>1</course_id>
-            <end>2026-02-07T0T:29:37</end>
-            <id>7</id>
-            <room_or_link>Room 8691</room_or_link>
+        <Lecture id="7" course="1">
             <start>2026-02-07T0T:03:37</start>
+            <end>2026-02-07T0T:29:37</end>
+            <room_or_link>Room 8691</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>1</course_id>
-            <end>2026-01-20T0T:05:43</end>
-            <id>8</id>
-            <room_or_link>Room 61229</room_or_link>
+        <Lecture id="8" course="1">
             <start>2026-01-20T0T:59:43</start>
+            <end>2026-01-20T0T:05:43</end>
+            <room_or_link>Room 61229</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>1</course_id>
-            <end>2026-01-10T1T:12:42</end>
-            <id>9</id>
-            <room_or_link>Room 474</room_or_link>
+        <Lecture id="9" course="1">
             <start>2026-01-10T1T:45:42</start>
+            <end>2026-01-10T1T:12:42</end>
+            <room_or_link>Room 474</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>1</course_id>
-            <end>2026-03-05T0T:16:46</end>
-            <id>10</id>
-            <room_or_link>Room 4252</room_or_link>
+        <Lecture id="10" course="1">
             <start>2026-03-04T2T:58:46</start>
+            <end>2026-03-05T0T:16:46</end>
+            <room_or_link>Room 4252</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>1</course_id>
-            <end>2025-10-06T0T:04:31</end>
-            <id>11</id>
-            <room_or_link>http://kuhlman.com/</room_or_link>
+        <Lecture id="11" course="1">
             <start>2025-10-06T0T:29:31</start>
+            <end>2025-10-06T0T:04:31</end>
+            <room_or_link>http://kuhlman.com/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>2</course_id>
-            <end>2026-01-14T2T:59:05</end>
-            <id>12</id>
-            <room_or_link>http://www.ledner.biz/fugiat-quae-sed-nemo</room_or_link>
+        <Lecture id="12" course="2">
             <start>2026-01-14T1T:45:05</start>
+            <end>2026-01-14T2T:59:05</end>
+            <room_or_link>http://www.ledner.biz/fugiat-quae-sed-nemo</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>2</course_id>
-            <end>2026-01-15T2T:42:05</end>
-            <id>13</id>
-            <room_or_link>http://www.ritchie.com/officia-officiis-et-eos-earum-ipsa-autem</room_or_link>
+        <Lecture id="13" course="2">
             <start>2026-01-15T1T:54:05</start>
+            <end>2026-01-15T2T:42:05</end>
+            <room_or_link>http://www.ritchie.com/officia-officiis-et-eos-earum-ipsa-autem</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>2</course_id>
-            <end>2026-03-13T1T:20:32</end>
-            <id>14</id>
-            <room_or_link>http://www.mayer.biz/illum-pariatur-dolor-qui-est-cupiditate-laudantium-cumque</room_or_link>
+        <Lecture id="14" course="2">
             <start>2026-03-13T1T:00:32</start>
+            <end>2026-03-13T1T:20:32</end>
+            <room_or_link>http://www.mayer.biz/illum-pariatur-dolor-qui-est-cupiditate-laudantium-cumque</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>2</course_id>
-            <end>2026-03-14T0T:22:56</end>
-            <id>15</id>
-            <room_or_link>Room 565</room_or_link>
+        <Lecture id="15" course="2">
             <start>2026-03-14T0T:33:56</start>
+            <end>2026-03-14T0T:22:56</end>
+            <room_or_link>Room 565</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>2</course_id>
-            <end>2025-10-08T1T:35:22</end>
-            <id>16</id>
-            <room_or_link>Room 2903</room_or_link>
+        <Lecture id="16" course="2">
             <start>2025-10-08T1T:17:22</start>
+            <end>2025-10-08T1T:35:22</end>
+            <room_or_link>Room 2903</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>2</course_id>
-            <end>2025-12-22T0T:26:22</end>
-            <id>17</id>
-            <room_or_link>Room 91115</room_or_link>
+        <Lecture id="17" course="2">
             <start>2025-12-22T0T:45:22</start>
+            <end>2025-12-22T0T:26:22</end>
+            <room_or_link>Room 91115</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>2</course_id>
-            <end>2025-10-04T1T:27:34</end>
-            <id>18</id>
-            <room_or_link>http://haley.org/sed-vel-ea-reiciendis-incidunt-officiis-vel</room_or_link>
+        <Lecture id="18" course="2">
             <start>2025-10-04T1T:44:34</start>
+            <end>2025-10-04T1T:27:34</end>
+            <room_or_link>http://haley.org/sed-vel-ea-reiciendis-incidunt-officiis-vel</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>2</course_id>
-            <end>2026-01-25T2T:46:10</end>
-            <id>19</id>
-            <room_or_link>Room 523</room_or_link>
+        <Lecture id="19" course="2">
             <start>2026-01-25T2T:45:10</start>
+            <end>2026-01-25T2T:46:10</end>
+            <room_or_link>Room 523</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>2</course_id>
-            <end>2026-02-26T0T:27:11</end>
-            <id>20</id>
-            <room_or_link>Room 66952</room_or_link>
+        <Lecture id="20" course="2">
             <start>2026-02-26T0T:40:11</start>
+            <end>2026-02-26T0T:27:11</end>
+            <room_or_link>Room 66952</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>2</course_id>
-            <end>2026-03-26T0T:06:19</end>
-            <id>21</id>
-            <room_or_link>http://www.kovacek.com/eveniet-officiis-qui-ut-reiciendis-dignissimos</room_or_link>
+        <Lecture id="21" course="2">
             <start>2026-03-25T2T:54:19</start>
+            <end>2026-03-26T0T:06:19</end>
+            <room_or_link>http://www.kovacek.com/eveniet-officiis-qui-ut-reiciendis-dignissimos</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>2</course_id>
-            <end>2026-01-13T1T:23:33</end>
-            <id>22</id>
-            <room_or_link>http://kutch.com/et-quis-aliquid-ut-deserunt-quod-rerum.html</room_or_link>
+        <Lecture id="22" course="2">
             <start>2026-01-13T1T:56:33</start>
+            <end>2026-01-13T1T:23:33</end>
+            <room_or_link>http://kutch.com/et-quis-aliquid-ut-deserunt-quod-rerum.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>2</course_id>
-            <end>2025-11-21T1T:16:43</end>
-            <id>23</id>
-            <room_or_link>http://gleason.com/debitis-nesciunt-atque-maxime-et-quas.html</room_or_link>
+        <Lecture id="23" course="2">
             <start>2025-11-21T1T:01:43</start>
+            <end>2025-11-21T1T:16:43</end>
+            <room_or_link>http://gleason.com/debitis-nesciunt-atque-maxime-et-quas.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>2</course_id>
-            <end>2026-03-06T0T:26:51</end>
-            <id>24</id>
-            <room_or_link>Room 8451</room_or_link>
+        <Lecture id="24" course="2">
             <start>2026-03-06T0T:27:51</start>
+            <end>2026-03-06T0T:26:51</end>
+            <room_or_link>Room 8451</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>3</course_id>
-            <end>2026-02-24T2T:59:46</end>
-            <id>25</id>
-            <room_or_link>http://turcotte.net/</room_or_link>
+        <Lecture id="25" course="3">
             <start>2026-02-24T2T:17:46</start>
+            <end>2026-02-24T2T:59:46</end>
+            <room_or_link>http://turcotte.net/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>3</course_id>
-            <end>2025-10-16T1T:52:56</end>
-            <id>26</id>
-            <room_or_link>Room 6911</room_or_link>
+        <Lecture id="26" course="3">
             <start>2025-10-16T1T:56:56</start>
+            <end>2025-10-16T1T:52:56</end>
+            <room_or_link>Room 6911</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>3</course_id>
-            <end>2026-03-19T1T:27:50</end>
-            <id>27</id>
-            <room_or_link>Room 48505</room_or_link>
+        <Lecture id="27" course="3">
             <start>2026-03-19T1T:11:50</start>
+            <end>2026-03-19T1T:27:50</end>
+            <room_or_link>Room 48505</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>3</course_id>
-            <end>2026-02-07T0T:27:04</end>
-            <id>28</id>
-            <room_or_link>Room 719</room_or_link>
+        <Lecture id="28" course="3">
             <start>2026-02-06T2T:54:04</start>
+            <end>2026-02-07T0T:27:04</end>
+            <room_or_link>Room 719</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>3</course_id>
-            <end>2025-11-10T2T:48:10</end>
-            <id>29</id>
-            <room_or_link>Room 9502</room_or_link>
+        <Lecture id="29" course="3">
             <start>2025-11-10T1T:58:10</start>
+            <end>2025-11-10T2T:48:10</end>
+            <room_or_link>Room 9502</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>3</course_id>
-            <end>2025-11-18T0T:21:15</end>
-            <id>30</id>
-            <room_or_link>Room 93846</room_or_link>
+        <Lecture id="30" course="3">
             <start>2025-11-18T0T:10:15</start>
+            <end>2025-11-18T0T:21:15</end>
+            <room_or_link>Room 93846</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>3</course_id>
-            <end>2025-11-30T0T:10:13</end>
-            <id>31</id>
-            <room_or_link>Room 293</room_or_link>
+        <Lecture id="31" course="3">
             <start>2025-11-29T2T:27:13</start>
+            <end>2025-11-30T0T:10:13</end>
+            <room_or_link>Room 293</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>3</course_id>
-            <end>2026-03-12T1T:46:11</end>
-            <id>32</id>
-            <room_or_link>Room 5355</room_or_link>
+        <Lecture id="32" course="3">
             <start>2026-03-12T1T:15:11</start>
+            <end>2026-03-12T1T:46:11</end>
+            <room_or_link>Room 5355</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>3</course_id>
-            <end>2026-02-21T0T:21:59</end>
-            <id>33</id>
-            <room_or_link>Room 216</room_or_link>
+        <Lecture id="33" course="3">
             <start>2026-02-21T0T:29:59</start>
+            <end>2026-02-21T0T:21:59</end>
+            <room_or_link>Room 216</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>3</course_id>
-            <end>2026-03-26T1T:07:07</end>
-            <id>34</id>
-            <room_or_link>http://www.bruen.com/</room_or_link>
+        <Lecture id="34" course="3">
             <start>2026-03-26T1T:35:07</start>
+            <end>2026-03-26T1T:07:07</end>
+            <room_or_link>http://www.bruen.com/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>3</course_id>
-            <end>2025-10-29T1T:30:51</end>
-            <id>35</id>
-            <room_or_link>Room 10930</room_or_link>
+        <Lecture id="35" course="3">
             <start>2025-10-29T0T:43:51</start>
+            <end>2025-10-29T1T:30:51</end>
+            <room_or_link>Room 10930</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>3</course_id>
-            <end>2025-11-21T1T:05:47</end>
-            <id>36</id>
-            <room_or_link>Room 2885</room_or_link>
+        <Lecture id="36" course="3">
             <start>2025-11-21T1T:28:47</start>
+            <end>2025-11-21T1T:05:47</end>
+            <room_or_link>Room 2885</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>4</course_id>
-            <end>2026-02-23T0T:43:41</end>
-            <id>37</id>
-            <room_or_link>http://www.murazik.biz/hic-dolor-dolor-consectetur-neque-voluptate</room_or_link>
+        <Lecture id="37" course="4">
             <start>2026-02-22T2T:59:41</start>
+            <end>2026-02-23T0T:43:41</end>
+            <room_or_link>http://www.murazik.biz/hic-dolor-dolor-consectetur-neque-voluptate</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>4</course_id>
-            <end>2026-01-20T0T:03:24</end>
-            <id>38</id>
-            <room_or_link>Room 49340</room_or_link>
+        <Lecture id="38" course="4">
             <start>2026-01-20T0T:19:24</start>
+            <end>2026-01-20T0T:03:24</end>
+            <room_or_link>Room 49340</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>4</course_id>
-            <end>2025-11-19T0T:09:38</end>
-            <id>39</id>
-            <room_or_link>Room 9966</room_or_link>
+        <Lecture id="39" course="4">
             <start>2025-11-18T2T:20:38</start>
+            <end>2025-11-19T0T:09:38</end>
+            <room_or_link>Room 9966</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>4</course_id>
-            <end>2026-01-12T1T:26:01</end>
-            <id>40</id>
-            <room_or_link>http://www.hauck.com/cumque-laborum-animi-rerum-mollitia</room_or_link>
+        <Lecture id="40" course="4">
             <start>2026-01-12T1T:41:01</start>
+            <end>2026-01-12T1T:26:01</end>
+            <room_or_link>http://www.hauck.com/cumque-laborum-animi-rerum-mollitia</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>4</course_id>
-            <end>2026-02-17T1T:31:37</end>
-            <id>41</id>
-            <room_or_link>Room 9637</room_or_link>
+        <Lecture id="41" course="4">
             <start>2026-02-17T1T:53:37</start>
+            <end>2026-02-17T1T:31:37</end>
+            <room_or_link>Room 9637</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>4</course_id>
-            <end>2026-01-04T2T:26:05</end>
-            <id>42</id>
-            <room_or_link>https://mills.info/dolorum-nesciunt-non-eligendi-voluptatem-consequuntur-earum-sapiente.html
+        <Lecture id="42" course="4">
             </room_or_link>
+            <end>2026-01-04T2T:26:05</end>
+            <room_or_link>https://mills.info/dolorum-nesciunt-non-eligendi-voluptatem-consequuntur-earum-sapiente.html
             <start>2026-01-04T1T:48:05</start>
         </Lecture>
-        <Lecture>
-            <course_id>4</course_id>
-            <end>2026-01-22T1T:19:47</end>
-            <id>43</id>
-            <room_or_link>Room 73022</room_or_link>
+        <Lecture id="43" course="4">
             <start>2026-01-22T1T:42:47</start>
+            <end>2026-01-22T1T:19:47</end>
+            <room_or_link>Room 73022</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>4</course_id>
-            <end>2025-11-10T2T:09:19</end>
-            <id>44</id>
-            <room_or_link>Room 47942</room_or_link>
+        <Lecture id="44" course="4">
             <start>2025-11-10T2T:20:19</start>
+            <end>2025-11-10T2T:09:19</end>
+            <room_or_link>Room 47942</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>4</course_id>
-            <end>2025-10-15T0T:04:30</end>
-            <id>45</id>
-            <room_or_link>Room 9886</room_or_link>
+        <Lecture id="45" course="4">
             <start>2025-10-15T0T:33:30</start>
+            <end>2025-10-15T0T:04:30</end>
+            <room_or_link>Room 9886</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>4</course_id>
-            <end>2025-11-10T0T:21:26</end>
-            <id>46</id>
-            <room_or_link>Room 30953</room_or_link>
+        <Lecture id="46" course="4">
             <start>2025-11-10T0T:35:26</start>
+            <end>2025-11-10T0T:21:26</end>
+            <room_or_link>Room 30953</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>4</course_id>
-            <end>2026-02-11T1T:07:56</end>
-            <id>47</id>
-            <room_or_link>Room 133</room_or_link>
+        <Lecture id="47" course="4">
             <start>2026-02-11T1T:44:56</start>
+            <end>2026-02-11T1T:07:56</end>
+            <room_or_link>Room 133</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>4</course_id>
-            <end>2026-02-13T2T:34:45</end>
-            <id>48</id>
-            <room_or_link>http://hudson.biz/est-rerum-aut-qui-beatae-incidunt-sit</room_or_link>
+        <Lecture id="48" course="4">
             <start>2026-02-13T1T:44:45</start>
+            <end>2026-02-13T2T:34:45</end>
+            <room_or_link>http://hudson.biz/est-rerum-aut-qui-beatae-incidunt-sit</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>4</course_id>
-            <end>2026-03-11T1T:53:04</end>
-            <id>49</id>
-            <room_or_link>Room 254</room_or_link>
+        <Lecture id="49" course="4">
             <start>2026-03-11T1T:27:04</start>
+            <end>2026-03-11T1T:53:04</end>
+            <room_or_link>Room 254</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>4</course_id>
-            <end>2025-12-26T0T:19:48</end>
-            <id>50</id>
-            <room_or_link>http://www.kunze.info/occaecati-sed-voluptatem-est-architecto-et-officia-ea</room_or_link>
+        <Lecture id="50" course="4">
             <start>2025-12-26T0T:28:48</start>
+            <end>2025-12-26T0T:19:48</end>
+            <room_or_link>http://www.kunze.info/occaecati-sed-voluptatem-est-architecto-et-officia-ea</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>4</course_id>
-            <end>2025-12-26T0T:35:58</end>
-            <id>51</id>
-            <room_or_link>http://yundt.com/modi-sint-quis-eveniet-corrupti-eligendi-labore.html</room_or_link>
+        <Lecture id="51" course="4">
             <start>2025-12-25T2T:52:58</start>
+            <end>2025-12-26T0T:35:58</end>
+            <room_or_link>http://yundt.com/modi-sint-quis-eveniet-corrupti-eligendi-labore.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>5</course_id>
-            <end>2025-10-27T1T:57:05</end>
-            <id>52</id>
-            <room_or_link>Room 263</room_or_link>
+        <Lecture id="52" course="5">
             <start>2025-10-27T1T:01:05</start>
+            <end>2025-10-27T1T:57:05</end>
+            <room_or_link>Room 263</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>5</course_id>
-            <end>2025-12-14T1T:06:39</end>
-            <id>53</id>
-            <room_or_link>Room 272</room_or_link>
+        <Lecture id="53" course="5">
             <start>2025-12-14T0T:23:39</start>
+            <end>2025-12-14T1T:06:39</end>
+            <room_or_link>Room 272</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>5</course_id>
-            <end>2025-11-12T0T:23:17</end>
-            <id>54</id>
-            <room_or_link>Room 3978</room_or_link>
+        <Lecture id="54" course="5">
             <start>2025-11-12T0T:25:17</start>
+            <end>2025-11-12T0T:23:17</end>
+            <room_or_link>Room 3978</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>5</course_id>
-            <end>2026-02-25T2T:16:37</end>
-            <id>55</id>
-            <room_or_link>Room 499</room_or_link>
+        <Lecture id="55" course="5">
             <start>2026-02-25T2T:50:37</start>
+            <end>2026-02-25T2T:16:37</end>
+            <room_or_link>Room 499</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>5</course_id>
-            <end>2025-10-24T1T:19:33</end>
-            <id>56</id>
-            <room_or_link>http://www.hudson.info/animi-doloremque-autem-doloribus-temporibus.html</room_or_link>
+        <Lecture id="56" course="5">
             <start>2025-10-24T1T:32:33</start>
+            <end>2025-10-24T1T:19:33</end>
+            <room_or_link>http://www.hudson.info/animi-doloremque-autem-doloribus-temporibus.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>5</course_id>
-            <end>2025-10-02T1T:48:27</end>
-            <id>57</id>
-            <room_or_link>Room 9838</room_or_link>
+        <Lecture id="57" course="5">
             <start>2025-10-02T1T:54:27</start>
+            <end>2025-10-02T1T:48:27</end>
+            <room_or_link>Room 9838</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>5</course_id>
-            <end>2026-03-25T0T:19:49</end>
-            <id>58</id>
-            <room_or_link>Room 2789</room_or_link>
+        <Lecture id="58" course="5">
             <start>2026-03-25T0T:09:49</start>
+            <end>2026-03-25T0T:19:49</end>
+            <room_or_link>Room 2789</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>5</course_id>
-            <end>2026-01-27T0T:37:15</end>
-            <id>59</id>
-            <room_or_link>Room 186</room_or_link>
+        <Lecture id="59" course="5">
             <start>2026-01-27T0T:08:15</start>
+            <end>2026-01-27T0T:37:15</end>
+            <room_or_link>Room 186</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>5</course_id>
-            <end>2025-10-10T2T:51:18</end>
-            <id>60</id>
-            <room_or_link>Room 8393</room_or_link>
+        <Lecture id="60" course="5">
             <start>2025-10-10T1T:11:18</start>
+            <end>2025-10-10T2T:51:18</end>
+            <room_or_link>Room 8393</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>5</course_id>
-            <end>2025-10-14T1T:18:00</end>
-            <id>61</id>
-            <room_or_link>Room 61917</room_or_link>
+        <Lecture id="61" course="5">
             <start>2025-10-14T1T:30:00</start>
+            <end>2025-10-14T1T:18:00</end>
+            <room_or_link>Room 61917</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>5</course_id>
-            <end>2026-03-07T0T:32:05</end>
-            <id>62</id>
-            <room_or_link>Room 218</room_or_link>
+        <Lecture id="62" course="5">
             <start>2026-03-06T2T:55:05</start>
+            <end>2026-03-07T0T:32:05</end>
+            <room_or_link>Room 218</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>5</course_id>
-            <end>2025-10-17T1T:54:58</end>
-            <id>63</id>
-            <room_or_link>http://oberbrunner.net/</room_or_link>
+        <Lecture id="63" course="5">
             <start>2025-10-17T1T:42:58</start>
+            <end>2025-10-17T1T:54:58</end>
+            <room_or_link>http://oberbrunner.net/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>5</course_id>
-            <end>2026-03-26T1T:11:38</end>
-            <id>64</id>
-            <room_or_link>http://www.hickle.com/</room_or_link>
+        <Lecture id="64" course="5">
             <start>2026-03-26T1T:38:38</start>
+            <end>2026-03-26T1T:11:38</end>
+            <room_or_link>http://www.hickle.com/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>5</course_id>
-            <end>2025-12-04T1T:58:22</end>
-            <id>65</id>
-            <room_or_link>Room 108</room_or_link>
+        <Lecture id="65" course="5">
             <start>2025-12-04T1T:22:22</start>
+            <end>2025-12-04T1T:58:22</end>
+            <room_or_link>Room 108</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>5</course_id>
-            <end>2025-12-22T0T:47:09</end>
-            <id>66</id>
-            <room_or_link>Room 5106</room_or_link>
+        <Lecture id="66" course="5">
             <start>2025-12-21T2T:55:09</start>
+            <end>2025-12-22T0T:47:09</end>
+            <room_or_link>Room 5106</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>6</course_id>
-            <end>2025-10-30T2T:59:36</end>
-            <id>67</id>
-            <room_or_link>http://www.batz.com/dolorem-temporibus-porro-quis-consectetur-reiciendis-alias</room_or_link>
+        <Lecture id="67" course="6">
             <start>2025-10-30T1T:09:36</start>
+            <end>2025-10-30T2T:59:36</end>
+            <room_or_link>http://www.batz.com/dolorem-temporibus-porro-quis-consectetur-reiciendis-alias</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>6</course_id>
-            <end>2026-01-05T1T:59:44</end>
-            <id>68</id>
-            <room_or_link>Room 93155</room_or_link>
+        <Lecture id="68" course="6">
             <start>2026-01-05T1T:43:44</start>
+            <end>2026-01-05T1T:59:44</end>
+            <room_or_link>Room 93155</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>6</course_id>
-            <end>2025-10-15T2T:37:27</end>
-            <id>69</id>
-            <room_or_link>Room 91171</room_or_link>
+        <Lecture id="69" course="6">
             <start>2025-10-15T2T:43:27</start>
+            <end>2025-10-15T2T:37:27</end>
+            <room_or_link>Room 91171</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>6</course_id>
-            <end>2026-03-28T1T:04:00</end>
-            <id>70</id>
-            <room_or_link>Room 6671</room_or_link>
+        <Lecture id="70" course="6">
             <start>2026-03-28T1T:15:00</start>
+            <end>2026-03-28T1T:04:00</end>
+            <room_or_link>Room 6671</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>6</course_id>
-            <end>2025-11-11T0T:18:56</end>
-            <id>71</id>
-            <room_or_link>http://www.zboncak.net/eum-et-necessitatibus-neque-occaecati-est-nam-quis</room_or_link>
+        <Lecture id="71" course="6">
             <start>2025-11-11T0T:19:56</start>
+            <end>2025-11-11T0T:18:56</end>
+            <room_or_link>http://www.zboncak.net/eum-et-necessitatibus-neque-occaecati-est-nam-quis</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>6</course_id>
-            <end>2025-11-02T2T:17:05</end>
-            <id>72</id>
-            <room_or_link>Room 327</room_or_link>
+        <Lecture id="72" course="6">
             <start>2025-11-02T1T:02:05</start>
+            <end>2025-11-02T2T:17:05</end>
+            <room_or_link>Room 327</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>6</course_id>
-            <end>2025-12-28T1T:12:35</end>
-            <id>73</id>
-            <room_or_link>Room 7342</room_or_link>
+        <Lecture id="73" course="6">
             <start>2025-12-28T0T:31:35</start>
+            <end>2025-12-28T1T:12:35</end>
+            <room_or_link>Room 7342</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>6</course_id>
-            <end>2025-12-27T1T:43:48</end>
-            <id>74</id>
-            <room_or_link>Room 7103</room_or_link>
+        <Lecture id="74" course="6">
             <start>2025-12-27T1T:24:48</start>
+            <end>2025-12-27T1T:43:48</end>
+            <room_or_link>Room 7103</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>6</course_id>
-            <end>2026-02-07T0T:28:25</end>
-            <id>75</id>
-            <room_or_link>http://www.walker.biz/consequatur-sed-laborum-itaque-cupiditate-deserunt-voluptates
+        <Lecture id="75" course="6">
             </room_or_link>
+            <end>2026-02-07T0T:28:25</end>
+            <room_or_link>http://www.walker.biz/consequatur-sed-laborum-itaque-cupiditate-deserunt-voluptates
             <start>2026-02-07T0T:47:25</start>
         </Lecture>
-        <Lecture>
-            <course_id>6</course_id>
-            <end>2025-11-02T1T:13:38</end>
-            <id>76</id>
-            <room_or_link>Room 5969</room_or_link>
+        <Lecture id="76" course="6">
             <start>2025-11-02T1T:38:38</start>
+            <end>2025-11-02T1T:13:38</end>
+            <room_or_link>Room 5969</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>6</course_id>
-            <end>2026-02-08T1T:08:16</end>
-            <id>77</id>
-            <room_or_link>Room 49339</room_or_link>
+        <Lecture id="77" course="6">
             <start>2026-02-08T1T:46:16</start>
+            <end>2026-02-08T1T:08:16</end>
+            <room_or_link>Room 49339</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>6</course_id>
-            <end>2026-03-07T0T:04:54</end>
-            <id>78</id>
-            <room_or_link>Room 94906</room_or_link>
+        <Lecture id="78" course="6">
             <start>2026-03-07T0T:16:54</start>
+            <end>2026-03-07T0T:04:54</end>
+            <room_or_link>Room 94906</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>6</course_id>
-            <end>2026-02-11T1T:33:33</end>
-            <id>79</id>
-            <room_or_link>Room 22701</room_or_link>
+        <Lecture id="79" course="6">
             <start>2026-02-11T1T:45:33</start>
+            <end>2026-02-11T1T:33:33</end>
+            <room_or_link>Room 22701</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>6</course_id>
-            <end>2026-02-24T0T:22:18</end>
-            <id>80</id>
-            <room_or_link>Room 5615</room_or_link>
+        <Lecture id="80" course="6">
             <start>2026-02-24T0T:53:18</start>
+            <end>2026-02-24T0T:22:18</end>
+            <room_or_link>Room 5615</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>6</course_id>
-            <end>2026-02-03T1T:19:42</end>
-            <id>81</id>
-            <room_or_link>Room 108</room_or_link>
+        <Lecture id="81" course="6">
             <start>2026-02-03T1T:42:42</start>
+            <end>2026-02-03T1T:19:42</end>
+            <room_or_link>Room 108</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>7</course_id>
-            <end>2025-04-09T1T:21:48</end>
-            <id>82</id>
-            <room_or_link>Room 9600</room_or_link>
+        <Lecture id="82" course="7">
             <start>2025-04-09T1T:11:48</start>
+            <end>2025-04-09T1T:21:48</end>
+            <room_or_link>Room 9600</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>7</course_id>
-            <end>2025-09-22T1T:26:27</end>
-            <id>83</id>
-            <room_or_link>Room 5162</room_or_link>
+        <Lecture id="83" course="7">
             <start>2025-09-22T1T:13:27</start>
+            <end>2025-09-22T1T:26:27</end>
+            <room_or_link>Room 5162</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>7</course_id>
-            <end>2025-06-07T2T:56:34</end>
-            <id>84</id>
-            <room_or_link>http://funk.com/ex-veniam-blanditiis-ipsa-repellendus.html</room_or_link>
+        <Lecture id="84" course="7">
             <start>2025-06-07T2T:19:34</start>
+            <end>2025-06-07T2T:56:34</end>
+            <room_or_link>http://funk.com/ex-veniam-blanditiis-ipsa-repellendus.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>7</course_id>
-            <end>2025-06-24T1T:29:50</end>
-            <id>85</id>
-            <room_or_link>Room 83492</room_or_link>
+        <Lecture id="85" course="7">
             <start>2025-06-24T1T:35:50</start>
+            <end>2025-06-24T1T:29:50</end>
+            <room_or_link>Room 83492</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>7</course_id>
-            <end>2025-09-25T0T:54:24</end>
-            <id>86</id>
-            <room_or_link>http://farrell.com/distinctio-ab-cum-amet-ea-nisi</room_or_link>
+        <Lecture id="86" course="7">
             <start>2025-09-24T2T:41:24</start>
+            <end>2025-09-25T0T:54:24</end>
+            <room_or_link>http://farrell.com/distinctio-ab-cum-amet-ea-nisi</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>7</course_id>
-            <end>2025-09-08T2T:45:01</end>
-            <id>87</id>
-            <room_or_link>http://www.goodwin.com/repellendus-ut-doloremque-quisquam-eos-ut-maxime</room_or_link>
+        <Lecture id="87" course="7">
             <start>2025-09-08T1T:18:01</start>
+            <end>2025-09-08T2T:45:01</end>
+            <room_or_link>http://www.goodwin.com/repellendus-ut-doloremque-quisquam-eos-ut-maxime</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>7</course_id>
-            <end>2025-08-09T2T:42:17</end>
-            <id>88</id>
-            <room_or_link>Room 84865</room_or_link>
+        <Lecture id="88" course="7">
             <start>2025-08-09T2T:01:17</start>
+            <end>2025-08-09T2T:42:17</end>
+            <room_or_link>Room 84865</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>7</course_id>
-            <end>2025-07-14T1T:20:56</end>
-            <id>89</id>
-            <room_or_link>Room 60206</room_or_link>
+        <Lecture id="89" course="7">
             <start>2025-07-14T1T:13:56</start>
+            <end>2025-07-14T1T:20:56</end>
+            <room_or_link>Room 60206</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>7</course_id>
-            <end>2025-06-08T0T:50:06</end>
-            <id>90</id>
-            <room_or_link>Room 8214</room_or_link>
+        <Lecture id="90" course="7">
             <start>2025-06-08T0T:30:06</start>
+            <end>2025-06-08T0T:50:06</end>
+            <room_or_link>Room 8214</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>7</course_id>
-            <end>2025-08-05T1T:02:52</end>
-            <id>91</id>
-            <room_or_link>Room 49359</room_or_link>
+        <Lecture id="91" course="7">
             <start>2025-08-05T1T:32:52</start>
+            <end>2025-08-05T1T:02:52</end>
+            <room_or_link>Room 49359</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>8</course_id>
-            <end>2025-05-28T0T:50:13</end>
-            <id>92</id>
-            <room_or_link>Room 5353</room_or_link>
+        <Lecture id="92" course="8">
             <start>2025-05-28T0T:33:13</start>
+            <end>2025-05-28T0T:50:13</end>
+            <room_or_link>Room 5353</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>8</course_id>
-            <end>2025-09-04T1T:21:50</end>
-            <id>93</id>
-            <room_or_link>Room 6846</room_or_link>
+        <Lecture id="93" course="8">
             <start>2025-09-04T0T:34:50</start>
+            <end>2025-09-04T1T:21:50</end>
+            <room_or_link>Room 6846</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>8</course_id>
-            <end>2025-07-09T1T:56:45</end>
-            <id>94</id>
-            <room_or_link>http://kohler.com/voluptates-sit-voluptas-occaecati-assumenda</room_or_link>
+        <Lecture id="94" course="8">
             <start>2025-07-09T1T:19:45</start>
+            <end>2025-07-09T1T:56:45</end>
+            <room_or_link>http://kohler.com/voluptates-sit-voluptas-occaecati-assumenda</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>8</course_id>
-            <end>2025-09-04T1T:19:17</end>
-            <id>95</id>
-            <room_or_link>Room 801</room_or_link>
+        <Lecture id="95" course="8">
             <start>2025-09-04T1T:44:17</start>
+            <end>2025-09-04T1T:19:17</end>
+            <room_or_link>Room 801</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>8</course_id>
-            <end>2025-04-05T0T:43:38</end>
-            <id>96</id>
-            <room_or_link>Room 6903</room_or_link>
+        <Lecture id="96" course="8">
             <start>2025-04-05T0T:19:38</start>
+            <end>2025-04-05T0T:43:38</end>
+            <room_or_link>Room 6903</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>8</course_id>
-            <end>2025-09-19T0T:28:30</end>
-            <id>97</id>
-            <room_or_link>http://www.considine.com/officia-consequatur-dolorem-sed-sint</room_or_link>
+        <Lecture id="97" course="8">
             <start>2025-09-19T0T:05:30</start>
+            <end>2025-09-19T0T:28:30</end>
+            <room_or_link>http://www.considine.com/officia-consequatur-dolorem-sed-sint</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>8</course_id>
-            <end>2025-09-03T0T:30:11</end>
-            <id>98</id>
-            <room_or_link>Room 49170</room_or_link>
+        <Lecture id="98" course="8">
             <start>2025-09-03T0T:00:11</start>
+            <end>2025-09-03T0T:30:11</end>
+            <room_or_link>Room 49170</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>8</course_id>
-            <end>2025-06-24T1T:40:47</end>
-            <id>99</id>
-            <room_or_link>Room 876</room_or_link>
+        <Lecture id="99" course="8">
             <start>2025-06-24T1T:08:47</start>
+            <end>2025-06-24T1T:40:47</end>
+            <room_or_link>Room 876</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>8</course_id>
-            <end>2025-06-11T0T:00:08</end>
-            <id>100</id>
-            <room_or_link>Room 14696</room_or_link>
+        <Lecture id="100" course="8">
             <start>2025-06-11T0T:20:08</start>
+            <end>2025-06-11T0T:00:08</end>
+            <room_or_link>Room 14696</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>8</course_id>
-            <end>2025-07-19T1T:33:43</end>
-            <id>101</id>
-            <room_or_link>Room 4042</room_or_link>
+        <Lecture id="101" course="8">
             <start>2025-07-19T1T:48:43</start>
+            <end>2025-07-19T1T:33:43</end>
+            <room_or_link>Room 4042</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>8</course_id>
-            <end>2025-08-18T1T:35:57</end>
-            <id>102</id>
-            <room_or_link>Room 467</room_or_link>
+        <Lecture id="102" course="8">
             <start>2025-08-18T1T:55:57</start>
+            <end>2025-08-18T1T:35:57</end>
+            <room_or_link>Room 467</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>8</course_id>
-            <end>2025-07-09T2T:32:32</end>
-            <id>103</id>
-            <room_or_link>Room 855</room_or_link>
+        <Lecture id="103" course="8">
             <start>2025-07-09T2T:32:32</start>
+            <end>2025-07-09T2T:32:32</end>
+            <room_or_link>Room 855</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>8</course_id>
-            <end>2025-08-31T1T:26:16</end>
-            <id>104</id>
-            <room_or_link>Room 353</room_or_link>
+        <Lecture id="104" course="8">
             <start>2025-08-31T1T:18:16</start>
+            <end>2025-08-31T1T:26:16</end>
+            <room_or_link>Room 353</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>8</course_id>
-            <end>2025-04-27T0T:04:20</end>
-            <id>105</id>
-            <room_or_link>Room 6988</room_or_link>
+        <Lecture id="105" course="8">
             <start>2025-04-27T0T:30:20</start>
+            <end>2025-04-27T0T:04:20</end>
+            <room_or_link>Room 6988</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>8</course_id>
-            <end>2025-04-13T0T:10:23</end>
-            <id>106</id>
-            <room_or_link>Room 615</room_or_link>
+        <Lecture id="106" course="8">
             <start>2025-04-13T0T:36:23</start>
+            <end>2025-04-13T0T:10:23</end>
+            <room_or_link>Room 615</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>9</course_id>
-            <end>2025-09-01T1T:21:38</end>
-            <id>107</id>
-            <room_or_link>Room 46802</room_or_link>
+        <Lecture id="107" course="9">
             <start>2025-09-01T1T:20:38</start>
+            <end>2025-09-01T1T:21:38</end>
+            <room_or_link>Room 46802</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>9</course_id>
-            <end>2025-07-20T2T:33:18</end>
-            <id>108</id>
-            <room_or_link>Room 52585</room_or_link>
+        <Lecture id="108" course="9">
             <start>2025-07-20T1T:54:18</start>
+            <end>2025-07-20T2T:33:18</end>
+            <room_or_link>Room 52585</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>9</course_id>
-            <end>2025-06-23T1T:26:05</end>
-            <id>109</id>
-            <room_or_link>Room 266</room_or_link>
+        <Lecture id="109" course="9">
             <start>2025-06-23T1T:12:05</start>
+            <end>2025-06-23T1T:26:05</end>
+            <room_or_link>Room 266</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>9</course_id>
-            <end>2025-08-21T1T:36:25</end>
-            <id>110</id>
-            <room_or_link>Room 2226</room_or_link>
+        <Lecture id="110" course="9">
             <start>2025-08-21T1T:45:25</start>
+            <end>2025-08-21T1T:36:25</end>
+            <room_or_link>Room 2226</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>9</course_id>
-            <end>2025-06-06T2T:02:32</end>
-            <id>111</id>
-            <room_or_link>Room 2574</room_or_link>
+        <Lecture id="111" course="9">
             <start>2025-06-06T1T:13:32</start>
+            <end>2025-06-06T2T:02:32</end>
+            <room_or_link>Room 2574</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>9</course_id>
-            <end>2025-07-09T1T:00:29</end>
-            <id>112</id>
-            <room_or_link>Room 912</room_or_link>
+        <Lecture id="112" course="9">
             <start>2025-07-09T1T:14:29</start>
+            <end>2025-07-09T1T:00:29</end>
+            <room_or_link>Room 912</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>9</course_id>
-            <end>2025-08-20T0T:34:45</end>
-            <id>113</id>
-            <room_or_link>http://damore.org/autem-velit-assumenda-pariatur-repellat.html</room_or_link>
+        <Lecture id="113" course="9">
             <start>2025-08-20T0T:49:45</start>
+            <end>2025-08-20T0T:34:45</end>
+            <room_or_link>http://damore.org/autem-velit-assumenda-pariatur-repellat.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>9</course_id>
-            <end>2025-09-02T2T:02:58</end>
-            <id>114</id>
-            <room_or_link>Room 250</room_or_link>
+        <Lecture id="114" course="9">
             <start>2025-09-02T2T:39:58</start>
+            <end>2025-09-02T2T:02:58</end>
+            <room_or_link>Room 250</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>9</course_id>
-            <end>2025-08-07T2T:58:19</end>
-            <id>115</id>
-            <room_or_link>Room 453</room_or_link>
+        <Lecture id="115" course="9">
             <start>2025-08-07T1T:06:19</start>
+            <end>2025-08-07T2T:58:19</end>
+            <room_or_link>Room 453</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>9</course_id>
-            <end>2025-07-29T0T:37:30</end>
-            <id>116</id>
-            <room_or_link>Room 666</room_or_link>
+        <Lecture id="116" course="9">
             <start>2025-07-29T0T:38:30</start>
+            <end>2025-07-29T0T:37:30</end>
+            <room_or_link>Room 666</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>9</course_id>
-            <end>2025-09-07T1T:17:34</end>
-            <id>117</id>
-            <room_or_link>Room 564</room_or_link>
+        <Lecture id="117" course="9">
             <start>2025-09-07T0T:07:34</start>
+            <end>2025-09-07T1T:17:34</end>
+            <room_or_link>Room 564</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>10</course_id>
-            <end>2025-08-19T1T:07:47</end>
-            <id>118</id>
-            <room_or_link>http://www.mante.com/et-voluptas-modi-et-voluptatem-iure-mollitia-animi-aut.html
+        <Lecture id="118" course="10">
             </room_or_link>
+            <end>2025-08-19T1T:07:47</end>
+            <room_or_link>http://www.mante.com/et-voluptas-modi-et-voluptatem-iure-mollitia-animi-aut.html
             <start>2025-08-19T1T:09:47</start>
         </Lecture>
-        <Lecture>
-            <course_id>10</course_id>
-            <end>2025-06-14T2T:59:39</end>
-            <id>119</id>
-            <room_or_link>Room 411</room_or_link>
+        <Lecture id="119" course="10">
             <start>2025-06-14T2T:04:39</start>
+            <end>2025-06-14T2T:59:39</end>
+            <room_or_link>Room 411</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>10</course_id>
-            <end>2025-07-14T1T:51:52</end>
-            <id>120</id>
-            <room_or_link>http://volkman.com/laboriosam-corporis-et-et-tenetur-qui-omnis-est-rerum.html</room_or_link>
+        <Lecture id="120" course="10">
             <start>2025-07-14T1T:07:52</start>
+            <end>2025-07-14T1T:51:52</end>
+            <room_or_link>http://volkman.com/laboriosam-corporis-et-et-tenetur-qui-omnis-est-rerum.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>10</course_id>
-            <end>2025-04-07T1T:04:46</end>
-            <id>121</id>
-            <room_or_link>Room 474</room_or_link>
+        <Lecture id="121" course="10">
             <start>2025-04-07T0T:15:46</start>
+            <end>2025-04-07T1T:04:46</end>
+            <room_or_link>Room 474</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>10</course_id>
-            <end>2025-05-17T1T:04:13</end>
-            <id>122</id>
-            <room_or_link>http://www.mann.com/corrupti-consequatur-voluptatem-aut-possimus-et-dolores-pariatur.html
+        <Lecture id="122" course="10">
             </room_or_link>
+            <end>2025-05-17T1T:04:13</end>
+            <room_or_link>http://www.mann.com/corrupti-consequatur-voluptatem-aut-possimus-et-dolores-pariatur.html
             <start>2025-05-17T1T:05:13</start>
         </Lecture>
-        <Lecture>
-            <course_id>10</course_id>
-            <end>2025-09-10T1T:35:24</end>
-            <id>123</id>
-            <room_or_link>http://www.hammes.com/animi-similique-qui-aut-unde-accusamus-animi-itaque.html</room_or_link>
+        <Lecture id="123" course="10">
             <start>2025-09-10T1T:03:24</start>
+            <end>2025-09-10T1T:35:24</end>
+            <room_or_link>http://www.hammes.com/animi-similique-qui-aut-unde-accusamus-animi-itaque.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>10</course_id>
-            <end>2025-09-26T2T:48:44</end>
-            <id>124</id>
-            <room_or_link>http://www.farrell.info/dolores-quis-natus-consectetur.html</room_or_link>
+        <Lecture id="124" course="10">
             <start>2025-09-26T2T:25:44</start>
+            <end>2025-09-26T2T:48:44</end>
+            <room_or_link>http://www.farrell.info/dolores-quis-natus-consectetur.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>10</course_id>
-            <end>2025-04-23T0T:56:55</end>
-            <id>125</id>
-            <room_or_link>http://hirthe.net/</room_or_link>
+        <Lecture id="125" course="10">
             <start>2025-04-22T2T:27:55</start>
+            <end>2025-04-23T0T:56:55</end>
+            <room_or_link>http://hirthe.net/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>10</course_id>
-            <end>2025-04-15T0T:25:50</end>
-            <id>126</id>
-            <room_or_link>Room 459</room_or_link>
+        <Lecture id="126" course="10">
             <start>2025-04-14T2T:36:50</start>
+            <end>2025-04-15T0T:25:50</end>
+            <room_or_link>Room 459</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>10</course_id>
-            <end>2025-09-25T1T:17:00</end>
-            <id>127</id>
-            <room_or_link>Room 6093</room_or_link>
+        <Lecture id="127" course="10">
             <start>2025-09-25T1T:30:00</start>
+            <end>2025-09-25T1T:17:00</end>
+            <room_or_link>Room 6093</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>10</course_id>
-            <end>2025-08-12T1T:46:05</end>
-            <id>128</id>
-            <room_or_link>Room 9705</room_or_link>
+        <Lecture id="128" course="10">
             <start>2025-08-12T0T:34:05</start>
+            <end>2025-08-12T1T:46:05</end>
+            <room_or_link>Room 9705</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>10</course_id>
-            <end>2025-04-21T1T:35:13</end>
-            <id>129</id>
-            <room_or_link>Room 4866</room_or_link>
+        <Lecture id="129" course="10">
             <start>2025-04-21T1T:56:13</start>
+            <end>2025-04-21T1T:35:13</end>
+            <room_or_link>Room 4866</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>10</course_id>
-            <end>2025-07-10T1T:19:34</end>
-            <id>130</id>
-            <room_or_link>https://gislason.com/non-qui-autem-ut-assumenda-eius-aliquam-suscipit-sunt.html</room_or_link>
+        <Lecture id="130" course="10">
             <start>2025-07-10T1T:44:34</start>
+            <end>2025-07-10T1T:19:34</end>
+            <room_or_link>https://gislason.com/non-qui-autem-ut-assumenda-eius-aliquam-suscipit-sunt.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>10</course_id>
-            <end>2025-09-14T1T:18:34</end>
-            <id>131</id>
-            <room_or_link>https://www.tillman.org/beatae-accusantium-voluptate-qui-distinctio-sint-porro-autem-et
+        <Lecture id="131" course="10">
             </room_or_link>
+            <end>2025-09-14T1T:18:34</end>
+            <room_or_link>https://www.tillman.org/beatae-accusantium-voluptate-qui-distinctio-sint-porro-autem-et
             <start>2025-09-14T1T:23:34</start>
         </Lecture>
-        <Lecture>
-            <course_id>10</course_id>
-            <end>2025-06-14T1T:40:23</end>
-            <id>132</id>
-            <room_or_link>Room 862</room_or_link>
+        <Lecture id="132" course="10">
             <start>2025-06-14T1T:10:23</start>
+            <end>2025-06-14T1T:40:23</end>
+            <room_or_link>Room 862</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>11</course_id>
-            <end>2025-08-18T1T:01:39</end>
-            <id>133</id>
-            <room_or_link>http://www.williamson.com/labore-ad-a-cum-in-quia-porro</room_or_link>
+        <Lecture id="133" course="11">
             <start>2025-08-18T1T:52:39</start>
+            <end>2025-08-18T1T:01:39</end>
+            <room_or_link>http://www.williamson.com/labore-ad-a-cum-in-quia-porro</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>11</course_id>
-            <end>2025-04-03T1T:54:13</end>
-            <id>134</id>
-            <room_or_link>Room 15905</room_or_link>
+        <Lecture id="134" course="11">
             <start>2025-04-03T0T:34:13</start>
+            <end>2025-04-03T1T:54:13</end>
+            <room_or_link>Room 15905</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>11</course_id>
-            <end>2025-08-29T1T:25:16</end>
-            <id>135</id>
-            <room_or_link>http://spinka.com/et-saepe-doloremque-deleniti-voluptate-laboriosam</room_or_link>
+        <Lecture id="135" course="11">
             <start>2025-08-29T1T:55:16</start>
+            <end>2025-08-29T1T:25:16</end>
+            <room_or_link>http://spinka.com/et-saepe-doloremque-deleniti-voluptate-laboriosam</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>11</course_id>
-            <end>2025-06-22T2T:26:54</end>
-            <id>136</id>
-            <room_or_link>http://beatty.com/omnis-ut-vitae-veritatis-aliquam-facilis-numquam-occaecati.html
+        <Lecture id="136" course="11">
             </room_or_link>
+            <end>2025-06-22T2T:26:54</end>
+            <room_or_link>http://beatty.com/omnis-ut-vitae-veritatis-aliquam-facilis-numquam-occaecati.html
             <start>2025-06-22T2T:41:54</start>
         </Lecture>
-        <Lecture>
-            <course_id>11</course_id>
-            <end>2025-05-13T0T:14:52</end>
-            <id>137</id>
-            <room_or_link>Room 5067</room_or_link>
+        <Lecture id="137" course="11">
             <start>2025-05-13T0T:32:52</start>
+            <end>2025-05-13T0T:14:52</end>
+            <room_or_link>Room 5067</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>11</course_id>
-            <end>2025-06-07T0T:16:18</end>
-            <id>138</id>
-            <room_or_link>http://www.ruecker.biz/minus-id-possimus-voluptas-sit-quis</room_or_link>
+        <Lecture id="138" course="11">
             <start>2025-06-06T2T:10:18</start>
+            <end>2025-06-07T0T:16:18</end>
+            <room_or_link>http://www.ruecker.biz/minus-id-possimus-voluptas-sit-quis</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>11</course_id>
-            <end>2025-09-18T0T:43:52</end>
-            <id>139</id>
-            <room_or_link>http://reilly.com/rerum-temporibus-non-est-qui-harum-architecto-omnis.html</room_or_link>
+        <Lecture id="139" course="11">
             <start>2025-09-18T0T:56:52</start>
+            <end>2025-09-18T0T:43:52</end>
+            <room_or_link>http://reilly.com/rerum-temporibus-non-est-qui-harum-architecto-omnis.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>11</course_id>
-            <end>2025-06-11T0T:55:41</end>
-            <id>140</id>
-            <room_or_link>Room 4904</room_or_link>
+        <Lecture id="140" course="11">
             <start>2025-06-11T0T:13:41</start>
+            <end>2025-06-11T0T:55:41</end>
+            <room_or_link>Room 4904</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>11</course_id>
-            <end>2025-09-11T0T:49:27</end>
-            <id>141</id>
-            <room_or_link>http://hintz.org/reprehenderit-ut-unde-officia-odit-impedit-saepe</room_or_link>
+        <Lecture id="141" course="11">
             <start>2025-09-10T2T:01:27</start>
+            <end>2025-09-11T0T:49:27</end>
+            <room_or_link>http://hintz.org/reprehenderit-ut-unde-officia-odit-impedit-saepe</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>11</course_id>
-            <end>2025-08-18T1T:07:22</end>
-            <id>142</id>
-            <room_or_link>Room 752</room_or_link>
+        <Lecture id="142" course="11">
             <start>2025-08-18T1T:02:22</start>
+            <end>2025-08-18T1T:07:22</end>
+            <room_or_link>Room 752</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>11</course_id>
-            <end>2025-07-26T1T:32:46</end>
-            <id>143</id>
-            <room_or_link>Room 2865</room_or_link>
+        <Lecture id="143" course="11">
             <start>2025-07-26T1T:50:46</start>
+            <end>2025-07-26T1T:32:46</end>
+            <room_or_link>Room 2865</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>12</course_id>
-            <end>2025-08-14T1T:54:10</end>
-            <id>144</id>
-            <room_or_link>http://www.hauck.com/</room_or_link>
+        <Lecture id="144" course="12">
             <start>2025-08-14T1T:37:10</start>
+            <end>2025-08-14T1T:54:10</end>
+            <room_or_link>http://www.hauck.com/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>12</course_id>
-            <end>2025-07-24T1T:23:40</end>
-            <id>145</id>
-            <room_or_link>http://hamill.com/velit-aut-aut-at-reprehenderit-dolore-est-nam</room_or_link>
+        <Lecture id="145" course="12">
             <start>2025-07-24T1T:09:40</start>
+            <end>2025-07-24T1T:23:40</end>
+            <room_or_link>http://hamill.com/velit-aut-aut-at-reprehenderit-dolore-est-nam</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>12</course_id>
-            <end>2025-06-06T0T:07:30</end>
-            <id>146</id>
-            <room_or_link>Room 5137</room_or_link>
+        <Lecture id="146" course="12">
             <start>2025-06-06T0T:41:30</start>
+            <end>2025-06-06T0T:07:30</end>
+            <room_or_link>Room 5137</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>12</course_id>
-            <end>2025-08-14T2T:43:07</end>
-            <id>147</id>
-            <room_or_link>http://wyman.com/</room_or_link>
+        <Lecture id="147" course="12">
             <start>2025-08-14T1T:32:07</start>
+            <end>2025-08-14T2T:43:07</end>
+            <room_or_link>http://wyman.com/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>12</course_id>
-            <end>2025-04-11T2T:32:52</end>
-            <id>148</id>
-            <room_or_link>Room 393</room_or_link>
+        <Lecture id="148" course="12">
             <start>2025-04-11T1T:35:52</start>
+            <end>2025-04-11T2T:32:52</end>
+            <room_or_link>Room 393</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>12</course_id>
-            <end>2025-08-03T0T:20:01</end>
-            <id>149</id>
-            <room_or_link>Room 9192</room_or_link>
+        <Lecture id="149" course="12">
             <start>2025-08-02T2T:25:01</start>
+            <end>2025-08-03T0T:20:01</end>
+            <room_or_link>Room 9192</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>12</course_id>
-            <end>2025-05-27T1T:01:38</end>
-            <id>150</id>
-            <room_or_link>Room 7725</room_or_link>
+        <Lecture id="150" course="12">
             <start>2025-05-27T1T:30:38</start>
+            <end>2025-05-27T1T:01:38</end>
+            <room_or_link>Room 7725</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>12</course_id>
-            <end>2025-08-05T1T:35:12</end>
-            <id>151</id>
-            <room_or_link>https://www.hudson.com/esse-suscipit-necessitatibus-hic</room_or_link>
+        <Lecture id="151" course="12">
             <start>2025-08-05T0T:23:12</start>
+            <end>2025-08-05T1T:35:12</end>
+            <room_or_link>https://www.hudson.com/esse-suscipit-necessitatibus-hic</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>12</course_id>
-            <end>2025-05-14T1T:54:07</end>
-            <id>152</id>
-            <room_or_link>Room 2199</room_or_link>
+        <Lecture id="152" course="12">
             <start>2025-05-14T1T:11:07</start>
+            <end>2025-05-14T1T:54:07</end>
+            <room_or_link>Room 2199</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>12</course_id>
-            <end>2025-06-07T1T:24:54</end>
-            <id>153</id>
-            <room_or_link>Room 5071</room_or_link>
+        <Lecture id="153" course="12">
             <start>2025-06-07T0T:22:54</start>
+            <end>2025-06-07T1T:24:54</end>
+            <room_or_link>Room 5071</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>12</course_id>
-            <end>2025-09-05T1T:44:49</end>
-            <id>154</id>
-            <room_or_link>Room 53678</room_or_link>
+        <Lecture id="154" course="12">
             <start>2025-09-05T0T:03:49</start>
+            <end>2025-09-05T1T:44:49</end>
+            <room_or_link>Room 53678</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>12</course_id>
-            <end>2025-06-18T2T:52:06</end>
-            <id>155</id>
-            <room_or_link>Room 75713</room_or_link>
+        <Lecture id="155" course="12">
             <start>2025-06-18T2T:18:06</start>
+            <end>2025-06-18T2T:52:06</end>
+            <room_or_link>Room 75713</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>13</course_id>
-            <end>2025-08-15T0T:09:28</end>
-            <id>156</id>
-            <room_or_link>http://corwin.com/qui-hic-tenetur-nisi-tenetur-vel.html</room_or_link>
+        <Lecture id="156" course="13">
             <start>2025-08-15T0T:15:28</start>
+            <end>2025-08-15T0T:09:28</end>
+            <room_or_link>http://corwin.com/qui-hic-tenetur-nisi-tenetur-vel.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>13</course_id>
-            <end>2025-05-25T1T:34:38</end>
-            <id>157</id>
-            <room_or_link>http://ferry.net/</room_or_link>
+        <Lecture id="157" course="13">
             <start>2025-05-25T0T:50:38</start>
+            <end>2025-05-25T1T:34:38</end>
+            <room_or_link>http://ferry.net/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>13</course_id>
-            <end>2025-04-11T2T:11:39</end>
-            <id>158</id>
-            <room_or_link>Room 10765</room_or_link>
+        <Lecture id="158" course="13">
             <start>2025-04-11T1T:32:39</start>
+            <end>2025-04-11T2T:11:39</end>
+            <room_or_link>Room 10765</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>13</course_id>
-            <end>2025-05-17T0T:07:02</end>
-            <id>159</id>
-            <room_or_link>Room 3209</room_or_link>
+        <Lecture id="159" course="13">
             <start>2025-05-17T0T:07:02</start>
+            <end>2025-05-17T0T:07:02</end>
+            <room_or_link>Room 3209</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>13</course_id>
-            <end>2025-04-06T1T:18:34</end>
-            <id>160</id>
-            <room_or_link>http://zulauf.com/</room_or_link>
+        <Lecture id="160" course="13">
             <start>2025-04-06T1T:55:34</start>
+            <end>2025-04-06T1T:18:34</end>
+            <room_or_link>http://zulauf.com/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>13</course_id>
-            <end>2025-08-13T1T:21:59</end>
-            <id>161</id>
-            <room_or_link>Room 2207</room_or_link>
+        <Lecture id="161" course="13">
             <start>2025-08-13T0T:22:59</start>
+            <end>2025-08-13T1T:21:59</end>
+            <room_or_link>Room 2207</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>13</course_id>
-            <end>2025-09-28T1T:04:23</end>
-            <id>162</id>
-            <room_or_link>http://www.boyer.com/quis-animi-culpa-labore-voluptatibus-aut-sunt</room_or_link>
+        <Lecture id="162" course="13">
             <start>2025-09-28T0T:58:23</start>
+            <end>2025-09-28T1T:04:23</end>
+            <room_or_link>http://www.boyer.com/quis-animi-culpa-labore-voluptatibus-aut-sunt</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>13</course_id>
-            <end>2025-09-09T0T:19:39</end>
-            <id>163</id>
-            <room_or_link>Room 98584</room_or_link>
+        <Lecture id="163" course="13">
             <start>2025-09-09T0T:44:39</start>
+            <end>2025-09-09T0T:19:39</end>
+            <room_or_link>Room 98584</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>13</course_id>
-            <end>2025-04-02T1T:49:36</end>
-            <id>164</id>
-            <room_or_link>http://www.hamill.info/placeat-eum-maiores-ut-blanditiis</room_or_link>
+        <Lecture id="164" course="13">
             <start>2025-04-02T1T:05:36</start>
+            <end>2025-04-02T1T:49:36</end>
+            <room_or_link>http://www.hamill.info/placeat-eum-maiores-ut-blanditiis</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>13</course_id>
-            <end>2025-09-15T0T:54:34</end>
-            <id>165</id>
-            <room_or_link>http://heidenreich.info/aut-non-libero-sit-sit-laborum.html</room_or_link>
+        <Lecture id="165" course="13">
             <start>2025-09-15T0T:32:34</start>
+            <end>2025-09-15T0T:54:34</end>
+            <room_or_link>http://heidenreich.info/aut-non-libero-sit-sit-laborum.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>13</course_id>
-            <end>2025-07-13T1T:20:47</end>
-            <id>166</id>
-            <room_or_link>Room 4674</room_or_link>
+        <Lecture id="166" course="13">
             <start>2025-07-13T1T:21:47</start>
+            <end>2025-07-13T1T:20:47</end>
+            <room_or_link>Room 4674</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>13</course_id>
-            <end>2025-04-18T0T:40:59</end>
-            <id>167</id>
-            <room_or_link>Room 6462</room_or_link>
+        <Lecture id="167" course="13">
             <start>2025-04-18T0T:09:59</start>
+            <end>2025-04-18T0T:40:59</end>
+            <room_or_link>Room 6462</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>13</course_id>
-            <end>2025-07-26T1T:40:07</end>
-            <id>168</id>
-            <room_or_link>Room 601</room_or_link>
+        <Lecture id="168" course="13">
             <start>2025-07-26T0T:37:07</start>
+            <end>2025-07-26T1T:40:07</end>
+            <room_or_link>Room 601</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>14</course_id>
-            <end>2025-07-26T0T:59:41</end>
-            <id>169</id>
-            <room_or_link>Room 85071</room_or_link>
+        <Lecture id="169" course="14">
             <start>2025-07-26T0T:16:41</start>
+            <end>2025-07-26T0T:59:41</end>
+            <room_or_link>Room 85071</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>14</course_id>
-            <end>2025-04-14T1T:22:27</end>
-            <id>170</id>
-            <room_or_link>Room 340</room_or_link>
+        <Lecture id="170" course="14">
             <start>2025-04-14T1T:38:27</start>
+            <end>2025-04-14T1T:22:27</end>
+            <room_or_link>Room 340</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>14</course_id>
-            <end>2025-07-24T2T:01:18</end>
-            <id>171</id>
-            <room_or_link>Room 75027</room_or_link>
+        <Lecture id="171" course="14">
             <start>2025-07-24T1T:25:18</start>
+            <end>2025-07-24T2T:01:18</end>
+            <room_or_link>Room 75027</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>14</course_id>
-            <end>2025-08-28T2T:39:09</end>
-            <id>172</id>
-            <room_or_link>Room 19005</room_or_link>
+        <Lecture id="172" course="14">
             <start>2025-08-28T2T:27:09</start>
+            <end>2025-08-28T2T:39:09</end>
+            <room_or_link>Room 19005</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>14</course_id>
-            <end>2025-07-30T0T:41:23</end>
-            <id>173</id>
-            <room_or_link>Room 44870</room_or_link>
+        <Lecture id="173" course="14">
             <start>2025-07-30T0T:48:23</start>
+            <end>2025-07-30T0T:41:23</end>
+            <room_or_link>Room 44870</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>14</course_id>
-            <end>2025-08-10T0T:09:54</end>
-            <id>174</id>
-            <room_or_link>Room 12428</room_or_link>
+        <Lecture id="174" course="14">
             <start>2025-08-10T0T:12:54</start>
+            <end>2025-08-10T0T:09:54</end>
+            <room_or_link>Room 12428</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>14</course_id>
-            <end>2025-08-21T0T:15:44</end>
-            <id>175</id>
-            <room_or_link>Room 85987</room_or_link>
+        <Lecture id="175" course="14">
             <start>2025-08-21T0T:26:44</start>
+            <end>2025-08-21T0T:15:44</end>
+            <room_or_link>Room 85987</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>14</course_id>
-            <end>2025-09-22T1T:54:02</end>
-            <id>176</id>
-            <room_or_link>http://breitenberg.com/quis-error-dolor-et-labore</room_or_link>
+        <Lecture id="176" course="14">
             <start>2025-09-22T1T:41:02</start>
+            <end>2025-09-22T1T:54:02</end>
+            <room_or_link>http://breitenberg.com/quis-error-dolor-et-labore</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>14</course_id>
-            <end>2025-06-29T1T:37:09</end>
-            <id>177</id>
-            <room_or_link>Room 163</room_or_link>
+        <Lecture id="177" course="14">
             <start>2025-06-29T1T:45:09</start>
+            <end>2025-06-29T1T:37:09</end>
+            <room_or_link>Room 163</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>14</course_id>
-            <end>2025-08-17T1T:35:36</end>
-            <id>178</id>
-            <room_or_link>https://www.renner.biz/magni-sunt-eum-iste-facere-est-quidem-corrupti</room_or_link>
+        <Lecture id="178" course="14">
             <start>2025-08-17T0T:44:36</start>
+            <end>2025-08-17T1T:35:36</end>
+            <room_or_link>https://www.renner.biz/magni-sunt-eum-iste-facere-est-quidem-corrupti</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>14</course_id>
-            <end>2025-07-25T0T:34:46</end>
-            <id>179</id>
-            <room_or_link>Room 7594</room_or_link>
+        <Lecture id="179" course="14">
             <start>2025-07-25T0T:00:46</start>
+            <end>2025-07-25T0T:34:46</end>
+            <room_or_link>Room 7594</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>14</course_id>
-            <end>2025-08-25T0T:47:33</end>
-            <id>180</id>
-            <room_or_link>Room 719</room_or_link>
+        <Lecture id="180" course="14">
             <start>2025-08-24T2T:51:33</start>
+            <end>2025-08-25T0T:47:33</end>
+            <room_or_link>Room 719</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>14</course_id>
-            <end>2025-09-29T0T:53:27</end>
-            <id>181</id>
-            <room_or_link>http://www.gibson.com/aut-officiis-ipsam-et-incidunt-nesciunt-numquam-quo-nesciunt
+        <Lecture id="181" course="14">
             </room_or_link>
+            <end>2025-09-29T0T:53:27</end>
+            <room_or_link>http://www.gibson.com/aut-officiis-ipsam-et-incidunt-nesciunt-numquam-quo-nesciunt
             <start>2025-09-28T2T:48:27</start>
         </Lecture>
-        <Lecture>
-            <course_id>15</course_id>
-            <end>2026-12-23T0T:43:59</end>
-            <id>182</id>
-            <room_or_link>Room 6097</room_or_link>
+        <Lecture id="182" course="15">
             <start>2026-12-23T0T:02:59</start>
+            <end>2026-12-23T0T:43:59</end>
+            <room_or_link>Room 6097</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>15</course_id>
-            <end>2027-03-18T0T:04:53</end>
-            <id>183</id>
-            <room_or_link>http://www.zboncak.com/repudiandae-asperiores-sit-voluptatem-temporibus-reprehenderit-eos
+        <Lecture id="183" course="15">
             </room_or_link>
+            <end>2027-03-18T0T:04:53</end>
+            <room_or_link>http://www.zboncak.com/repudiandae-asperiores-sit-voluptatem-temporibus-reprehenderit-eos
             <start>2027-03-18T0T:52:53</start>
         </Lecture>
-        <Lecture>
-            <course_id>15</course_id>
-            <end>2026-11-11T0T:12:23</end>
-            <id>184</id>
-            <room_or_link>Room 10283</room_or_link>
+        <Lecture id="184" course="15">
             <start>2026-11-11T0T:23:23</start>
+            <end>2026-11-11T0T:12:23</end>
+            <room_or_link>Room 10283</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>15</course_id>
-            <end>2027-03-10T0T:32:55</end>
-            <id>185</id>
-            <room_or_link>Room 2402</room_or_link>
+        <Lecture id="185" course="15">
             <start>2027-03-10T0T:02:55</start>
+            <end>2027-03-10T0T:32:55</end>
+            <room_or_link>Room 2402</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>15</course_id>
-            <end>2026-11-29T1T:46:41</end>
-            <id>186</id>
-            <room_or_link>Room 5831</room_or_link>
+        <Lecture id="186" course="15">
             <start>2026-11-29T0T:47:41</start>
+            <end>2026-11-29T1T:46:41</end>
+            <room_or_link>Room 5831</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>15</course_id>
-            <end>2027-01-25T0T:24:55</end>
-            <id>187</id>
-            <room_or_link>Room 6735</room_or_link>
+        <Lecture id="187" course="15">
             <start>2027-01-25T0T:49:55</start>
+            <end>2027-01-25T0T:24:55</end>
+            <room_or_link>Room 6735</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>15</course_id>
-            <end>2027-01-08T0T:36:07</end>
-            <id>188</id>
-            <room_or_link>Room 740</room_or_link>
+        <Lecture id="188" course="15">
             <start>2027-01-08T0T:18:07</start>
+            <end>2027-01-08T0T:36:07</end>
+            <room_or_link>Room 740</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>15</course_id>
-            <end>2027-02-14T1T:41:01</end>
-            <id>189</id>
-            <room_or_link>Room 68688</room_or_link>
+        <Lecture id="189" course="15">
             <start>2027-02-14T1T:11:01</start>
+            <end>2027-02-14T1T:41:01</end>
+            <room_or_link>Room 68688</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>15</course_id>
-            <end>2026-11-26T0T:27:36</end>
-            <id>190</id>
-            <room_or_link>Room 441</room_or_link>
+        <Lecture id="190" course="15">
             <start>2026-11-26T0T:10:36</start>
+            <end>2026-11-26T0T:27:36</end>
+            <room_or_link>Room 441</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>15</course_id>
-            <end>2026-12-04T1T:09:48</end>
-            <id>191</id>
-            <room_or_link>https://kozey.com/porro-animi-aliquam-explicabo-rerum.html</room_or_link>
+        <Lecture id="191" course="15">
             <start>2026-12-04T0T:32:48</start>
+            <end>2026-12-04T1T:09:48</end>
+            <room_or_link>https://kozey.com/porro-animi-aliquam-explicabo-rerum.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>15</course_id>
-            <end>2027-03-23T1T:59:14</end>
-            <id>192</id>
-            <room_or_link>Room 568</room_or_link>
+        <Lecture id="192" course="15">
             <start>2027-03-23T1T:09:14</start>
+            <end>2027-03-23T1T:59:14</end>
+            <room_or_link>Room 568</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>15</course_id>
-            <end>2027-03-11T1T:19:10</end>
-            <id>193</id>
-            <room_or_link>http://www.durgan.com/dolore-quas-alias-explicabo-aut-corrupti-et.html</room_or_link>
+        <Lecture id="193" course="15">
             <start>2027-03-11T1T:52:10</start>
+            <end>2027-03-11T1T:19:10</end>
+            <room_or_link>http://www.durgan.com/dolore-quas-alias-explicabo-aut-corrupti-et.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>15</course_id>
-            <end>2027-02-14T0T:13:33</end>
-            <id>194</id>
-            <room_or_link>Room 920</room_or_link>
+        <Lecture id="194" course="15">
             <start>2027-02-14T0T:30:33</start>
+            <end>2027-02-14T0T:13:33</end>
+            <room_or_link>Room 920</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>15</course_id>
-            <end>2026-12-09T0T:53:51</end>
-            <id>195</id>
-            <room_or_link>Room 3828</room_or_link>
+        <Lecture id="195" course="15">
             <start>2026-12-09T0T:10:51</start>
+            <end>2026-12-09T0T:53:51</end>
+            <room_or_link>Room 3828</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>16</course_id>
-            <end>2026-10-12T2T:14:50</end>
-            <id>196</id>
-            <room_or_link>Room 695</room_or_link>
+        <Lecture id="196" course="16">
             <start>2026-10-12T1T:18:50</start>
+            <end>2026-10-12T2T:14:50</end>
+            <room_or_link>Room 695</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>16</course_id>
-            <end>2027-01-23T1T:03:17</end>
-            <id>197</id>
-            <room_or_link>http://kulas.org/deserunt-aut-odit-deleniti-optio</room_or_link>
+        <Lecture id="197" course="16">
             <start>2027-01-23T0T:56:17</start>
+            <end>2027-01-23T1T:03:17</end>
+            <room_or_link>http://kulas.org/deserunt-aut-odit-deleniti-optio</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>16</course_id>
-            <end>2026-11-27T0T:15:42</end>
-            <id>198</id>
-            <room_or_link>Room 85754</room_or_link>
+        <Lecture id="198" course="16">
             <start>2026-11-27T0T:16:42</start>
+            <end>2026-11-27T0T:15:42</end>
+            <room_or_link>Room 85754</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>16</course_id>
-            <end>2027-03-18T0T:22:27</end>
-            <id>199</id>
-            <room_or_link>http://runte.org/reprehenderit-aut-possimus-earum-voluptatem-vitae-illo</room_or_link>
+        <Lecture id="199" course="16">
             <start>2027-03-18T0T:03:27</start>
+            <end>2027-03-18T0T:22:27</end>
+            <room_or_link>http://runte.org/reprehenderit-aut-possimus-earum-voluptatem-vitae-illo</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>16</course_id>
-            <end>2026-11-14T1T:04:38</end>
-            <id>200</id>
-            <room_or_link>Room 72880</room_or_link>
+        <Lecture id="200" course="16">
             <start>2026-11-14T0T:08:38</start>
+            <end>2026-11-14T1T:04:38</end>
+            <room_or_link>Room 72880</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>16</course_id>
-            <end>2027-01-09T0T:13:06</end>
-            <id>201</id>
-            <room_or_link>Room 834</room_or_link>
+        <Lecture id="201" course="16">
             <start>2027-01-09T0T:11:06</start>
+            <end>2027-01-09T0T:13:06</end>
+            <room_or_link>Room 834</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>16</course_id>
-            <end>2027-03-02T1T:49:05</end>
-            <id>202</id>
-            <room_or_link>Room 33777</room_or_link>
+        <Lecture id="202" course="16">
             <start>2027-03-02T1T:51:05</start>
+            <end>2027-03-02T1T:49:05</end>
+            <room_or_link>Room 33777</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>16</course_id>
-            <end>2027-02-25T1T:57:51</end>
-            <id>203</id>
-            <room_or_link>Room 8181</room_or_link>
+        <Lecture id="203" course="16">
             <start>2027-02-25T0T:14:51</start>
+            <end>2027-02-25T1T:57:51</end>
+            <room_or_link>Room 8181</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>16</course_id>
-            <end>2026-12-13T0T:28:50</end>
-            <id>204</id>
-            <room_or_link>http://hoppe.com/ut-nihil-suscipit-maiores</room_or_link>
+        <Lecture id="204" course="16">
             <start>2026-12-13T0T:32:50</start>
+            <end>2026-12-13T0T:28:50</end>
+            <room_or_link>http://hoppe.com/ut-nihil-suscipit-maiores</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>16</course_id>
-            <end>2026-11-20T2T:01:57</end>
-            <id>205</id>
-            <room_or_link>Room 2653</room_or_link>
+        <Lecture id="205" course="16">
             <start>2026-11-20T1T:42:57</start>
+            <end>2026-11-20T2T:01:57</end>
+            <room_or_link>Room 2653</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>16</course_id>
-            <end>2027-01-19T1T:30:52</end>
-            <id>206</id>
-            <room_or_link>Room 92613</room_or_link>
+        <Lecture id="206" course="16">
             <start>2027-01-19T1T:59:52</start>
+            <end>2027-01-19T1T:30:52</end>
+            <room_or_link>Room 92613</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>16</course_id>
-            <end>2026-10-17T1T:15:36</end>
-            <id>207</id>
-            <room_or_link>http://denesik.com/eum-nostrum-animi-itaque-et</room_or_link>
+        <Lecture id="207" course="16">
             <start>2026-10-17T1T:52:36</start>
+            <end>2026-10-17T1T:15:36</end>
+            <room_or_link>http://denesik.com/eum-nostrum-animi-itaque-et</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>16</course_id>
-            <end>2026-11-17T0T:12:15</end>
-            <id>208</id>
-            <room_or_link>Room 388</room_or_link>
+        <Lecture id="208" course="16">
             <start>2026-11-16T2T:14:15</start>
+            <end>2026-11-17T0T:12:15</end>
+            <room_or_link>Room 388</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>16</course_id>
-            <end>2027-01-04T2T:41:02</end>
-            <id>209</id>
-            <room_or_link>Room 28078</room_or_link>
+        <Lecture id="209" course="16">
             <start>2027-01-04T1T:36:02</start>
+            <end>2027-01-04T2T:41:02</end>
+            <room_or_link>Room 28078</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>17</course_id>
-            <end>2026-10-16T1T:58:15</end>
-            <id>210</id>
-            <room_or_link>Room 762</room_or_link>
+        <Lecture id="210" course="17">
             <start>2026-10-16T1T:13:15</start>
+            <end>2026-10-16T1T:58:15</end>
+            <room_or_link>Room 762</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>17</course_id>
-            <end>2026-12-21T1T:00:04</end>
-            <id>211</id>
-            <room_or_link>Room 861</room_or_link>
+        <Lecture id="211" course="17">
             <start>2026-12-21T0T:30:04</start>
-        </Lecture>
-        <Lecture>
-            <course_id>17</course_id>
-            <end>2026-11-09T1T:02:45</end>
-            <id>212</id>
-            <room_or_link>Room 6480</room_or_link>
-            <start>2026-11-09T0T:44:45</start>
-        </Lecture>
-        <Lecture>
-            <course_id>17</course_id>
-            <end>2027-01-08T0T:07:31</end>
-            <id>213</id>
-            <room_or_link>Room 6925</room_or_link>
-            <start>2027-01-08T0T:12:31</start>
-        </Lecture>
-        <Lecture>
-            <course_id>17</course_id>
-            <end>2026-12-26T0T:05:59</end>
-            <id>214</id>
-            <room_or_link>Room 42553</room_or_link>
-            <start>2026-12-26T0T:51:59</start>
-        </Lecture>
-        <Lecture>
-            <course_id>17</course_id>
-            <end>2026-12-09T1T:32:56</end>
-            <id>215</id>
-            <room_or_link>Room 7042</room_or_link>
-            <start>2026-12-09T1T:22:56</start>
-        </Lecture>
-        <Lecture>
-            <course_id>17</course_id>
-            <end>2026-11-05T0T:32:24</end>
-            <id>216</id>
-            <room_or_link>Room 7410</room_or_link>
-            <start>2026-11-05T0T:56:24</start>
-        </Lecture>
-        <Lecture>
-            <course_id>17</course_id>
-            <end>2026-10-07T2T:17:00</end>
-            <id>217</id>
-            <room_or_link>Room 9604</room_or_link>
-            <start>2026-10-07T2T:05:00</start>
-        </Lecture>
-        <Lecture>
-            <course_id>17</course_id>
-            <end>2026-12-02T1T:12:03</end>
-            <id>218</id>
-            <room_or_link>Room 929</room_or_link>
-            <start>2026-12-02T0T:21:03</start>
-        </Lecture>
-        <Lecture>
-            <course_id>17</course_id>
-            <end>2026-12-29T0T:49:47</end>
-            <id>219</id>
-            <room_or_link>Room 74125</room_or_link>
-            <start>2026-12-29T0T:48:47</start>
-        </Lecture>
-        <Lecture>
-            <course_id>17</course_id>
-            <end>2026-12-15T0T:06:14</end>
-            <id>220</id>
+            <end>2026-12-21T1T:00:04</end>
             <room_or_link>Room 861</room_or_link>
+        </Lecture>
+        <Lecture id="212" course="17">
+            <start>2026-11-09T0T:44:45</start>
+            <end>2026-11-09T1T:02:45</end>
+            <room_or_link>Room 6480</room_or_link>
+        </Lecture>
+        <Lecture id="213" course="17">
+            <start>2027-01-08T0T:12:31</start>
+            <end>2027-01-08T0T:07:31</end>
+            <room_or_link>Room 6925</room_or_link>
+        </Lecture>
+        <Lecture id="214" course="17">
+            <start>2026-12-26T0T:51:59</start>
+            <end>2026-12-26T0T:05:59</end>
+            <room_or_link>Room 42553</room_or_link>
+        </Lecture>
+        <Lecture id="215" course="17">
+            <start>2026-12-09T1T:22:56</start>
+            <end>2026-12-09T1T:32:56</end>
+            <room_or_link>Room 7042</room_or_link>
+        </Lecture>
+        <Lecture id="216" course="17">
+            <start>2026-11-05T0T:56:24</start>
+            <end>2026-11-05T0T:32:24</end>
+            <room_or_link>Room 7410</room_or_link>
+        </Lecture>
+        <Lecture id="217" course="17">
+            <start>2026-10-07T2T:05:00</start>
+            <end>2026-10-07T2T:17:00</end>
+            <room_or_link>Room 9604</room_or_link>
+        </Lecture>
+        <Lecture id="218" course="17">
+            <start>2026-12-02T0T:21:03</start>
+            <end>2026-12-02T1T:12:03</end>
+            <room_or_link>Room 929</room_or_link>
+        </Lecture>
+        <Lecture id="219" course="17">
+            <start>2026-12-29T0T:48:47</start>
+            <end>2026-12-29T0T:49:47</end>
+            <room_or_link>Room 74125</room_or_link>
+        </Lecture>
+        <Lecture id="220" course="17">
             <start>2026-12-15T0T:45:14</start>
+            <end>2026-12-15T0T:06:14</end>
+            <room_or_link>Room 861</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>17</course_id>
-            <end>2026-10-25T1T:35:28</end>
-            <id>221</id>
-            <room_or_link>Room 7338</room_or_link>
+        <Lecture id="221" course="17">
             <start>2026-10-25T0T:56:28</start>
+            <end>2026-10-25T1T:35:28</end>
+            <room_or_link>Room 7338</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>17</course_id>
-            <end>2027-03-30T0T:00:45</end>
-            <id>222</id>
-            <room_or_link>https://lebsack.org/ut-maiores-occaecati-aut-harum-repellendus-vel-deleniti.html
+        <Lecture id="222" course="17">
             </room_or_link>
+            <end>2027-03-30T0T:00:45</end>
+            <room_or_link>https://lebsack.org/ut-maiores-occaecati-aut-harum-repellendus-vel-deleniti.html
             <start>2027-03-30T0T:36:45</start>
         </Lecture>
-        <Lecture>
-            <course_id>17</course_id>
-            <end>2027-01-22T0T:47:02</end>
-            <id>223</id>
-            <room_or_link>Room 783</room_or_link>
+        <Lecture id="223" course="17">
             <start>2027-01-22T0T:09:02</start>
+            <end>2027-01-22T0T:47:02</end>
+            <room_or_link>Room 783</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>18</course_id>
-            <end>2027-01-05T0T:10:00</end>
-            <id>224</id>
-            <room_or_link>Room 2139</room_or_link>
+        <Lecture id="224" course="18">
             <start>2027-01-05T0T:30:00</start>
+            <end>2027-01-05T0T:10:00</end>
+            <room_or_link>Room 2139</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>18</course_id>
-            <end>2027-02-26T1T:45:23</end>
-            <id>225</id>
-            <room_or_link>http://becker.org/aut-qui-eligendi-ab-iusto-voluptas-assumenda-nulla</room_or_link>
+        <Lecture id="225" course="18">
             <start>2027-02-26T1T:41:23</start>
+            <end>2027-02-26T1T:45:23</end>
+            <room_or_link>http://becker.org/aut-qui-eligendi-ab-iusto-voluptas-assumenda-nulla</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>18</course_id>
-            <end>2026-10-27T0T:35:24</end>
-            <id>226</id>
-            <room_or_link>Room 57943</room_or_link>
+        <Lecture id="226" course="18">
             <start>2026-10-27T0T:40:24</start>
+            <end>2026-10-27T0T:35:24</end>
+            <room_or_link>Room 57943</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>18</course_id>
-            <end>2027-03-16T1T:34:32</end>
-            <id>227</id>
-            <room_or_link>Room 17443</room_or_link>
+        <Lecture id="227" course="18">
             <start>2027-03-16T1T:27:32</start>
+            <end>2027-03-16T1T:34:32</end>
+            <room_or_link>Room 17443</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>18</course_id>
-            <end>2027-01-15T0T:33:22</end>
-            <id>228</id>
-            <room_or_link>http://rogahn.com/consequatur-perferendis-iste-quae-sit-earum-eos</room_or_link>
+        <Lecture id="228" course="18">
             <start>2027-01-15T0T:46:22</start>
+            <end>2027-01-15T0T:33:22</end>
+            <room_or_link>http://rogahn.com/consequatur-perferendis-iste-quae-sit-earum-eos</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>18</course_id>
-            <end>2026-12-14T0T:28:50</end>
-            <id>229</id>
-            <room_or_link>http://www.schiller.net/dolore-eum-quia-odit-nulla</room_or_link>
+        <Lecture id="229" course="18">
             <start>2026-12-14T0T:50:50</start>
+            <end>2026-12-14T0T:28:50</end>
+            <room_or_link>http://www.schiller.net/dolore-eum-quia-odit-nulla</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>18</course_id>
-            <end>2026-10-13T0T:42:35</end>
-            <id>230</id>
-            <room_or_link>Room 3556</room_or_link>
+        <Lecture id="230" course="18">
             <start>2026-10-13T0T:45:35</start>
+            <end>2026-10-13T0T:42:35</end>
+            <room_or_link>Room 3556</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>18</course_id>
-            <end>2027-01-17T1T:50:44</end>
-            <id>231</id>
-            <room_or_link>http://haag.com/laboriosam-odit-illum-ut-inventore</room_or_link>
+        <Lecture id="231" course="18">
             <start>2027-01-17T1T:39:44</start>
+            <end>2027-01-17T1T:50:44</end>
+            <room_or_link>http://haag.com/laboriosam-odit-illum-ut-inventore</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>18</course_id>
-            <end>2026-11-01T0T:31:15</end>
-            <id>232</id>
-            <room_or_link>Room 1722</room_or_link>
+        <Lecture id="232" course="18">
             <start>2026-10-31T2T:59:15</start>
+            <end>2026-11-01T0T:31:15</end>
+            <room_or_link>Room 1722</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>18</course_id>
-            <end>2026-11-02T0T:26:03</end>
-            <id>233</id>
-            <room_or_link>http://weissnat.com/necessitatibus-expedita-sit-pariatur-qui-eligendi-non-aut</room_or_link>
+        <Lecture id="233" course="18">
             <start>2026-11-01T2T:54:03</start>
+            <end>2026-11-02T0T:26:03</end>
+            <room_or_link>http://weissnat.com/necessitatibus-expedita-sit-pariatur-qui-eligendi-non-aut</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>18</course_id>
-            <end>2027-01-21T1T:39:33</end>
-            <id>234</id>
-            <room_or_link>Room 7600</room_or_link>
+        <Lecture id="234" course="18">
             <start>2027-01-21T1T:06:33</start>
+            <end>2027-01-21T1T:39:33</end>
+            <room_or_link>Room 7600</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>18</course_id>
-            <end>2026-10-09T0T:45:15</end>
-            <id>235</id>
-            <room_or_link>Room 8535</room_or_link>
+        <Lecture id="235" course="18">
             <start>2026-10-09T0T:39:15</start>
+            <end>2026-10-09T0T:45:15</end>
+            <room_or_link>Room 8535</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>18</course_id>
-            <end>2026-10-06T1T:18:41</end>
-            <id>236</id>
-            <room_or_link>Room 9015</room_or_link>
+        <Lecture id="236" course="18">
             <start>2026-10-06T0T:48:41</start>
+            <end>2026-10-06T1T:18:41</end>
+            <room_or_link>Room 9015</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>18</course_id>
-            <end>2027-02-06T0T:30:51</end>
-            <id>237</id>
-            <room_or_link>Room 5179</room_or_link>
+        <Lecture id="237" course="18">
             <start>2027-02-05T2T:42:51</start>
+            <end>2027-02-06T0T:30:51</end>
+            <room_or_link>Room 5179</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>18</course_id>
-            <end>2027-01-23T1T:22:19</end>
-            <id>238</id>
-            <room_or_link>Room 914</room_or_link>
+        <Lecture id="238" course="18">
             <start>2027-01-23T1T:24:19</start>
+            <end>2027-01-23T1T:22:19</end>
+            <room_or_link>Room 914</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>19</course_id>
-            <end>2026-12-07T2T:59:06</end>
-            <id>239</id>
-            <room_or_link>Room 3428</room_or_link>
+        <Lecture id="239" course="19">
             <start>2026-12-07T2T:12:06</start>
+            <end>2026-12-07T2T:59:06</end>
+            <room_or_link>Room 3428</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>19</course_id>
-            <end>2026-11-11T1T:16:11</end>
-            <id>240</id>
-            <room_or_link>Room 284</room_or_link>
+        <Lecture id="240" course="19">
             <start>2026-11-11T1T:00:11</start>
+            <end>2026-11-11T1T:16:11</end>
+            <room_or_link>Room 284</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>19</course_id>
-            <end>2026-10-01T2T:18:18</end>
-            <id>241</id>
-            <room_or_link>Room 3668</room_or_link>
+        <Lecture id="241" course="19">
             <start>2026-10-01T1T:49:18</start>
+            <end>2026-10-01T2T:18:18</end>
+            <room_or_link>Room 3668</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>19</course_id>
-            <end>2026-10-04T1T:20:26</end>
-            <id>242</id>
-            <room_or_link>Room 546</room_or_link>
+        <Lecture id="242" course="19">
             <start>2026-10-04T1T:12:26</start>
+            <end>2026-10-04T1T:20:26</end>
+            <room_or_link>Room 546</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>19</course_id>
-            <end>2027-01-14T2T:52:28</end>
-            <id>243</id>
-            <room_or_link>Room 1906</room_or_link>
+        <Lecture id="243" course="19">
             <start>2027-01-14T1T:38:28</start>
+            <end>2027-01-14T2T:52:28</end>
+            <room_or_link>Room 1906</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>19</course_id>
-            <end>2026-10-15T1T:33:21</end>
-            <id>244</id>
-            <room_or_link>Room 933</room_or_link>
+        <Lecture id="244" course="19">
             <start>2026-10-15T1T:42:21</start>
+            <end>2026-10-15T1T:33:21</end>
+            <room_or_link>Room 933</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>19</course_id>
-            <end>2026-11-23T1T:43:37</end>
-            <id>245</id>
-            <room_or_link>Room 418</room_or_link>
+        <Lecture id="245" course="19">
             <start>2026-11-23T1T:39:37</start>
+            <end>2026-11-23T1T:43:37</end>
+            <room_or_link>Room 418</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>19</course_id>
-            <end>2027-01-16T0T:09:22</end>
-            <id>246</id>
-            <room_or_link>Room 37523</room_or_link>
+        <Lecture id="246" course="19">
             <start>2027-01-16T0T:29:22</start>
+            <end>2027-01-16T0T:09:22</end>
+            <room_or_link>Room 37523</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>19</course_id>
-            <end>2027-01-25T0T:22:11</end>
-            <id>247</id>
-            <room_or_link>Room 470</room_or_link>
+        <Lecture id="247" course="19">
             <start>2027-01-25T0T:41:11</start>
+            <end>2027-01-25T0T:22:11</end>
+            <room_or_link>Room 470</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>19</course_id>
-            <end>2027-02-26T2T:18:23</end>
-            <id>248</id>
-            <room_or_link>Room 575</room_or_link>
+        <Lecture id="248" course="19">
             <start>2027-02-26T1T:12:23</start>
+            <end>2027-02-26T2T:18:23</end>
+            <room_or_link>Room 575</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>19</course_id>
-            <end>2026-10-25T0T:31:36</end>
-            <id>249</id>
-            <room_or_link>http://www.lowe.com/exercitationem-qui-aut-pariatur-fuga</room_or_link>
+        <Lecture id="249" course="19">
             <start>2026-10-25T0T:39:36</start>
+            <end>2026-10-25T0T:31:36</end>
+            <room_or_link>http://www.lowe.com/exercitationem-qui-aut-pariatur-fuga</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>19</course_id>
-            <end>2027-01-12T1T:53:16</end>
-            <id>250</id>
-            <room_or_link>Room 7082</room_or_link>
+        <Lecture id="250" course="19">
             <start>2027-01-12T1T:27:16</start>
+            <end>2027-01-12T1T:53:16</end>
+            <room_or_link>Room 7082</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>19</course_id>
-            <end>2027-03-06T0T:55:09</end>
-            <id>251</id>
-            <room_or_link>Room 30126</room_or_link>
+        <Lecture id="251" course="19">
             <start>2027-03-06T0T:13:09</start>
+            <end>2027-03-06T0T:55:09</end>
+            <room_or_link>Room 30126</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>19</course_id>
-            <end>2027-03-06T0T:47:22</end>
-            <id>252</id>
-            <room_or_link>Room 139</room_or_link>
+        <Lecture id="252" course="19">
             <start>2027-03-06T0T:54:22</start>
+            <end>2027-03-06T0T:47:22</end>
+            <room_or_link>Room 139</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>20</course_id>
-            <end>2027-03-04T0T:31:51</end>
-            <id>253</id>
-            <room_or_link>Room 7283</room_or_link>
+        <Lecture id="253" course="20">
             <start>2027-03-04T0T:54:51</start>
+            <end>2027-03-04T0T:31:51</end>
+            <room_or_link>Room 7283</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>20</course_id>
-            <end>2027-03-25T0T:40:19</end>
-            <id>254</id>
-            <room_or_link>http://www.pollich.info/eum-quis-et-laboriosam-enim-qui-quos</room_or_link>
+        <Lecture id="254" course="20">
             <start>2027-03-24T2T:51:19</start>
+            <end>2027-03-25T0T:40:19</end>
+            <room_or_link>http://www.pollich.info/eum-quis-et-laboriosam-enim-qui-quos</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>20</course_id>
-            <end>2027-01-21T0T:50:14</end>
-            <id>255</id>
-            <room_or_link>Room 196</room_or_link>
+        <Lecture id="255" course="20">
             <start>2027-01-21T0T:51:14</start>
+            <end>2027-01-21T0T:50:14</end>
+            <room_or_link>Room 196</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>20</course_id>
-            <end>2026-12-23T2T:11:02</end>
-            <id>256</id>
-            <room_or_link>http://willms.com/</room_or_link>
+        <Lecture id="256" course="20">
             <start>2026-12-23T1T:09:02</start>
+            <end>2026-12-23T2T:11:02</end>
+            <room_or_link>http://willms.com/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>20</course_id>
-            <end>2026-12-04T0T:42:27</end>
-            <id>257</id>
-            <room_or_link>Room 11333</room_or_link>
+        <Lecture id="257" course="20">
             <start>2026-12-04T0T:47:27</start>
+            <end>2026-12-04T0T:42:27</end>
+            <room_or_link>Room 11333</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>20</course_id>
-            <end>2027-01-09T0T:56:13</end>
-            <id>258</id>
-            <room_or_link>Room 6194</room_or_link>
+        <Lecture id="258" course="20">
             <start>2027-01-09T0T:05:13</start>
+            <end>2027-01-09T0T:56:13</end>
+            <room_or_link>Room 6194</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>20</course_id>
-            <end>2027-03-20T2T:54:08</end>
-            <id>259</id>
-            <room_or_link>Room 78103</room_or_link>
+        <Lecture id="259" course="20">
             <start>2027-03-20T2T:08:08</start>
+            <end>2027-03-20T2T:54:08</end>
+            <room_or_link>Room 78103</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>20</course_id>
-            <end>2026-10-26T0T:47:49</end>
-            <id>260</id>
-            <room_or_link>http://tromp.biz/</room_or_link>
+        <Lecture id="260" course="20">
             <start>2026-10-26T0T:02:49</start>
+            <end>2026-10-26T0T:47:49</end>
+            <room_or_link>http://tromp.biz/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>20</course_id>
-            <end>2026-10-11T0T:15:08</end>
-            <id>261</id>
-            <room_or_link>Room 85616</room_or_link>
+        <Lecture id="261" course="20">
             <start>2026-10-11T0T:44:08</start>
+            <end>2026-10-11T0T:15:08</end>
+            <room_or_link>Room 85616</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>20</course_id>
-            <end>2027-03-05T1T:27:05</end>
-            <id>262</id>
-            <room_or_link>http://moore.com/quisquam-accusantium-excepturi-expedita-quas.html</room_or_link>
+        <Lecture id="262" course="20">
             <start>2027-03-05T1T:50:05</start>
+            <end>2027-03-05T1T:27:05</end>
+            <room_or_link>http://moore.com/quisquam-accusantium-excepturi-expedita-quas.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>20</course_id>
-            <end>2027-03-16T2T:39:00</end>
-            <id>263</id>
-            <room_or_link>Room 6763</room_or_link>
+        <Lecture id="263" course="20">
             <start>2027-03-16T1T:47:00</start>
+            <end>2027-03-16T2T:39:00</end>
+            <room_or_link>Room 6763</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>20</course_id>
-            <end>2026-11-21T1T:34:49</end>
-            <id>264</id>
-            <room_or_link>Room 5151</room_or_link>
+        <Lecture id="264" course="20">
             <start>2026-11-21T1T:01:49</start>
+            <end>2026-11-21T1T:34:49</end>
+            <room_or_link>Room 5151</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>20</course_id>
-            <end>2027-02-21T1T:36:56</end>
-            <id>265</id>
-            <room_or_link>http://kris.info/</room_or_link>
+        <Lecture id="265" course="20">
             <start>2027-02-21T1T:49:56</start>
+            <end>2027-02-21T1T:36:56</end>
+            <room_or_link>http://kris.info/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>20</course_id>
-            <end>2027-02-13T0T:18:08</end>
-            <id>266</id>
-            <room_or_link>http://www.pfannerstill.com/</room_or_link>
+        <Lecture id="266" course="20">
             <start>2027-02-13T0T:48:08</start>
+            <end>2027-02-13T0T:18:08</end>
+            <room_or_link>http://www.pfannerstill.com/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>21</course_id>
-            <end>2027-02-22T0T:17:02</end>
-            <id>267</id>
-            <room_or_link>Room 713</room_or_link>
+        <Lecture id="267" course="21">
             <start>2027-02-22T0T:57:02</start>
+            <end>2027-02-22T0T:17:02</end>
+            <room_or_link>Room 713</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>21</course_id>
-            <end>2027-03-17T0T:52:04</end>
-            <id>268</id>
-            <room_or_link>Room 754</room_or_link>
+        <Lecture id="268" course="21">
             <start>2027-03-17T0T:13:04</start>
+            <end>2027-03-17T0T:52:04</end>
+            <room_or_link>Room 754</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>21</course_id>
-            <end>2027-02-07T0T:08:02</end>
-            <id>269</id>
-            <room_or_link>Room 59544</room_or_link>
+        <Lecture id="269" course="21">
             <start>2027-02-06T2T:10:02</start>
+            <end>2027-02-07T0T:08:02</end>
+            <room_or_link>Room 59544</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>21</course_id>
-            <end>2026-10-25T1T:07:15</end>
-            <id>270</id>
-            <room_or_link>Room 559</room_or_link>
+        <Lecture id="270" course="21">
             <start>2026-10-25T0T:19:15</start>
+            <end>2026-10-25T1T:07:15</end>
+            <room_or_link>Room 559</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>21</course_id>
-            <end>2026-12-26T0T:07:54</end>
-            <id>271</id>
-            <room_or_link>https://www.cartwright.com/accusamus-enim-accusantium-nostrum</room_or_link>
+        <Lecture id="271" course="21">
             <start>2026-12-26T0T:27:54</start>
+            <end>2026-12-26T0T:07:54</end>
+            <room_or_link>https://www.cartwright.com/accusamus-enim-accusantium-nostrum</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>21</course_id>
-            <end>2027-01-30T0T:52:28</end>
-            <id>272</id>
-            <room_or_link>Room 65935</room_or_link>
+        <Lecture id="272" course="21">
             <start>2027-01-29T2T:21:28</start>
+            <end>2027-01-30T0T:52:28</end>
+            <room_or_link>Room 65935</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>21</course_id>
-            <end>2026-11-22T1T:40:00</end>
-            <id>273</id>
-            <room_or_link>Room 7907</room_or_link>
+        <Lecture id="273" course="21">
             <start>2026-11-22T0T:54:00</start>
+            <end>2026-11-22T1T:40:00</end>
+            <room_or_link>Room 7907</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>21</course_id>
-            <end>2026-11-22T1T:04:02</end>
-            <id>274</id>
-            <room_or_link>Room 26312</room_or_link>
+        <Lecture id="274" course="21">
             <start>2026-11-22T1T:17:02</start>
+            <end>2026-11-22T1T:04:02</end>
+            <room_or_link>Room 26312</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>21</course_id>
-            <end>2027-02-27T0T:55:23</end>
-            <id>275</id>
-            <room_or_link>Room 7343</room_or_link>
+        <Lecture id="275" course="21">
             <start>2027-02-27T0T:04:23</start>
+            <end>2027-02-27T0T:55:23</end>
+            <room_or_link>Room 7343</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>21</course_id>
-            <end>2026-10-07T2T:06:56</end>
-            <id>276</id>
-            <room_or_link>http://gleason.com/dolorem-ut-et-impedit-et</room_or_link>
+        <Lecture id="276" course="21">
             <start>2026-10-07T1T:05:56</start>
+            <end>2026-10-07T2T:06:56</end>
+            <room_or_link>http://gleason.com/dolorem-ut-et-impedit-et</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>22</course_id>
-            <end>2027-01-23T1T:42:08</end>
-            <id>277</id>
-            <room_or_link>Room 5880</room_or_link>
+        <Lecture id="277" course="22">
             <start>2027-01-23T1T:05:08</start>
+            <end>2027-01-23T1T:42:08</end>
+            <room_or_link>Room 5880</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>22</course_id>
-            <end>2027-01-22T1T:36:17</end>
-            <id>278</id>
-            <room_or_link>Room 71884</room_or_link>
+        <Lecture id="278" course="22">
             <start>2027-01-22T1T:12:17</start>
+            <end>2027-01-22T1T:36:17</end>
+            <room_or_link>Room 71884</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>22</course_id>
-            <end>2027-01-12T1T:16:24</end>
-            <id>279</id>
-            <room_or_link>Room 32085</room_or_link>
+        <Lecture id="279" course="22">
             <start>2027-01-12T0T:34:24</start>
+            <end>2027-01-12T1T:16:24</end>
+            <room_or_link>Room 32085</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>22</course_id>
-            <end>2027-03-15T0T:14:09</end>
-            <id>280</id>
-            <room_or_link>Room 1217</room_or_link>
+        <Lecture id="280" course="22">
             <start>2027-03-14T2T:27:09</start>
+            <end>2027-03-15T0T:14:09</end>
+            <room_or_link>Room 1217</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>22</course_id>
-            <end>2027-01-08T1T:58:17</end>
-            <id>281</id>
-            <room_or_link>http://www.stoltenberg.com/at-eaque-eos-facere</room_or_link>
+        <Lecture id="281" course="22">
             <start>2027-01-08T1T:05:17</start>
+            <end>2027-01-08T1T:58:17</end>
+            <room_or_link>http://www.stoltenberg.com/at-eaque-eos-facere</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>22</course_id>
-            <end>2026-10-02T2T:25:43</end>
-            <id>282</id>
-            <room_or_link>Room 213</room_or_link>
+        <Lecture id="282" course="22">
             <start>2026-10-02T1T:19:43</start>
+            <end>2026-10-02T2T:25:43</end>
+            <room_or_link>Room 213</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>22</course_id>
-            <end>2027-01-21T1T:47:13</end>
-            <id>283</id>
-            <room_or_link>http://www.kuvalis.org/</room_or_link>
+        <Lecture id="283" course="22">
             <start>2027-01-21T1T:04:13</start>
+            <end>2027-01-21T1T:47:13</end>
+            <room_or_link>http://www.kuvalis.org/</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>22</course_id>
-            <end>2027-02-25T0T:40:59</end>
-            <id>284</id>
-            <room_or_link>http://ferry.com/velit-iste-quam-corporis-dolorum-corporis-voluptatum.html</room_or_link>
+        <Lecture id="284" course="22">
             <start>2027-02-25T0T:02:59</start>
+            <end>2027-02-25T0T:40:59</end>
+            <room_or_link>http://ferry.com/velit-iste-quam-corporis-dolorum-corporis-voluptatum.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>22</course_id>
-            <end>2026-12-24T0T:18:56</end>
-            <id>285</id>
-            <room_or_link>http://white.com/unde-id-quos-minus-temporibus-in-nemo-voluptas-deserunt</room_or_link>
+        <Lecture id="285" course="22">
             <start>2026-12-24T0T:46:56</start>
+            <end>2026-12-24T0T:18:56</end>
+            <room_or_link>http://white.com/unde-id-quos-minus-temporibus-in-nemo-voluptas-deserunt</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>22</course_id>
-            <end>2026-12-15T2T:02:36</end>
-            <id>286</id>
-            <room_or_link>http://little.info/aliquid-qui-eveniet-molestias-labore.html</room_or_link>
+        <Lecture id="286" course="22">
             <start>2026-12-15T1T:02:36</start>
+            <end>2026-12-15T2T:02:36</end>
+            <room_or_link>http://little.info/aliquid-qui-eveniet-molestias-labore.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>22</course_id>
-            <end>2027-03-20T2T:20:09</end>
-            <id>287</id>
-            <room_or_link>Room 53335</room_or_link>
+        <Lecture id="287" course="22">
             <start>2027-03-20T2T:11:09</start>
+            <end>2027-03-20T2T:20:09</end>
+            <room_or_link>Room 53335</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>23</course_id>
-            <end>2026-05-01T0T:25:19</end>
-            <id>288</id>
-            <room_or_link>Room 12432</room_or_link>
+        <Lecture id="288" course="23">
             <start>2026-05-01T0T:42:19</start>
+            <end>2026-05-01T0T:25:19</end>
+            <room_or_link>Room 12432</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>23</course_id>
-            <end>2026-09-11T0T:06:36</end>
-            <id>289</id>
-            <room_or_link>http://mante.com/blanditiis-qui-est-hic-id-id-sit-temporibus</room_or_link>
+        <Lecture id="289" course="23">
             <start>2026-09-11T0T:29:36</start>
+            <end>2026-09-11T0T:06:36</end>
+            <room_or_link>http://mante.com/blanditiis-qui-est-hic-id-id-sit-temporibus</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>23</course_id>
-            <end>2026-07-11T0T:28:46</end>
-            <id>290</id>
-            <room_or_link>Room 2495</room_or_link>
+        <Lecture id="290" course="23">
             <start>2026-07-10T2T:25:46</start>
+            <end>2026-07-11T0T:28:46</end>
+            <room_or_link>Room 2495</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>23</course_id>
-            <end>2026-05-30T1T:23:47</end>
-            <id>291</id>
-            <room_or_link>Room 625</room_or_link>
+        <Lecture id="291" course="23">
             <start>2026-05-30T1T:25:47</start>
+            <end>2026-05-30T1T:23:47</end>
+            <room_or_link>Room 625</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>23</course_id>
-            <end>2026-08-30T0T:16:35</end>
-            <id>292</id>
-            <room_or_link>Room 1519</room_or_link>
+        <Lecture id="292" course="23">
             <start>2026-08-30T0T:33:35</start>
+            <end>2026-08-30T0T:16:35</end>
+            <room_or_link>Room 1519</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>23</course_id>
-            <end>2026-08-31T1T:30:22</end>
-            <id>293</id>
-            <room_or_link>Room 41282</room_or_link>
+        <Lecture id="293" course="23">
             <start>2026-08-31T0T:43:22</start>
+            <end>2026-08-31T1T:30:22</end>
+            <room_or_link>Room 41282</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>23</course_id>
-            <end>2026-06-06T1T:49:00</end>
-            <id>294</id>
-            <room_or_link>Room 2677</room_or_link>
+        <Lecture id="294" course="23">
             <start>2026-06-06T0T:07:00</start>
+            <end>2026-06-06T1T:49:00</end>
+            <room_or_link>Room 2677</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>23</course_id>
-            <end>2026-07-17T0T:24:46</end>
-            <id>295</id>
-            <room_or_link>http://cole.net/consectetur-cumque-temporibus-voluptas-qui</room_or_link>
+        <Lecture id="295" course="23">
             <start>2026-07-17T0T:51:46</start>
+            <end>2026-07-17T0T:24:46</end>
+            <room_or_link>http://cole.net/consectetur-cumque-temporibus-voluptas-qui</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>23</course_id>
-            <end>2026-06-06T2T:04:16</end>
-            <id>296</id>
-            <room_or_link>https://nolan.com/officiis-corporis-in-quod.html</room_or_link>
+        <Lecture id="296" course="23">
             <start>2026-06-06T1T:46:16</start>
+            <end>2026-06-06T2T:04:16</end>
+            <room_or_link>https://nolan.com/officiis-corporis-in-quod.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>23</course_id>
-            <end>2026-05-16T0T:13:56</end>
-            <id>297</id>
-            <room_or_link>Room 5025</room_or_link>
+        <Lecture id="297" course="23">
             <start>2026-05-16T0T:17:56</start>
+            <end>2026-05-16T0T:13:56</end>
+            <room_or_link>Room 5025</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>23</course_id>
-            <end>2026-06-02T0T:17:35</end>
-            <id>298</id>
-            <room_or_link>Room 6769</room_or_link>
+        <Lecture id="298" course="23">
             <start>2026-06-02T0T:39:35</start>
+            <end>2026-06-02T0T:17:35</end>
+            <room_or_link>Room 6769</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>23</course_id>
-            <end>2026-04-07T1T:51:50</end>
-            <id>299</id>
-            <room_or_link>Room 13906</room_or_link>
+        <Lecture id="299" course="23">
             <start>2026-04-07T1T:18:50</start>
+            <end>2026-04-07T1T:51:50</end>
+            <room_or_link>Room 13906</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>23</course_id>
-            <end>2026-04-08T1T:51:35</end>
-            <id>300</id>
-            <room_or_link>http://www.rippin.com/aut-aut-aut-quas-autem-tempore-esse-at</room_or_link>
+        <Lecture id="300" course="23">
             <start>2026-04-08T1T:54:35</start>
+            <end>2026-04-08T1T:51:35</end>
+            <room_or_link>http://www.rippin.com/aut-aut-aut-quas-autem-tempore-esse-at</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>23</course_id>
-            <end>2026-08-07T2T:54:34</end>
-            <id>301</id>
-            <room_or_link>Room 708</room_or_link>
+        <Lecture id="301" course="23">
             <start>2026-08-07T1T:06:34</start>
+            <end>2026-08-07T2T:54:34</end>
+            <room_or_link>Room 708</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>23</course_id>
-            <end>2026-08-09T1T:40:01</end>
-            <id>302</id>
-            <room_or_link>Room 57435</room_or_link>
+        <Lecture id="302" course="23">
             <start>2026-08-09T1T:28:01</start>
+            <end>2026-08-09T1T:40:01</end>
+            <room_or_link>Room 57435</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>24</course_id>
-            <end>2026-04-10T2T:18:52</end>
-            <id>303</id>
-            <room_or_link>Room 3871</room_or_link>
+        <Lecture id="303" course="24">
             <start>2026-04-10T1T:22:52</start>
+            <end>2026-04-10T2T:18:52</end>
+            <room_or_link>Room 3871</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>24</course_id>
-            <end>2026-04-10T1T:41:21</end>
-            <id>304</id>
-            <room_or_link>http://www.oreilly.biz/qui-quis-qui-ut-dolorem</room_or_link>
+        <Lecture id="304" course="24">
             <start>2026-04-10T1T:05:21</start>
+            <end>2026-04-10T1T:41:21</end>
+            <room_or_link>http://www.oreilly.biz/qui-quis-qui-ut-dolorem</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>24</course_id>
-            <end>2026-07-22T1T:56:27</end>
-            <id>305</id>
-            <room_or_link>http://www.heaney.com/nemo-cum-voluptatem-eveniet-fugiat-quia-in-ipsa</room_or_link>
+        <Lecture id="305" course="24">
             <start>2026-07-22T1T:17:27</start>
+            <end>2026-07-22T1T:56:27</end>
+            <room_or_link>http://www.heaney.com/nemo-cum-voluptatem-eveniet-fugiat-quia-in-ipsa</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>24</course_id>
-            <end>2026-08-09T1T:47:48</end>
-            <id>306</id>
-            <room_or_link>Room 610</room_or_link>
+        <Lecture id="306" course="24">
             <start>2026-08-09T1T:10:48</start>
+            <end>2026-08-09T1T:47:48</end>
+            <room_or_link>Room 610</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>24</course_id>
-            <end>2026-05-28T0T:23:48</end>
-            <id>307</id>
-            <room_or_link>Room 408</room_or_link>
+        <Lecture id="307" course="24">
             <start>2026-05-28T0T:29:48</start>
+            <end>2026-05-28T0T:23:48</end>
+            <room_or_link>Room 408</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>24</course_id>
-            <end>2026-07-15T1T:21:00</end>
-            <id>308</id>
-            <room_or_link>Room 18034</room_or_link>
+        <Lecture id="308" course="24">
             <start>2026-07-15T1T:15:00</start>
+            <end>2026-07-15T1T:21:00</end>
+            <room_or_link>Room 18034</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>24</course_id>
-            <end>2026-04-13T2T:56:58</end>
-            <id>309</id>
-            <room_or_link>https://wyman.info/aut-vero-dolorem-facere-laboriosam-accusantium-dolor.html</room_or_link>
+        <Lecture id="309" course="24">
             <start>2026-04-13T1T:32:58</start>
+            <end>2026-04-13T2T:56:58</end>
+            <room_or_link>https://wyman.info/aut-vero-dolorem-facere-laboriosam-accusantium-dolor.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>24</course_id>
-            <end>2026-05-06T1T:45:26</end>
-            <id>310</id>
-            <room_or_link>Room 864</room_or_link>
+        <Lecture id="310" course="24">
             <start>2026-05-06T1T:03:26</start>
+            <end>2026-05-06T1T:45:26</end>
+            <room_or_link>Room 864</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>24</course_id>
-            <end>2026-09-22T0T:28:06</end>
-            <id>311</id>
-            <room_or_link>Room 24262</room_or_link>
+        <Lecture id="311" course="24">
             <start>2026-09-22T0T:25:06</start>
+            <end>2026-09-22T0T:28:06</end>
+            <room_or_link>Room 24262</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>24</course_id>
-            <end>2026-04-06T1T:41:31</end>
-            <id>312</id>
-            <room_or_link>http://klein.com/vel-pariatur-corporis-suscipit-animi-rerum-dolorem-quidem.html</room_or_link>
+        <Lecture id="312" course="24">
             <start>2026-04-06T1T:07:31</start>
+            <end>2026-04-06T1T:41:31</end>
+            <room_or_link>http://klein.com/vel-pariatur-corporis-suscipit-animi-rerum-dolorem-quidem.html</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>25</course_id>
-            <end>2026-09-13T1T:04:13</end>
-            <id>313</id>
-            <room_or_link>Room 6776</room_or_link>
+        <Lecture id="313" course="25">
             <start>2026-09-13T1T:24:13</start>
+            <end>2026-09-13T1T:04:13</end>
+            <room_or_link>Room 6776</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>25</course_id>
-            <end>2026-09-01T0T:59:34</end>
-            <id>314</id>
-            <room_or_link>https://www.weber.info/nihil-earum-ipsa-laborum-in-quia</room_or_link>
+        <Lecture id="314" course="25">
             <start>2026-09-01T0T:11:34</start>
+            <end>2026-09-01T0T:59:34</end>
+            <room_or_link>https://www.weber.info/nihil-earum-ipsa-laborum-in-quia</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>25</course_id>
-            <end>2026-08-20T0T:51:16</end>
-            <id>315</id>
-            <room_or_link>Room 2506</room_or_link>
+        <Lecture id="315" course="25">
             <start>2026-08-20T0T:51:16</start>
+            <end>2026-08-20T0T:51:16</end>
+            <room_or_link>Room 2506</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>25</course_id>
-            <end>2026-05-22T1T:55:04</end>
-            <id>316</id>
-            <room_or_link>Room 795</room_or_link>
+        <Lecture id="316" course="25">
             <start>2026-05-22T1T:47:04</start>
+            <end>2026-05-22T1T:55:04</end>
+            <room_or_link>Room 795</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>25</course_id>
-            <end>2026-09-03T0T:09:06</end>
-            <id>317</id>
-            <room_or_link>Room 880</room_or_link>
+        <Lecture id="317" course="25">
             <start>2026-09-03T0T:08:06</start>
+            <end>2026-09-03T0T:09:06</end>
+            <room_or_link>Room 880</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>25</course_id>
-            <end>2026-06-29T0T:18:53</end>
-            <id>318</id>
-            <room_or_link>Room 6924</room_or_link>
+        <Lecture id="318" course="25">
             <start>2026-06-29T0T:43:53</start>
+            <end>2026-06-29T0T:18:53</end>
+            <room_or_link>Room 6924</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>25</course_id>
-            <end>2026-04-28T2T:04:08</end>
-            <id>319</id>
-            <room_or_link>Room 588</room_or_link>
+        <Lecture id="319" course="25">
             <start>2026-04-28T2T:25:08</start>
+            <end>2026-04-28T2T:04:08</end>
+            <room_or_link>Room 588</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>25</course_id>
-            <end>2026-07-18T0T:15:26</end>
-            <id>320</id>
-            <room_or_link>Room 24614</room_or_link>
+        <Lecture id="320" course="25">
             <start>2026-07-17T2T:27:26</start>
+            <end>2026-07-18T0T:15:26</end>
+            <room_or_link>Room 24614</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>25</course_id>
-            <end>2026-09-19T1T:32:06</end>
-            <id>321</id>
-            <room_or_link>Room 55882</room_or_link>
+        <Lecture id="321" course="25">
             <start>2026-09-19T1T:33:06</start>
+            <end>2026-09-19T1T:32:06</end>
+            <room_or_link>Room 55882</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>25</course_id>
-            <end>2026-05-16T0T:37:33</end>
-            <id>322</id>
-            <room_or_link>Room 70549</room_or_link>
+        <Lecture id="322" course="25">
             <start>2026-05-15T2T:44:33</start>
+            <end>2026-05-16T0T:37:33</end>
+            <room_or_link>Room 70549</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>26</course_id>
-            <end>2026-04-06T0T:11:02</end>
-            <id>323</id>
-            <room_or_link>Room 330</room_or_link>
+        <Lecture id="323" course="26">
             <start>2026-04-06T0T:00:02</start>
+            <end>2026-04-06T0T:11:02</end>
+            <room_or_link>Room 330</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>26</course_id>
-            <end>2026-08-01T1T:36:51</end>
-            <id>324</id>
-            <room_or_link>Room 7827</room_or_link>
+        <Lecture id="324" course="26">
             <start>2026-08-01T1T:29:51</start>
+            <end>2026-08-01T1T:36:51</end>
+            <room_or_link>Room 7827</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>26</course_id>
-            <end>2026-05-09T0T:53:35</end>
-            <id>325</id>
-            <room_or_link>Room 60354</room_or_link>
+        <Lecture id="325" course="26">
             <start>2026-05-09T0T:23:35</start>
+            <end>2026-05-09T0T:53:35</end>
+            <room_or_link>Room 60354</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>26</course_id>
-            <end>2026-07-02T0T:01:41</end>
-            <id>326</id>
-            <room_or_link>Room 8093</room_or_link>
+        <Lecture id="326" course="26">
             <start>2026-07-01T2T:10:41</start>
+            <end>2026-07-02T0T:01:41</end>
+            <room_or_link>Room 8093</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>26</course_id>
-            <end>2026-09-24T1T:36:22</end>
-            <id>327</id>
-            <room_or_link>Room 2781</room_or_link>
+        <Lecture id="327" course="26">
             <start>2026-09-24T1T:44:22</start>
+            <end>2026-09-24T1T:36:22</end>
+            <room_or_link>Room 2781</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>26</course_id>
-            <end>2026-09-08T1T:23:24</end>
-            <id>328</id>
-            <room_or_link>http://www.bashirian.net/sit-omnis-quis-modi-ab-ipsam</room_or_link>
+        <Lecture id="328" course="26">
             <start>2026-09-08T1T:38:24</start>
+            <end>2026-09-08T1T:23:24</end>
+            <room_or_link>http://www.bashirian.net/sit-omnis-quis-modi-ab-ipsam</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>26</course_id>
-            <end>2026-06-21T1T:44:33</end>
-            <id>329</id>
-            <room_or_link>Room 723</room_or_link>
+        <Lecture id="329" course="26">
             <start>2026-06-21T0T:51:33</start>
+            <end>2026-06-21T1T:44:33</end>
+            <room_or_link>Room 723</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>26</course_id>
-            <end>2026-04-14T1T:06:00</end>
-            <id>330</id>
-            <room_or_link>Room 62777</room_or_link>
+        <Lecture id="330" course="26">
             <start>2026-04-14T1T:10:00</start>
+            <end>2026-04-14T1T:06:00</end>
+            <room_or_link>Room 62777</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>26</course_id>
-            <end>2026-06-15T2T:44:49</end>
-            <id>331</id>
-            <room_or_link>http://www.krajcik.com/adipisci-sit-maxime-facere-et-ab-facilis</room_or_link>
+        <Lecture id="331" course="26">
             <start>2026-06-15T1T:11:49</start>
+            <end>2026-06-15T2T:44:49</end>
+            <room_or_link>http://www.krajcik.com/adipisci-sit-maxime-facere-et-ab-facilis</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>26</course_id>
-            <end>2026-07-22T0T:23:32</end>
-            <id>332</id>
-            <room_or_link>Room 35819</room_or_link>
+        <Lecture id="332" course="26">
             <start>2026-07-22T0T:36:32</start>
+            <end>2026-07-22T0T:23:32</end>
+            <room_or_link>Room 35819</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>27</course_id>
-            <end>2026-07-19T1T:05:54</end>
-            <id>333</id>
-            <room_or_link>Room 928</room_or_link>
+        <Lecture id="333" course="27">
             <start>2026-07-19T1T:23:54</start>
+            <end>2026-07-19T1T:05:54</end>
+            <room_or_link>Room 928</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>27</course_id>
-            <end>2026-07-08T1T:55:12</end>
-            <id>334</id>
-            <room_or_link>Room 86103</room_or_link>
+        <Lecture id="334" course="27">
             <start>2026-07-08T1T:02:12</start>
+            <end>2026-07-08T1T:55:12</end>
+            <room_or_link>Room 86103</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>27</course_id>
-            <end>2026-08-30T2T:10:15</end>
-            <id>335</id>
-            <room_or_link>Room 38248</room_or_link>
+        <Lecture id="335" course="27">
             <start>2026-08-30T2T:18:15</start>
+            <end>2026-08-30T2T:10:15</end>
+            <room_or_link>Room 38248</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>27</course_id>
-            <end>2026-08-20T2T:25:23</end>
-            <id>336</id>
-            <room_or_link>Room 45915</room_or_link>
+        <Lecture id="336" course="27">
             <start>2026-08-20T1T:54:23</start>
+            <end>2026-08-20T2T:25:23</end>
+            <room_or_link>Room 45915</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>27</course_id>
-            <end>2026-06-07T1T:57:05</end>
-            <id>337</id>
-            <room_or_link>Room 99887</room_or_link>
+        <Lecture id="337" course="27">
             <start>2026-06-07T1T:10:05</start>
+            <end>2026-06-07T1T:57:05</end>
+            <room_or_link>Room 99887</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>27</course_id>
-            <end>2026-05-27T0T:50:50</end>
-            <id>338</id>
-            <room_or_link>Room 199</room_or_link>
+        <Lecture id="338" course="27">
             <start>2026-05-27T0T:50:50</start>
+            <end>2026-05-27T0T:50:50</end>
+            <room_or_link>Room 199</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>27</course_id>
-            <end>2026-08-12T1T:13:05</end>
-            <id>339</id>
-            <room_or_link>Room 806</room_or_link>
+        <Lecture id="339" course="27">
             <start>2026-08-12T1T:26:05</start>
+            <end>2026-08-12T1T:13:05</end>
+            <room_or_link>Room 806</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>27</course_id>
-            <end>2026-06-19T0T:30:27</end>
-            <id>340</id>
-            <room_or_link>Room 45847</room_or_link>
+        <Lecture id="340" course="27">
             <start>2026-06-19T0T:42:27</start>
+            <end>2026-06-19T0T:30:27</end>
+            <room_or_link>Room 45847</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>27</course_id>
-            <end>2026-06-05T2T:36:21</end>
-            <id>341</id>
-            <room_or_link>Room 1584</room_or_link>
+        <Lecture id="341" course="27">
             <start>2026-06-05T2T:02:21</start>
+            <end>2026-06-05T2T:36:21</end>
+            <room_or_link>Room 1584</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>27</course_id>
-            <end>2026-05-07T1T:40:33</end>
-            <id>342</id>
-            <room_or_link>https://www.homenick.com/earum-sequi-et-sit</room_or_link>
+        <Lecture id="342" course="27">
             <start>2026-05-07T0T:11:33</start>
+            <end>2026-05-07T1T:40:33</end>
+            <room_or_link>https://www.homenick.com/earum-sequi-et-sit</room_or_link>
         </Lecture>
-        <Lecture>
-            <course_id>27</course_id>
-            <end>2026-09-20T0T:50:17</end>
-            <id>343</id>
-            <room_or_link>Room 829</room_or_link>
+        <Lecture id="343" course="27">
             <start>2026-09-20T0T:35:17</start>
+            <end>2026-09-20T0T:50:17</end>
+            <room_or_link>Room 829</room_or_link>
         </Lecture>
     </Lectures>
     <Semesters>
-        <Semester>
-            <end>2026-03-31T00:00:00</end>
-            <id>1</id>
+        <Semester id="1">
             <name>Winter Semester 2025/2026</name>
             <start>2025-10-01T00:00:00</start>
+            <end>2026-03-31T00:00:00</end>
         </Semester>
-        <Semester>
-            <end>2025-09-30T00:00:00</end>
-            <id>2</id>
+        <Semester id="2">
             <name>Summer Semester 2025</name>
             <start>2025-04-01T00:00:00</start>
+            <end>2025-09-30T00:00:00</end>
         </Semester>
-        <Semester>
-            <end>2027-03-31T00:00:00</end>
-            <id>3</id>
+        <Semester id="3">
             <name>Winter Semester 2026/2027</name>
             <start>2026-10-01T00:00:00</start>
+            <end>2027-03-31T00:00:00</end>
         </Semester>
-        <Semester>
-            <end>2026-09-30T00:00:00</end>
-            <id>4</id>
+        <Semester id="4">
             <name>Summer Semester 2026</name>
             <start>2026-04-01T00:00:00</start>
+            <end>2026-09-30T00:00:00</end>
         </Semester>
     </Semesters>
 </root>
