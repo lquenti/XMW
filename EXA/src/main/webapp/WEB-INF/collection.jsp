@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %> <%@ taglib prefix="fmt"
-                                                            uri="jakarta.tags.fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %> <%@ page
-import="xmw.exa.util.Config" %>
+uri="jakarta.tags.fmt" %> <%@ page contentType="text/html;charset=UTF-8"
+language="java" %> <%@ page import="xmw.exa.util.Config" %>
 <jsp:useBean id="name" scope="request" type="java.lang.String" />
 <jsp:useBean id="message" scope="request" type="java.lang.String" />
 <jsp:useBean id="courses" scope="request" type="java.util.List" />
@@ -54,45 +53,52 @@ import="xmw.exa.util.Config" %>
         </a>
       </div>
 
-      <div class="create-form">
-        <h3>Create New Exam</h3>
-        <form
-          action="${pageContext.request.contextPath}/exams"
-          method="post"
-          enctype="multipart/form-data"
-        >
-          <div class="form-group">
-            <label for="course_id">Course:</label>
-            <select name="course_id" id="course_id" required>
-              <c:forEach var="course" items="${courses}">
-                <option value="${course.id}">${course.name}</option>
-              </c:forEach>
-            </select>
-          </div>
+      <c:if test="${pageContext.request.servletPath eq '/exams'}">
+        <div class="create-form">
+          <h3>Create New Exam</h3>
+          <form
+            action="${pageContext.request.contextPath}/exams"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="form-group">
+              <label for="course_id">Course:</label>
+              <select name="course_id" id="course_id" required>
+                <c:forEach var="course" items="${courses}">
+                  <option value="${course.id}">${course.name}</option>
+                </c:forEach>
+              </select>
+            </div>
 
-          <div class="form-group">
-            <label for="date">Date and Time:</label>
-            <input type="datetime-local" name="date" id="date" required />
-          </div>
+            <div class="form-group">
+              <label for="date">Date and Time:</label>
+              <input type="datetime-local" name="date" id="date" required />
+            </div>
 
-          <div class="form-group">
-            <label for="is_online">Online Exam:</label>
-            <input type="checkbox" name="is_online" id="is_online" />
-          </div>
+            <div class="form-group">
+              <label for="is_online">Online Exam:</label>
+              <input type="checkbox" name="is_online" id="is_online" />
+            </div>
 
-          <div class="form-group">
-            <label for="is_written">Written Exam:</label>
-            <input type="checkbox" name="is_written" id="is_written" />
-          </div>
+            <div class="form-group">
+              <label for="is_written">Written Exam:</label>
+              <input type="checkbox" name="is_written" id="is_written" />
+            </div>
 
-          <div class="form-group">
-            <label for="room_or_link">Room/Link:</label>
-            <input type="text" name="room_or_link" id="room_or_link" required />
-          </div>
+            <div class="form-group">
+              <label for="room_or_link">Room/Link:</label>
+              <input
+                type="text"
+                name="room_or_link"
+                id="room_or_link"
+                required
+              />
+            </div>
 
-          <button type="submit">Create Exam</button>
-        </form>
-      </div>
+            <button type="submit">Create Exam</button>
+          </form>
+        </div>
+      </c:if>
 
       <style>
         .create-form {
