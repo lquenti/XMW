@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root
+        SYSTEM "flush.dtd" >
 <root>
     <Courses>
         <Course id="16" lecturer="10" semester="3">
@@ -557,10 +559,10 @@
             <room_or_link>Room 9637</room_or_link>
         </Lecture>
         <Lecture id="42" course="4">
-            </room_or_link>
+            <start>2026-01-04T1T:48:05</start>
             <end>2026-01-04T2T:26:05</end>
             <room_or_link>https://mills.info/dolorum-nesciunt-non-eligendi-voluptatem-consequuntur-earum-sapiente.html
-            <start>2026-01-04T1T:48:05</start>
+            </room_or_link>
         </Lecture>
         <Lecture id="43" course="4">
             <start>2026-01-22T1T:42:47</start>
@@ -723,10 +725,10 @@
             <room_or_link>Room 7103</room_or_link>
         </Lecture>
         <Lecture id="75" course="6">
-            </room_or_link>
+            <start>2026-02-07T0T:47:25</start>
             <end>2026-02-07T0T:28:25</end>
             <room_or_link>http://www.walker.biz/consequatur-sed-laborum-itaque-cupiditate-deserunt-voluptates
-            <start>2026-02-07T0T:47:25</start>
+            </room_or_link>
         </Lecture>
         <Lecture id="76" course="6">
             <start>2025-11-02T1T:38:38</start>
@@ -939,10 +941,10 @@
             <room_or_link>Room 564</room_or_link>
         </Lecture>
         <Lecture id="118" course="10">
-            </room_or_link>
+            <start>2025-08-19T1T:09:47</start>
             <end>2025-08-19T1T:07:47</end>
             <room_or_link>http://www.mante.com/et-voluptas-modi-et-voluptatem-iure-mollitia-animi-aut.html
-            <start>2025-08-19T1T:09:47</start>
+            </room_or_link>
         </Lecture>
         <Lecture id="119" course="10">
             <start>2025-06-14T2T:04:39</start>
@@ -960,10 +962,10 @@
             <room_or_link>Room 474</room_or_link>
         </Lecture>
         <Lecture id="122" course="10">
-            </room_or_link>
+            <start>2025-05-17T1T:05:13</start>
             <end>2025-05-17T1T:04:13</end>
             <room_or_link>http://www.mann.com/corrupti-consequatur-voluptatem-aut-possimus-et-dolores-pariatur.html
-            <start>2025-05-17T1T:05:13</start>
+            </room_or_link>
         </Lecture>
         <Lecture id="123" course="10">
             <start>2025-09-10T1T:03:24</start>
@@ -1006,10 +1008,10 @@
             <room_or_link>https://gislason.com/non-qui-autem-ut-assumenda-eius-aliquam-suscipit-sunt.html</room_or_link>
         </Lecture>
         <Lecture id="131" course="10">
-            </room_or_link>
+            <start>2025-09-14T1T:23:34</start>
             <end>2025-09-14T1T:18:34</end>
             <room_or_link>https://www.tillman.org/beatae-accusantium-voluptate-qui-distinctio-sint-porro-autem-et
-            <start>2025-09-14T1T:23:34</start>
+            </room_or_link>
         </Lecture>
         <Lecture id="132" course="10">
             <start>2025-06-14T1T:10:23</start>
@@ -1032,10 +1034,10 @@
             <room_or_link>http://spinka.com/et-saepe-doloremque-deleniti-voluptate-laboriosam</room_or_link>
         </Lecture>
         <Lecture id="136" course="11">
-            </room_or_link>
+            <start>2025-06-22T2T:41:54</start>
             <end>2025-06-22T2T:26:54</end>
             <room_or_link>http://beatty.com/omnis-ut-vitae-veritatis-aliquam-facilis-numquam-occaecati.html
-            <start>2025-06-22T2T:41:54</start>
+            </room_or_link>
         </Lecture>
         <Lecture id="137" course="11">
             <start>2025-05-13T0T:32:52</start>
@@ -1258,10 +1260,10 @@
             <room_or_link>Room 719</room_or_link>
         </Lecture>
         <Lecture id="181" course="14">
-            </room_or_link>
+            <start>2025-09-28T2T:48:27</start>
             <end>2025-09-29T0T:53:27</end>
             <room_or_link>http://www.gibson.com/aut-officiis-ipsam-et-incidunt-nesciunt-numquam-quo-nesciunt
-            <start>2025-09-28T2T:48:27</start>
+            </room_or_link>
         </Lecture>
         <Lecture id="182" course="15">
             <start>2026-12-23T0T:02:59</start>
@@ -1269,10 +1271,10 @@
             <room_or_link>Room 6097</room_or_link>
         </Lecture>
         <Lecture id="183" course="15">
-            </room_or_link>
+            <start>2027-03-18T0T:52:53</start>
             <end>2027-03-18T0T:04:53</end>
             <room_or_link>http://www.zboncak.com/repudiandae-asperiores-sit-voluptatem-temporibus-reprehenderit-eos
-            <start>2027-03-18T0T:52:53</start>
+            </room_or_link>
         </Lecture>
         <Lecture id="184" course="15">
             <start>2026-11-11T0T:23:23</start>
@@ -1465,10 +1467,10 @@
             <room_or_link>Room 7338</room_or_link>
         </Lecture>
         <Lecture id="222" course="17">
-            </room_or_link>
+            <start>2027-03-30T0T:36:45</start>
             <end>2027-03-30T0T:00:45</end>
             <room_or_link>https://lebsack.org/ut-maiores-occaecati-aut-harum-repellendus-vel-deleniti.html
-            <start>2027-03-30T0T:36:45</start>
+            </room_or_link>
         </Lecture>
         <Lecture id="223" course="17">
             <start>2027-01-22T0T:09:02</start>
