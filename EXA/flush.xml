@@ -3,6 +3,81 @@
         SYSTEM "flush.dtd" >
 <root>
     <Courses>
+        <Course id="course-1" lecturer="lecturer-10" semester="semester-3">
+            <name>quia 15ish</name>
+            <faculty>dolor</faculty>
+            <max_students>123</max_students>
+        </Course>
+        <Course id="course-2" lecturer="lecturer-10" semester="semester-3">
+            <name>quia 16ish</name>
+            <faculty>dolor</faculty>
+            <max_students>123</max_students>
+        </Course>
+        <Course id="course-3" lecturer="lecturer-10" semester="semester-3">
+            <name>quia 15ish</name>
+            <faculty>dolor</faculty>
+            <max_students>123</max_students>
+        </Course>
+        <Course id="course-4" lecturer="lecturer-10" semester="semester-3">
+            <name>quia 15ish</name>
+            <faculty>dolor</faculty>
+            <max_students>123</max_students>
+        </Course>
+        <Course id="course-5" lecturer="lecturer-10" semester="semester-3">
+            <name>quia 15ish</name>
+            <faculty>dolor</faculty>
+            <max_students>123</max_students>
+        </Course>
+        <Course id="course-6" lecturer="lecturer-10" semester="semester-3">
+            <name>quia 15ish</name>
+            <faculty>dolor</faculty>
+            <max_students>123</max_students>
+        </Course>
+        <Course id="course-7" lecturer="lecturer-10" semester="semester-3">
+            <name>quia 15ish</name>
+            <faculty>dolor</faculty>
+            <max_students>123</max_students>
+        </Course>
+        <Course id="course-8" lecturer="lecturer-10" semester="semester-3">
+            <name>quia 15ish</name>
+            <faculty>dolor</faculty>
+            <max_students>123</max_students>
+        </Course>
+        <Course id="course-9" lecturer="lecturer-10" semester="semester-3">
+            <name>quia 15ish</name>
+            <faculty>dolor</faculty>
+            <max_students>123</max_students>
+        </Course>
+        <Course id="course-10" lecturer="lecturer-10" semester="semester-3">
+            <name>quia 15ish</name>
+            <faculty>dolor</faculty>
+            <max_students>123</max_students>
+        </Course>
+        <Course id="course-11" lecturer="lecturer-10" semester="semester-3">
+            <name>quia 15ish</name>
+            <faculty>dolor</faculty>
+            <max_students>123</max_students>
+        </Course>
+        <Course id="course-12" lecturer="lecturer-10" semester="semester-3">
+            <name>quia 15ish</name>
+            <faculty>dolor</faculty>
+            <max_students>123</max_students>
+        </Course>
+        <Course id="course-13" lecturer="lecturer-10" semester="semester-3">
+            <name>quia 15ish</name>
+            <faculty>dolor</faculty>
+            <max_students>123</max_students>
+        </Course>
+        <Course id="course-14" lecturer="lecturer-10" semester="semester-3">
+            <name>quia 15ish</name>
+            <faculty>dolor</faculty>
+            <max_students>123</max_students>
+        </Course>
+        <Course id="course-15" lecturer="lecturer-10" semester="semester-3">
+            <name>quia 15ish</name>
+            <faculty>dolor</faculty>
+            <max_students>123</max_students>
+        </Course>
         <Course id="course-16" lecturer="lecturer-10" semester="semester-3">
             <name>quia</name>
             <faculty>dolor</faculty>
@@ -343,7 +418,6 @@
             <name>Wehner</name>
         </Lecturer>
         <Lecturer id="lecturer-9" username="kuhn.ashtyn">
-            <faculty null="true"/>
             <firstname>Marques</firstname>
             <name>O'Hara</name>
         </Lecturer>
@@ -2062,17 +2136,17 @@
             <end>2026-06-19T0T:30:27</end>
             <room_or_link>Room 45847</room_or_link>
         </Lecture>
-        <Lecture id="341" course="course-27">
+        <Lecture id="lecture-341" course="course-27">
             <start>2026-06-05T2T:02:21</start>
             <end>2026-06-05T2T:36:21</end>
             <room_or_link>Room 1584</room_or_link>
         </Lecture>
-        <Lecture id="342" course="course-27">
+        <Lecture id="lecture-342" course="course-27">
             <start>2026-05-07T0T:11:33</start>
             <end>2026-05-07T1T:40:33</end>
             <room_or_link>https://www.homenick.com/earum-sequi-et-sit</room_or_link>
         </Lecture>
-        <Lecture id="343" course="course-27">
+        <Lecture id="lecture-343" course="course-27">
             <start>2026-09-20T0T:35:17</start>
             <end>2026-09-20T0T:50:17</end>
             <room_or_link>Room 829</room_or_link>

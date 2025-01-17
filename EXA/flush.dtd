@@ -20,7 +20,7 @@
         <!ELEMENT Lectureres (Lecturer)*>
         <!ELEMENT Lecturer (firstname|name)*>
         <!ATTLIST Lecturer
-                faculty IDREF #IMPLIED
+                faculty CDATA #IMPLIED
                 id ID #REQUIRED
                 username CDATA #REQUIRED>
         <!ELEMENT firstname (#PCDATA)>
