@@ -3,67 +3,67 @@
         SYSTEM "flush.dtd" >
 <root>
     <Courses>
-        <Course id="16" lecturer="10" semester="3">
+        <Course id="course-16" lecturer="lecturer-10" semester="semester-3">
             <name>quia</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="17" lecturer="9" semester="3">
+        <Course id="course-17" lecturer="lecturer-9" semester="semester-3">
             <name>voluptas</name>
             <faculty>officiis</faculty>
             <max_students>377</max_students>
         </Course>
-        <Course id="18" lecturer="2" semester="3">
+        <Course id="course-18" lecturer="lecturer-2" semester="semester-3">
             <name>minus</name>
             <faculty>illum</faculty>
             <max_students>280</max_students>
         </Course>
-        <Course id="19" lecturer="4" semester="3">
+        <Course id="course-19" lecturer="lecturer-4" semester="semester-3">
             <name>nobis</name>
             <faculty>est</faculty>
             <max_students>347</max_students>
         </Course>
-        <Course id="20" lecturer="2" semester="3">
+        <Course id="course-20" lecturer="lecturer-2" semester="semester-3">
             <name>enim</name>
             <faculty>quo</faculty>
             <max_students>297</max_students>
         </Course>
-        <Course id="21" lecturer="2" semester="3">
+        <Course id="course-21" lecturer="lecturer-2" semester="semester-3">
             <name>harum</name>
             <faculty>sed</faculty>
             <max_students>197</max_students>
         </Course>
-        <Course id="22" lecturer="6" semester="3">
+        <Course id="course-22" lecturer="lecturer-6" semester="semester-3">
             <name>sunt</name>
             <faculty>delectus</faculty>
             <max_students>233</max_students>
         </Course>
-        <Course id="23" lecturer="8" semester="4">
+        <Course id="course-23" lecturer="lecturer-8" semester="semester-4">
             <name>dicta</name>
             <faculty>optio</faculty>
             <max_students>161</max_students>
         </Course>
-        <Course id="24" lecturer="9" semester="4">
+        <Course id="course-24" lecturer="lecturer-9" semester="semester-4">
             <name>sed</name>
             <faculty>dicta</faculty>
             <max_students>331</max_students>
         </Course>
-        <Course id="25" lecturer="7" semester="4">
+        <Course id="course-25" lecturer="lecturer-7" semester="semester-4">
             <name>amet</name>
             <faculty>expedita</faculty>
             <max_students>28</max_students>
         </Course>
-        <Course id="26" lecturer="6" semester="4">
+        <Course id="course-26" lecturer="lecturer-6" semester="semester-4">
             <name>velit</name>
             <faculty>et</faculty>
             <max_students>215</max_students>
         </Course>
-        <Course id="27" lecturer="2" semester="4">
+        <Course id="course-27" lecturer="lecturer-2" semester="semester-4">
             <name>possimus</name>
             <faculty>voluptatem</faculty>
             <max_students>226</max_students>
         </Course>
-        <Course id="34" lecturer="10" semester="1">
+        <Course id="course-34" lecturer="lecturer-10" semester="semester-1">
             <name>rerum</name>
             <faculty>omnis</faculty>
             <max_students>76</max_students>

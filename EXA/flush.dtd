@@ -2,38 +2,36 @@
         <!ELEMENT Courses (Course)*>
         <!ELEMENT Course (name|faculty|max_students)*>
         <!ATTLIST Course
-                id CDATA #REQUIRED
-                lecturer CDATA #REQUIRED
-                semester CDATA #REQUIRED>
+                id ID #REQUIRED
+                lecturer IDREF #REQUIRED
+                semester IDREF #REQUIRED>
         <!ELEMENT name (#PCDATA)>
         <!ELEMENT faculty (#PCDATA)>
-        <!ATTLIST faculty
-                null CDATA #IMPLIED>
         <!ELEMENT max_students (#PCDATA)>
         <!ELEMENT Exams (Exam)*>
         <!ELEMENT Exam (date|is_online|is_written|room_or_link)*>
         <!ATTLIST Exam
-                course CDATA #REQUIRED
-                id CDATA #REQUIRED>
+                id ID #REQUIRED
+                course IDREF #REQUIRED>
         <!ELEMENT date (#PCDATA)>
         <!ELEMENT is_online (#PCDATA)>
         <!ELEMENT is_written (#PCDATA)>
         <!ELEMENT room_or_link (#PCDATA)>
         <!ELEMENT Lectureres (Lecturer)*>
-        <!ELEMENT Lecturer (firstname|name|faculty)*>
+        <!ELEMENT Lecturer (firstname|name)*>
         <!ATTLIST Lecturer
-                faculty CDATA #IMPLIED
-                id CDATA #REQUIRED
+                faculty IDREF #IMPLIED
+                id ID #REQUIRED
                 username CDATA #REQUIRED>
         <!ELEMENT firstname (#PCDATA)>
         <!ELEMENT Lectures (Lecture)*>
         <!ELEMENT Lecture (start|end|room_or_link)*>
         <!ATTLIST Lecture
-                course CDATA #REQUIRED
-                id CDATA #REQUIRED>
+                course IDREF #REQUIRED
+                id ID #REQUIRED>
         <!ELEMENT start (#PCDATA)>
         <!ELEMENT end (#PCDATA)>
         <!ELEMENT Semesters (Semester)*>
         <!ELEMENT Semester (name|start|end)*>
         <!ATTLIST Semester
-                id CDATA #REQUIRED>
+                id ID #REQUIRED>
