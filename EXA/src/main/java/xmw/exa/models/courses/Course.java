@@ -7,7 +7,7 @@ import xmw.exa.db.DB;
 import xmw.exa.models.exams.Exam;
 import xmw.exa.models.exams.ExamRepository;
 import xmw.exa.models.Lecturers.Lecturer;
-import xmw.exa.models.Lecturers.LecturerRepository;
+import xmw.exa.models.lectureres.LecturerRepository;
 import xmw.exa.models.lectures.Lecture;
 import xmw.exa.models.lectures.LectureRepository;
 import xmw.exa.models.semesters.Semester;

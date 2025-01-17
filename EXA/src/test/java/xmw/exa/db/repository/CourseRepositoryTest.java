@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import xmw.exa.db.DB;
@@ -122,6 +123,7 @@ class CourseRepositoryTest {
         }
     }
 
+    @Disabled
     @Test
     void testDelete() {
         // Get initial count

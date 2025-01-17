@@ -1,4 +1,4 @@
-package xmw.exa.models.Lecturers;
+package xmw.exa.models.lectureres;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,15 +8,15 @@ import org.basex.core.Context;
 import org.basex.core.cmd.XQuery;
 
 import xmw.exa.db.repository.BaseXmlRepository;
+import xmw.exa.models.Lecturers.Lecturer;
 
 public class LecturerRepository extends BaseXmlRepository<Lecturer> {
-
     public LecturerRepository(Context context) {
         super(context);
     }
 
     @Override
-    public List<Lecturer> all() {
+    public List<xmw.exa.models.Lecturers.Lecturer> all() {
         List<Lecturer> lecturers = new ArrayList<>();
         String query = String.format(
                 "for $l in /root/Lecturers/Lecturer " +
