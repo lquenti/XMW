@@ -1,4 +1,4 @@
-package xmw.exa.models.lectureres;
+package xmw.exa.models.Lecturers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,7 +36,7 @@ public class LecturersServlet extends HttpServlet {
             try {
                 // Query for the complete lecturers XML with proper indentation and snake case
                 String query = String.format(
-                        "let $lecturers := /root/Lectureres " +
+                        "let $lecturers := /root/Lecturers " +
                                 "return element lecturers { " +
                                 "  for $l in $lecturers/Lecturer " +
                                 "  return element lecturer { " +

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Lectureres>
+<Lecturers>
    <Lecturer username="schmitt.samara">
       <faculty null="true" />
       <id>1</id>
@@ -60,4 +60,4 @@
       <firstname>Tad</firstname>
       <name>Watsica</name>
    </Lecturer>
-</Lectureres>
+</Lecturers>

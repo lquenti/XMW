@@ -384,7 +384,7 @@
             <room_or_link>BIG BOI EXAM</room_or_link>
         </Exam>
     </Exams>
-    <Lectureres>
+    <Lecturers>
         <Lecturer id="lecturer-1" username="schmitt.samara">
             <firstname>Delbert</firstname>
             <name>Considine</name>
@@ -425,7 +425,7 @@
             <firstname>Tad</firstname>
             <name>Watsica</name>
         </Lecturer>
-    </Lectureres>
+    </Lecturers>
     <Lectures>
         <Lecture id="lecture-1" course="course-1">
             <start>2026-03-10T2T:44:06</start>

@@ -15,7 +15,7 @@ import xmw.exa.db.repository.BaseXmlRepository;
 import xmw.exa.models.courses.CourseRepository;
 import xmw.exa.models.courses.CourseUtil;
 import xmw.exa.models.exams.ExamRepository;
-import xmw.exa.models.lectureres.LecturerRepository;
+import xmw.exa.models.Lecturers.LecturerRepository;
 import xmw.exa.models.lectures.LectureRepository;
 import xmw.exa.models.semesters.SemesterRepository;
 import xmw.exa.util.Config;

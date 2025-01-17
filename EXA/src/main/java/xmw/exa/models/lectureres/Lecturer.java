@@ -1,4 +1,4 @@
-package xmw.exa.models.lectureres;
+package xmw.exa.models.Lecturers;
 
 import xmw.exa.models.courses.Course;
 import xmw.exa.db.DB;

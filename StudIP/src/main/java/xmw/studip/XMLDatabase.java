@@ -216,7 +216,7 @@ public class XMLDatabase {
             }
             for(String r: result.split("\n")) {
                 if(!r.isEmpty())
-                    schedule.add(parseLectureResults(r));
+                    schedule.add(parseLecturersults(r));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -234,7 +234,7 @@ public class XMLDatabase {
         return schedule;
     }
 
-    public Map<String, String> parseLectureResults(String xmlResult) {
+    public Map<String, String> parseLecturersults(String xmlResult) {
         Map<String, String> lecture = new HashMap<>();
         try {
             // Create a document from the XML string

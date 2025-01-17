@@ -1,4 +1,4 @@
-package xmw.exa.models.lectureres;
+package xmw.exa.models.Lecturers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class LecturerRepository extends BaseXmlRepository<Lecturer> {
     public List<Lecturer> all() {
         List<Lecturer> lecturers = new ArrayList<>();
         String query = String.format(
-                "for $l in /root/Lectureres/Lecturer " +
+                "for $l in /root/Lecturers/Lecturer " +
                         "return element lecturer { " +
                         "  attribute id { $l/id/text() }, " +
                         "  attribute username { $l/@username }, " +
@@ -50,7 +50,7 @@ public class LecturerRepository extends BaseXmlRepository<Lecturer> {
     @Override
     public Lecturer get(long id) {
         String query = String.format(
-                "for $l in /root/Lectureres/Lecturer[id = %d] " +
+                "for $l in /root/Lecturers/Lecturer[id = %d] " +
                         "return element lecturer { " +
                         "  attribute username { $l/@username }, " +
                         "  element id { $l/id/text() }, " +

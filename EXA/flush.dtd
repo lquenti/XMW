@@ -1,4 +1,4 @@
-<!ELEMENT root (Courses|Exams|Lectureres|Lectures|Semesters)*>
+<!ELEMENT root (Courses|Exams|Lecturers|Lectures|Semesters)*>
         <!ELEMENT Courses (Course)*>
         <!ELEMENT Course (name|faculty|max_students)*>
         <!ATTLIST Course
@@ -17,7 +17,7 @@
         <!ELEMENT is_online (#PCDATA)>
         <!ELEMENT is_written (#PCDATA)>
         <!ELEMENT room_or_link (#PCDATA)>
-        <!ELEMENT Lectureres (Lecturer)*>
+        <!ELEMENT Lecturers (Lecturer)*>
         <!ELEMENT Lecturer (firstname|name)*>
         <!ATTLIST Lecturer
                 faculty CDATA #IMPLIED

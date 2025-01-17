@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
 import xmw.exa.models.courses.Course;
-import xmw.exa.models.lectureres.Lecturer;
+import xmw.exa.models.Lecturers.Lecturer;
 import xmw.exa.models.semesters.Semester;
 import xmw.exa.util.Config;
 
