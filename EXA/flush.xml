@@ -308,63 +308,44 @@
         </Exam>
     </Exams>
     <Lectureres>
-        <Lecturer username="schmitt.samara">
-            <faculty null="true"/>
-            <id>1</id>
+        <Lecturer id="1" username="schmitt.samara">
             <firstname>Delbert</firstname>
             <name>Considine</name>
         </Lecturer>
-        <Lecturer username="powlowski.kevon">
-            <faculty null="true"/>
-            <id>2</id>
+        <Lecturer id="2" username="powlowski.kevon">
             <firstname>Jacynthe</firstname>
             <name>Beier</name>
         </Lecturer>
-        <Lecturer username="schmeler.mallie">
-            <faculty>aut</faculty>
-            <id>3</id>
+        <Lecturer id="3" username="schmeler.mallie" faculty="aut">
             <firstname>Bernice</firstname>
             <name>Stracke</name>
         </Lecturer>
-        <Lecturer username="lerdman">
-            <faculty>aspernatur</faculty>
-            <id>4</id>
+        <Lecturer id="4" username="lerdman" faculty="aspernatur">
             <firstname>Karine</firstname>
             <name>Mayer</name>
         </Lecturer>
-        <Lecturer username="terrill33">
-            <faculty>non</faculty>
-            <id>5</id>
+        <Lecturer id="5" username="terrill33" faculty="non">
             <firstname>Aylin</firstname>
             <name>Ferry</name>
         </Lecturer>
-        <Lecturer username="iliana.rowe">
-            <faculty>neque</faculty>
-            <id>6</id>
+        <Lecturer id="6" username="iliana.rowe" faculty="neque">
             <firstname>Nella</firstname>
             <name>Kub</name>
         </Lecturer>
-        <Lecturer username="elinor21">
-            <faculty>eveniet</faculty>
-            <id>7</id>
+        <Lecturer id="7" username="elinor21" faculty="eveniet">
             <firstname>Riley</firstname>
             <name>Harris</name>
         </Lecturer>
-        <Lecturer username="dveum">
-            <faculty>ut</faculty>
-            <id>8</id>
+        <Lecturer id="8" username="dveum" faculty="ut">
             <firstname>Bettie</firstname>
             <name>Wehner</name>
         </Lecturer>
-        <Lecturer username="kuhn.ashtyn">
+        <Lecturer id="9" username="kuhn.ashtyn">
             <faculty null="true"/>
-            <id>9</id>
             <firstname>Marques</firstname>
             <name>O'Hara</name>
         </Lecturer>
-        <Lecturer username="jzboncak">
-            <faculty>eius</faculty>
-            <id>10</id>
+        <Lecturer id="10" username="jzboncak" faculty="eius">
             <firstname>Tad</firstname>
             <name>Watsica</name>
         </Lecturer>
