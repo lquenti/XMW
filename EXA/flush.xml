@@ -61,327 +61,247 @@
             <faculty>voluptatem</faculty>
             <max_students>226</max_students>
         </Course>
-        <Course id="34">
-            <faculty>omnis</faculty>
-            <lecturer_id>10</lecturer_id>
-            <max_students>76</max_students>
+        <Course id="34" lecturer="10" semester="1">
             <name>rerum</name>
-            <semester_id>1</semester_id>
+            <faculty>omnis</faculty>
+            <max_students>76</max_students>
         </Course>
     </Courses>
     <Exams>
-        <Exam>
-            <course_id>1</course_id>
+        <Exam id="1" course="1">
             <date>2025-11-22T12:26:11</date>
-            <id>1</id>
             <is_online>1</is_online>
             <is_written>0</is_written>
             <room_or_link>http://robel.net/ipsa-enim-et-vel-ipsam-tempora-laborum.html</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>2</course_id>
+        <Exam id="2" course="2">
             <date>2025-11-17T12:21:22</date>
-            <id>2</id>
             <is_online>0</is_online>
             <is_written>1</is_written>
             <room_or_link>Room 82219</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>3</course_id>
+        <Exam id="3" course="3">
             <date>2026-01-06T12:55:07</date>
-            <id>3</id>
             <is_online>0</is_online>
             <is_written>0</is_written>
             <room_or_link>Room 2131</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>4</course_id>
+        <Exam id="4" course="4">
             <date>2026-01-22T12:44:18</date>
-            <id>4</id>
             <is_online>0</is_online>
             <is_written>1</is_written>
             <room_or_link>Room 3857</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>4</course_id>
+        <Exam id="5" course="4">
             <date>2026-02-19T14:34:02</date>
-            <id>5</id>
             <is_online>1</is_online>
             <is_written>1</is_written>
             <room_or_link>http://marks.com/</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>5</course_id>
+        <Exam id="6" course="5">
             <date>2025-12-10T08:59:09</date>
-            <id>6</id>
             <is_online>0</is_online>
             <is_written>0</is_written>
             <room_or_link>Room 61963</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>5</course_id>
+        <Exam id="7" course="5">
             <date>2026-01-17T19:37:33</date>
-            <id>7</id>
             <is_online>0</is_online>
             <is_written>0</is_written>
             <room_or_link>Room 972</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>6</course_id>
+        <Exam id="8" course="6">
             <date>2025-11-18T18:52:07</date>
-            <id>8</id>
             <is_online>1</is_online>
             <is_written>0</is_written>
             <room_or_link>http://gleason.com/</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>7</course_id>
+        <Exam id="9" course="7">
             <date>2025-08-28T07:41:13</date>
-            <id>9</id>
             <is_online>0</is_online>
             <is_written>1</is_written>
             <room_or_link>Room 1494</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>7</course_id>
+        <Exam id="10" course="7">
             <date>2025-06-20T03:34:36</date>
-            <id>10</id>
             <is_online>0</is_online>
             <is_written>1</is_written>
             <room_or_link>Room 4479</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>8</course_id>
+        <Exam id="11" course="8">
             <date>2025-09-12T12:06:47</date>
-            <id>11</id>
             <is_online>0</is_online>
             <is_written>0</is_written>
             <room_or_link>Room 3586</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>8</course_id>
+        <Exam id="12" course="8">
             <date>2025-06-08T04:50:38</date>
-            <id>12</id>
             <is_online>1</is_online>
             <is_written>1</is_written>
             <room_or_link>http://wyman.net/dicta-quibusdam-possimus-nihil</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>9</course_id>
+        <Exam id="13" course="9">
             <date>2025-09-01T05:03:13</date>
-            <id>13</id>
             <is_online>1</is_online>
             <is_written>1</is_written>
             <room_or_link>http://mohr.com/et-id-voluptas-explicabo-impedit-nulla.html</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>10</course_id>
+        <Exam id="14" course="10">
             <date>2025-05-02T00:23:24</date>
-            <id>14</id>
             <is_online>0</is_online>
             <is_written>0</is_written>
             <room_or_link>Room 527</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>10</course_id>
+        <Exam id="15" course="10">
             <date>2025-07-28T03:53:27</date>
-            <id>15</id>
             <is_online>0</is_online>
             <is_written>0</is_written>
             <room_or_link>Room 14981</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>11</course_id>
+        <Exam id="16" course="11">
             <date>2025-08-12T05:20:27</date>
-            <id>16</id>
             <is_online>0</is_online>
             <is_written>1</is_written>
             <room_or_link>Room 8604</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>12</course_id>
+        <Exam id="17" course="12">
             <date>2025-08-10T04:57:19</date>
-            <id>17</id>
             <is_online>0</is_online>
             <is_written>0</is_written>
             <room_or_link>Room 1169</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>12</course_id>
+        <Exam id="18" course="12">
             <date>2025-04-28T00:48:00</date>
-            <id>18</id>
             <is_online>1</is_online>
             <is_written>0</is_written>
             <room_or_link>http://www.klein.info/veniam-aperiam-fuga-voluptate-fuga-doloremque-error-qui-qui
             </room_or_link>
         </Exam>
-        <Exam>
-            <course_id>13</course_id>
+        <Exam id="19" course="13">
             <date>2025-08-03T19:48:28</date>
-            <id>19</id>
             <is_online>0</is_online>
             <is_written>0</is_written>
             <room_or_link>Room 99326</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>14</course_id>
+        <Exam id="20" course="14">
             <date>2025-05-04T17:39:59</date>
-            <id>20</id>
             <is_online>1</is_online>
             <is_written>1</is_written>
             <room_or_link>http://harber.com/</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>15</course_id>
+        <Exam id="21" course="15">
             <date>2026-11-16T12:42:04</date>
-            <id>21</id>
             <is_online>0</is_online>
             <is_written>0</is_written>
             <room_or_link>Room 782</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>16</course_id>
+        <Exam id="22" course="16">
             <date>2027-01-25T12:35:21</date>
-            <id>22</id>
             <is_online>1</is_online>
             <is_written>0</is_written>
             <room_or_link>http://rosenbaum.org/beatae-explicabo-optio-illo-iusto-reprehenderit-earum.html</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>16</course_id>
+        <Exam id="23" course="16">
             <date>2027-01-31T06:21:10</date>
-            <id>23</id>
             <is_online>0</is_online>
             <is_written>0</is_written>
             <room_or_link>Room 20873</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>17</course_id>
+        <Exam id="24" course="17">
             <date>2027-01-05T19:42:24</date>
-            <id>24</id>
             <is_online>0</is_online>
             <is_written>1</is_written>
             <room_or_link>Room 5419</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>18</course_id>
+        <Exam id="25" course="18">
             <date>2026-11-11T00:02:36</date>
-            <id>25</id>
             <is_online>0</is_online>
             <is_written>0</is_written>
             <room_or_link>Room 563</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>18</course_id>
+        <Exam id="26" course="18">
             <date>2026-11-04T23:16:36</date>
-            <id>26</id>
             <is_online>0</is_online>
             <is_written>1</is_written>
             <room_or_link>Room 10655</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>19</course_id>
+        <Exam id="27" course="19">
             <date>2027-03-16T13:18:30</date>
-            <id>27</id>
             <is_online>0</is_online>
             <is_written>1</is_written>
             <room_or_link>Room 53194</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>19</course_id>
+        <Exam id="28" course="19">
             <date>2026-12-29T20:00:55</date>
-            <id>28</id>
             <is_online>0</is_online>
             <is_written>0</is_written>
             <room_or_link>Room 5508</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>20</course_id>
+        <Exam id="29" course="20">
             <date>2026-12-21T18:40:21</date>
-            <id>29</id>
             <is_online>0</is_online>
             <is_written>0</is_written>
             <room_or_link>Room 4069</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>21</course_id>
+        <Exam id="30" course="21">
             <date>2026-12-21T21:46:16</date>
-            <id>30</id>
             <is_online>1</is_online>
             <is_written>0</is_written>
             <room_or_link>http://www.krajcik.info/</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>22</course_id>
+        <Exam id="31" course="22">
             <date>2026-12-16T10:51:31</date>
-            <id>31</id>
             <is_online>0</is_online>
             <is_written>1</is_written>
             <room_or_link>Room 9393</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>22</course_id>
+        <Exam id="32" course="22">
             <date>2027-01-01T22:56:51</date>
-            <id>32</id>
             <is_online>0</is_online>
             <is_written>1</is_written>
             <room_or_link>Room 861</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>23</course_id>
+        <Exam id="33" course="23">
             <date>2026-08-18T12:23:36</date>
-            <id>33</id>
             <is_online>0</is_online>
             <is_written>0</is_written>
             <room_or_link>Room 67589</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>24</course_id>
+        <Exam id="34" course="24">
             <date>2026-05-05T18:26:45</date>
-            <id>34</id>
             <is_online>1</is_online>
             <is_written>1</is_written>
             <room_or_link>
                 http://www.volkman.com/officia-enim-asperiores-delectus-qui-molestiae-quia-reiciendis-libero.html
             </room_or_link>
         </Exam>
-        <Exam>
-            <course_id>25</course_id>
+        <Exam id="35" course="25">
             <date>2026-06-04T07:09:05</date>
-            <id>35</id>
             <is_online>0</is_online>
             <is_written>0</is_written>
             <room_or_link>Room 368</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>26</course_id>
+        <Exam id="36" course="26">
             <date>2026-04-19T10:27:45</date>
-            <id>36</id>
             <is_online>0</is_online>
             <is_written>1</is_written>
             <room_or_link>Room 5315</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>27</course_id>
+        <Exam id="37" course="27">
             <date>2026-04-27T17:50:07</date>
-            <id>37</id>
             <is_online>1</is_online>
             <is_written>0</is_written>
             <room_or_link>https://langworth.com/esse-blanditiis-aliquid-et-dolor-vel-quaerat-ipsum-ducimus.html
             </room_or_link>
         </Exam>
-        <Exam>
-            <course_id>27</course_id>
+        <Exam id="38" course="27">
             <date>2026-05-22T00:42:14</date>
-            <id>38</id>
             <is_online>0</is_online>
             <is_written>1</is_written>
             <room_or_link>Room 7543</room_or_link>
         </Exam>
-        <Exam>
-            <course_id>23</course_id>
+        <Exam id="39" course="23">
             <date>0025-03-29T11:11</date>
-            <id>39</id>
             <is_online>1</is_online>
             <is_written>0</is_written>
             <room_or_link>BIG BOI EXAM</room_or_link>
