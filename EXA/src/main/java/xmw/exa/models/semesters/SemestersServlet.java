@@ -1,20 +1,15 @@
 package xmw.exa.models.semesters;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.format.DateTimeFormatter;
-
-import org.basex.core.BaseXException;
-import org.basex.core.cmd.XQuery;
-
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
-import xmw.exa.util.Config;
 import xmw.flush.Semesters;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
 
 @WebServlet(name = "semesters", value = "/semesters")
 public class SemestersServlet extends HttpServlet {
