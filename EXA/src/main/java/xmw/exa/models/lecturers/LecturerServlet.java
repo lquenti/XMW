@@ -1,4 +1,4 @@
-package xmw.exa.models.Lecturers;
+package xmw.exa.models.lecturers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
 import xmw.exa.util.Config;
+import xmw.flush.*;
 
 @WebServlet(name = "lecturer", urlPatterns = "/lecturers/*")
 public class LecturerServlet extends HttpServlet {
@@ -81,7 +82,8 @@ public class LecturerServlet extends HttpServlet {
                 out.println("<p><strong>ID:</strong> " + lecturer.getId() + "</p>");
                 out.println("<p><strong>Username:</strong> " + lecturer.getUsername() + "</p>");
                 out.println("<p><strong>Name:</strong> "
-                        + lecturer.getFullName() + "</p>");
+//                      TODO: fullname
+                        + lecturer.getUsername() + "</p>");
                 out.println("<p><strong>Faculty:</strong> "
                         + (lecturer.getFaculty() != null ? lecturer.getFaculty() : "No Faculty") + "</p>");
                 out.println("</div>");
@@ -98,10 +100,12 @@ public class LecturerServlet extends HttpServlet {
     }
 
     private Lecturer getLecturer(String username) {
-        return db.lecturers().all().stream()
-                .filter(l -> l.getUsername().equals(username))
-                .findFirst()
-                .orElse(null);
+        // TODO: fix this
+        return null;
+//        return db.lecturers().all().stream()
+//                .filter(l -> l.getUsername().equals(username))
+//                .findFirst()
+//                .orElse(null);
     }
 
     @Override

@@ -15,9 +15,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
 import xmw.exa.models.courses.Course;
 import xmw.exa.models.courses.CourseRepository;
-import xmw.exa.models.Lecturers.Lecturer;
+import xmw.exa.models.lecturers.LecturerOld;
 import xmw.exa.models.semesters.Semester;
 import xmw.exa.util.Config;
+import xmw.flush.*;
 
 @WebServlet(name = "exams", value = "/exams")
 @MultipartConfig
@@ -186,7 +187,9 @@ public class ExamsServlet extends HttpServlet {
                             .findFirst().orElse(null);
 
                     // Get lecturer information
-                    Lecturer lecturer = course != null ? course.getLecturer() : null;
+                    // TODO: fix this
+                    Lecturer lecturer = null;
+//                    Lecturer lecturer = course != null ? course.getLecturer() : null;
 
                     message.append("<li>")
                             .append("<a href=\"" + Config.BASE_URL + "/exams/").append(exam.getId()).append("\">")
@@ -199,11 +202,14 @@ public class ExamsServlet extends HttpServlet {
                             .append(course.getName())
                             .append("</a>")
                             .append(" by ")
-                            .append(lecturer != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
-                                    Config.BASE_URL,
-                                    lecturer.getUsername(),
-                                    lecturer.getFullName())
-                                    : "Unknown Lecturer");
+                            .append(
+                                    // TODO: fix this
+//                                    lecturer != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
+//                                    Config.BASE_URL,
+//                                    lecturer.getUsername(),
+//                                    lecturer.getFullName())
+//                                    :
+                                            "Unknown Lecturer");
                     message.append("</li>");
                 }
                 message.append("</ul>");

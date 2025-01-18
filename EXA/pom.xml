@@ -33,6 +33,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>dev.datlag.nanoid</groupId>
+            <artifactId>nanoid</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>6.1.0</version>

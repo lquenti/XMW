@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
 import xmw.exa.models.courses.Course;
-import xmw.exa.models.Lecturers.Lecturer;
+import xmw.exa.models.lecturers.LecturerOld;
 import xmw.exa.util.Config;
 
 @WebServlet(name = "exam", urlPatterns = "/exams/*")
@@ -105,7 +105,7 @@ public class ExamServlet extends HttpServlet {
 
                 // Get associated course and lecturer
                 Course course = exam.getCourse();
-                Lecturer lecturer = course != null ? course.getLecturer() : null;
+                LecturerOld lecturerOld = course != null ? course.getLecturer() : null;
 
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
@@ -122,10 +122,10 @@ public class ExamServlet extends HttpServlet {
                                 : "Unknown Course")
                         + "</p>");
                 out.println("<p><strong>Lecturer:</strong> "
-                        + (lecturer != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
+                        + (lecturerOld != null ? String.format("<a href='%s/lecturers/%s'>%s</a>",
                                 Config.BASE_URL,
-                                lecturer.getUsername(),
-                                lecturer.getFullName())
+                                lecturerOld.getUsername(),
+                                lecturerOld.getFullName())
                                 : "Unknown Lecturer")
                         + "</p>");
                 out.println("<p><strong>Date:</strong> " + exam.getDate().format(DATE_FORMATTER) + "</p>");

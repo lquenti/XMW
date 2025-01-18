@@ -96,7 +96,7 @@ uri="jakarta.tags.fmt" %>
                       <div class="space-y-2">
                         <p class="text-sm text-gray-600">
                           <span class="font-medium">Lecturer:</span>
-                          ${course.lecturer.fullName}
+                          ${course.lecturerOld.fullName}
                         </p>
                         <p class="text-sm text-gray-600">
                           <span class="font-medium">Semester:</span>

@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
 import xmw.exa.models.exams.Exam;
-import xmw.exa.models.Lecturers.Lecturer;
+import xmw.exa.models.lecturers.LecturerOld;
 import xmw.exa.models.lectures.Lecture;
 import xmw.exa.models.semesters.Semester;
 import xmw.exa.util.Config;
@@ -49,7 +49,7 @@ public class CoursesServlet extends HttpServlet {
             try {
                 // Get all data
                 List<Course> courses = db.courses().all();
-                List<Lecturer> allLecturers = db.lecturers().all();
+                List<LecturerOld> allLecturerOlds = db.lecturers().all();
                 List<Exam> allExams = db.exams().all();
 
                 // Create XML writer
@@ -63,7 +63,7 @@ public class CoursesServlet extends HttpServlet {
 
                 // Write courses
                 for (Course course : courses) {
-                    writeCourseToXml(xml, course, allLecturers, allExams);
+                    writeCourseToXml(xml, course, allLecturerOlds, allExams);
                 }
 
                 xml.writeEndElement(); // courses
@@ -88,7 +88,7 @@ public class CoursesServlet extends HttpServlet {
 
         // Query for all courses with lecturer information
         List<Course> courses = db.courses().all();
-        List<Lecturer> lecturers = db.lecturers().all();
+        List<LecturerOld> lecturerOlds = db.lecturers().all();
         List<Semester> semesters = db.semesters().all();
 
         StringBuilder message = new StringBuilder();
@@ -106,7 +106,7 @@ public class CoursesServlet extends HttpServlet {
 
                 for (Course course : semesterCourses) {
                     // Find the lecturer for this course
-                    String lecturerName = lecturers.stream()
+                    String lecturerName = lecturerOlds.stream()
                             .filter(l -> l.getId() == course.getLecturerId())
                             .map(l -> String.format("<a href='%s/lecturers/%s'>%s</a>",
                                     Config.BASE_URL,
@@ -139,14 +139,14 @@ public class CoursesServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void writeCourseToXml(XMLStreamWriter xml, Course course, List<Lecturer> allLecturers, List<Exam> allExams)
+    private void writeCourseToXml(XMLStreamWriter xml, Course course, List<LecturerOld> allLecturerOlds, List<Exam> allExams)
             throws Exception {
         xml.writeStartElement("course");
         xml.writeAttribute("id", String.valueOf(course.getId()));
         xml.writeAttribute("semester_id", String.valueOf(course.getSemesterId()));
 
         writeSimpleElement(xml, "faculty", course.getFaculty());
-        writeLecturerElement(xml, course.getLecturerId(), allLecturers);
+        writeLecturerElement(xml, course.getLecturerId(), allLecturerOlds);
         writeSimpleElement(xml, "max_students", String.valueOf(course.getMaxStudents()));
         writeSimpleElement(xml, "name", course.getName());
         writeSemesterElement(xml, course.getSemester());
@@ -166,15 +166,15 @@ public class CoursesServlet extends HttpServlet {
         xml.writeEndElement();
     }
 
-    private void writeLecturerElement(XMLStreamWriter xml, long lecturerId, List<Lecturer> allLecturers)
+    private void writeLecturerElement(XMLStreamWriter xml, long lecturerId, List<LecturerOld> allLecturerOlds)
             throws XMLStreamException {
         xml.writeStartElement("lecturer");
-        Lecturer lecturer = allLecturers.stream()
+        LecturerOld lecturerOld = allLecturerOlds.stream()
                 .filter(l -> l.getId() == lecturerId)
                 .findFirst()
                 .orElse(null);
-        if (lecturer != null) {
-            xml.writeAttribute("id", String.valueOf(lecturer.getId()));
+        if (lecturerOld != null) {
+            xml.writeAttribute("id", String.valueOf(lecturerOld.getId()));
         }
         xml.writeEndElement();
     }

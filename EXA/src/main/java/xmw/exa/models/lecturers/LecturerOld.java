@@ -1,11 +1,11 @@
-package xmw.exa.models.Lecturers;
+package xmw.exa.models.lecturers;
 
 import xmw.exa.models.courses.Course;
 import xmw.exa.db.DB;
 
 import java.util.List;
 
-public class Lecturer {
+public class LecturerOld {
     private String username;
     private String faculty;
     private String name;

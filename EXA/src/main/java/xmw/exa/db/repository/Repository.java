@@ -5,11 +5,11 @@ import java.util.List;
 public interface Repository<T> {
     List<T> all();
 
-    T get(long id);
+    T get(String id);
 
     boolean create(T data);
 
     T update(T data);
 
-    void delete(long id);
+    void delete(String id);
 }

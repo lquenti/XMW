@@ -1,4 +1,4 @@
-package xmw.exa.models.lectureres;
+package xmw.exa.models.lecturers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,16 +8,15 @@ import org.basex.core.Context;
 import org.basex.core.cmd.XQuery;
 
 import xmw.exa.db.repository.BaseXmlRepository;
-import xmw.exa.models.Lecturers.Lecturer;
 
-public class LecturerRepository extends BaseXmlRepository<Lecturer> {
+public class LecturerRepository extends BaseXmlRepository<LecturerOld> {
     public LecturerRepository(Context context) {
         super(context);
     }
 
     @Override
-    public List<xmw.exa.models.Lecturers.Lecturer> all() {
-        List<Lecturer> lecturers = new ArrayList<>();
+    public List<LecturerOld> all() {
+        List<LecturerOld> lecturerOlds = new ArrayList<>();
         String query = String.format(
                 "for $l in /root/Lecturers/Lecturer " +
                         "return element lecturer { " +
@@ -36,19 +35,19 @@ public class LecturerRepository extends BaseXmlRepository<Lecturer> {
             for (String element : lecturerElements) {
                 if (element.trim().isEmpty())
                     continue;
-                Lecturer lecturer = parseLecturerElement(element);
-                if (lecturer != null) {
-                    lecturers.add(lecturer);
+                LecturerOld lecturerOld = parseLecturerElement(element);
+                if (lecturerOld != null) {
+                    lecturerOlds.add(lecturerOld);
                 }
             }
         } catch (BaseXException e) {
             throw new RuntimeException("Failed to query lecturers: " + e.getMessage(), e);
         }
-        return lecturers;
+        return lecturerOlds;
     }
 
     @Override
-    public Lecturer get(long id) {
+    public LecturerOld get(long id) {
         String query = String.format(
                 "for $l in /root/Lecturers/Lecturer[id = %d] " +
                         "return element lecturer { " +
@@ -71,9 +70,9 @@ public class LecturerRepository extends BaseXmlRepository<Lecturer> {
         }
     }
 
-    private Lecturer parseLecturerElement(String element) {
+    private LecturerOld parseLecturerElement(String element) {
         try {
-            Lecturer lecturer = new Lecturer();
+            LecturerOld lecturerOld = new LecturerOld();
 
             // Extract attributes
             String usernamePattern = "username=\"([^\"]*)\"";
@@ -85,18 +84,18 @@ public class LecturerRepository extends BaseXmlRepository<Lecturer> {
             java.util.regex.Matcher idMatcher = idRegex.matcher(element);
 
             if (usernameMatcher.find()) {
-                lecturer.setUsername(usernameMatcher.group(1));
+                lecturerOld.setUsername(usernameMatcher.group(1));
             }
             if (idMatcher.find()) {
-                lecturer.setId(Integer.parseInt(idMatcher.group(1)));
+                lecturerOld.setId(Integer.parseInt(idMatcher.group(1)));
             }
 
             // Extract other fields
-            lecturer.setFaculty(extractValue(element, "faculty"));
-            lecturer.setName(extractValue(element, "last_name"));
-            lecturer.setFirstname(extractValue(element, "first_name"));
+            lecturerOld.setFaculty(extractValue(element, "faculty"));
+            lecturerOld.setName(extractValue(element, "last_name"));
+            lecturerOld.setFirstname(extractValue(element, "first_name"));
 
-            return lecturer;
+            return lecturerOld;
         } catch (Exception e) {
             System.err.println("Error processing lecturer element: " + element);
             e.printStackTrace();
@@ -105,13 +104,13 @@ public class LecturerRepository extends BaseXmlRepository<Lecturer> {
     }
 
     @Override
-    public boolean create(Lecturer data) {
+    public boolean create(LecturerOld data) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'create'");
     }
 
     @Override
-    public Lecturer update(Lecturer data) {
+    public LecturerOld update(LecturerOld data) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }

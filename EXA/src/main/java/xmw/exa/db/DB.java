@@ -2,8 +2,15 @@ package xmw.exa.db;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
 
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
@@ -15,7 +22,7 @@ import xmw.exa.db.repository.BaseXmlRepository;
 import xmw.exa.models.courses.CourseRepository;
 import xmw.exa.models.courses.CourseUtil;
 import xmw.exa.models.exams.ExamRepository;
-import xmw.exa.models.lectureres.LecturerRepository;
+import xmw.exa.models.lecturers.LecturerRepository;
 import xmw.exa.models.lectures.LectureRepository;
 import xmw.exa.models.semesters.SemesterRepository;
 import xmw.exa.util.Config;
@@ -127,6 +134,29 @@ public class DB {
                 new File(outputPath).toPath(),
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + result,
                 StandardCharsets.UTF_8);
+    }
+
+    public static Object unmarshal(String xml, Class<?> clazz) {
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            return unmarshaller.unmarshal(new StringReader(xml));
+        } catch (JAXBException e) {
+            throw new RuntimeException("Failed to unmarshal XML: " + e.getMessage(), e);
+        }
+    }
+
+    public static String marshal(Object object) {
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(object.getClass());
+            Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            StringWriter writer = new StringWriter();
+            marshaller.marshal(object, writer);
+            return writer.toString();
+        } catch (JAXBException e) {
+            throw new RuntimeException("Failed to marshal object: " + e.getMessage(), e);
+        }
     }
 
     public static void close(Context context) {

@@ -31,7 +31,7 @@
                 <element ref='t:max_students'/>
             </choice>
             <attribute name='id' type='ID' use='required'/>
-            <attribute name='lecturer' type='IDREF' use='required'/>
+            <attribute name='lecturerOld' type='IDREF' use='required'/>
             <attribute name='semester' type='IDREF' use='required'/>
         </complexType>
     </element>

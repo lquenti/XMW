@@ -3,142 +3,142 @@
         SYSTEM "flush.dtd" >
 <root>
     <Courses>
-        <Course id="course-1" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-1" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia 15ish</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-2" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-2" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia 16ish</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-3" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-3" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia 15ish</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-4" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-4" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia 15ish</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-5" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-5" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia 15ish</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-6" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-6" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia 15ish</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-7" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-7" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia 15ish</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-8" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-8" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia 15ish</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-9" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-9" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia 15ish</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-10" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-10" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia 15ish</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-11" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-11" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia 15ish</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-12" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-12" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia 15ish</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-13" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-13" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia 15ish</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-14" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-14" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia 15ish</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-15" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-15" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia 15ish</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-16" lecturer="lecturer-10" semester="semester-3">
+        <Course id="course-16" lecturerOld="lecturerOld-10" semester="semester-3">
             <name>quia</name>
             <faculty>dolor</faculty>
             <max_students>123</max_students>
         </Course>
-        <Course id="course-17" lecturer="lecturer-9" semester="semester-3">
+        <Course id="course-17" lecturerOld="lecturerOld-9" semester="semester-3">
             <name>voluptas</name>
             <faculty>officiis</faculty>
             <max_students>377</max_students>
         </Course>
-        <Course id="course-18" lecturer="lecturer-2" semester="semester-3">
+        <Course id="course-18" lecturerOld="lecturerOld-2" semester="semester-3">
             <name>minus</name>
             <faculty>illum</faculty>
             <max_students>280</max_students>
         </Course>
-        <Course id="course-19" lecturer="lecturer-4" semester="semester-3">
+        <Course id="course-19" lecturerOld="lecturerOld-4" semester="semester-3">
             <name>nobis</name>
             <faculty>est</faculty>
             <max_students>347</max_students>
         </Course>
-        <Course id="course-20" lecturer="lecturer-2" semester="semester-3">
+        <Course id="course-20" lecturerOld="lecturerOld-2" semester="semester-3">
             <name>enim</name>
             <faculty>quo</faculty>
             <max_students>297</max_students>
         </Course>
-        <Course id="course-21" lecturer="lecturer-2" semester="semester-3">
+        <Course id="course-21" lecturerOld="lecturerOld-2" semester="semester-3">
             <name>harum</name>
             <faculty>sed</faculty>
             <max_students>197</max_students>
         </Course>
-        <Course id="course-22" lecturer="lecturer-6" semester="semester-3">
+        <Course id="course-22" lecturerOld="lecturerOld-6" semester="semester-3">
             <name>sunt</name>
             <faculty>delectus</faculty>
             <max_students>233</max_students>
         </Course>
-        <Course id="course-23" lecturer="lecturer-8" semester="semester-4">
+        <Course id="course-23" lecturerOld="lecturerOld-8" semester="semester-4">
             <name>dicta</name>
             <faculty>optio</faculty>
             <max_students>161</max_students>
         </Course>
-        <Course id="course-24" lecturer="lecturer-9" semester="semester-4">
+        <Course id="course-24" lecturerOld="lecturerOld-9" semester="semester-4">
             <name>sed</name>
             <faculty>dicta</faculty>
             <max_students>331</max_students>
         </Course>
-        <Course id="course-25" lecturer="lecturer-7" semester="semester-4">
+        <Course id="course-25" lecturerOld="lecturerOld-7" semester="semester-4">
             <name>amet</name>
             <faculty>expedita</faculty>
             <max_students>28</max_students>
         </Course>
-        <Course id="course-26" lecturer="lecturer-6" semester="semester-4">
+        <Course id="course-26" lecturerOld="lecturerOld-6" semester="semester-4">
             <name>velit</name>
             <faculty>et</faculty>
             <max_students>215</max_students>
         </Course>
-        <Course id="course-27" lecturer="lecturer-2" semester="semester-4">
+        <Course id="course-27" lecturerOld="lecturerOld-2" semester="semester-4">
             <name>possimus</name>
             <faculty>voluptatem</faculty>
             <max_students>226</max_students>
         </Course>
-        <Course id="course-34" lecturer="lecturer-10" semester="semester-1">
+        <Course id="course-34" lecturerOld="lecturerOld-10" semester="semester-1">
             <name>rerum</name>
             <faculty>omnis</faculty>
             <max_students>76</max_students>
@@ -385,43 +385,43 @@
         </Exam>
     </Exams>
     <Lecturers>
-        <Lecturer id="lecturer-1" username="schmitt.samara">
+        <Lecturer id="lecturerOld-1" username="schmitt.samara">
             <firstname>Delbert</firstname>
             <name>Considine</name>
         </Lecturer>
-        <Lecturer id="lecturer-2" username="powlowski.kevon">
+        <Lecturer id="lecturerOld-2" username="powlowski.kevon">
             <firstname>Jacynthe</firstname>
             <name>Beier</name>
         </Lecturer>
-        <Lecturer id="lecturer-3" username="schmeler.mallie" faculty="aut">
+        <Lecturer id="lecturerOld-3" username="schmeler.mallie" faculty="aut">
             <firstname>Bernice</firstname>
             <name>Stracke</name>
         </Lecturer>
-        <Lecturer id="lecturer-4" username="lerdman" faculty="aspernatur">
+        <Lecturer id="lecturerOld-4" username="lerdman" faculty="aspernatur">
             <firstname>Karine</firstname>
             <name>Mayer</name>
         </Lecturer>
-        <Lecturer id="lecturer-5" username="terrill33" faculty="non">
+        <Lecturer id="lecturerOld-5" username="terrill33" faculty="non">
             <firstname>Aylin</firstname>
             <name>Ferry</name>
         </Lecturer>
-        <Lecturer id="lecturer-6" username="iliana.rowe" faculty="neque">
+        <Lecturer id="lecturerOld-6" username="iliana.rowe" faculty="neque">
             <firstname>Nella</firstname>
             <name>Kub</name>
         </Lecturer>
-        <Lecturer id="lecturer-7" username="elinor21" faculty="eveniet">
+        <Lecturer id="lecturerOld-7" username="elinor21" faculty="eveniet">
             <firstname>Riley</firstname>
             <name>Harris</name>
         </Lecturer>
-        <Lecturer id="lecturer-8" username="dveum" faculty="ut">
+        <Lecturer id="lecturerOld-8" username="dveum" faculty="ut">
             <firstname>Bettie</firstname>
             <name>Wehner</name>
         </Lecturer>
-        <Lecturer id="lecturer-9" username="kuhn.ashtyn">
+        <Lecturer id="lecturerOld-9" username="kuhn.ashtyn">
             <firstname>Marques</firstname>
             <name>O'Hara</name>
         </Lecturer>
-        <Lecturer id="lecturer-10" username="jzboncak" faculty="eius">
+        <Lecturer id="lecturerOld-10" username="jzboncak" faculty="eius">
             <firstname>Tad</firstname>
             <name>Watsica</name>
         </Lecturer>

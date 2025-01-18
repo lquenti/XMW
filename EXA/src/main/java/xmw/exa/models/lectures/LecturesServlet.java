@@ -10,10 +10,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
-import xmw.exa.models.courses.Course;
-import xmw.exa.models.Lecturers.Lecturer;
 import xmw.exa.models.semesters.Semester;
 import xmw.exa.util.Config;
+import xmw.flush.*;
 
 @WebServlet(name = "lectures", value = "/lectures")
 public class LecturesServlet extends HttpServlet {
@@ -64,15 +63,17 @@ public class LecturesServlet extends HttpServlet {
                                 .append("      <name>").append(course.getName()).append("</name>\n")
                                 .append("      <faculty>").append(course.getFaculty()).append("</faculty>\n");
 
-                        Lecturer lecturer = course.getLecturer();
+                        // TODO: fix this
+                        Lecturer lecturer = null; //course.getLecturer();
                         xmlBuilder.append("      <lecturer>\n");
-                        if (lecturer != null) {
-                            xmlBuilder.append("        <id>").append(lecturer.getId()).append("</id>\n")
-                                    .append("        <username>").append(lecturer.getUsername()).append("</username>\n")
-                                    .append("        <name>").append(lecturer.getName()).append("</name>\n")
-                                    .append("        <firstname>").append(lecturer.getFirstname())
-                                    .append("</firstname>\n");
-                        }
+                        // TODO: fix this
+//                        if (lecturer != null) {
+//                            xmlBuilder.append("        <id>").append(lecturer.getId()).append("</id>\n")
+//                                    .append("        <username>").append(lecturer.getUsername()).append("</username>\n")
+//                                    .append("        <name>").append(lecturer.getName()).append("</name>\n")
+//                                    .append("        <firstname>").append(lecturer.getFirstname())
+//                                    .append("</firstname>\n");
+//                        }
                         xmlBuilder.append("      </lecturer>\n");
 
                         Semester semester = course.getSemester();

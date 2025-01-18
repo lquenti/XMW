@@ -1,7 +1,8 @@
-package xmw.exa.models.Lecturers;
+package xmw.exa.models.lecturers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.basex.core.BaseXException;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
 import xmw.exa.util.Config;
+import xmw.flush.*;
 
 @WebServlet(name = "lecturers", value = "/lecturers")
 public class LecturersServlet extends HttpServlet {
@@ -69,17 +71,19 @@ public class LecturersServlet extends HttpServlet {
         response.setContentType("text/html");
         request.setAttribute("name", this.name);
 
-        List<Lecturer> lecturers = db.lecturers().all();
+        // TODO: fix this
+        List<Lecturer> lecturers = new ArrayList<>();//db.lecturers().all();
         StringBuilder message = new StringBuilder("<ul>");
         for (Lecturer lecturer : lecturers) {
-            message
-                    .append("<li>")
-                    .append("<a href=\"" + Config.BASE_URL + "/lecturers/")
-                    .append(lecturer.getUsername())
-                    .append("\">")
-                    .append(lecturer.getFirstname()).append(" ").append(lecturer.getName())
-                    .append("</a>")
-                    .append("</li>");
+            // TODO fix this
+//            message
+//                    .append("<li>")
+//                    .append("<a href=\"" + Config.BASE_URL + "/lecturers/")
+//                    .append(lecturer.getUsername())
+//                    .append("\">")
+//                    .append(lecturer.getFirstname()).append(" ").append(lecturer.getName())
+//                    .append("</a>")
+//                    .append("</li>");
         }
         message.append("</ul>");
 
