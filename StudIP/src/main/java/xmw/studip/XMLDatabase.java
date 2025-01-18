@@ -20,7 +20,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class XMLDatabase {
     private static XMLDatabase instance;
