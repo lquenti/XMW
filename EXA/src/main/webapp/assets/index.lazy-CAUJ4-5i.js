@@ -1,0 +1,1 @@
+import{c as t,j as e}from"./index-BYXnpnIT.js";const a=t("/exa/ui/")({component:o});function o(){return e.jsxs("div",{className:"p-2",children:[e.jsx("h1",{className:"text-2xl font-bold",children:"Welcome to Exa!"}),e.jsx("p",{children:"Chose a section from the navigation bar to get started."})]})}export{a as Route};
