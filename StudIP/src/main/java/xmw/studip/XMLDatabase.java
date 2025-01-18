@@ -115,7 +115,7 @@ public class XMLDatabase {
             // XQuery to find and remove the specific exam for the user
             String xquery = String.format(
                     "declare namespace ns = 'http://example.com/schema';\n" +
-                            "let course := /StudIP/Schedules/Schedule[@username='%s']/Course[@id='%s' semester='%s']\n" +
+                            "let $course := /StudIP/Schedules/Schedule[@username='%s']/Course[@id='%s' and @semester='%s']\n" +
                             "return delete node $course",
                     userId, courseId, semester
             );
