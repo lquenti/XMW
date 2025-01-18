@@ -40,10 +40,11 @@
             List<Map<String, String>> exams = (List<Map<String, String>>) request.getAttribute("exams");
             if (exams != null) {
                 for (Map<String, String> exam : exams) {
-                    String examId = exam.get("id");
-                    String examName = exam.get("name");
+                    String examId = exam.get("ExamId");
+                    String examName = exam.get("CourseName");
+                    String examDate = exam.get("date");
         %>
-        <option value="<%= examId %>"><%= examName %></option>
+        <option value="<%= examId %>"><%= examName + " - " + examDate %></option>
         <%
                 }
             }
@@ -53,7 +54,7 @@
 
 <!-- Students Table -->
 <h2>Students</h2>
-<form method="POST" action="/submit-grades">
+<form method="POST" action="inputGrades">
     <table border="1" cellpadding="10">
         <thead>
         <tr>

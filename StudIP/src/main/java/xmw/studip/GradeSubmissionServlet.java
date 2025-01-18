@@ -15,28 +15,66 @@ import java.util.Map;
 // Servlet to handle grade input by lecturers
 @WebServlet("/inputGrades")
 public class GradeSubmissionServlet extends HttpServlet {
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String examId = request.getParameter("examId");
-        String studentId = request.getParameter("studentId");
-        String grade = request.getParameter("grade");
+        Map<String, Map<String, String>> grades = new HashMap<>();
 
-        try {
-            XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
-            boolean success = xmlDatabase.inputGrade(examId, studentId, grade);
+        // Extract parameter map
+        Map<String, String[]> parameterMap = request.getParameterMap();
 
-            if (success) {
-                request.setAttribute("message", "Grade input successfully.");
-            } else {
-                request.setAttribute("message", "Failed to input grade. Please try again.");
+        for (String param : parameterMap.keySet()) {
+            // Check if the parameter corresponds to a grade entry
+            if (param.startsWith("grades[")) {
+                // Extract the examId and studentId from the parameter name
+                String[] parts = param.substring(7, param.length() - 1).split("\\]\\[");
+                if (parts.length == 2) {
+                    String examId = parts[0];
+                    String studentId = parts[1];
+
+                    // Get the grade value
+                    String grade = request.getParameter(param);
+
+                    // Add the grade to the map
+                    grades.putIfAbsent(examId, new HashMap<>());
+                    grades.get(examId).put(studentId, grade);
+                }
             }
+        }
 
-            request.getRequestDispatcher("/grade_submission.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            request.setAttribute("message", "An error occurred: " + e.getMessage());
-            request.getRequestDispatcher("/grade_submission.jsp").forward(request, response);
+        List<Map<String, String>> submittedGrades = new ArrayList<>();
+        for(String examId: grades.keySet()){
+            if(examId.equals(""))
+                continue;
+            Map<String, String> grade = grades.get(examId);
+            for(String u: grade.keySet()){
+                if(grade.get(u).equals(""))
+                    continue;
+                Map<String, String> s = new HashMap<>();
+                s.put("username", u);
+                s.put("grade", grade.get(u));
+                s.put("examId", examId);
+                submittedGrades.add(s);
+            }
+        }
+
+        for (Map<String, String> grade : submittedGrades) {
+            try {
+                XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
+                boolean success = xmlDatabase.inputGrade(grade.get("examId"), grade.get("username"), grade.get("grade"));
+                if (success) {
+                    request.setAttribute("message", "Grade input successfully.");
+                } else {
+                    request.setAttribute("message", "Failed to input grade. Please try again.");
+                }
+
+                request.getRequestDispatcher("/grade_submission.jsp").forward(request, response);
+            } catch(Exception e){
+                e.printStackTrace();
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                request.setAttribute("message", "An error occurred: " + e.getMessage());
+                request.getRequestDispatcher("/grade_submission.jsp").forward(request, response);
+            }
         }
     }
 
@@ -63,12 +101,19 @@ public class GradeSubmissionServlet extends HttpServlet {
             }
 
             List<Map<String, String>> students = xmlDatabase.getStudents();
+            for(Map<String, String> student: students){
+                student.put("examId", xmlDatabase.getRegistrations(student.get("username")));
+            }
 
             // Group students by exam ID for easy filtering
             Map<String, List<Map<String, String>>> studentsByExam = new HashMap<>();
             for (Map<String, String> student : students) {
-                String examId = student.get("examId");
-                studentsByExam.computeIfAbsent(examId, k -> new ArrayList<>()).add(student);
+                String[] examIds = student.get("examId").split("\n");
+                for(String examId: examIds) {
+                    if(examId==null || examId.isEmpty() || examId.equals("null"))
+                        continue;
+                    studentsByExam.computeIfAbsent(examId, k -> new ArrayList<>()).add(student);
+                }
             }
 
             request.setAttribute("exams", exams);
