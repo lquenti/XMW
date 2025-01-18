@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
@@ -36,10 +37,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;choice maxOccurs="unbounded" minOccurs="0"&gt;
  *         &lt;element ref="{http://www.w3.org/namespace/}name"/&gt;
- *         &lt;element ref="{http://www.w3.org/namespace/}start"/&gt;
- *         &lt;element ref="{http://www.w3.org/namespace/}end"/&gt;
+ *         &lt;element ref="{http://www.w3.org/namespace/}Studies"/&gt;
+ *         &lt;element ref="{http://www.w3.org/namespace/}Description"/&gt;
  *       &lt;/choice&gt;
  *       &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}ID" /&gt;
+ *       &lt;attribute name="credits" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *       &lt;attribute name="course" use="required" type="{http://www.w3.org/2001/XMLSchema}IDREF" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -49,52 +52,58 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "nameOrStartOrEnd"
+    "nameOrStudiesOrDescription"
 })
-@XmlRootElement(name = "Semester")
-public class Semester implements BaseOperations {
+@XmlRootElement(name = "Module")
+public class Module implements BaseOperations {
 
     @XmlElements({
         @XmlElement(name = "name", type = Name.class),
-        @XmlElement(name = "start", type = Start.class),
-        @XmlElement(name = "end", type = End.class)
+        @XmlElement(name = "Studies", type = Studies.class),
+        @XmlElement(name = "Description", type = Description.class)
     })
-    protected List<Object> nameOrStartOrEnd;
+    protected List<Object> nameOrStudiesOrDescription;
     @XmlAttribute(name = "id", required = true)
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
     @XmlSchemaType(name = "ID")
     protected String id;
+    @XmlAttribute(name = "credits", required = true)
+    protected String credits;
+    @XmlAttribute(name = "course", required = true)
+    @XmlIDREF
+    @XmlSchemaType(name = "IDREF")
+    protected Object course;
 
     /**
-     * Gets the value of the nameOrStartOrEnd property.
+     * Gets the value of the nameOrStudiesOrDescription property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the nameOrStartOrEnd property.
+     * This is why there is not a <CODE>set</CODE> method for the nameOrStudiesOrDescription property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getNameOrStartOrEnd().add(newItem);
+     *    getNameOrStudiesOrDescription().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Name }
-     * {@link Start }
-     * {@link End }
+     * {@link Studies }
+     * {@link Description }
      * 
      * 
      */
-    public List<Object> getNameOrStartOrEnd() {
-        if (nameOrStartOrEnd == null) {
-            nameOrStartOrEnd = new ArrayList<Object>();
+    public List<Object> getNameOrStudiesOrDescription() {
+        if (nameOrStudiesOrDescription == null) {
+            nameOrStudiesOrDescription = new ArrayList<Object>();
         }
-        return this.nameOrStartOrEnd;
+        return this.nameOrStudiesOrDescription;
     }
 
     /**
@@ -119,6 +128,54 @@ public class Semester implements BaseOperations {
      */
     public void setId(String value) {
         this.id = value;
+    }
+
+    /**
+     * Gets the value of the credits property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCredits() {
+        return credits;
+    }
+
+    /**
+     * Sets the value of the credits property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCredits(String value) {
+        this.credits = value;
+    }
+
+    /**
+     * Gets the value of the course property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Object }
+     *     
+     */
+    public Object getCourse() {
+        return course;
+    }
+
+    /**
+     * Sets the value of the course property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Object }
+     *     
+     */
+    public void setCourse(Object value) {
+        this.course = value;
     }
 
 }

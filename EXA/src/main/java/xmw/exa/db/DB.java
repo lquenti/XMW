@@ -150,6 +150,8 @@ public class DB {
                 case 4:
                     map.put(ExaElement.SEMESTERS, elements.get(i));
                     break;
+                case 5:
+                    map.put(ExaElement.MODULES, elements.get(i));
                 default:
             }
         }

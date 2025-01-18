@@ -1,16 +1,14 @@
 package xmw.exa.models.semesters;
 
-import java.util.List;
-
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
-import org.basex.core.cmd.XQuery;
-
 import xmw.exa.db.DB;
 import xmw.exa.db.ExaElement;
 import xmw.exa.db.repository.BaseXmlRepository;
 import xmw.flush.Semester;
 import xmw.flush.Semesters;
+
+import java.util.List;
 
 public class SemesterRepository extends BaseXmlRepository<Semester> {
 

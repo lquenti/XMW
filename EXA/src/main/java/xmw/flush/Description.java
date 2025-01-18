@@ -35,8 +35,8 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlType(name = "", propOrder = {
     "content"
 })
-@XmlRootElement(name = "is_written")
-public class IsWritten {
+@XmlRootElement(name = "Description")
+public class Description {
 
     @XmlValue
     protected String content;

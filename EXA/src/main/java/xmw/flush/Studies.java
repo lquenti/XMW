@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence maxOccurs="unbounded" minOccurs="0"&gt;
- *         &lt;element ref="{http://www.w3.org/namespace/}Course"/&gt;
+ *         &lt;element ref="{http://www.w3.org/namespace/}Study"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -38,41 +38,41 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "course"
+    "study"
 })
-@XmlRootElement(name = "Courses")
-public class Courses {
+@XmlRootElement(name = "Studies")
+public class Studies {
 
-    @XmlElement(name = "Course")
-    protected List<Course> course;
+    @XmlElement(name = "Study")
+    protected List<Study> study;
 
     /**
-     * Gets the value of the course property.
+     * Gets the value of the study property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the course property.
+     * This is why there is not a <CODE>set</CODE> method for the study property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getCourse().add(newItem);
+     *    getStudy().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Course }
+     * {@link Study }
      * 
      * 
      */
-    public List<Course> getCourse() {
-        if (course == null) {
-            course = new ArrayList<Course>();
+    public List<Study> getStudy() {
+        if (study == null) {
+            study = new ArrayList<Study>();
         }
-        return this.course;
+        return this.study;
     }
 
 }
