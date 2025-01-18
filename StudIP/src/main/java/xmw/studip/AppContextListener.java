@@ -21,6 +21,9 @@ public class AppContextListener implements ServletContextListener {
     public static final String USER_FOLDER = BASE_FOLDER + "/stud";
     public static final String USER_PATH = USER_FOLDER + "/stud.xml";
 
+    public static final String USER_URL = "http://localhost:8080/User/";
+    public static final String EXA_URL = "http://localhost:8080/exa/";
+
     // Define the XML content
     private static final String EXAMPLE_XML =
             """   

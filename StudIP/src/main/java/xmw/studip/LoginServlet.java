@@ -20,9 +20,7 @@ import java.io.OutputStream;
 import java.io.Serial;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @WebServlet("/login")
@@ -47,7 +45,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        String loginApiUrl = "http://localhost:8080/User/auth"; // Replace with actual API URL
+        String loginApiUrl = AppContextListener.USER_URL + "auth"; // Replace with actual API URL
         URL url = new URL(loginApiUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -74,14 +72,14 @@ public class LoginServlet extends HttpServlet {
             }
 
             NodeList nodeList = doc.getElementsByTagName("User");
-            Map<String, String> userMap = new HashMap<>();
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element course = (Element) nodeList.item(i);
-
-                userMap.put("userID", course.getAttribute("username"));
-                userMap.put("Name", course.getElementsByTagName("Name").item(0).getTextContent());
-                userMap.put("Faculty", course.getElementsByTagName("Faculty").item(0).getTextContent());
+                if(!username.equals(course.getAttribute("username"))){
+                    request.setAttribute("errorMessage", "Invalid login parameters. Please try again.");
+                    request.getRequestDispatcher("/login.jsp").forward(request, response);
+                    return;
+                }
             }
 
             // Set a cookie with the user ID

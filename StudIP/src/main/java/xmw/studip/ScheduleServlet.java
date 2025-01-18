@@ -41,13 +41,14 @@ public class ScheduleServlet extends HttpServlet {
             completeSchedule.addAll(convertSchedule(m));
         }
 
-
-
+        completeSchedule.sort(mapComparator);
 
         request.setAttribute("schedules", completeSchedule);
         request.getRequestDispatcher("/schedule.jsp").forward(request, response);
     }
 
+    public Comparator<Map<String, String>> mapComparator =
+            Comparator.comparing(m -> m.getOrDefault("Begin", ""));
 
     public static List<Map<String, String>> convertSchedule(Map<String, String> schedule) {
         List<Map<String, String>> result = new ArrayList<>();
