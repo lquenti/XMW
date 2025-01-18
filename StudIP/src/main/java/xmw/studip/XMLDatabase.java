@@ -156,7 +156,8 @@ public class XMLDatabase {
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(new ByteArrayInputStream(xmlString.getBytes()));
 
-        NodeList nodeList = doc.getElementsByTagName("Lectures").item(0).getChildNodes();
+        Element tmp = (Element) doc.getElementsByTagName("Lectures").item(0);
+        NodeList nodeList = tmp.getElementsByTagName("Lecture");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             Element lecture = (Element) nodeList.item(i);
@@ -211,7 +212,7 @@ public class XMLDatabase {
             courseMap.put("CourseID", course.getAttribute("id"));
             courseMap.put("Semester", course.getAttribute("semester"));
             courseMap.put("LecturerID", course.getAttribute("lecturer"));
-            courseMap.put("Name", course.getElementsByTagName("name").item(0).getTextContent());
+            courseMap.put("CourseName", course.getElementsByTagName("name").item(0).getTextContent());
             courseMap.put("Faculty", course.getElementsByTagName("faculty").item(0).getTextContent());
 
             if (course.getElementsByTagName("max_students").getLength() > 0) {
@@ -229,7 +230,7 @@ public class XMLDatabase {
         try {
             String query = String.format(
                     """
-                            for $course in /StudIP/Schedules/Schedule[@username = \"%s\"]/Course
+                            for $course in /StudIP/Schedules/Schedule[@username = '%s']/Course
                             return
                               <CourseDetail>
                                 <CourseID>{$course/@id/string()}</CourseID>
@@ -250,8 +251,10 @@ public class XMLDatabase {
 
         for(Map<String, String> s: schedule){
             for(Map<String, String> c: courses){
-                if(s.getOrDefault("CourseID", "-").equals(c.getOrDefault("CourseID", "-"))){
-                    s.putAll(c);
+                if(s.get("CourseID").equals(c.get("CourseID"))){
+                    s.put("Begin", c.get("Begin"));
+                    s.put("End", c.get("End"));
+                    s.put("CourseName", c.get("CourseName"));
                 }
             }
         }
@@ -259,22 +262,19 @@ public class XMLDatabase {
         return schedule;
     }
 
-    private List<Map<String, String>> mergeCoursesAndLectures(List<Map<String, String>> courses, List<Map<String, String>> lectures) {
+    List<Map<String, String>> mergeCoursesAndLectures(List<Map<String, String>> courses, List<Map<String, String>> lectures) {
         List<Map<String, String>> mergeList = new ArrayList<>();
-        int cnt = 0;
         for(Map<String, String> course: courses){
+            int cnt = 0;
             for(Map<String, String> lecture: lectures){
-                if(course.get("id").equals(lecture.get("courseId"))){
-                    int finalCnt = cnt;
-                    Map<String, String> tmp = lecture.entrySet().stream()
-                            .collect(Collectors.toMap(
-                                    entry -> entry.getKey() + "_" + finalCnt, // Modify the key
-                                    Map.Entry::getValue            // Keep the value the same
-                            ));
-                    course.putAll(tmp);
+                if(course.get("CourseID").equals(lecture.get("CourseID"))){
+                    course.put("Begin"+cnt, lecture.get("Begin"));
+                    course.put("End"+cnt, lecture.get("End"));
+                    course.put("Location"+cnt, lecture.get("Location"));
                     cnt++;
                 }
             }
+            mergeList.add(course);
         }
         return mergeList;
     }
@@ -357,26 +357,23 @@ public class XMLDatabase {
             document.getDocumentElement().normalize();
 
             // Get all <exam> elements
-            NodeList examNodes = document.getElementsByTagName("Exams").item(0).getChildNodes();
+            Element tmp = (Element) document.getElementsByTagName("Exams").item(0);
+            NodeList examNodes = tmp.getElementsByTagName("Exam");
 
             for (int i = 0; i < examNodes.getLength(); i++) {
-                Node examNode = examNodes.item(i);
-                if (examNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element examElement = (Element) examNode;
+                Element examElement = (Element) examNodes.item(i);
 
-                    Map<String, String> examData = new HashMap<>();
+                Map<String, String> examData = new HashMap<>();
 
-                    // Extract data from the <exam> element and its children
-                    examData.put("ExamId", examElement.getAttribute("id"));
-                    examData.put("CourseId", examElement.getAttribute("course"));
-                    examData.put("date", examElement.getElementsByTagName("data").item(0).getTextContent());
-                    examData.put("isOnline", examElement.getElementsByTagName("is_online").item(0).getTextContent());
-                    examData.put("isWritten", examElement.getElementsByTagName("is_written").item(0).getTextContent());
-                    examData.put("roomOrLink", examElement.getElementsByTagName("room_or_link").item(0).getTextContent());
+                // Extract data from the <exam> element and its children
+                examData.put("ExamId", examElement.getAttribute("id"));
+                examData.put("CourseID", examElement.getAttribute("course"));
+                examData.put("date", examElement.getElementsByTagName("date").item(0).getTextContent());
+                examData.put("isOnline", examElement.getElementsByTagName("is_online").item(0).getTextContent());
+                examData.put("isWritten", examElement.getElementsByTagName("is_written").item(0).getTextContent());
+                examData.put("roomOrLink", examElement.getElementsByTagName("room_or_link").item(0).getTextContent());
 
-
-                    examsList.add(examData);
-                }
+                examsList.add(examData);
             }
 
         } catch (Exception e) {
@@ -674,11 +671,47 @@ public class XMLDatabase {
 
     public List<Map<String, String>> getExamsAsLecturer(String LecturerId) throws Exception {
         List<Map<String, String>> exams = getExams();
+        List<Map<String, String>> courses = getCourses();
+        for(Map<String, String> exam: exams){
+            for(Map<String, String> course: courses){
+                if(exam.get("CourseID").equals(course.get("CourseID")))
+                    exam.putAll(course);
+            }
+        }
+
         List<Map<String, String>> currentExams = new ArrayList<>();
         for(Map<String, String> exam: exams){
-            if(exam.get("lecturerUsername").equals(LecturerId))
+            if(getUserNameFromID(exam.get("LecturerID")).equals(LecturerId))
                 currentExams.add(exam);
         }
         return currentExams;
+    }
+
+    private String getUserNameFromID(String lecturerID) throws IOException {
+        String loginApiUrl = AppContextListener.EXA_URL + "lecturers/" + lecturerID; // Replace with actual API URL
+        URL url = new URL(loginApiUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        connection.setDoOutput(true);
+
+        Document doc;
+        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            String xmlResponse = new String(connection.getInputStream().readAllBytes());
+
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = null;
+            try {
+                builder = factory.newDocumentBuilder();
+                doc = builder.parse(new ByteArrayInputStream(xmlResponse.getBytes()));
+            } catch (SAXException | ParserConfigurationException | IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            NodeList nodeList = doc.getElementsByTagName("Lecturer");
+            Element currentUser = (Element) nodeList.item(0);
+           return currentUser.getAttribute("username");
+        }
+        return "";
     }
 }

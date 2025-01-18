@@ -37,7 +37,7 @@ public class ExamServlet extends HttpServlet {
 
             List<Map<String, String>> registeredExams = new ArrayList<>();
             for(Map<String, String> exam: exams){
-                if(registeredExamIds.contains(exam.get("examId")))
+                if(registeredExamIds.contains(exam.get("ExamId")))
                     registeredExams.add(exam);
             }
 

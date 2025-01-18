@@ -30,7 +30,7 @@
     if (grades != null && !grades.isEmpty()) {
       for (Map<String, String> grade : grades) {
         String examId = grade.get("id");
-        String courseName = grade.get("courseName");
+        String courseName = grade.get("CourseName");
         String gradeValue = grade.get("grade");
         String date = grade.get("date");
   %>

@@ -60,7 +60,7 @@
                         </tr>
                         <xsl:for-each select="Grades/Grade">
                             <tr>
-                                <td><xsl:value-of select="courseName"/></td>
+                                <td><xsl:value-of select="CourseName"/></td>
                                 <td><xsl:value-of select="grade"/></td>
                                 <td><xsl:value-of select="id"/></td>
                             </tr>
