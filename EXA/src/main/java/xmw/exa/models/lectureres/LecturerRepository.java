@@ -8,18 +8,18 @@ import org.basex.core.Context;
 import org.basex.core.cmd.XQuery;
 
 import xmw.exa.db.repository.BaseXmlRepository;
+import xmw.exa.models.Lecturers.Lecturer;
 
 public class LecturerRepository extends BaseXmlRepository<Lecturer> {
-
     public LecturerRepository(Context context) {
         super(context);
     }
 
     @Override
-    public List<Lecturer> all() {
+    public List<xmw.exa.models.Lecturers.Lecturer> all() {
         List<Lecturer> lecturers = new ArrayList<>();
         String query = String.format(
-                "for $l in /root/Lectureres/Lecturer " +
+                "for $l in /root/Lecturers/Lecturer " +
                         "return element lecturer { " +
                         "  attribute id { $l/id/text() }, " +
                         "  attribute username { $l/@username }, " +
@@ -50,7 +50,7 @@ public class LecturerRepository extends BaseXmlRepository<Lecturer> {
     @Override
     public Lecturer get(long id) {
         String query = String.format(
-                "for $l in /root/Lectureres/Lecturer[id = %d] " +
+                "for $l in /root/Lecturers/Lecturer[id = %d] " +
                         "return element lecturer { " +
                         "  attribute username { $l/@username }, " +
                         "  element id { $l/id/text() }, " +

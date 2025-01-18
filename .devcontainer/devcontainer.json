@@ -1,0 +1,28 @@
+{
+    "name": "XMW Development Environment",
+    "dockerComposeFile": [
+        "../docker-compose.yml"
+    ],
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "vscjava.vscode-java-pack",
+                "redhat.java",
+                "vscjava.vscode-maven"
+            ]
+        }
+    },
+    "remoteUser": "root",
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.m2,target=/root/.m2,type=bind,consistency=cached"
+    ],
+    "forwardPorts": [
+        8888,
+        8080
+    ],
+    "postCreateCommand": "mvn install -DskipTests",
+    "shutdownAction": "stopCompose"
+}

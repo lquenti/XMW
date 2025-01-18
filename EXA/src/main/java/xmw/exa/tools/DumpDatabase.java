@@ -6,7 +6,7 @@ import xmw.exa.util.Config;
 public class DumpDatabase {
     public static void main(String[] args) {
         try {
-            String outputPath = args.length > 0 ? args[0] : Config.XMW_DATA_PATH + "/flush.xml";
+            String outputPath = args.length > 0 ? args[0] : Config.FLUSH_FILE_PATH;
             DB.getInstance().dumpToFile(outputPath);
             System.out.println("Database successfully dumped to: " + outputPath);
         } catch (Exception e) {

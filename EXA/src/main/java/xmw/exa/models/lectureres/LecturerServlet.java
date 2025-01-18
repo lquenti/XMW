@@ -1,4 +1,4 @@
-package xmw.exa.models.lectureres;
+package xmw.exa.models.Lecturers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -39,7 +39,7 @@ public class LecturerServlet extends HttpServlet {
         try {
             // Query for the specific lecturer's XML with proper indentation
             String query = String.format(
-                    "let $lecturer := /root/Lectureres/Lecturer[@username = '%s'] " +
+                    "let $lecturer := /root/Lecturers/Lecturer[@username = '%s'] " +
                             "return if ($lecturer) then " +
                             "  serialize($lecturer, map { 'method': 'xml', 'indent': 'yes' }) " +
                             "else ()",

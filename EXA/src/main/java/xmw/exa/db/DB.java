@@ -21,15 +21,6 @@ import xmw.exa.models.semesters.SemesterRepository;
 import xmw.exa.util.Config;
 
 public class DB {
-    private static final String DB_NAME = "exa";
-    private static final String[] MOCK_XML_FILES = {
-            "courses.xml",
-            "exams.xml",
-            "lecturers.xml",
-            "lectures.xml",
-            "semesters.xml",
-    };
-
     private static DB instance;
     private final Context context;
     private final LecturerRepository lecturerRepository;
