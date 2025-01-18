@@ -171,7 +171,11 @@ function ExamDetailComponent() {
                         {lecturer && (
                             <div>
                                 <h2 className="text-xl font-semibold text-gray-900 mb-4">Lecturer</h2>
-                                <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                                <Link
+                                    to="/exa/ui/lecturers/$lecturerId"
+                                    params={{ lecturerId: lecturer.id ?? '' }}
+                                    className="block bg-gray-50 rounded-lg p-6 border border-gray-200 hover:border-blue-300 transition-colors"
+                                >
                                     <div className="flex items-start space-x-4">
                                         <img
                                             src={`https://i.pravatar.cc/150?u=${lecturer.id}`}
@@ -198,7 +202,7 @@ function ExamDetailComponent() {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                         )}
                     </div>

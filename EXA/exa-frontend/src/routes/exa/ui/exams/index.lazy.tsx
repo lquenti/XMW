@@ -51,31 +51,65 @@ function RouteComponent() {
   const exams = parseExamsXml(data)
   const courses = parseCoursesXml(coursesData)
 
-  // Sort exams by date
-  const sortedExams = [...exams].sort((a, b) =>
-    (a.date ?? '').localeCompare(b.date ?? ''),
-  )
+  // Helper function to parse date strings
+  const parseDate = (dateStr: string | null): Date | null => {
+    if (!dateStr) return null
+    try {
+      // First try parsing as a normal ISO date
+      const normalDate = new Date(dateStr)
+      if (!isNaN(normalDate.getTime())) {
+        return normalDate
+      }
 
-  // Filter exams
+      // If that fails, try handling the format with extra T
+      const match = dateStr.match(/^(\d{4}-\d{2}-\d{2})T(\d+)T:(\d{2}):(\d{2})$/)
+      if (!match) return null
+
+      const [, datePart, hours, minutes, seconds] = match
+      // Pad hours with leading zero if needed
+      const paddedHours = hours.padStart(2, '0')
+      const timeStr = `${paddedHours}:${minutes}:${seconds}`
+
+      const cleanDate = `${datePart} ${timeStr}`
+      const date = new Date(cleanDate)
+      return isNaN(date.getTime()) ? null : date
+    } catch (error) {
+      console.error('Error parsing date:', error)
+      return null
+    }
+  }
+
+  // Sort exams by date (upcoming first, then past)
+  const sortedExams = exams.sort((a, b) => {
+    const dateA = parseDate(a.date)
+    const dateB = parseDate(b.date)
+
+    // If either date is invalid, move to end
+    if (!dateA && !dateB) return 0
+    if (!dateA) return 1
+    if (!dateB) return -1
+
+    // Sort by date
+    return dateA.getTime() - dateB.getTime()
+  })
+
+  // Separate upcoming and past exams
   const now = new Date()
-  const filteredExams = sortedExams.filter((exam) => {
-    const examDate = exam.date ? new Date(exam.date) : null
-    const isUpcoming = examDate ? examDate >= now : false
+  const filteredExams = sortedExams.sort((a, b) => {
+    const dateA = parseDate(a.date)
+    const dateB = parseDate(b.date)
+    const isUpcomingA = dateA ? dateA >= now : false
+    const isUpcomingB = dateB ? dateB >= now : false
 
-    if (filter === 'upcoming' && !isUpcoming) return false
-    if (filter === 'past' && isUpcoming) return false
+    // Put upcoming exams first
+    if (isUpcomingA && !isUpcomingB) return -1
+    if (!isUpcomingA && isUpcomingB) return 1
 
-    if (typeFilter !== 'all') {
-      if (typeFilter === 'written' && !exam.isWritten) return false
-      if (typeFilter === 'oral' && exam.isWritten) return false
+    // For exams in the same category (upcoming or past), sort by date
+    if (dateA && dateB) {
+      return dateA.getTime() - dateB.getTime()
     }
-
-    if (locationFilter !== 'all') {
-      if (locationFilter === 'online' && !exam.isOnline) return false
-      if (locationFilter === 'onsite' && exam.isOnline) return false
-    }
-
-    return true
+    return 0
   })
 
   const canCreateExam = authState === AuthorizationState.Admin || authState === AuthorizationState.Lecturer

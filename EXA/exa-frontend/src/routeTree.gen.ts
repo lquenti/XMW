@@ -22,6 +22,9 @@ const ExaUiLecturersIndexLazyImport = createFileRoute('/exa/ui/lecturers/')()
 const ExaUiExamsIndexLazyImport = createFileRoute('/exa/ui/exams/')()
 const ExaUiCoursesIndexLazyImport = createFileRoute('/exa/ui/courses/')()
 const ExaUiLecturersNewLazyImport = createFileRoute('/exa/ui/lecturers/new')()
+const ExaUiLecturersLecturerIdLazyImport = createFileRoute(
+  '/exa/ui/lecturers/$lecturerId',
+)()
 const ExaUiExamsNewLazyImport = createFileRoute('/exa/ui/exams/new')()
 const ExaUiExamsExamIdLazyImport = createFileRoute('/exa/ui/exams/$examId')()
 const ExaUiCoursesNewLazyImport = createFileRoute('/exa/ui/courses/new')()
@@ -74,6 +77,15 @@ const ExaUiLecturersNewLazyRoute = ExaUiLecturersNewLazyImport.update({
 } as any).lazy(() =>
   import('./routes/exa/ui/lecturers/new.lazy').then((d) => d.Route),
 )
+
+const ExaUiLecturersLecturerIdLazyRoute =
+  ExaUiLecturersLecturerIdLazyImport.update({
+    id: '/exa/ui/lecturers/$lecturerId',
+    path: '/exa/ui/lecturers/$lecturerId',
+    getParentRoute: () => rootRoute,
+  } as any).lazy(() =>
+    import('./routes/exa/ui/lecturers/$lecturerId.lazy').then((d) => d.Route),
+  )
 
 const ExaUiExamsNewLazyRoute = ExaUiExamsNewLazyImport.update({
   id: '/exa/ui/exams/new',
@@ -153,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExaUiExamsNewLazyImport
       parentRoute: typeof rootRoute
     }
+    '/exa/ui/lecturers/$lecturerId': {
+      id: '/exa/ui/lecturers/$lecturerId'
+      path: '/exa/ui/lecturers/$lecturerId'
+      fullPath: '/exa/ui/lecturers/$lecturerId'
+      preLoaderRoute: typeof ExaUiLecturersLecturerIdLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/exa/ui/lecturers/new': {
       id: '/exa/ui/lecturers/new'
       path: '/exa/ui/lecturers/new'
@@ -193,6 +212,7 @@ export interface FileRoutesByFullPath {
   '/exa/ui/courses/new': typeof ExaUiCoursesNewLazyRoute
   '/exa/ui/exams/$examId': typeof ExaUiExamsExamIdLazyRoute
   '/exa/ui/exams/new': typeof ExaUiExamsNewLazyRoute
+  '/exa/ui/lecturers/$lecturerId': typeof ExaUiLecturersLecturerIdLazyRoute
   '/exa/ui/lecturers/new': typeof ExaUiLecturersNewLazyRoute
   '/exa/ui/courses': typeof ExaUiCoursesIndexLazyRoute
   '/exa/ui/exams': typeof ExaUiExamsIndexLazyRoute
@@ -206,6 +226,7 @@ export interface FileRoutesByTo {
   '/exa/ui/courses/new': typeof ExaUiCoursesNewLazyRoute
   '/exa/ui/exams/$examId': typeof ExaUiExamsExamIdLazyRoute
   '/exa/ui/exams/new': typeof ExaUiExamsNewLazyRoute
+  '/exa/ui/lecturers/$lecturerId': typeof ExaUiLecturersLecturerIdLazyRoute
   '/exa/ui/lecturers/new': typeof ExaUiLecturersNewLazyRoute
   '/exa/ui/courses': typeof ExaUiCoursesIndexLazyRoute
   '/exa/ui/exams': typeof ExaUiExamsIndexLazyRoute
@@ -220,6 +241,7 @@ export interface FileRoutesById {
   '/exa/ui/courses/new': typeof ExaUiCoursesNewLazyRoute
   '/exa/ui/exams/$examId': typeof ExaUiExamsExamIdLazyRoute
   '/exa/ui/exams/new': typeof ExaUiExamsNewLazyRoute
+  '/exa/ui/lecturers/$lecturerId': typeof ExaUiLecturersLecturerIdLazyRoute
   '/exa/ui/lecturers/new': typeof ExaUiLecturersNewLazyRoute
   '/exa/ui/courses/': typeof ExaUiCoursesIndexLazyRoute
   '/exa/ui/exams/': typeof ExaUiExamsIndexLazyRoute
@@ -235,6 +257,7 @@ export interface FileRouteTypes {
     | '/exa/ui/courses/new'
     | '/exa/ui/exams/$examId'
     | '/exa/ui/exams/new'
+    | '/exa/ui/lecturers/$lecturerId'
     | '/exa/ui/lecturers/new'
     | '/exa/ui/courses'
     | '/exa/ui/exams'
@@ -247,6 +270,7 @@ export interface FileRouteTypes {
     | '/exa/ui/courses/new'
     | '/exa/ui/exams/$examId'
     | '/exa/ui/exams/new'
+    | '/exa/ui/lecturers/$lecturerId'
     | '/exa/ui/lecturers/new'
     | '/exa/ui/courses'
     | '/exa/ui/exams'
@@ -259,6 +283,7 @@ export interface FileRouteTypes {
     | '/exa/ui/courses/new'
     | '/exa/ui/exams/$examId'
     | '/exa/ui/exams/new'
+    | '/exa/ui/lecturers/$lecturerId'
     | '/exa/ui/lecturers/new'
     | '/exa/ui/courses/'
     | '/exa/ui/exams/'
@@ -273,6 +298,7 @@ export interface RootRouteChildren {
   ExaUiCoursesNewLazyRoute: typeof ExaUiCoursesNewLazyRoute
   ExaUiExamsExamIdLazyRoute: typeof ExaUiExamsExamIdLazyRoute
   ExaUiExamsNewLazyRoute: typeof ExaUiExamsNewLazyRoute
+  ExaUiLecturersLecturerIdLazyRoute: typeof ExaUiLecturersLecturerIdLazyRoute
   ExaUiLecturersNewLazyRoute: typeof ExaUiLecturersNewLazyRoute
   ExaUiCoursesIndexLazyRoute: typeof ExaUiCoursesIndexLazyRoute
   ExaUiExamsIndexLazyRoute: typeof ExaUiExamsIndexLazyRoute
@@ -286,6 +312,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExaUiCoursesNewLazyRoute: ExaUiCoursesNewLazyRoute,
   ExaUiExamsExamIdLazyRoute: ExaUiExamsExamIdLazyRoute,
   ExaUiExamsNewLazyRoute: ExaUiExamsNewLazyRoute,
+  ExaUiLecturersLecturerIdLazyRoute: ExaUiLecturersLecturerIdLazyRoute,
   ExaUiLecturersNewLazyRoute: ExaUiLecturersNewLazyRoute,
   ExaUiCoursesIndexLazyRoute: ExaUiCoursesIndexLazyRoute,
   ExaUiExamsIndexLazyRoute: ExaUiExamsIndexLazyRoute,
@@ -308,6 +335,7 @@ export const routeTree = rootRoute
         "/exa/ui/courses/new",
         "/exa/ui/exams/$examId",
         "/exa/ui/exams/new",
+        "/exa/ui/lecturers/$lecturerId",
         "/exa/ui/lecturers/new",
         "/exa/ui/courses/",
         "/exa/ui/exams/",
@@ -331,6 +359,9 @@ export const routeTree = rootRoute
     },
     "/exa/ui/exams/new": {
       "filePath": "exa/ui/exams/new.lazy.tsx"
+    },
+    "/exa/ui/lecturers/$lecturerId": {
+      "filePath": "exa/ui/lecturers/$lecturerId.lazy.tsx"
     },
     "/exa/ui/lecturers/new": {
       "filePath": "exa/ui/lecturers/new.lazy.tsx"
