@@ -16,7 +16,7 @@ public class ExamRepository extends BaseXmlRepository<ExamModel> {
 
     @Override
     public List<ExamModel> all() {
-        String query = "/root/Exams";
+        final String query = "/root/Exams";
         try {
             Exams examsElement = (Exams) DB.unmarshal(new XQuery(query).execute(context), Exams.class);
             return examsElement.getExam().stream().map(e -> (ExamModel) e).toList();
