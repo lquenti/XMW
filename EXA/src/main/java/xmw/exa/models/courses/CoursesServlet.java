@@ -21,6 +21,7 @@ import xmw.exa.models.lecturers.LecturerOld;
 import xmw.exa.models.lectures.Lecture;
 import xmw.exa.models.semesters.Semester;
 import xmw.exa.util.Config;
+import xmw.flush.Course;
 
 @WebServlet(name = "courses", value = "/courses")
 public class CoursesServlet extends HttpServlet {
@@ -48,7 +49,7 @@ public class CoursesServlet extends HttpServlet {
         if (isXmlFormat) {
             try {
                 // Get all data
-                List<Course> courses = db.courses().all();
+                List<CourseModel> courses = db.courses().all();
                 List<LecturerOld> allLecturerOlds = db.lecturers().all();
                 List<Exam> allExams = db.exams().all();
 
@@ -87,7 +88,7 @@ public class CoursesServlet extends HttpServlet {
         request.setAttribute("name", this.name);
 
         // Query for all courses with lecturer information
-        List<Course> courses = db.courses().all();
+        List<CourseModel> courses = db.courses().all();
         List<LecturerOld> lecturerOlds = db.lecturers().all();
         List<Semester> semesters = db.semesters().all();
 
@@ -96,7 +97,7 @@ public class CoursesServlet extends HttpServlet {
         // Group courses by semester
         for (Semester semester : semesters) {
             List<Course> semesterCourses = courses.stream()
-                    .filter(c -> c.getSemesterId() == semester.getId())
+                    .filter(c -> ((xmw.flush.Semester) c.getSemester()).getId().equalsIgnoreCase(semester.getId()))
                     .toList();
 
             if (!semesterCourses.isEmpty()) {
