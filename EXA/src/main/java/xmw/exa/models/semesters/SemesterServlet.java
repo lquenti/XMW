@@ -1,4 +1,4 @@
-package xmw.exa.models.exams;
+package xmw.exa.models.semesters;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -6,13 +6,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
 import xmw.exa.util.ExaServlet;
 import xmw.exa.util.Util;
-import xmw.flush.Exam;
+import xmw.flush.Semester;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
-@WebServlet(name = "exam", urlPatterns = "/exams/*")
-public class ExamServlet extends ExaServlet {
+@WebServlet(name = "semester", urlPatterns = "/semesters/*")
+public class SemesterServlet extends ExaServlet {
     private DB db;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -23,19 +23,20 @@ public class ExamServlet extends ExaServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String examId = Util.getPathParameter("exams", request, response);
+        String semesterId = Util.getPathParameter("semesters", request, response);
 
-        // Fetch exam data
-        Exam examData = db.exams().get(examId);
-        if (examData == null) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Exam not found");
+        // Fetch semester data
+        Semester semesterData = db.semesters().get(semesterId);
+        if (semesterData == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Semester not found");
             return;
         }
 
-        // Marshal exam data to XML
-        String responseData = DB.marshal(examData);
+        // Marshal semester data to XML
+        String responseData = DB.marshal(semesterData);
 
         // Write XML response
         Util.writeXmlResponse(responseData, response);
     }
 }
+
