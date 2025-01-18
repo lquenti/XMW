@@ -130,7 +130,8 @@ function RouteComponent() {
                   return (
                     <Link
                       key={course.id}
-                      to={`/exa/ui/courses/${course.id}`}
+                      to={`/exa/ui/courses/$courseId`}
+                      params={{ courseId: course.id ?? '' }}
                       className="block bg-gray-50 rounded-lg p-6 border border-gray-200 hover:shadow-md transition-shadow"
                     >
                       <h3 className="text-xl font-semibold text-gray-900 mb-4">
