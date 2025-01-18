@@ -25,12 +25,18 @@ public class GradeServlet extends HttpServlet {
             XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
             List<Map<String, String>> grades = xmlDatabase.getGrades(AuthUtil.getLoggedInUserId(request));
             List<Map<String, String>> exams = xmlDatabase.getExams();
+            List<Map<String, String>> courses = xmlDatabase.getCourses();
 
-            List<Map<String, String>> registeredExams = new ArrayList<>();
-            for(Map<String, String> exam: exams){
-                for(Map<String, String> grade: grades)
-                    if(grade.get("id").contains(exam.get("examId")))
-                        grade.putAll(exam);
+            // Merge exam details into grades
+            for (Map<String, String> grade : grades) {
+                for (Map<String, String> exam : exams) {
+                    for (Map<String, String> course : courses){
+                        if (grade.get("id").equals(exam.get("ExamId")) && exam.get("CourseID").equals(course.get("CourseID"))) {
+                            grade.putAll(exam);
+                            grade.putAll(course);
+                        }
+                    }
+                }
             }
 
             // Set exams as a request attribute

@@ -53,6 +53,15 @@ public class GradeSubmissionServlet extends HttpServlet {
             }
 
             List<Map<String, String>> exams = xmlDatabase.getExamsAsLecturer(AuthUtil.getLoggedInUserId(request));
+            List<Map<String, String>> courses = xmlDatabase.getCourses();
+            for (Map<String, String> exam : exams) {
+                for (Map<String, String> course : courses){
+                    if (exam.get("CourseID").equals(course.get("CourseID"))) {
+                        exam.putAll(course);
+                    }
+                }
+            }
+
             List<Map<String, String>> students = xmlDatabase.getStudents();
 
             // Group students by exam ID for easy filtering

@@ -29,7 +29,7 @@ public class CourseRegistrationServlet extends HttpServlet {
         XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
 
         // Mock fetching course list from XML API (via XMLDataImporter)
-        List<Map<String, String>> courses = null;
+        List<Map<String, String>> courses;
         try {
             courses = xmlDatabase.getCourses();
         } catch (Exception e) {

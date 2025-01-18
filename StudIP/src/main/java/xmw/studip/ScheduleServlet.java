@@ -36,9 +36,9 @@ public class ScheduleServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        List<Map<String, String>> completeSchedule = new ArrayList<>();
+        List<Map<String, String>> completeSchedule = schedule;
         for(Map<String, String> m: schedule){
-            completeSchedule.addAll(convertSchedule(m));
+            // completeSchedule.addAll(convertSchedule(m));
         }
 
         completeSchedule.sort(mapComparator);

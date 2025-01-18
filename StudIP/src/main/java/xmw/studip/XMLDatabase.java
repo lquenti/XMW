@@ -19,10 +19,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class XMLDatabase {
     private static XMLDatabase instance;
@@ -132,6 +130,51 @@ public class XMLDatabase {
         }
     }
 
+    public List<Map<String, String>> getLectures() throws Exception {
+        URL url = new URL(AppContextListener.EXA_URL + "lectures?format=xml");
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String inputLine;
+        StringBuilder content = new StringBuilder();
+
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+
+        in.close();
+        conn.disconnect();
+
+        return processLectures(content.toString());
+    }
+
+    public List<Map<String, String>> processLectures(String xmlString) throws Exception {
+        List<Map<String, String>> lectures = new ArrayList<>();
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(new ByteArrayInputStream(xmlString.getBytes()));
+
+        NodeList nodeList = doc.getElementsByTagName("Lectures").item(0).getChildNodes();
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Element lecture = (Element) nodeList.item(i);
+
+            Map<String, String> lectureMap = new HashMap<>();
+            lectureMap.put("CourseID", lecture.getAttribute("course"));
+            lectureMap.put("lectureId", lecture.getAttribute("id"));
+
+            lectureMap.put("Begin", lecture.getElementsByTagName("start").item(0).getTextContent());
+            lectureMap.put("End", lecture.getElementsByTagName("end").item(0).getTextContent());
+            lectureMap.put("Location", lecture.getElementsByTagName("room_or_link").item(0).getTextContent());
+
+            lectures.add(lectureMap);
+        }
+
+        return lectures;
+    }
+
 
     public List<Map<String, String>> getCourses() throws Exception {
         URL url = new URL(AppContextListener.EXA_URL + "courses?format=xml");
@@ -159,38 +202,20 @@ public class XMLDatabase {
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(new ByteArrayInputStream(xmlString.getBytes()));
 
-        NodeList nodeList = doc.getElementsByTagName("course");
+        NodeList nodeList = doc.getElementsByTagName("Course");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             Element course = (Element) nodeList.item(i);
 
             Map<String, String> courseMap = new HashMap<>();
             courseMap.put("CourseID", course.getAttribute("id"));
-            courseMap.put("Semester", course.getAttribute("semester_id"));
+            courseMap.put("Semester", course.getAttribute("semester"));
+            courseMap.put("LecturerID", course.getAttribute("lecturer"));
             courseMap.put("Name", course.getElementsByTagName("name").item(0).getTextContent());
             courseMap.put("Faculty", course.getElementsByTagName("faculty").item(0).getTextContent());
-            Element tmp = (Element) course.getElementsByTagName("lecturer").item(0);
-            courseMap.put("LecturerID", tmp.getAttribute("id"));
 
-            // MaxStudentCount is optional
             if (course.getElementsByTagName("max_students").getLength() > 0) {
                 courseMap.put("MaxStudentCount", course.getElementsByTagName("max_students").item(0).getTextContent());
-            }
-            if (course.getElementsByTagName("lectures").getLength() > 0) {
-                Element lectures = (Element) course.getElementsByTagName("lectures").item(0);
-
-                NodeList n = lectures.getElementsByTagName("lecture");
-                for(int j=0;j<n.getLength();j++){
-                    Element lecture_elem = (Element) n.item(j);
-                    courseMap.put("Begin"+j, lecture_elem.getElementsByTagName("start").item(0).getTextContent());
-                    courseMap.put("End"+j, lecture_elem.getElementsByTagName("end").item(0).getTextContent());
-                    courseMap.put("Location"+j, lecture_elem.getElementsByTagName("room_or_link").item(0).getTextContent());
-                }
-            }
-            else {
-                courseMap.put("Begin0", "-");
-                courseMap.put("End0", "-");
-                courseMap.put("Location0", "-");
             }
 
             courses.add(courseMap);
@@ -221,7 +246,7 @@ public class XMLDatabase {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        List<Map<String, String>> courses = getCourses();
+        List<Map<String, String>> courses = mergeCoursesAndLectures(getCourses(), getLectures());
 
         for(Map<String, String> s: schedule){
             for(Map<String, String> c: courses){
@@ -232,6 +257,26 @@ public class XMLDatabase {
         }
 
         return schedule;
+    }
+
+    private List<Map<String, String>> mergeCoursesAndLectures(List<Map<String, String>> courses, List<Map<String, String>> lectures) {
+        List<Map<String, String>> mergeList = new ArrayList<>();
+        int cnt = 0;
+        for(Map<String, String> course: courses){
+            for(Map<String, String> lecture: lectures){
+                if(course.get("id").equals(lecture.get("courseId"))){
+                    int finalCnt = cnt;
+                    Map<String, String> tmp = lecture.entrySet().stream()
+                            .collect(Collectors.toMap(
+                                    entry -> entry.getKey() + "_" + finalCnt, // Modify the key
+                                    Map.Entry::getValue            // Keep the value the same
+                            ));
+                    course.putAll(tmp);
+                    cnt++;
+                }
+            }
+        }
+        return mergeList;
     }
 
     public Map<String, String> parseLecturersults(String xmlResult) {
@@ -312,7 +357,7 @@ public class XMLDatabase {
             document.getDocumentElement().normalize();
 
             // Get all <exam> elements
-            NodeList examNodes = document.getElementsByTagName("exam");
+            NodeList examNodes = document.getElementsByTagName("Exams").item(0).getChildNodes();
 
             for (int i = 0; i < examNodes.getLength(); i++) {
                 Node examNode = examNodes.item(i);
@@ -322,35 +367,13 @@ public class XMLDatabase {
                     Map<String, String> examData = new HashMap<>();
 
                     // Extract data from the <exam> element and its children
-                    examData.put("examId", getTagValue("id", examElement));
-                    examData.put("date", getTagValue("date", examElement));
-                    examData.put("isOnline", getTagValue("is_online", examElement));
-                    examData.put("isWritten", getTagValue("is_written", examElement));
-                    examData.put("roomOrLink", getTagValue("room_or_link", examElement));
+                    examData.put("ExamId", examElement.getAttribute("id"));
+                    examData.put("CourseId", examElement.getAttribute("course"));
+                    examData.put("date", examElement.getElementsByTagName("data").item(0).getTextContent());
+                    examData.put("isOnline", examElement.getElementsByTagName("is_online").item(0).getTextContent());
+                    examData.put("isWritten", examElement.getElementsByTagName("is_written").item(0).getTextContent());
+                    examData.put("roomOrLink", examElement.getElementsByTagName("room_or_link").item(0).getTextContent());
 
-                    // Extract course data
-                    Element courseElement = (Element) examElement.getElementsByTagName("course").item(0);
-                    if (courseElement != null) {
-                        examData.put("courseId", getTagValue("id", courseElement));
-                        examData.put("courseName", getTagValue("name", courseElement));
-                        examData.put("faculty", getTagValue("faculty", courseElement));
-
-                        // Extract lecturer data
-                        Element lecturerElement = (Element) courseElement.getElementsByTagName("lecturer").item(0);
-                        if (lecturerElement != null) {
-                            examData.put("lecturerId", getTagValue("id", lecturerElement));
-                            examData.put("lecturerUsername", getTagValue("username", lecturerElement));
-                            examData.put("lecturerName", getTagValue("name", lecturerElement));
-                            examData.put("lecturerFirstname", getTagValue("firstname", lecturerElement));
-                        }
-
-                        // Extract semester data
-                        Element semesterElement = (Element) courseElement.getElementsByTagName("semester").item(0);
-                        if (semesterElement != null) {
-                            examData.put("semesterId", getTagValue("id", semesterElement));
-                            examData.put("semesterName", getTagValue("name", semesterElement));
-                        }
-                    }
 
                     examsList.add(examData);
                 }
@@ -361,17 +384,6 @@ public class XMLDatabase {
         }
 
         return examsList;
-    }
-
-    private String getTagValue(String tagName, Element element) {
-        NodeList nodeList = element.getElementsByTagName(tagName);
-        if (nodeList != null && nodeList.getLength() > 0) {
-            Node node = nodeList.item(0);
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                return node.getTextContent().trim();
-            }
-        }
-        return null;
     }
 
     public boolean registerStudentToExam(String userId, String examId) {
