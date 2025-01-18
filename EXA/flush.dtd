@@ -3,7 +3,7 @@
         <!ELEMENT Course (name|faculty|max_students)*>
         <!ATTLIST Course
                 id ID #REQUIRED
-                lecturerOld IDREF #REQUIRED
+                lecturer IDREF #REQUIRED
                 semester IDREF #REQUIRED>
         <!ELEMENT name (#PCDATA)>
         <!ELEMENT faculty (#PCDATA)>

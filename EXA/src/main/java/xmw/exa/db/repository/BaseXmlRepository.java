@@ -22,13 +22,6 @@ public abstract class BaseXmlRepository<T extends BaseOperations> implements Rep
         this.classNamePlural = classList.getSimpleName();
     }
 
-    protected String extractValue(String xml, String tag) {
-        String pattern = String.format("<%s>([^<]*)</%s>", tag, tag);
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile(pattern);
-        java.util.regex.Matcher m = p.matcher(xml);
-        return m.find() ? m.group(1).trim() : "";
-    }
-
     @Override
     public boolean create(T data) {
         String nextId = Util.generateId();
@@ -51,9 +44,9 @@ public abstract class BaseXmlRepository<T extends BaseOperations> implements Rep
 
         // Add the new course to the existing courses
         String query = String.format(
-                "let $elements := /root/" + this.classNamePlural + " " +
+                "let $elements := /root/%s " +
                         "return insert node %s as last into $elements ",
-                courseXml);
+                this.classNamePlural, courseXml);
 
         try {
             new XQuery(query).execute(context);

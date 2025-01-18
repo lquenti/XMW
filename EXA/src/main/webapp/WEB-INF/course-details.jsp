@@ -56,10 +56,10 @@ uri="jakarta.tags.fmt" %>
             <div>
               <h2 class="text-sm font-semibold text-gray-600">Lecturer</h2>
               <a
-                href="${pageContext.request.contextPath}/lecturerOlds/${course.lecturerOld.username}"
+                href="${pageContext.request.contextPath}/lecturers/${course.lecturer.username}"
                 class="text-blue-600 hover:text-blue-800"
               >
-                ${course.lecturerOld.fullName}
+                ${course.lecturer.fullName}
               </a>
             </div>
             <div>

@@ -11,7 +11,7 @@
 <br/>
 <nav>
     <a href="courses"> Courses </a>
-    <a href="lecturerOlds"> Lecturers </a>
+    <a href="lecturers"> Lecturers </a>
     <a href="exams"> Exams </a>
     <a href="courses/new">New Course</a>
 </nav>
