@@ -131,7 +131,7 @@ public class DB {
         final String query = "/root";
         String xmlResult = new XQuery(query).execute(context);
         Map<ExaElement, Object> map = new EnumMap<>(ExaElement.class);
-        Root root =  DB.unmarshal(xmlResult);
+        Root root = DB.unmarshal(xmlResult);
         var elements = root.getCoursesOrExamsOrLecturers();
         for (int i = 0; i < elements.size(); i++) {
             switch (i) {
@@ -157,8 +157,12 @@ public class DB {
     }
 
     public static Root unmarshal(String xml) {
+        return (Root) unmarshal(xml, Root.class);
+    }
+
+    public static Object unmarshal(String xml, Class<?> clazz) {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Root.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
 
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
@@ -171,7 +175,7 @@ public class DB {
             XMLInputFactory xif = XMLInputFactory.newInstance();
             XMLStreamReader xsr = xif.createXMLStreamReader(new StringReader(xml));
 
-            return (Root) unmarshaller.unmarshal(xsr);
+            return unmarshaller.unmarshal(xsr);
         } catch (JAXBException | XMLStreamException e) {
             throw new RuntimeException("Failed to unmarshal XML: " + e.getMessage(), e);
         }

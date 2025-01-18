@@ -26,7 +26,7 @@ public abstract class BaseXmlRepository<T extends BaseOperations> implements Rep
     public boolean create(T data) {
         String nextId = Util.generateId();
         // if data has id, use it
-        if (!data.getId().isBlank()) {
+        if (data.getId() != null && !data.getId().isBlank()) {
             // ensure the id does not exist already
             List<String> allIds = this.all().stream().map(
                     T::getId).toList();
@@ -41,6 +41,9 @@ public abstract class BaseXmlRepository<T extends BaseOperations> implements Rep
 
         // Create XML representation of the course
         String courseXml = DB.marshal(data);
+        // remove first line, if it contains <?xml...
+        courseXml = courseXml.replaceFirst("^<\\?xml.*\\?>", "");
+        courseXml = courseXml.replace("xmlns=\"http://www.w3.org/namespace/\"", "");
 
         // Add the new course to the existing courses
         String query = String.format(
@@ -80,7 +83,10 @@ public abstract class BaseXmlRepository<T extends BaseOperations> implements Rep
         if (!this.all().stream().map(T::getId).toList().contains(data.getId())) {
             return null;
         }
-        delete(data.getId());
+        boolean success = this.delete(data.getId());
+        if (!success) {
+            return null;
+        }
         if (create(data)) {
             return this.get(data.getId());
         }
