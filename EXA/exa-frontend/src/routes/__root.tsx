@@ -1,14 +1,29 @@
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { ExaLogo } from '../components/ExaLogo'
-import { useAuthorizationState } from '../lib/utils'
+import { AuthorizationState, useAuthorizationState } from '../lib/utils'
+
+// Define the states array to cycle through
+const states = [
+  AuthorizationState.Guest,
+  AuthorizationState.Student,
+  AuthorizationState.Lecturer,
+  AuthorizationState.Admin,
+] as const
 
 export const Route = createRootRoute({
   component: LayoutComponent,
 })
 
 function LayoutComponent() {
-  const authorizationState = useAuthorizationState()
+  const { state, setState } = useAuthorizationState()
+
+  const cycleState = () => {
+    const currentIndex = states.indexOf(state)
+    const nextIndex = (currentIndex + 1) % states.length
+    setState(states[nextIndex])
+  }
+
   return (
     <div className="min-h-screen font-sans flex flex-col bg-gray-50">
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-10">
@@ -49,12 +64,20 @@ function LayoutComponent() {
               </li>
             </ul>
             <div className="flex items-center">
-              <div className="flex items-center space-x-2 text-sm text-gray-600">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <button
+                onClick={cycleState}
+                className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900 transition-colors group"
+              >
+                <svg
+                  className="w-5 h-5 group-hover:scale-110 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
-                <span>Logged in as <span className="font-medium text-gray-900">{authorizationState.state}</span></span>
-              </div>
+                <span>Logged in as <span className="font-medium text-gray-900">{state}</span></span>
+              </button>
             </div>
           </div>
         </div>

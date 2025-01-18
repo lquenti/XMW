@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-enum AuthorizationState {
+export enum AuthorizationState {
   Guest = 'Guest',
   Student  = 'Student',
   Lecturer = 'Lecturer',
