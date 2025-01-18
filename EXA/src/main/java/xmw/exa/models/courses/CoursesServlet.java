@@ -25,15 +25,15 @@ public class CoursesServlet extends ExaServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String pathInfo = request.getServletPath();
-        if (pathInfo.equals("/courses/all")) {
-            String queryString = request.getQueryString();
-            response.sendRedirect(Config.BASE_URL + "/courses" + (queryString != null ? "?" + queryString : ""));
-            return;
-        }
-
-        // Check format parameter
-        boolean isXmlFormat = "xml".equals(request.getParameter("format"));
+//        String pathInfo = request.getServletPath();
+//        if (pathInfo.equals("/courses/all")) {
+//            String queryString = request.getQueryString();
+//            response.sendRedirect(Config.BASE_URL + "/courses" + (queryString != null ? "?" + queryString : ""));
+//            return;
+//        }
+//
+//        // Check format parameter
+//        boolean isXmlFormat = "xml".equals(request.getParameter("format"));
         try {
             // Get all data
             List<CourseModel> courses = db.courses().all();
