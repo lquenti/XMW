@@ -67,8 +67,7 @@ public class XMLDatabase {
         try {
             // XQuery to check if the user already has a schedule
             String checkScheduleQuery = String.format(
-                    "declare namespace ns = 'http://example.com/schema';\n" +
-                            "let $schedules := /StudIP/Schedules/Schedule[@username='%s']\n" +
+                    "let $schedules := /StudIP/Schedules/Schedule[@username='%s']\n" +
                             "return exists($schedules)",
                     userId
             );
@@ -82,16 +81,14 @@ public class XMLDatabase {
             if (userHasSchedule) {
                 // User has an existing <Schedule>, add the course to it
                 xquery = String.format(
-                        "declare namespace ns = 'http://example.com/schema';\n" +
-                                "let $schedule := /StudIP/Schedules/Schedule[@username='%s']\n" +
+                        "let $schedule := /StudIP/Schedules/Schedule[@username='%s']\n" +
                                 "return insert node <Course id='%s' semester='%s'/> into $schedule",
                         userId, courseId, semester
                 );
             } else {
                 // User does not have a <Schedule>, create a new one with the course
                 xquery = String.format(
-                        "declare namespace ns = 'http://example.com/schema';\n" +
-                                "return insert node <Schedule username='%s'><Course id='%s' semester='%s'/></Schedule> into /StudIP/Schedules",
+                        "insert node <Schedule username='%s'><Course id='%s' semester='%s'/></Schedule> into /StudIP/Schedules",
                         userId, courseId, semester
                 );
             }
@@ -252,8 +249,6 @@ public class XMLDatabase {
         for(Map<String, String> s: schedule){
             for(Map<String, String> c: courses){
                 if(s.get("CourseID").equals(c.get("CourseID"))){
-                    s.put("Begin", c.get("Begin"));
-                    s.put("End", c.get("End"));
                     s.put("CourseName", c.get("CourseName"));
                 }
             }
@@ -404,16 +399,14 @@ public class XMLDatabase {
             if (examExists) {
                 // If the exam exists, register the user for the exam
                 xquery = String.format(
-                        "declare namespace ns = 'http://example.com/schema';\n" +
-                                "let $exam := /StudIP/Exams/Registration[@username='%s']\n" +
+                        "let $exam := /StudIP/Exams/Registration[@username='%s']\n" +
                                 "return insert node <Exam id='%s'/>into $exam",
                         userId, examId
                         );
             } else {
                 // If the exam does not exist, create a new exam entry and register the user
                 xquery = String.format(
-                        "declare namespace ns = 'http://example.com/schema';\n" +
-                                "return insert node <Registration username='%s'><Exam id='%s'/></Registration> into /StudIP/Exams",
+                        "return insert node <Registration username='%s'><Exam id='%s'/></Registration> into /StudIP/Exams",
                         userId, examId
                         );
             }
@@ -529,8 +522,7 @@ public class XMLDatabase {
         try {
             // XQuery to check if the user already has an <Exams> entry
             String checkGradeQuery = String.format(
-                    "declare namespace ns = 'http://example.com/schema';\n" +
-                            "let $exams := /StudIP/Grades/Grade[@username='%s']/Exam[@id='%s']\n" +
+                    "let $exams := /StudIP/Grades/Grade[@username='%s']/Exam[@id='%s']\n" +
                             "return exists($exams)",
                     studentId, examId
             );
@@ -545,16 +537,14 @@ public class XMLDatabase {
             if (gradeExists) {
                 // If the exam exists, register the user for the exam
                 xquery = String.format(
-                        "declare namespace ns = 'http://example.com/schema';\n" +
-                                "let $exam := /StudIP/Grades/Grade[@username='%s']\n" +
+                        "let $exam := /StudIP/Grades/Grade[@username='%s']\n" +
                                 "return insert node <Exam id='%s'>%s</Exam>into $exam",
                         studentId, examId, grade
                 );
             } else {
                 // If the exam does not exist, create a new exam entry and register the user
                 xquery = String.format(
-                        "declare namespace ns = 'http://example.com/schema';\n" +
-                                "return insert node <Grade username='%s'><Exam id='%s'>%s</Exam></Registration> into /StudIP/Exams",
+                        "insert node <Grade username='%s'><Exam id='%s'>%s</Exam></Grade> into /StudIP/Grades",
                         studentId, examId, grade
                 );
             }
@@ -574,8 +564,7 @@ public class XMLDatabase {
         try {
             // XQuery to retrieve all grades for the given user
             String xquery = String.format(
-                    "declare namespace ns = 'http://example.com/schema';\n" +
-                            "for $exam in /StudIP/Grades/Grade[@username='%s']/Exam\n" +
+                    "for $exam in /StudIP/Grades/Grade[@username='%s']/Exam\n" +
                             "return map { 'id': data($exam/@id), 'grade': data($exam/text()) }",
                     userId
             );
@@ -621,7 +610,7 @@ public class XMLDatabase {
             String xmlResponse = new String(connection.getInputStream().readAllBytes());
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = null;
+            DocumentBuilder builder;
             try {
                 builder = factory.newDocumentBuilder();
                 doc = builder.parse(new ByteArrayInputStream(xmlResponse.getBytes()));
@@ -651,7 +640,7 @@ public class XMLDatabase {
             String xmlResponse = new String(connection.getInputStream().readAllBytes());
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = null;
+            DocumentBuilder builder;
             try {
                 builder = factory.newDocumentBuilder();
                 doc = builder.parse(new ByteArrayInputStream(xmlResponse.getBytes()));
@@ -687,6 +676,23 @@ public class XMLDatabase {
         return currentExams;
     }
 
+    public String getRegistrations(String userName) throws Exception {
+        try {
+            String xquery = String.format("/StudIP/Exams/Registration[@username='%s']/Exam/@id/string()", userName);
+
+            // Execute the XQuery and process the results
+            String result;
+            synchronized (lock) {
+                result = new XQuery(xquery).execute(context);
+            }
+
+            return result;
+        } catch (BaseXException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
     private String getUserNameFromID(String lecturerID) throws IOException {
         String loginApiUrl = AppContextListener.EXA_URL + "lecturers/" + lecturerID; // Replace with actual API URL
         URL url = new URL(loginApiUrl);
@@ -700,7 +706,7 @@ public class XMLDatabase {
             String xmlResponse = new String(connection.getInputStream().readAllBytes());
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = null;
+            DocumentBuilder builder;
             try {
                 builder = factory.newDocumentBuilder();
                 doc = builder.parse(new ByteArrayInputStream(xmlResponse.getBytes()));

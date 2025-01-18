@@ -2,7 +2,6 @@ package xmw.studip;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -52,9 +51,11 @@ public class ScheduleServlet extends HttpServlet {
 
         List<Map<String, String>> completeSchedule = new ArrayList<>();
         for(Map<String, String> s: schedule){
+            List<Map<String, String>> tmp = convertSchedule(s);
+            tmp.removeFirst();
             completeSchedule.addAll(convertSchedule(s));
         }
-        completeSchedule.remove(0);
+        completeSchedule.removeFirst();
         completeSchedule.sort(mapComparator);
 
         request.setAttribute("schedules", completeSchedule);

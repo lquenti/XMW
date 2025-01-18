@@ -31,7 +31,7 @@
                 List<Map<String, String>> exams = (List<Map<String, String>>) request.getAttribute("exams");
                 if (exams != null) {
                     for (Map<String, String> exam : exams) {
-                        String examId = exam.get("examId");
+                        String examId = exam.get("ExamId");
                         String name = exam.get("CourseName");
             %>
             <option value="<%= examId %>"><%= name %></option>
