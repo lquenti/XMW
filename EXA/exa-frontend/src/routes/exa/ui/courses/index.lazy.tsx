@@ -128,9 +128,10 @@ function RouteComponent() {
                     (l) => l.id === course.lecturer,
                   )
                   return (
-                    <div
+                    <Link
                       key={course.id}
-                      className="bg-gray-50 rounded-lg p-6 border border-gray-200 hover:shadow-md transition-shadow"
+                      to={`/exa/ui/courses/${course.id}`}
+                      className="block bg-gray-50 rounded-lg p-6 border border-gray-200 hover:shadow-md transition-shadow"
                     >
                       <h3 className="text-xl font-semibold text-gray-900 mb-4">
                         {course.name}
@@ -189,7 +190,7 @@ function RouteComponent() {
                             : 'Unknown Lecturer'}
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   )
                 })}
               </div>

@@ -158,12 +158,11 @@ function RouteComponent() {
           const isUpcoming = examDate ? examDate >= now : false
 
           return (
-            <div
+            <Link
               key={exam.id}
-              className={`rounded-xl border ${isUpcoming
-                ? 'bg-white border-blue-200'
-                : 'bg-gray-50 border-gray-200'
-                } p-6 shadow-sm hover:shadow-md transition-shadow`}
+              to="/exa/ui/exams/$examId"
+              params={{ examId: exam.id ?? '' }}
+              className={`block p-4 rounded-lg border ${isUpcoming ? 'bg-white border-blue-200 hover:border-blue-300' : 'bg-gray-50 border-gray-200 hover:border-gray-300'} transition-colors`}
             >
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl font-semibold text-gray-900 flex-1">
@@ -237,7 +236,7 @@ function RouteComponent() {
                   {exam.roomOrLink}
                 </div>
               </div>
-            </div>
+            </Link>
           )
         })}
       </div>

@@ -47,6 +47,14 @@ type Exam = {
   roomOrLink: string | null
 }
 
+type Lecture = {
+  id: string | null
+  course: string | null
+  start: string | null
+  end: string | null
+  roomOrLink: string | null
+}
+
 export function parseCoursesXml(xmlString: string): Course[] {
   const xml = new DOMParser().parseFromString(xmlString, 'text/xml')
   return Array.from(xml.getElementsByTagName('Course')).map(course => ({
@@ -87,5 +95,16 @@ export function parseExamsXml(xmlString: string): Exam[] {
     isOnline: exam.getElementsByTagName('is_online')[0]?.textContent === '1',
     isWritten: exam.getElementsByTagName('is_written')[0]?.textContent === '1',
     roomOrLink: exam.getElementsByTagName('room_or_link')[0]?.textContent,
+  }))
+}
+
+export function parseLecturesXml(xmlString: string): Lecture[] {
+  const xml = new DOMParser().parseFromString(xmlString, 'text/xml')
+  return Array.from(xml.getElementsByTagName('Lecture')).map(lecture => ({
+    id: lecture.getAttribute('id'),
+    course: lecture.getAttribute('course'),
+    start: lecture.getElementsByTagName('start')[0]?.textContent,
+    end: lecture.getElementsByTagName('end')[0]?.textContent,
+    roomOrLink: lecture.getElementsByTagName('room_or_link')[0]?.textContent,
   }))
 }
