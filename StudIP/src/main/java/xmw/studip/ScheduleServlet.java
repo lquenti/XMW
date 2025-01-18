@@ -35,12 +35,26 @@ public class ScheduleServlet extends HttpServlet {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-        List<Map<String, String>> completeSchedule = new ArrayList<>();
-        for(Map<String, String> m: schedule){
-            completeSchedule.addAll(convertSchedule(m));
+        List<Map<String, String>> courses;
+        try {
+            courses = xmlDatabase.mergeCoursesAndLectures(xmlDatabase.getCourses(), xmlDatabase.getLectures());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
+        for(Map<String, String> s: schedule){
+            for(Map<String, String> course: courses){
+                if(s.get("CourseID").equals(course.get("CourseID"))){
+                    s.putAll(course);
+                }
+            }
+        }
+
+        List<Map<String, String>> completeSchedule = new ArrayList<>();
+        for(Map<String, String> s: schedule){
+            completeSchedule.addAll(convertSchedule(s));
+        }
+        completeSchedule.remove(0);
         completeSchedule.sort(mapComparator);
 
         request.setAttribute("schedules", completeSchedule);

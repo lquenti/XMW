@@ -32,12 +32,16 @@ public class CertificateUtil extends HttpServlet {
             Map<String, String> userInfo = xmlDatabase.getUserInfo(userId);
             List<Map<String, String>> grades = xmlDatabase.getGrades(userId);
             List<Map<String, String>> exams = xmlDatabase.getExams();
+            List<Map<String, String>> courses = xmlDatabase.getCourses();
 
             // Merge exam details into grades
             for (Map<String, String> grade : grades) {
                 for (Map<String, String> exam : exams) {
-                    if (grade.get("id").equals(exam.get("examId"))) {
-                        grade.putAll(exam);
+                    for (Map<String, String> course : courses){
+                        if (grade.get("id").equals(exam.get("ExamId")) && exam.get("CourseID").equals(course.get("CourseID"))) {
+                            grade.putAll(exam);
+                            grade.putAll(course);
+                        }
                     }
                 }
             }

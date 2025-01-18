@@ -52,6 +52,14 @@ public class ExamRegistrationServlet extends HttpServlet {
         try {
             XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
             List<Map<String, String>> exams = xmlDatabase.getExams();
+            List<Map<String, String>> courses = xmlDatabase.getCourses();
+                for (Map<String, String> exam : exams) {
+                    for (Map<String, String> course : courses){
+                        if (exam.get("CourseID").equals(course.get("CourseID"))) {
+                            exam.putAll(course);
+                        }
+                }
+            }
 
             request.setAttribute("exams", exams);
             request.getRequestDispatcher("/exam_registration.jsp").forward(request, response);

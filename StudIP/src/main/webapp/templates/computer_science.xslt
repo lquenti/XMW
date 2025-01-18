@@ -38,7 +38,7 @@
             </head>
             <body>
                 <div class="certificate-container">
-                    <h1>Certificate of Academic Performance</h1>
+                    <h1><u>Certificate of Academic Performance</u></h1>
                     <p>This document certifies the academic achievements of the student listed below:</p>
                     <h2>Student Information</h2>
                     <table>
@@ -60,7 +60,7 @@
                         </tr>
                         <xsl:for-each select="Grades/Grade">
                             <tr>
-                                <td><xsl:value-of select="courseName"/></td>
+                                <td><xsl:value-of select="CourseName"/></td>
                                 <td><xsl:value-of select="grade"/></td>
                                 <td><xsl:value-of select="id"/></td>
                             </tr>

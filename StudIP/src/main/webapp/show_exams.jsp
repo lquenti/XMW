@@ -21,6 +21,7 @@
     <th>Exam ID</th>
     <th>Exam Name</th>
     <th>Date</th>
+    <th>Location</th>
   </tr>
   </thead>
   <tbody>
@@ -28,14 +29,16 @@
     List<Map<String, String>> exams = (List<Map<String, String>>) request.getAttribute("exams");
     if (exams != null && !exams.isEmpty()) {
       for (Map<String, String> exam : exams) {
-        String examId = exam.get("examId");
-        String examName = exam.get("courseName");
+        String examId = exam.get("ExamId");
+        String examName = exam.get("CourseName");
         String examDate = exam.get("date");
+        String roomOrLink = exam.get("roomOrLink");
   %>
   <tr>
     <td><%= examId %></td>
     <td><%= examName %></td>
     <td><%= examDate %></td>
+    <td><%= roomOrLink %></td>
   </tr>
   <%
     }

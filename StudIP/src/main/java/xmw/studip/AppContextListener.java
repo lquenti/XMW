@@ -30,19 +30,18 @@ public class AppContextListener implements ServletContextListener {
                  <StudIP>
                     <Schedules>
                         <Schedule username="hbrosen">
-                            <Course id="1" semester="ws2425">
-                            </Course>
+                            <Course id="course-1" semester="ws2425"/>
                         </Schedule>
                     </Schedules>
                     <Exams>
                         <Registration username="hbrosen">
-                            <Exam id="1">
+                            <Exam id="exam-2">
                             </Exam>
                         </Registration>
                     </Exams>
                     <Grades>
                         <Grade username="hbrosen">
-                            <Exam id="13">1.0</Exam>
+                            <Exam id="exam-1">1.0</Exam>
                         </Grade>
                     </Grades>
                  </StudIP>

@@ -34,7 +34,7 @@
             for (Map<String, String> schedule : schedules) {
     %>
     <tr>
-        <td><%= schedule.get("Name") %></td>
+        <td><%= schedule.get("CourseName") %></td>
         <td><%= schedule.get("Semester") %></td>
         <td><%= schedule.get("Faculty") %></td>
         <td><%= schedule.get("Begin") %></td>

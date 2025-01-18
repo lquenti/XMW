@@ -24,12 +24,20 @@ public class ExamServlet extends HttpServlet {
             // Fetch exams from XMLDatabase
             XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
             List<Map<String, String>> exams = xmlDatabase.getExams();
+            List<Map<String, String>> courses = xmlDatabase.getCourses();
+            for (Map<String, String> exam : exams) {
+                for (Map<String, String> course : courses){
+                    if (exam.get("CourseID").equals(course.get("CourseID"))) {
+                        exam.putAll(course);
+                    }
+                }
+            }
 
             List<String> registeredExamIds = xmlDatabase.getAllExamIDs(AuthUtil.getLoggedInUserId(request));
 
             List<Map<String, String>> registeredExams = new ArrayList<>();
             for(Map<String, String> exam: exams){
-                if(registeredExamIds.contains(exam.get("examId")))
+                if(registeredExamIds.contains(exam.get("ExamId")))
                     registeredExams.add(exam);
             }
 
