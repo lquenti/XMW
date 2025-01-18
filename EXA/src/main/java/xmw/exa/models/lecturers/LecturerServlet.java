@@ -1,19 +1,14 @@
 package xmw.exa.models.lecturers;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import org.basex.core.BaseXException;
-import org.basex.core.cmd.XQuery;
-
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
-import xmw.exa.util.Config;
 import xmw.exa.util.ExaServlet;
-import xmw.flush.*;
+import xmw.flush.Lecturer;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(name = "lecturer", urlPatterns = "/lecturers/*")
 public class LecturerServlet extends ExaServlet {

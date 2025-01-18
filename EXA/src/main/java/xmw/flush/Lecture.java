@@ -8,6 +8,8 @@
 
 package xmw.flush;
 
+import xmw.exa.db.repository.BaseOperations;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -52,7 +54,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "startOrEndOrRoomOrLink"
 })
 @XmlRootElement(name = "Lecture")
-public class Lecture {
+public class Lecture implements BaseOperations {
 
     @XmlElements({
         @XmlElement(name = "start", type = Start.class),

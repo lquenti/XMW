@@ -8,6 +8,8 @@
 
 package xmw.flush;
 
+import xmw.exa.db.repository.BaseOperations;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -51,7 +53,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "firstnameOrName"
 })
 @XmlRootElement(name = "Lecturer")
-public class Lecturer {
+public class Lecturer implements BaseOperations {
 
     @XmlElements({
         @XmlElement(name = "firstname", type = Firstname.class),

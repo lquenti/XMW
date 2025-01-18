@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
 import xmw.exa.util.Config;
 import xmw.exa.util.ExaServlet;
+import xmw.flush.Course;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,7 +37,7 @@ public class CoursesServlet extends ExaServlet {
 //        boolean isXmlFormat = "xml".equals(request.getParameter("format"));
         try {
             // Get all data
-            List<CourseModel> courses = db.courses().all();
+            List<Course> courses = db.courses().all();
             var responseData = DB.marshal(courses);
             PrintWriter out = response.getWriter();
             out.println(responseData);

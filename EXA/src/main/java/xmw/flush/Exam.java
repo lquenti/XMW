@@ -8,6 +8,8 @@
 
 package xmw.flush;
 
+import xmw.exa.db.repository.BaseOperations;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -53,7 +55,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "dateOrIsOnlineOrIsWritten"
 })
 @XmlRootElement(name = "Exam")
-public class Exam {
+public class Exam implements BaseOperations {
 
     @XmlElements({
         @XmlElement(name = "date", type = Date.class),
