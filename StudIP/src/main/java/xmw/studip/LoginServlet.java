@@ -20,9 +20,7 @@ import java.io.OutputStream;
 import java.io.Serial;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @WebServlet("/login")
@@ -47,7 +45,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        String loginApiUrl = "http://localhost:8080/User/auth"; // Replace with actual API URL
+        String loginApiUrl = AppContextListener.USER_URL + "auth"; // Replace with actual API URL
         URL url = new URL(loginApiUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");

@@ -134,7 +134,7 @@ public class XMLDatabase {
 
 
     public List<Map<String, String>> getCourses() throws Exception {
-        URL url = new URL("http://localhost:8080/exa/courses?format=xml");
+        URL url = new URL(AppContextListener.EXA_URL + "courses?format=xml");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
 
@@ -281,7 +281,7 @@ public class XMLDatabase {
     }
 
     public List<Map<String, String>> getExams() throws Exception {
-        URL url = new URL("http://localhost:8080/exa/exams?format=xml");
+        URL url = new URL(AppContextListener.EXA_URL + "exams?format=xml");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
 
@@ -475,7 +475,7 @@ public class XMLDatabase {
     }
 
     public List<Map<String, String>> getStudents() throws IOException, ParserConfigurationException {
-        URL url = new URL("http://localhost:8080/User/bulk");
+        URL url = new URL(AppContextListener.USER_URL + "bulk");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
 
@@ -599,7 +599,7 @@ public class XMLDatabase {
     }
 
     public List<String> getCurrentRole(String loggedInUserId) throws IOException {
-        String loginApiUrl = "http://localhost:8080/User/id/" + loggedInUserId; // Replace with actual API URL
+        String loginApiUrl = AppContextListener.USER_URL + "id/" + loggedInUserId; // Replace with actual API URL
         URL url = new URL(loginApiUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -629,7 +629,7 @@ public class XMLDatabase {
     }
 
     public Map<String, String> getUserInfo(String UserId) throws IOException {
-        String loginApiUrl = "http://localhost:8080/User/id/" + UserId;
+        String loginApiUrl = AppContextListener.USER_URL + "id/" + UserId;
         URL url = new URL(loginApiUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
