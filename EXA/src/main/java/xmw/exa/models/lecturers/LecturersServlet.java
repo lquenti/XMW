@@ -33,7 +33,9 @@ public class LecturersServlet extends ExaServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         var lecturerData = db.lecturers().all();
-        var responseData = DB.marshal(lecturerData);
+        var lecturers = new Lecturers();
+        lecturers.getLecturer().addAll(lecturerData);
+        var responseData = DB.marshal(lecturers);
         PrintWriter out = response.getWriter();
         out.println(responseData);
         out.flush();
@@ -83,7 +85,7 @@ public class LecturersServlet extends ExaServlet {
 //        List<Lecturer> lecturers = new ArrayList<>();//db.lecturers().all();
 //        StringBuilder message = new StringBuilder("<ul>");
 //        for (Lecturer lecturer : lecturers) {
-                // TODO fix this
+// TODO fix this
 //            message
 //                    .append("<li>")
 //                    .append("<a href=\"" + Config.BASE_URL + "/lecturers/")

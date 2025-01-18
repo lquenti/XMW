@@ -8,6 +8,7 @@ import xmw.exa.db.DB;
 import xmw.exa.util.Config;
 import xmw.exa.util.ExaServlet;
 import xmw.flush.Course;
+import xmw.flush.Courses;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,7 +39,9 @@ public class CoursesServlet extends ExaServlet {
         try {
             // Get all data
             List<Course> courses = db.courses().all();
-            var responseData = DB.marshal(courses);
+            Courses coursesElement = new Courses();
+            coursesElement.getCourse().addAll(courses);
+            var responseData = DB.marshal(coursesElement);
             PrintWriter out = response.getWriter();
             out.println(responseData);
             out.flush();

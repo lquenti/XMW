@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
 import xmw.exa.util.Config;
+import xmw.flush.Semesters;
 
 @WebServlet(name = "semesters", value = "/semesters")
 public class SemestersServlet extends HttpServlet {
@@ -30,7 +31,9 @@ public class SemestersServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         var semesterData = db.semesters().all();
-        var responseData = DB.marshal(semesterData);
+        var semesters = new Semesters();
+        semesters.getSemester().addAll(semesterData);
+        var responseData = DB.marshal(semesters);
         PrintWriter out = response.getWriter();
         out.println(responseData);
         out.flush();

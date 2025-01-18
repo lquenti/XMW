@@ -29,7 +29,9 @@ public class LecturesServlet extends ExaServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         var lectureData = db.lectures().all();
-        var responseData = DB.marshal(lectureData);
+        var lectures = new Lectures();
+        lectures.getLecture().addAll(lectureData);
+        var responseData = DB.marshal(lectures);
         PrintWriter out = response.getWriter();
         out.println(responseData);
         out.flush();
