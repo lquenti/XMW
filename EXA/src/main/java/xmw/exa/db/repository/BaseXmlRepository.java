@@ -88,12 +88,10 @@ public abstract class BaseXmlRepository<T extends BaseOperations> implements Rep
     }
 
     @Override
-    public void delete(String id) {
-
-
+    public boolean delete(String id) {
         var res = this.all().stream().map(T::getId).filter(i -> i.equalsIgnoreCase(id)).toList().size();
         if (res != 1) {
-            return;
+            return false;
         }
         try {
             String query = String.format("let $elements := /root/%s " +
@@ -104,10 +102,12 @@ public abstract class BaseXmlRepository<T extends BaseOperations> implements Rep
             } catch (IOException e) {
                 System.err.println("Failed to delete " + this.classNameSingular + ": " + e.getMessage());
             }
+            return true;
         } catch (BaseXException e) {
             System.err.println("Failed to delete " + this.classNameSingular + ": " + e.getMessage());
             e.printStackTrace();
         }
+        return false;
     }
 }
 

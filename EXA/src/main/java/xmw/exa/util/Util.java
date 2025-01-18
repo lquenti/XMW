@@ -2,6 +2,7 @@ package xmw.exa.util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import xmw.exa.db.repository.BaseXmlRepository;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,5 +44,26 @@ public class Util {
         PrintWriter out = response.getWriter();
         out.println(xmlString);
         out.flush();
+    }
+
+    public static void deleteItem(BaseXmlRepository<?> repository, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            String requestParameter = request.getParameter("id");
+            if (requestParameter == null) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing courseId parameter");
+                return;
+            }
+            // Delete all data
+            boolean success = repository.delete(requestParameter);
+            if (!success) {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Course not found/failed to delete");
+                return;
+            }
+            PrintWriter out = response.getWriter();
+            out.println("Item deleted");
+            out.flush();
+        } catch (Exception e) {
+            throw new IOException("Failed to delete courses: " + e.getMessage(), e);
+        }
     }
 }

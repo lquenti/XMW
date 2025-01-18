@@ -11,5 +11,5 @@ public interface Repository<T> {
 
     T update(T data);
 
-    void delete(String id);
+    boolean delete(String id);
 }
