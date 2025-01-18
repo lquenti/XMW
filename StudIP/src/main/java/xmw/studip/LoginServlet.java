@@ -72,14 +72,14 @@ public class LoginServlet extends HttpServlet {
             }
 
             NodeList nodeList = doc.getElementsByTagName("User");
-            Map<String, String> userMap = new HashMap<>();
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element course = (Element) nodeList.item(i);
-
-                userMap.put("userID", course.getAttribute("username"));
-                userMap.put("Name", course.getElementsByTagName("Name").item(0).getTextContent());
-                userMap.put("Faculty", course.getElementsByTagName("Faculty").item(0).getTextContent());
+                if(!username.equals(course.getAttribute("username"))){
+                    request.setAttribute("errorMessage", "Invalid login parameters. Please try again.");
+                    request.getRequestDispatcher("/login.jsp").forward(request, response);
+                    return;
+                }
             }
 
             // Set a cookie with the user ID
