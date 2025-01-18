@@ -1,5 +1,6 @@
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import { ExaLogo } from '../components/ExaLogo'
 import { useAuthorizationState } from '../lib/utils'
 
 export const Route = createRootRoute({
@@ -9,55 +10,87 @@ export const Route = createRootRoute({
 function LayoutComponent() {
   const authorizationState = useAuthorizationState()
   return (
-    <div className="container flex flex-col min-h-screen font-sans">
-      <nav className="w-1/2 mx-auto">
-        <div className="flex justify-between items-center">
-          <ul className="flex flex-row gap-4">
-            <li>
-              <Link to="/exa/ui" className="[&.active]:font-bold">
-                Exa
-              </Link>
-            </li>
-            <li>
-              <Link to="/exa/ui/courses" className="[&.active]:font-bold">
-                Courses
-              </Link>
-            </li>
-            <li>
-              <Link to="/exa/ui/lecturers" className="[&.active]:font-bold">
-                Lecturers
-              </Link>
-            </li>
-            <li>
-              <Link to="/exa/ui/exams" className="[&.active]:font-bold">
-                Exams
-              </Link>
-            </li>
-          </ul>
-          <div>
-            <p>
-              You are currently logged in as {authorizationState.state}.
-            </p>
+    <div className="min-h-screen font-sans flex flex-col bg-gray-50">
+      <nav className="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex justify-between items-center">
+            <ul className="flex flex-row gap-6">
+              <li>
+                <Link
+                  to="/exa/ui"
+                  className="hover:opacity-75 transition-opacity [&.active]:italic"
+                >
+                  <ExaLogo />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/exa/ui/courses"
+                  className="text-gray-600 hover:text-gray-900 transition-colors [&.active]:text-blue-600 [&.active]:font-semibold [&.active]:italic"
+                >
+                  Courses
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/exa/ui/lecturers"
+                  className="text-gray-600 hover:text-gray-900 transition-colors [&.active]:text-blue-600 [&.active]:font-semibold [&.active]:italic"
+                >
+                  Lecturers
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/exa/ui/exams"
+                  className="text-gray-600 hover:text-gray-900 transition-colors [&.active]:text-blue-600 [&.active]:font-semibold [&.active]:italic"
+                >
+                  Exams
+                </Link>
+              </li>
+            </ul>
+            <div className="flex items-center">
+              <div className="flex items-center space-x-2 text-sm text-gray-600">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <span>Logged in as <span className="font-medium text-gray-900">{authorizationState.state}</span></span>
+              </div>
+            </div>
           </div>
         </div>
       </nav>
-      <hr />
+
       <main className="flex-1">
         <Outlet />
       </main>
-      <footer className="mt-auto">
-        <hr />
-        <div className="w-1/2 mx-auto">
-          <div className="flex items-center gap-4">
-            <p>Other services:</p>
-            <ul className="flex gap-4">
-              <li>
-                <a href="/studip">Stud.IP</a>
-              </li>
-              <li>
-                <a href="/user">User API</a>
-              </li>
-            </ul>
+
+      <footer className="bg-white border-t border-gray-200 mt-auto">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-6">
+              <span className="text-gray-600">Other services:</span>
+              <ul className="flex gap-6">
+                <li>
+                  <a
+                    href="/studip"
+                    className="text-gray-600 hover:text-gray-900 transition-colors"
+                  >
+                    Stud.IP
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/user"
+                    className="text-gray-600 hover:text-gray-900 transition-colors"
+                  >
+                    User API
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="text-sm text-gray-500">
+              © {new Date().getFullYear()} EXA System
+            </div>
           </div>
         </div>
       </footer>
