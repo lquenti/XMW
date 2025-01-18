@@ -159,7 +159,7 @@
                         <source>src/main/resources/flush.xsd</source>
                     </sources>
                     <packageName>xmw.flush</packageName>
-                    <outputDirectory>${project.build.directory}/generated-sources/jaxb</outputDirectory>
+                    <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
                     <clearOutputDir>false</clearOutputDir>
                 </configuration>
             </plugin>

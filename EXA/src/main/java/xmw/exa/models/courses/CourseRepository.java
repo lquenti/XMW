@@ -1,14 +1,14 @@
 package xmw.exa.models.courses;
 
+import java.util.List;
+
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
 import org.basex.core.cmd.XQuery;
+
 import xmw.exa.db.DB;
 import xmw.exa.db.repository.BaseXmlRepository;
 import xmw.flush.Courses;
-
-import java.util.List;
-
 
 public class CourseRepository extends BaseXmlRepository<CourseModel> {
     public CourseRepository(Context context) {

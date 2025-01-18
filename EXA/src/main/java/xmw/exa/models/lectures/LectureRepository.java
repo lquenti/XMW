@@ -1,7 +1,5 @@
 package xmw.exa.models.lectures;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.basex.core.BaseXException;
