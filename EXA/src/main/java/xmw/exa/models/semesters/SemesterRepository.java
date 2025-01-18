@@ -7,6 +7,7 @@ import org.basex.core.Context;
 import org.basex.core.cmd.XQuery;
 
 import xmw.exa.db.DB;
+import xmw.exa.db.ExaElement;
 import xmw.exa.db.repository.BaseXmlRepository;
 import xmw.flush.Semester;
 import xmw.flush.Semesters;
@@ -19,11 +20,10 @@ public class SemesterRepository extends BaseXmlRepository<Semester> {
 
     @Override
     public List<Semester> all() {
-        final String query = "/root/Semesters";
-
         try {
-            Semesters semestersElement = (Semesters) DB.unmarshal(new XQuery(query).execute(context), Semesters.class);
-            return semestersElement.getSemester();
+            var root = DB.getRootChildMap(context);
+            Semesters semesters = (Semesters) root.get(ExaElement.SEMESTERS);
+            return semesters.getSemester();
         } catch (BaseXException e) {
             throw new RuntimeException("Failed to query semesters: " + e.getMessage(), e);
         }

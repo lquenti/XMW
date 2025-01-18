@@ -4,6 +4,7 @@ import org.basex.core.BaseXException;
 import org.basex.core.Context;
 import org.basex.core.cmd.XQuery;
 import xmw.exa.db.DB;
+import xmw.exa.db.ExaElement;
 import xmw.exa.db.repository.BaseXmlRepository;
 import xmw.flush.Lecturer;
 import xmw.flush.Lecturers;
@@ -17,11 +18,10 @@ public class LecturerRepository extends BaseXmlRepository<Lecturer> {
 
     @Override
     public List<Lecturer> all() {
-        final String query = "/root/Lecturers";
-
         try {
-            Lecturers lecturersElement = (Lecturers) DB.unmarshal(new XQuery(query).execute(context), Lecturers.class);
-            return lecturersElement.getLecturer();
+            var root = DB.getRootChildMap(context);
+            Lecturers lecturers = (Lecturers) root.get(ExaElement.LECTURERS);
+            return lecturers.getLecturer();
         } catch (BaseXException e) {
             throw new RuntimeException(e);
         }

@@ -7,6 +7,7 @@ import org.basex.core.Context;
 import org.basex.core.cmd.XQuery;
 
 import xmw.exa.db.DB;
+import xmw.exa.db.ExaElement;
 import xmw.exa.db.repository.BaseXmlRepository;
 import xmw.flush.Lecture;
 import xmw.flush.Lectures;
@@ -19,10 +20,10 @@ public class LectureRepository extends BaseXmlRepository<Lecture> {
 
     @Override
     public List<Lecture> all() {
-        final String query = "/root/Lectures";
         try {
-            Lectures lecturesElement = (Lectures) DB.unmarshal(new XQuery(query).execute(context), Lectures.class);
-            return lecturesElement.getLecture();
+            var root = DB.getRootChildMap(context);
+            Lectures lectures = (Lectures) root.get(ExaElement.LECTURES);
+            return lectures.getLecture();
         } catch (BaseXException e) {
             throw new RuntimeException(e);
         }

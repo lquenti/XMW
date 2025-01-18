@@ -6,13 +6,14 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.namespace.QName;
-import javax.xml.stream.Location;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -31,6 +32,8 @@ import xmw.exa.models.lecturers.LecturerRepository;
 import xmw.exa.models.lectures.LectureRepository;
 import xmw.exa.models.semesters.SemesterRepository;
 import xmw.exa.util.Config;
+import xmw.flush.*;
+
 
 public class DB {
     private static DB instance;
@@ -40,7 +43,7 @@ public class DB {
     private final ExamRepository examRepository;
     private final LectureRepository lectureRepository;
     private final SemesterRepository semesterRepository;
-    private static final String XML_NAMESPACE = "http://www.w3.org/namespace/";
+    public static final String XML_NAMESPACE = "http://www.w3.org/namespace/";
 
     private DB() {
         context = new Context();
@@ -106,22 +109,6 @@ public class DB {
         return semesterRepository;
     }
 
-    public void reinitialize() throws BaseXException {
-        try {
-            // Close existing context
-            if (context != null) {
-                try {
-                    new Close().execute(context);
-                } catch (Exception e) {
-                    // Ignore close errors
-                }
-            }
-            initializeDatabase();
-        } catch (Exception e) {
-            throw new BaseXException("Failed to reinitialize database: " + e.getMessage());
-        }
-    }
-
     public void dumpToFile() throws IOException {
         dumpToFile(Config.FLUSH_FILE_PATH);
     }
@@ -140,19 +127,51 @@ public class DB {
                 StandardCharsets.UTF_8);
     }
 
-    public static Object unmarshal(String xml, Class<?> clazz) {
+    public static Map<ExaElement, Object> getRootChildMap(Context context) throws BaseXException {
+        final String query = "/root";
+        String xmlResult = new XQuery(query).execute(context);
+        Map<ExaElement, Object> map = new EnumMap<>(ExaElement.class);
+        Root root =  DB.unmarshal(xmlResult);
+        var elements = root.getCoursesOrExamsOrLecturers();
+        for (int i = 0; i < elements.size(); i++) {
+            switch (i) {
+                case 0:
+                    map.put(ExaElement.COURSES, elements.get(i));
+                    break;
+                case 1:
+                    map.put(ExaElement.EXAMS, elements.get(i));
+                    break;
+                case 2:
+                    map.put(ExaElement.LECTURERS, elements.get(i));
+                    break;
+                case 3:
+                    map.put(ExaElement.LECTURES, elements.get(i));
+                    break;
+                case 4:
+                    map.put(ExaElement.SEMESTERS, elements.get(i));
+                    break;
+                default:
+            }
+        }
+        return map;
+    }
+
+    public static Root unmarshal(String xml) {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Root.class);
+
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+            // Add namespace wrapper if not already present
+            if (!xml.contains(XML_NAMESPACE)) {
+                xml = xml.replaceFirst("<(\\w+)>", "<$1 xmlns=\"" + XML_NAMESPACE + "\">");
+            }
 
             // Create XMLStreamReader with namespace awareness
             XMLInputFactory xif = XMLInputFactory.newInstance();
             XMLStreamReader xsr = xif.createXMLStreamReader(new StringReader(xml));
 
-            // Create a namespace aware reader that adds the required namespace
-            XMLStreamReader nsReader = new NamespaceAwareXMLStreamReader(xsr, XML_NAMESPACE);
-
-            return unmarshaller.unmarshal(nsReader);
+            return (Root) unmarshaller.unmarshal(xsr);
         } catch (JAXBException | XMLStreamException e) {
             throw new RuntimeException("Failed to unmarshal XML: " + e.getMessage(), e);
         }
@@ -160,7 +179,7 @@ public class DB {
 
     public static String marshal(Object object) {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(object.getClass());
+            JAXBContext jaxbContext = JAXBContext.newInstance(Root.class);
             Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             StringWriter writer = new StringWriter();
