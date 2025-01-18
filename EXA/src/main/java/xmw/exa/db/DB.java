@@ -30,6 +30,7 @@ import xmw.exa.models.courses.CourseUtil;
 import xmw.exa.models.exams.ExamRepository;
 import xmw.exa.models.lecturers.LecturerRepository;
 import xmw.exa.models.lectures.LectureRepository;
+import xmw.exa.models.modules.ModuleRepository;
 import xmw.exa.models.semesters.SemesterRepository;
 import xmw.exa.util.Config;
 import xmw.flush.*;
@@ -43,6 +44,7 @@ public class DB {
     private final ExamRepository examRepository;
     private final LectureRepository lectureRepository;
     private final SemesterRepository semesterRepository;
+    private final ModuleRepository moduleRepository;
     public static final String XML_NAMESPACE = "http://www.w3.org/namespace/";
 
     private DB() {
@@ -59,6 +61,7 @@ public class DB {
         this.examRepository = new ExamRepository(context);
         this.lectureRepository = new LectureRepository(context);
         this.semesterRepository = new SemesterRepository(context);
+        this.moduleRepository = new ModuleRepository(context);
     }
 
     public static synchronized DB getInstance() {
@@ -107,6 +110,10 @@ public class DB {
 
     public SemesterRepository semesters() {
         return semesterRepository;
+    }
+
+    public ModuleRepository modules() {
+        return moduleRepository;
     }
 
     public void dumpToFile() throws IOException {
