@@ -42,7 +42,18 @@ public class CertificateUtil extends HttpServlet {
 
             // Determine the user's field of study and choose the template
             String fieldOfStudy = userInfo.getOrDefault("faculty", "Default");
-            String certificateHtml = generateCertificate(userInfo, grades, fieldOfStudy);
+
+            double sumGrades = 0.;
+            int sumCredits = 0;
+            for(Map<String, String> grade: grades){
+                if(grade.get("Studies").contains(fieldOfStudy)) {
+                    sumGrades += Integer.parseInt(grade.get("Credits")) * Double.parseDouble(grade.get("grade"));
+                    sumCredits += Integer.parseInt(grade.get("Credits"));
+                }
+            }
+            if(sumCredits!=0)
+                sumGrades /= sumCredits;
+            String certificateHtml = generateCertificate(userInfo, grades, fieldOfStudy, sumGrades, sumCredits);
 
             // Write certificate HTML to response
             response.setContentType("text/html");
@@ -55,7 +66,7 @@ public class CertificateUtil extends HttpServlet {
         }
     }
 
-    private String generateCertificate(Map<String, String> userInfo, List<Map<String, String>> grades, String fieldOfStudy) throws Exception {
+    private String generateCertificate(Map<String, String> userInfo, List<Map<String, String>> grades, String fieldOfStudy,  double sumGrades, int sumCredits) throws Exception {
         // Build XML data
         StringBuilder xmlData = new StringBuilder();
         xmlData.append("<Certificate>");
@@ -73,6 +84,8 @@ public class CertificateUtil extends HttpServlet {
             xmlData.append("</Grade>");
         }
         xmlData.append("</Grades>");
+        xmlData.append("<sumCredits>").append(sumCredits).append("</sumCredits>");
+        xmlData.append("<sumGrades>").append(sumGrades).append("</sumGrades>");
         xmlData.append("</Certificate>");
 
         // Load the appropriate XSLT template

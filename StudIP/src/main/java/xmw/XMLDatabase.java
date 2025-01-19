@@ -689,7 +689,7 @@ public class XMLDatabase {
     }
 
     public List<Map<String, String>> getModules() throws IOException {
-        String content = getContentFromUrl(AppContextListener.EXA_URL + "exams?format=xml");
+        String content = getContentFromUrl(AppContextListener.EXA_URL + "modules?format=xml");
         return processModules(content);
     }
 
@@ -715,7 +715,7 @@ public class XMLDatabase {
                 Map<String, String> moduleData = new HashMap<>();
 
                 // Extract data from the <exam> element and its children
-                moduleData.put("ModuleName", moduleElement.getElementsByTagName("Name").item(0).getTextContent());
+                moduleData.put("ModuleName", moduleElement.getElementsByTagName("name").item(0).getTextContent());
                 moduleData.put("ModuleID", moduleElement.getAttribute("id"));
                 moduleData.put("Credits", moduleElement.getAttribute("credits"));
                 moduleData.put("CourseID", moduleElement.getAttribute("course"));

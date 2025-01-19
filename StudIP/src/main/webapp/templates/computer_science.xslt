@@ -66,6 +66,9 @@
                             </tr>
                         </xsl:for-each>
                     </table>
+                    <p><u>Credits / Grades of Study</u></p>
+                    <p>Credits <xsl:value-of select="sumCredits"/></p>
+                    <p>Average Grade <xsl:value-of select="sumGrades"/></p>
                     <p>Issued on: 2025-01-01</p>
                     <p>Certified by: <strong>University Administration</strong></p>
                 </div>
