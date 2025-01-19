@@ -57,7 +57,7 @@ public class ExamsServlet extends ExaServlet {
         if (exam == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
-        };
+        }
 
         // Add the exam to the database
         boolean success = db.exams().create(exam);
@@ -72,6 +72,59 @@ public class ExamsServlet extends ExaServlet {
         PrintWriter out = response.getWriter();
         out.println(DB.marshal(exam));
         out.close();
+    }
+
+    @Override
+    public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        final String[] requiredParams = {"course", "date"};
+         Map<String, String> defaultRawDto = new HashMap<>();
+        defaultRawDto.put("course", "");
+        defaultRawDto.put("date", "");
+        defaultRawDto.put("is_online", "false");
+        defaultRawDto.put("is_written", "false");
+        defaultRawDto.put("room_or_link", "No room or link provided");
+
+        defaultRawDto = Util.makeUpdatedDto(requiredParams, defaultRawDto, request, response);
+
+        if (defaultRawDto == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        // verify that the exam exists
+        var exam = db.exams().get(defaultRawDto.get("id"));
+        if (exam == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Exam does not exist");
+            return;
+        }
+
+        // verify that the course exists
+        var course = db.courses().get(defaultRawDto.get("course"));
+        if (course == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Course does not exist");
+            return;
+        }
+
+        // Create the exam
+        exam = makeExam(request, response, defaultRawDto, requiredParams);
+        if (exam == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        // Update the exam
+        exam = db.exams().update(exam);
+
+        if (exam == null) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to update exam");
+            return;
+        }
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/xml");
+        PrintWriter out = response.getWriter();
+        out.println(DB.marshal(exam));
+        out.flush();
     }
 
     @Nullable
@@ -99,6 +152,11 @@ public class ExamsServlet extends ExaServlet {
 
         // Create the exam
         var exam = new Exam();
+
+        if (rawDto.containsKey("id")) {
+            exam.setId(rawDto.get("id"));
+        }
+
         exam.setCourse(course);
 
         Date date = new Date();
