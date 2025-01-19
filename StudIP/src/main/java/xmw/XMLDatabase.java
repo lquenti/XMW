@@ -125,8 +125,8 @@ public class XMLDatabase {
         }
     }
 
-    public List<Map<String, String>> getLectures() throws Exception {
-        URL url = new URL(AppContextListener.EXA_URL + "lectures?format=xml");
+    private String getContentFromUrl(String contentUrl) throws IOException {
+        URL url = new URL(contentUrl);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
 
@@ -140,8 +140,12 @@ public class XMLDatabase {
 
         in.close();
         conn.disconnect();
+        return content.toString();
+    }
 
-        return processLectures(content.toString());
+    public List<Map<String, String>> getLectures() throws Exception {
+        String content = getContentFromUrl(AppContextListener.EXA_URL + "lectures?format=xml");
+        return processLectures(content);
     }
 
     public List<Map<String, String>> processLectures(String xmlString) throws Exception {
@@ -173,22 +177,8 @@ public class XMLDatabase {
 
 
     public List<Map<String, String>> getCourses() throws Exception {
-        URL url = new URL(AppContextListener.EXA_URL + "courses?format=xml");
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        String inputLine;
-        StringBuilder content = new StringBuilder();
-
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-
-        in.close();
-        conn.disconnect();
-
-        return processCourses(content.toString());
+        String content = getContentFromUrl(AppContextListener.EXA_URL + "courses?format=xml");
+        return processCourses(content);
     }
 
     public List<Map<String, String>> processCourses(String xmlString) throws Exception {
@@ -319,22 +309,8 @@ public class XMLDatabase {
     }
 
     public List<Map<String, String>> getExams() throws Exception {
-        URL url = new URL(AppContextListener.EXA_URL + "exams?format=xml");
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        String inputLine;
-        StringBuilder content = new StringBuilder();
-
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-
-        in.close();
-        conn.disconnect();
-
-        return processExams(content.toString());
+        String content = getContentFromUrl(AppContextListener.EXA_URL + "exams?format=xml");
+        return processExams(content);
     }
 
     private List<Map<String, String>> processExams(String xmlString) {
@@ -475,20 +451,7 @@ public class XMLDatabase {
     }
 
     public List<Map<String, String>> getStudents() throws IOException, ParserConfigurationException {
-        URL url = new URL(AppContextListener.USER_URL + "bulk");
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        String inputLine;
-        StringBuilder content = new StringBuilder();
-
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-
-        in.close();
-        conn.disconnect();
+        String content = getContentFromUrl(AppContextListener.USER_URL + "bulk");
 
         Document doc;
         ArrayList<Map<String, String>> users = new ArrayList<>();
@@ -496,7 +459,7 @@ public class XMLDatabase {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
             try {
-                doc = builder.parse(new java.io.ByteArrayInputStream(content.toString().getBytes()));
+                doc = builder.parse(new java.io.ByteArrayInputStream(content.getBytes()));
             } catch (SAXException | IOException e) {
                 throw new RuntimeException(e);
             }
@@ -595,64 +558,30 @@ public class XMLDatabase {
     }
 
     public List<String> getCurrentRole(String loggedInUserId) throws IOException {
-        String loginApiUrl = AppContextListener.USER_URL + "id/" + loggedInUserId; // Replace with actual API URL
-        URL url = new URL(loginApiUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        connection.setDoOutput(true);
-
-        Document doc;
+        String content = getContentFromUrl(AppContextListener.USER_URL + "id/" + loggedInUserId);
         ArrayList<String> roles = new ArrayList<>();
-        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            String xmlResponse = new String(connection.getInputStream().readAllBytes());
 
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder;
-            try {
-                builder = factory.newDocumentBuilder();
-                doc = builder.parse(new ByteArrayInputStream(xmlResponse.getBytes()));
-            } catch (SAXException | ParserConfigurationException | IOException e) {
-                throw new RuntimeException(e);
-            }
+        Document doc = getDocument(content);
 
-            NodeList nodeList = doc.getElementsByTagName("User");
-            Element currentUser = (Element) nodeList.item(0);
-            Element currentGroup = (Element) currentUser.getElementsByTagName("group").item(0);
-            roles.add(currentGroup.getAttribute("id"));
-        }
+        NodeList nodeList = doc.getElementsByTagName("User");
+        Element currentUser = (Element) nodeList.item(0);
+        Element currentGroup = (Element) currentUser.getElementsByTagName("group").item(0);
+        roles.add(currentGroup.getAttribute("id"));
         return roles;
     }
 
     public Map<String, String> getUserInfo(String UserId) throws IOException {
-        String loginApiUrl = AppContextListener.USER_URL + "id/" + UserId;
-        URL url = new URL(loginApiUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        connection.setDoOutput(true);
+        String content = getContentFromUrl(AppContextListener.USER_URL + "id/" + UserId);
 
-        Document doc;
         Map<String, String> userInfo = new HashMap<>();
-        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            String xmlResponse = new String(connection.getInputStream().readAllBytes());
+        Document doc = getDocument(content);
 
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder;
-            try {
-                builder = factory.newDocumentBuilder();
-                doc = builder.parse(new ByteArrayInputStream(xmlResponse.getBytes()));
-            } catch (SAXException | ParserConfigurationException | IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            NodeList nodeList = doc.getElementsByTagName("User");
-            Element currentUser = (Element) nodeList.item(0);
-            userInfo.put("username", currentUser.getAttribute("username"));
-            userInfo.put("name", currentUser.getElementsByTagName("name").item(0).getTextContent());
-            userInfo.put("firstname", currentUser.getElementsByTagName("firstname").item(0).getTextContent());
-            userInfo.put("faculty", currentUser.getElementsByTagName("faculty").item(0).getTextContent());
-        }
+        NodeList nodeList = doc.getElementsByTagName("User");
+        Element currentUser = (Element) nodeList.item(0);
+        userInfo.put("username", currentUser.getAttribute("username"));
+        userInfo.put("name", currentUser.getElementsByTagName("name").item(0).getTextContent());
+        userInfo.put("firstname", currentUser.getElementsByTagName("firstname").item(0).getTextContent());
+        userInfo.put("faculty", currentUser.getElementsByTagName("faculty").item(0).getTextContent());
         return userInfo;
     }
 
@@ -692,29 +621,27 @@ public class XMLDatabase {
     }
 
     private String getUserNameFromID(String lecturerID) throws IOException {
-        String loginApiUrl = AppContextListener.EXA_URL + "lecturers/" + lecturerID; // Replace with actual API URL
-        URL url = new URL(loginApiUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setDoOutput(true);
+        String content = getContentFromUrl(AppContextListener.EXA_URL + "lecturers/" + lecturerID);
 
         Document doc;
-        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            String xmlResponse = new String(connection.getInputStream().readAllBytes());
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder;
-            try {
-                builder = factory.newDocumentBuilder();
-                doc = builder.parse(new ByteArrayInputStream(xmlResponse.getBytes()));
-            } catch (SAXException | ParserConfigurationException | IOException e) {
-                throw new RuntimeException(e);
-            }
+        doc = getDocument(content);
 
-            NodeList nodeList = doc.getElementsByTagName("Lecturer");
-            Element currentUser = (Element) nodeList.item(0);
-           return currentUser.getAttribute("username");
+        NodeList nodeList = doc.getElementsByTagName("Lecturer");
+        Element currentUser = (Element) nodeList.item(0);
+        return currentUser.getAttribute("username");
+    }
+
+    private Document getDocument(String content) {
+        Document doc;
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+        try {
+            builder = factory.newDocumentBuilder();
+            doc = builder.parse(new ByteArrayInputStream(content.getBytes()));
+        } catch (SAXException | ParserConfigurationException | IOException e) {
+            throw new RuntimeException(e);
         }
-        return "";
+        return doc;
     }
 
     protected void registerLecturersToCourse() {
