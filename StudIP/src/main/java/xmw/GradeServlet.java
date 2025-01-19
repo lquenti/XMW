@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.List;
 import java.util.Map;
+
+import static xmw.Utils.joinListOfMaps;
+
 @WebServlet("/grades")
 public class GradeServlet extends HttpServlet {
     @Serial
@@ -21,17 +24,10 @@ public class GradeServlet extends HttpServlet {
             List<Map<String, String>> grades = xmlDatabase.getGrades(Utils.getLoggedInUserId(request));
             List<Map<String, String>> exams = xmlDatabase.getExams();
             List<Map<String, String>> courses = xmlDatabase.getCourses();
-            // Merge exam details into grades
-            for (Map<String, String> grade : grades) {
-                for (Map<String, String> exam : exams) {
-                    for (Map<String, String> course : courses){
-                        if (grade.get("id").equals(exam.get("ExamId")) && exam.get("CourseID").equals(course.get("CourseID"))) {
-                            grade.putAll(exam);
-                            grade.putAll(course);
-                        }
-                    }
-                }
-            }
+            List<Map<String, String>> modules = xmlDatabase.getModules();
+            joinListOfMaps(grades, exams, "id", "ExamId");
+            joinListOfMaps(grades, courses, "CourseID", "CourseID");
+            joinListOfMaps(grades, modules, "CourseID", "CourseID");
             // Set exams as a request attribute
             request.setAttribute("grades", grades);
             // Forward to JSP to display exams

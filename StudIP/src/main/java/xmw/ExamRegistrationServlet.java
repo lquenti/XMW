@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import static xmw.Utils.joinListOfMaps;
+
 // Servlet to handle exam registration and deregistration
 @WebServlet("/examRegistration")
 public class ExamRegistrationServlet extends HttpServlet {
@@ -56,13 +58,7 @@ public class ExamRegistrationServlet extends HttpServlet {
             XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
             List<Map<String, String>> exams = xmlDatabase.getExams();
             List<Map<String, String>> courses = xmlDatabase.getCourses();
-                for (Map<String, String> exam : exams) {
-                    for (Map<String, String> course : courses){
-                        if (exam.get("CourseID").equals(course.get("CourseID"))) {
-                            exam.putAll(course);
-                        }
-                }
-            }
+            joinListOfMaps(exams, courses, "CourseID", "CourseID");
 
             request.setAttribute("exams", exams);
             request.getRequestDispatcher("/exam_registration.jsp").forward(request, response);

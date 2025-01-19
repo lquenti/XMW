@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static xmw.Utils.joinListOfMaps;
+
 @WebServlet("/flex")
 public class ExamServlet extends HttpServlet {
 
@@ -27,13 +29,7 @@ public class ExamServlet extends HttpServlet {
 
             List<Map<String, String>> exams = xmlDatabase.getExams();
             List<Map<String, String>> courses = xmlDatabase.getCourses();
-            for (Map<String, String> exam : exams) {
-                for (Map<String, String> course : courses){
-                    if (exam.get("CourseID").equals(course.get("CourseID"))) {
-                        exam.putAll(course);
-                    }
-                }
-            }
+            joinListOfMaps(exams, courses, "CourseID", "CourseID");
 
             List<String> registeredExamIds = xmlDatabase.getAllExamIDs(Utils.getLoggedInUserId(request));
 
