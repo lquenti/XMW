@@ -23,7 +23,7 @@
             if (courses != null) {
                 for (Map<String, String> course : courses) {
                     String courseId = course.get("CourseID");
-                    String name = course.get("Name");
+                    String name = course.get("CourseName");
                     String faculty = course.get("Faculty");
                     String semester = course.get("Semester");
         %>
