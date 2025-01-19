@@ -56,7 +56,6 @@ public class CoursesServlet extends ExaServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        ;
 
         // Add the course
         boolean success = db.courses().create(course);
@@ -70,6 +69,52 @@ public class CoursesServlet extends ExaServlet {
         response.setContentType("application/xml");
 
         // Return the course
+        PrintWriter out = response.getWriter();
+        out.println(DB.marshal(course));
+        out.flush();
+    }
+
+    @Override
+    public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        final String[] requiredParams = {"name", "lecturer", "faculty", "semester"};
+        Map<String, String> defaultRawDto = new HashMap<>();
+        defaultRawDto.put("name", "");
+        defaultRawDto.put("lecturer", "");
+        defaultRawDto.put("faculty", "");
+        defaultRawDto.put("semester", "");
+        defaultRawDto.put("max_students", "0");
+
+        defaultRawDto = Util.makeUpdatedDto(requiredParams, defaultRawDto, request, response);
+
+        if (defaultRawDto == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        // verify that the course exists
+        var course = db.courses().get(defaultRawDto.get("id"));
+        if (course == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Course does not exist");
+            return;
+        }
+
+        // Create the course
+        course = makeCourse(request, response, defaultRawDto, requiredParams);
+        if (course == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        // Update the course
+        course = db.courses().update(course);
+
+        if (course == null) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to update course");
+            return;
+        }
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/xml");
         PrintWriter out = response.getWriter();
         out.println(DB.marshal(course));
         out.flush();
@@ -99,8 +144,14 @@ public class CoursesServlet extends ExaServlet {
 
         // Create the course
         var course = new Course();
+
+        if (rawDto.containsKey("id")) {
+            course = db.courses().get(rawDto.get("id"));
+        }
+
         course.setLecturer(lecturer);
         course.setSemester(semester);
+        course.getNameOrFacultyOrMaxStudents().clear();
         // Name, Faculty, MaxStudents
         Name name = new Name();
         name.setContent(rawDto.get("name"));

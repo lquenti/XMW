@@ -2,12 +2,14 @@ package xmw.exa.util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.jetbrains.annotations.Nullable;
 import xmw.exa.db.repository.BaseXmlRepository;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.UUID;
@@ -48,6 +50,56 @@ public class Util {
         PrintWriter out = response.getWriter();
         out.println(xmlString);
         out.flush();
+    }
+
+    @Nullable
+    public static Map<String, String> makeUpdatedDto(String[] requiredParams,
+                                                     Map<String, String> defaultRawDto,
+                                                     HttpServletRequest request,
+                                                     HttpServletResponse response) throws IOException {
+        try {
+            String id = request.getParameter("id");
+            if (id == null) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing id parameter");
+                return null;
+            }
+
+            // verify that the parameters from requiredParams are present
+            for (String requiredParam : requiredParams) {
+                if (!defaultRawDto.containsKey(requiredParam)) {
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameter: " + requiredParam);
+                    return null;
+                } else {
+                    String value = request.getParameter(requiredParam);
+                    if (value == null) {
+                        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameter: " + requiredParam);
+                        return null;
+                    }
+                    defaultRawDto.put(requiredParam, value);
+                }
+            }
+
+            // fill in the rest of the parameters
+            var keys = defaultRawDto.keySet();
+            for (String key : keys) {
+                if (defaultRawDto.get(key).isEmpty()
+                        && request.getParameter(key) != null
+                        && !key.equals("id")
+                        && !Arrays.asList(requiredParams).contains(key)) {
+                    String value = request.getParameter(key);
+                    if (value != null) {
+                        defaultRawDto.put(key, value);
+                    }
+                }
+            }
+
+            // add id
+            defaultRawDto.put("id", id);
+
+            return defaultRawDto;
+        } catch (Exception e) {
+            throw new IOException("Failed to update courses: " + e.getMessage(), e);
+        }
     }
 
     public static void deleteItem(BaseXmlRepository<?> repository, HttpServletRequest request, HttpServletResponse response) throws IOException {
