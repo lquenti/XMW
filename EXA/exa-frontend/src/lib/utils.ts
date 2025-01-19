@@ -55,6 +55,15 @@ type Lecture = {
   roomOrLink: string | null
 }
 
+export type Module = {
+    id: string | null
+    credits: number | null
+    course: string | null
+    name: string | null
+    studies: string[]
+    description: string | null
+}
+
 export function parseCoursesXml(xmlString: string): Course[] {
   const xml = new DOMParser().parseFromString(xmlString, 'text/xml')
   return Array.from(xml.getElementsByTagName('Course')).map(course => ({
@@ -107,4 +116,23 @@ export function parseLecturesXml(xmlString: string): Lecture[] {
     end: lecture.getElementsByTagName('end')[0]?.textContent,
     roomOrLink: lecture.getElementsByTagName('room_or_link')[0]?.textContent,
   }))
+}
+
+export function parseModulesXml(xml: string): Module[] {
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(xml, 'text/xml')
+    const modules = doc.getElementsByTagName('Module')
+
+    return Array.from(modules).map(module => {
+        const studies = Array.from(module.getElementsByTagName('Study')).map(study => study.textContent?.trim() ?? '')
+        
+        return {
+            id: module.getAttribute('id'),
+            credits: Number(module.getAttribute('credits')) || null,
+            course: module.getAttribute('course'),
+            name: module.getElementsByTagName('name')[0]?.textContent?.trim() ?? null,
+            studies,
+            description: module.getElementsByTagName('Description')[0]?.textContent?.trim() ?? null
+        }
+    })
 }

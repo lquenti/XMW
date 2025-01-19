@@ -1,4 +1,4 @@
-package xmw.studip;
+package xmw;
 
 public class StylingConstant {
     public static final String CSS = """

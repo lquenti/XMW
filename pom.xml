@@ -10,6 +10,8 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>Logger</module>
+        <module>LoggerClient</module>
         <module>EXA</module>
         <module>StudIP</module>
         <module>User</module>

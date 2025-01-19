@@ -2197,3 +2197,18 @@ export const TMP_EXAMS = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?
         <room_or_link>BIG BOI EXAM</room_or_link>
     </Exam>
 </Exams>`
+
+export const TMP_MODULES = `<Modules>
+        <Module id="module-1" credits="5" course="course-1">
+            <name>
+                Introduction to Computer Science
+            </name>
+            <Studies>
+                <Study>Computer Science</Study>
+                <Study>Data Science</Study>
+            </Studies>
+            <Description>
+                A module on the basics of computer science.
+            </Description>
+        </Module>
+    </Modules>`
