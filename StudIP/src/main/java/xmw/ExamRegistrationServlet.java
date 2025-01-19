@@ -15,7 +15,7 @@ import java.util.Map;
 public class ExamRegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userId = AuthUtil.getLoggedInUserId(request);
+        String userId = Utils.getLoggedInUserId(request);
         String examId = request.getParameter("examId");
         String action = request.getParameter("action"); // "register" or "deregister"
 
@@ -24,8 +24,10 @@ public class ExamRegistrationServlet extends HttpServlet {
             boolean success;
 
             if ("register".equalsIgnoreCase(action)) {
+                Utils.log(request, response, (ClientLogger) getServletContext().getAttribute("logger"), "RegistrationEvent", "User registration for exam " + examId, true);
                 success = xmlDatabase.registerStudentToExam(userId, examId);
             } else if ("deregister".equalsIgnoreCase(action)) {
+                Utils.log(request, response, (ClientLogger) getServletContext().getAttribute("logger"), "DeregistrationEvent", "User deregistration for exam " + examId, true);
                 success = xmlDatabase.deregisterStudentFromExam(userId, examId);
             } else {
                 throw new IllegalArgumentException("Invalid action: " + action);
@@ -49,6 +51,7 @@ public class ExamRegistrationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Utils.log(request, response, (ClientLogger) getServletContext().getAttribute("logger"), "SiteVisitedEvent", "User visiting for exam registration ", true);
         try {
             XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
             List<Map<String, String>> exams = xmlDatabase.getExams();

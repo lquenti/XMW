@@ -18,6 +18,7 @@ public class GradeSubmissionServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Utils.log(request, response, (ClientLogger) getServletContext().getAttribute("logger"), "GradeSubmissionEvent", "User trying to submit grades ", true);
         Map<String, Map<String, String>> grades = new HashMap<>();
 
         // Extract parameter map
@@ -80,9 +81,10 @@ public class GradeSubmissionServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Utils.log(request, response, (ClientLogger) getServletContext().getAttribute("logger"), "SiteVisitedEvent", "User visiting for grade submission", true);
         try {
             XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
-            List<String> currentRole = xmlDatabase.getCurrentRole(AuthUtil.getLoggedInUserId(request));
+            List<String> currentRole = xmlDatabase.getCurrentRole(Utils.getLoggedInUserId(request));
             if (!currentRole.contains("g_lecturer")) {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 request.setAttribute("message", "An error occurred: You don't have the rights to access this content.");
@@ -90,7 +92,7 @@ public class GradeSubmissionServlet extends HttpServlet {
                 return;
             }
 
-            List<Map<String, String>> exams = xmlDatabase.getExamsAsLecturer(AuthUtil.getLoggedInUserId(request));
+            List<Map<String, String>> exams = xmlDatabase.getExamsAsLecturer(Utils.getLoggedInUserId(request));
             List<Map<String, String>> courses = xmlDatabase.getCourses();
             for (Map<String, String> exam : exams) {
                 for (Map<String, String> course : courses){

@@ -19,12 +19,7 @@ public class CourseRegistrationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userId = AuthUtil.getLoggedInUserId(request);
-        if (userId == null) {
-            // Redirect to login page if user is not logged in
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-            return;
-        }
+        Utils.log(request, response, (ClientLogger) getServletContext().getAttribute("logger"), "SiteVisitedEvent", "User visiting registration site", true);
 
         XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
 
@@ -41,27 +36,24 @@ public class CourseRegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userId = AuthUtil.getLoggedInUserId(request);
-        if (userId == null) {
-            // Redirect to login page if user is not logged in
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-            return;
-        }
-
         XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
 
+        String userId = Utils.getLoggedInUserId(request);
         String courseId = request.getParameter("courseId");
         String semesterId = request.getParameter("semesterId");
         String action = request.getParameter("action");
 
         // Mock course registration logic
         if("register".equalsIgnoreCase(action)){
+            Utils.log(request, response, (ClientLogger) getServletContext().getAttribute("logger"), "RegistrationEvent", "User "+ userId+ " registration for course "+courseId, true);
             if (xmlDatabase.registerStudentToCourse(userId, courseId, semesterId)) {
                 request.setAttribute("message", "Registration successful!");
             } else {
                 request.setAttribute("message", "Registration failed! Course not found.");
             }
         } else if ("deregister".equalsIgnoreCase(action)) {
+            Utils.log(request, response, (ClientLogger) getServletContext().getAttribute("logger"), "DeregistrationEvent", "User "+ userId+ " registration for course "+courseId, true);
+
             if (xmlDatabase.deregisterStudentFromCourse(userId, courseId, semesterId)) {
                 request.setAttribute("message", "Deregistration successful!");
             } else {

@@ -63,6 +63,7 @@ public class AppContextListener implements ServletContextListener {
         sce.getServletContext().setAttribute("logger", logger);
 
         loadDatabase();
+        logger.addEvent(new Event("StudIP", "root", "ServiceStartedEvent", "Service started"));
     }
 
     @Override
@@ -77,6 +78,7 @@ public class AppContextListener implements ServletContextListener {
             }
             xmlDatabase.close(); // Hypothetical cleanup method
         }
+
     }
 
     private void createDirectoryIfNotExists(String directoryPath) {

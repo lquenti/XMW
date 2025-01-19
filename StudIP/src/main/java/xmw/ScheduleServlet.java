@@ -18,12 +18,8 @@ public class ScheduleServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userId = AuthUtil.getLoggedInUserId(request);
-        if (userId == null) {
-            // Redirect to login page if user is not logged in
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-            return;
-        }
+        Utils.log(request, response, (ClientLogger) getServletContext().getAttribute("logger"), "SiteVisitedEvent", "User visiting schedule", true);
+        String userId = Utils.getLoggedInUserId(request);
 
         XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
         

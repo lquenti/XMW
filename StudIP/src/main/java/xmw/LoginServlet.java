@@ -31,6 +31,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Utils.log(request, response, (ClientLogger) getServletContext().getAttribute("logger"), "SiteVisitedEvent", "User visiting login page", false);
         request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
@@ -38,6 +39,8 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+
+        Utils.log(request, response, (ClientLogger) getServletContext().getAttribute("logger"), "LoginEvent", "User trying to log in with user "+ username, true);
 
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             request.setAttribute("errorMessage", "Username and password are required.");
