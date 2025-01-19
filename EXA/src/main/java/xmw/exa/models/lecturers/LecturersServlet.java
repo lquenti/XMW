@@ -43,6 +43,12 @@ public class LecturersServlet extends ExaServlet {
     }
 
     @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // /users handles lecturer creation
+        response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+    }
+
+    @Override
     public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Util.deleteItem(db.lecturers(), request, response);
     }

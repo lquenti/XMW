@@ -3,6 +3,9 @@ package xmw.exa.models.lectures;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
+import java.time.format.SignStyle;
+import java.util.HashMap;
+import java.util.Map;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
@@ -35,6 +38,58 @@ public class LecturesServlet extends ExaServlet {
         var responseData = DB.marshal(lectures);
         PrintWriter out = response.getWriter();
         out.println(responseData);
+        out.flush();
+    }
+
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        final String[] requiredParams = {"course", "start", "end", "room"};
+        final Map<String, String> defaultRawDto = new HashMap<>();
+        defaultRawDto.put("course", "");
+        defaultRawDto.put("start", "");
+        defaultRawDto.put("end", "");
+        defaultRawDto.put("room", "");
+
+        Map<String, String> rawDto = Util.getRawDto(defaultRawDto, requiredParams, request, response);
+        if (rawDto == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        // Verify that start and end are valid dates
+        if (!Util.verifyDate(rawDto.get("start")) || !Util.verifyDate(rawDto.get("end"))) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        // Verify that the course exists
+        var course = db.courses().get(rawDto.get("course"));
+        if (course == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        // Create the lecture
+        var lecture = new Lecture();
+        lecture.setCourse(course);
+        Start start = new Start();
+        start.setContent(rawDto.get("start"));
+        lecture.getStartOrEndOrRoomOrLink().add(start);
+        End end = new End();
+        end.setContent(rawDto.get("end"));
+        lecture.getStartOrEndOrRoomOrLink().add(end);
+        RoomOrLink room = new RoomOrLink();
+        room.setContent(rawDto.get("room"));
+        lecture.getStartOrEndOrRoomOrLink().add(room);
+
+        // Add the lecture to the database
+        db.lectures().create(lecture);
+
+        response.setStatus(HttpServletResponse.SC_CREATED);
+        response.setContentType("application/xml");
+        PrintWriter out = response.getWriter();
+        out.println(DB.marshal(lecture));
         out.flush();
     }
 

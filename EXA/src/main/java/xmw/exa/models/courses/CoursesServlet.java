@@ -94,6 +94,7 @@ public class CoursesServlet extends ExaServlet {
         }
 
         response.setStatus(HttpServletResponse.SC_CREATED);
+        response.setContentType("application/xml");
 
         // Return the course
         PrintWriter out = response.getWriter();

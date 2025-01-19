@@ -102,6 +102,7 @@ public class ExamsServlet extends ExaServlet {
         }
 
         response.setStatus(HttpServletResponse.SC_CREATED);
+        response.setContentType("application/xml");
         // Create PrintWriter for response
         PrintWriter out = response.getWriter();
         out.println(DB.marshal(exam));
