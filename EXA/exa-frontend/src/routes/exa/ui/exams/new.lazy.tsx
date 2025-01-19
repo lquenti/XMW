@@ -1,8 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 import { useCourses } from '../../../../lib/use-courses'
+import { useExaMutation } from '../../../../lib/use-exa-mutation'
 import { AuthorizationState, parseCoursesXml, useAuthorizationState } from '../../../../lib/utils'
 
 const examSchema = z.object({
@@ -23,6 +25,10 @@ function NewExamComponent() {
     const navigate = useNavigate()
     const { state: authState } = useAuthorizationState()
     const { data: coursesData, isLoading: coursesLoading } = useCourses()
+    const { mutate, isPending } = useExaMutation({
+        endpoint: 'http://localhost:8080/exa/exams',
+        redirectTo: '/exa/ui/exams',
+    })
 
     const {
         register,
@@ -64,31 +70,16 @@ function NewExamComponent() {
 
     const onSubmit = async (data: ExamFormData) => {
         try {
-            // Convert boolean values to '0' or '1'
-            const formData = new URLSearchParams({
+            mutate({
                 course: data.course,
                 date: data.date,
                 is_online: data.isOnline ? '1' : '0',
                 is_written: data.isWritten ? '1' : '0',
                 room_or_link: data.roomOrLink,
             })
-
-            const response = await fetch('http://localhost:8080/exams', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: formData.toString(),
-            })
-
-            if (!response.ok) {
-                throw new Error('Failed to create exam')
-            }
-
-            navigate({ to: '/exa/ui/exams' })
         } catch (error) {
             console.error('Error creating exam:', error)
-            // You might want to show an error message to the user here
+            toast.error('Error creating exam')
         }
     }
 
@@ -208,10 +199,10 @@ function NewExamComponent() {
                     </button>
                     <button
                         type="submit"
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || isPending}
                         className="rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        {isSubmitting ? 'Creating...' : 'Create Exam'}
+                        {isSubmitting || isPending ? 'Creating...' : 'Create Exam'}
                     </button>
                 </div>
             </form>

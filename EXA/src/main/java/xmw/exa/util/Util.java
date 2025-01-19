@@ -6,6 +6,8 @@ import xmw.exa.db.repository.BaseXmlRepository;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.UUID;
@@ -94,10 +96,19 @@ public class Util {
                 System.out.println("Valid parameter name " + paramName);
 
                 StringBuilder sb = new StringBuilder();
-                for (String value : paramValues) {
-                    sb.append(value);
-                    sb.append(" ");
+                if (paramValues.length > 1) {
+                    System.out.println("Multiple values");
+                    for (int i = 0; i < paramValues.length; i++) {
+                        String value = paramValues[i];
+                        sb.append(value);
+                        if (i < paramValues.length - 1) {
+                            sb.append(" ");
+                        }
+                    }
+                } else {
+                    sb.append(paramValues[0]);
                 }
+
                 System.out.println("Value: " + sb);
 
                 defaultRawDto.put(paramName, sb.toString());
@@ -117,5 +128,25 @@ public class Util {
             }
         }
         return defaultRawDto;
+    }
+
+    // verifies iso date string without timezone
+    public static boolean verifyDate(String date) {
+        date = date.strip();
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+        try {
+            formatter.parse(date);
+            return true;
+        } catch (DateTimeParseException e) {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+            try {
+                formatter.parse(date);
+                return true;
+            } catch (DateTimeParseException f) {
+                System.err.println("Invalid date format: " + date + " " + e.getMessage());
+                System.err.println("Invalid date format: " + date + " " + f.getMessage());
+                return false;
+            }
+        }
     }
 }

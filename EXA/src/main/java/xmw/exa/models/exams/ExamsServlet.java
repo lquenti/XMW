@@ -14,6 +14,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
 import xmw.exa.util.ExaServlet;
 import xmw.exa.util.Util;
+import xmw.flush.Date;
+import xmw.flush.IsOnline;
+import xmw.flush.IsWritten;
+import xmw.flush.RoomOrLink;
 
 @WebServlet(name = "exams", value = "/exams")
 @MultipartConfig
@@ -56,6 +60,44 @@ public class ExamsServlet extends ExaServlet {
 
         if (rawDto == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters");
+            return;
+        }
+
+        // Verify the date
+        if (!Util.verifyDate(rawDto.get("date"))) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid date format");
+            return;
+        }
+
+        // Verify course exists
+        var course = db.courses().get(rawDto.get("course").strip());
+        if (course == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Course not found");
+            return;
+        }
+
+        // Create the exam
+        var exam = new xmw.flush.Exam();
+        exam.setCourse(course);
+
+        Date date = new Date();
+        IsWritten isWritten = new IsWritten();
+        IsOnline isOnline = new IsOnline();
+        RoomOrLink roomOrLink = new RoomOrLink();
+
+        date.setContent(rawDto.get("date"));
+        isOnline.setContent(rawDto.get("is_online"));
+        isWritten.setContent(rawDto.get("is_written"));
+        roomOrLink.setContent(rawDto.get("room_or_link"));
+        exam.getDateOrIsOnlineOrIsWritten().add(date);
+        exam.getDateOrIsOnlineOrIsWritten().add(isOnline);
+        exam.getDateOrIsOnlineOrIsWritten().add(isWritten);
+        exam.getDateOrIsOnlineOrIsWritten().add(roomOrLink);
+
+        // Add the exam to the database
+        boolean success = db.exams().create(exam);
+        if(!success) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to create exam");
             return;
         }
 

@@ -1,5 +1,6 @@
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import { Toaster } from 'sonner'
 import { ExaLogo } from '../components/ExaLogo'
 import { AuthorizationState, useAuthorizationState } from '../lib/utils'
 
@@ -109,6 +110,15 @@ function LayoutComponent() {
                     User API
                   </a>
                 </li>
+                <li>
+                  <a
+                    href="/logger"
+                    className="text-gray-600 hover:text-gray-900 transition-colors"
+                  >
+                    Logger
+                  </a>
+                </li>
+
               </ul>
             </div>
             <div className="text-sm text-gray-500">
@@ -117,6 +127,7 @@ function LayoutComponent() {
           </div>
         </div>
       </footer>
+      <Toaster />
       {import.meta.env.DEV && <TanStackRouterDevtools />}
     </div>
   )

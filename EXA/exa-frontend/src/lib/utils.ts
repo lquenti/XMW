@@ -16,7 +16,7 @@ export const useAuthorizationState = create<{
 }))
 
 // Add new types and functions
-type Course = {
+export type Course = {
   id: string | null
   semester: string | null
   name: string | null
@@ -25,12 +25,12 @@ type Course = {
   lecturer: string | null
 }
 
-type Semester = {
+export type Semester = {
   id: string | null
   name: string | null
 }
 
-type Lecturer = {
+export type Lecturer = {
   id: string | null
   username: string | null
   firstname: string | null
@@ -38,7 +38,7 @@ type Lecturer = {
   faculty: string | null
 }
 
-type Exam = {
+export type Exam = {
   id: string | null
   course: string | null
   date: string | null
@@ -47,7 +47,7 @@ type Exam = {
   roomOrLink: string | null
 }
 
-type Lecture = {
+export type Lecture = {
   id: string | null
   course: string | null
   start: string | null
