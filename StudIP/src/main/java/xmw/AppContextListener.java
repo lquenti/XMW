@@ -51,7 +51,7 @@ public class AppContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         // Initialize the XMLDatabase object and store it in the context
 
-        ClientLogger logger = new ClientLogger();
+        ClientLogger logger = ClientLogger.getInstance();
 
         createDirectoryIfNotExists(BASE_FOLDER);
         createDirectoryIfNotExists(USER_FOLDER);
@@ -60,6 +60,7 @@ public class AppContextListener implements ServletContextListener {
         XMLDatabase xmlDatabase = XMLDatabase.getInstance();
 
         sce.getServletContext().setAttribute("xmlDatabase", xmlDatabase);
+        sce.getServletContext().setAttribute("logger", logger);
 
         loadDatabase();
     }

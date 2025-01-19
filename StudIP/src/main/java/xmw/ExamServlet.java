@@ -21,6 +21,8 @@ public class ExamServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            ClientLogger logger = (ClientLogger) getServletContext().getAttribute("logger");
+            logger.addEvent(new Event("StudIP", "hbrosen", "test", "User visited FlexNever"));
             // Fetch exams from XMLDatabase
             XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
             List<Map<String, String>> exams = xmlDatabase.getExams();
