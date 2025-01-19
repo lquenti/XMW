@@ -5,13 +5,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
-import xmw.exa.util.Config;
 import xmw.exa.util.ExaServlet;
 import xmw.exa.util.Util;
 import xmw.flush.Course;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
 
 @WebServlet(name = "course", urlPatterns = "/courses/*")
