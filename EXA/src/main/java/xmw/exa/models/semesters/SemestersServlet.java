@@ -3,6 +3,7 @@ package xmw.exa.models.semesters;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.jetbrains.annotations.Nullable;
 import xmw.exa.db.DB;
 import xmw.exa.util.ExaServlet;
 import xmw.exa.util.Util;
@@ -33,6 +34,7 @@ public class SemestersServlet extends ExaServlet {
         out.flush();
     }
 
+
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         final String[] requiredParams = {"name", "start", "end"};
@@ -41,16 +43,38 @@ public class SemestersServlet extends ExaServlet {
         defaultRawDto.put("start", "");
         defaultRawDto.put("end", "");
 
+        Semester semester = makeSemester(request, response, defaultRawDto, requiredParams);
+        if (semester == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        };
+
+        // Add the semester
+        boolean success = db.semesters().create(semester);
+        if (!success) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
+        }
+
+        response.setStatus(HttpServletResponse.SC_CREATED);
+        response.setContentType("application/xml");
+        PrintWriter out = response.getWriter();
+        out.println(DB.marshal(semester));
+        out.flush();
+    }
+
+    @Nullable
+    private Semester makeSemester(HttpServletRequest request, HttpServletResponse response, Map<String, String> defaultRawDto, String[] requiredParams) {
         var rawDto = Util.getRawDto(defaultRawDto, requiredParams, request, response);
         if (rawDto == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
+            return null;
         }
 
         // Verify that start and end are valid dates
         if (!Util.verifyDate(rawDto.get("start")) || !Util.verifyDate(rawDto.get("end"))) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
+            return null;
         }
 
         // Verify that the semester does not already exist
@@ -73,7 +97,7 @@ public class SemestersServlet extends ExaServlet {
 
         if (exists) {
             response.setStatus(HttpServletResponse.SC_CONFLICT);
-            return;
+            return null;
         }
 
         // Create the semester
@@ -87,19 +111,7 @@ public class SemestersServlet extends ExaServlet {
         End end = new End();
         end.setContent(rawDto.get("end"));
         semester.getNameOrStartOrEnd().add(end);
-
-        // Add the semester
-        boolean success = db.semesters().create(semester);
-        if (!success) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return;
-        }
-
-        response.setStatus(HttpServletResponse.SC_CREATED);
-        response.setContentType("application/xml");
-        PrintWriter out = response.getWriter();
-        out.println(DB.marshal(semester));
-        out.flush();
+        return semester;
     }
 
     @Override

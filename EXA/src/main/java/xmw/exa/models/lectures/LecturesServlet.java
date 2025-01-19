@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.jetbrains.annotations.Nullable;
 import xmw.exa.db.DB;
 import xmw.exa.util.Config;
 import xmw.exa.util.ExaServlet;
@@ -51,23 +52,41 @@ public class LecturesServlet extends ExaServlet {
         defaultRawDto.put("end", "");
         defaultRawDto.put("room", "");
 
+        var lecture = makeLecture(request, response, defaultRawDto, requiredParams);
+        if (lecture == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        };
+
+        // Add the lecture to the database
+        db.lectures().create(lecture);
+
+        response.setStatus(HttpServletResponse.SC_CREATED);
+        response.setContentType("application/xml");
+        PrintWriter out = response.getWriter();
+        out.println(DB.marshal(lecture));
+        out.flush();
+    }
+
+    @Nullable
+    private Lecture makeLecture(HttpServletRequest request, HttpServletResponse response, Map<String, String> defaultRawDto, String[] requiredParams) {
         Map<String, String> rawDto = Util.getRawDto(defaultRawDto, requiredParams, request, response);
         if (rawDto == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
+            return null;
         }
 
         // Verify that start and end are valid dates
         if (!Util.verifyDate(rawDto.get("start")) || !Util.verifyDate(rawDto.get("end"))) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
+            return null;
         }
 
         // Verify that the course exists
         var course = db.courses().get(rawDto.get("course"));
         if (course == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
+            return null;
         }
 
         // Create the lecture
@@ -82,15 +101,7 @@ public class LecturesServlet extends ExaServlet {
         RoomOrLink room = new RoomOrLink();
         room.setContent(rawDto.get("room"));
         lecture.getStartOrEndOrRoomOrLink().add(room);
-
-        // Add the lecture to the database
-        db.lectures().create(lecture);
-
-        response.setStatus(HttpServletResponse.SC_CREATED);
-        response.setContentType("application/xml");
-        PrintWriter out = response.getWriter();
-        out.println(DB.marshal(lecture));
-        out.flush();
+        return lecture;
     }
 
     @Override

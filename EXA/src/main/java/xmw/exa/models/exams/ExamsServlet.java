@@ -11,13 +11,11 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.jetbrains.annotations.Nullable;
 import xmw.exa.db.DB;
 import xmw.exa.util.ExaServlet;
 import xmw.exa.util.Util;
-import xmw.flush.Date;
-import xmw.flush.IsOnline;
-import xmw.flush.IsWritten;
-import xmw.flush.RoomOrLink;
+import xmw.flush.*;
 
 @WebServlet(name = "exams", value = "/exams")
 @MultipartConfig
@@ -55,29 +53,52 @@ public class ExamsServlet extends ExaServlet {
         defaultRawDto.put("is_written", "false");
         defaultRawDto.put("room_or_link", "No room or link provided");
 
+        var exam = makeExam(request, response, defaultRawDto, requiredParams);
+        if (exam == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        };
+
+        // Add the exam to the database
+        boolean success = db.exams().create(exam);
+        if(!success) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to create exam");
+            return;
+        }
+
+        response.setStatus(HttpServletResponse.SC_CREATED);
+        response.setContentType("application/xml");
+        // Create PrintWriter for response
+        PrintWriter out = response.getWriter();
+        out.println(DB.marshal(exam));
+        out.close();
+    }
+
+    @Nullable
+    private Exam makeExam(HttpServletRequest request, HttpServletResponse response, Map<String, String> defaultRawDto, String[] requiredParams) throws IOException {
         // Get the raw DTO
         Map<String, String> rawDto = Util.getRawDto(defaultRawDto, requiredParams, request, response);
 
         if (rawDto == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters");
-            return;
+            return null;
         }
 
         // Verify the date
         if (!Util.verifyDate(rawDto.get("date"))) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid date format");
-            return;
+            return null;
         }
 
         // Verify course exists
         var course = db.courses().get(rawDto.get("course").strip());
         if (course == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Course not found");
-            return;
+            return null;
         }
 
         // Create the exam
-        var exam = new xmw.flush.Exam();
+        var exam = new Exam();
         exam.setCourse(course);
 
         Date date = new Date();
@@ -93,20 +114,7 @@ public class ExamsServlet extends ExaServlet {
         exam.getDateOrIsOnlineOrIsWritten().add(isOnline);
         exam.getDateOrIsOnlineOrIsWritten().add(isWritten);
         exam.getDateOrIsOnlineOrIsWritten().add(roomOrLink);
-
-        // Add the exam to the database
-        boolean success = db.exams().create(exam);
-        if(!success) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to create exam");
-            return;
-        }
-
-        response.setStatus(HttpServletResponse.SC_CREATED);
-        response.setContentType("application/xml");
-        // Create PrintWriter for response
-        PrintWriter out = response.getWriter();
-        out.println(DB.marshal(exam));
-        out.close();
+        return exam;
     }
 
 

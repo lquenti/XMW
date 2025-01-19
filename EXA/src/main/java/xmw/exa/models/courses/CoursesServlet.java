@@ -4,6 +4,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.jetbrains.annotations.Nullable;
 import xmw.exa.db.DB;
 import xmw.exa.util.ExaServlet;
 import xmw.exa.util.Util;
@@ -50,40 +51,12 @@ public class CoursesServlet extends ExaServlet {
         defaultRawDto.put("semester", "");
         defaultRawDto.put("max_students", "0");
 
-        // Get the raw DTO
-        Map<String, String> rawDto = Util.getRawDto(defaultRawDto, requiredParams, request, response);
-
-        if (rawDto == null) {
+        var course = makeCourse(request, response, defaultRawDto, requiredParams);
+        if (course == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-
-        // Verify references exist
-        var lecturer = db.lecturers().get(rawDto.get("lecturer"));
-        if (lecturer == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Lecturer does not exist");
-            return;
-        }
-        var semester = db.semesters().get(rawDto.get("semester"));
-        if (semester == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Semester does not exist");
-            return;
-        }
-
-        // Create the course
-        var course = new Course();
-        course.setLecturer(lecturer);
-        course.setSemester(semester);
-        // Name, Faculty, MaxStudents
-        Name name = new Name();
-        name.setContent(rawDto.get("name"));
-        course.getNameOrFacultyOrMaxStudents().add(name);
-        Faculty faculty = new Faculty();
-        faculty.setContent(rawDto.get("faculty"));
-        course.getNameOrFacultyOrMaxStudents().add(faculty);
-        MaxStudents maxStudents = new MaxStudents();
-        maxStudents.setContent(rawDto.get("max_students"));
-        course.getNameOrFacultyOrMaxStudents().add(maxStudents);
+        ;
 
         // Add the course
         boolean success = db.courses().create(course);
@@ -100,6 +73,45 @@ public class CoursesServlet extends ExaServlet {
         PrintWriter out = response.getWriter();
         out.println(DB.marshal(course));
         out.flush();
+    }
+
+    @Nullable
+    private Course makeCourse(HttpServletRequest request, HttpServletResponse response, Map<String, String> defaultRawDto, String[] requiredParams) throws IOException {
+        // Get the raw DTO
+        Map<String, String> rawDto = Util.getRawDto(defaultRawDto, requiredParams, request, response);
+
+        if (rawDto == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return null;
+        }
+
+        // Verify references exist
+        var lecturer = db.lecturers().get(rawDto.get("lecturer"));
+        if (lecturer == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Lecturer does not exist");
+            return null;
+        }
+        var semester = db.semesters().get(rawDto.get("semester"));
+        if (semester == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Semester does not exist");
+            return null;
+        }
+
+        // Create the course
+        var course = new Course();
+        course.setLecturer(lecturer);
+        course.setSemester(semester);
+        // Name, Faculty, MaxStudents
+        Name name = new Name();
+        name.setContent(rawDto.get("name"));
+        course.getNameOrFacultyOrMaxStudents().add(name);
+        Faculty faculty = new Faculty();
+        faculty.setContent(rawDto.get("faculty"));
+        course.getNameOrFacultyOrMaxStudents().add(faculty);
+        MaxStudents maxStudents = new MaxStudents();
+        maxStudents.setContent(rawDto.get("max_students"));
+        course.getNameOrFacultyOrMaxStudents().add(maxStudents);
+        return course;
     }
 
     @Override

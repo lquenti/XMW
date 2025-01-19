@@ -3,6 +3,7 @@ package xmw.exa.models.modules;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.jetbrains.annotations.Nullable;
 import xmw.exa.db.DB;
 import xmw.exa.util.ExaServlet;
 import xmw.exa.util.Util;
@@ -44,10 +45,35 @@ public class ModulesServlet extends ExaServlet {
         defaultRawDto.put("studies", "");
         defaultRawDto.put("description", "No description provided");
 
+        Module module = makeModule(request, response, defaultRawDto, requiredParams);
+        if (module == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        };
+
+        // Add the module
+        boolean success = db.modules().create(module);
+
+        if (!success) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        response.setStatus(HttpServletResponse.SC_CREATED);
+        response.setContentType("application/xml");
+
+        // Return the module
+        PrintWriter out = response.getWriter();
+        out.println(DB.marshal(module));
+        out.flush();
+    }
+
+    @Nullable
+    private Module makeModule(HttpServletRequest request, HttpServletResponse response, Map<String, String> defaultRawDto, String[] requiredParams) {
         Map<String, String> rawDto = Util.getRawDto(defaultRawDto, requiredParams, request, response);
         if (rawDto == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
+            return null;
         }
 
         // Verify that credits is a valid number
@@ -55,14 +81,14 @@ public class ModulesServlet extends ExaServlet {
             Integer.parseInt(rawDto.get("credits"));
         } catch (NumberFormatException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
+            return null;
         }
 
         // Verify that course exists
         var course = db.courses().get(rawDto.get("course"));
         if (course == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
+            return null;
         }
 
         // Split studies into a list
@@ -70,7 +96,7 @@ public class ModulesServlet extends ExaServlet {
         // verify that at least one study exists
         if (studies.length == 0) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
+            return null;
         }
 
         // Create the module
@@ -91,22 +117,7 @@ public class ModulesServlet extends ExaServlet {
         Description description = new Description();
         description.setContent(rawDto.get("description"));
         module.getNameOrStudiesOrDescription().add(description);
-
-        // Add the module
-        boolean success = db.modules().create(module);
-
-        if (!success) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }
-
-        response.setStatus(HttpServletResponse.SC_CREATED);
-        response.setContentType("application/xml");
-
-        // Return the module
-        PrintWriter out = response.getWriter();
-        out.println(DB.marshal(module));
-        out.flush();
+        return module;
     }
 
     @Override
