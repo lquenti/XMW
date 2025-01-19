@@ -81,8 +81,28 @@ public class DB {
                     // Ignore close errors
                 }
             }
+            var flushFile = new File(Config.FLUSH_FILE_PATH);
+            if (!flushFile.exists()) {
+                // create the directory if it does not exist
+                boolean success = flushFile.getParentFile().mkdirs();
+                if (!success) {
+                    throw new BaseXException("Failed to create directory: " + flushFile.getParent());
+                }
+                // copy flush.xml, flush.dtd from resources to the file
+                Files.copy(
+                        DB.class.getResource
+                                ("/flush.xml").openStream(),
+                        flushFile.toPath());
 
-            var xml = Files.readString(new File(Config.FLUSH_FILE_PATH).toPath());
+                Files.copy(
+                        DB.class.getResource
+                                ("/flush.dtd").openStream(),
+                        new File(Config.APPLICATION_STORAGE_PATH + "/flush.dtd").toPath());
+
+                System.out.println("Copied flush.xml and flush.dtd to " + Config.APPLICATION_STORAGE_PATH);
+            }
+
+            var xml = Files.readString(flushFile.toPath());
             new CreateDB(BaseXmlRepository.DB_NAME).execute(context);
             // Add namespace declaration to the XQuery
             var addQuery = "declare namespace t = '" + XML_NAMESPACE + "'; " + CourseUtil.addQuery(xml);

@@ -59,7 +59,6 @@ public class ExamsServlet extends ExaServlet {
             return;
         }
 
-
         // Create PrintWriter for response
         PrintWriter out = response.getWriter();
 
