@@ -26,13 +26,13 @@ public class ClientLogger {
     public synchronized static ClientLogger getInstance() {
         if (instance == null) {
             instance = new ClientLogger();
+            instance.run();
         }
         return instance;
     }
 
     public static void main(String[] args) throws InterruptedException {
         ClientLogger logger = ClientLogger.getInstance();
-        logger.run();
         int cnt = 0;
         // Example of adding a real event
         while (true) {
