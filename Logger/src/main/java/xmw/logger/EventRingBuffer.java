@@ -1,6 +1,9 @@
 package xmw.logger;
 
-import javax.swing.text.Element;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class EventRingBuffer {
     public static class Event {
@@ -8,12 +11,14 @@ public class EventRingBuffer {
         public final String user;
         public final String type;
         public final String desc;
+        public final String timestamp;
 
-        public Event(String service, String user, String type, String desc) {
+        public Event(String service, String user, String type, String desc, String timestamp) {
             this.service = service;
             this.user = user;
             this.type = type;
             this.desc = desc;
+            this.timestamp = timestamp;
         }
     }
 
@@ -44,9 +49,18 @@ public class EventRingBuffer {
         }
     }
 
+    public static String convertIsoToFormattedString(String isoTimestamp) {
+        Instant instant = Instant.parse(isoTimestamp);
+        // assume our time zone
+        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+        return dateTime.format(formatter);
+    }
+
+
     public synchronized String toHTMLTableString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("<table><tr><th>Service</th><th>User</th><th>Type</th><th>Description</th></tr>");
+        sb.append("<table><tr><th>Service</th><th>User</th><th>Type</th><th>Description</th><th>Timestamp</th></tr>");
 
         // Check if buffer is not empty
         if (start != end || buffer[start] != null) {
@@ -63,6 +77,8 @@ public class EventRingBuffer {
                             .append(event.type)
                             .append("</td><td>")
                             .append(event.desc)
+                            .append("</td><td>")
+                            .append(convertIsoToFormattedString(event.timestamp))
                             .append("</td></tr>");
                 }
 

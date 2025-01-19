@@ -19,7 +19,7 @@ public class RootServlet extends HttpServlet {
         out.println("<html><body>");
         out.println("<div id='log-table'></div>");
         out.println("<script src='https://unpkg.com/htmx.org'></script>");
-        out.println("<script>setInterval(() => { htmx.ajax('GET', './log', { swap: '#log-table' }) }, 5000);</script>");
+        out.println("<script>setInterval(() => { htmx.ajax('GET', './log', { swap: '#log-table' }) }, 5000, true);</script>");
         out.println("</body></html>");
     }
 }
