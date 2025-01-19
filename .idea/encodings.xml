@@ -3,6 +3,10 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/EXA/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/EXA/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Logger/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Logger/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LoggerClient/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LoggerClient/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/StudIP/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/StudIP/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/User/src/main/java" charset="UTF-8" />

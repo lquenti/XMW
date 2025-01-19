@@ -378,7 +378,7 @@
             <room_or_link>Room 7543</room_or_link>
         </Exam>
         <Exam id="exam-39" course="course-23">
-            <date>0025-03-29T11:11</date>
+            <date>2025-03-29T11:11</date>
             <is_online>1</is_online>
             <is_written>0</is_written>
             <room_or_link>BIG BOI EXAM</room_or_link>

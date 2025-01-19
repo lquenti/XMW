@@ -6,6 +6,8 @@ import xmw.exa.db.repository.BaseXmlRepository;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.Map;
 import java.util.UUID;
 
 public class Util {
@@ -65,5 +67,55 @@ public class Util {
         } catch (Exception e) {
             throw new IOException("Failed to delete courses: " + e.getMessage(), e);
         }
+    }
+
+    public static Map<String, String> getRawDto(Map<String, String> defaultRawDto,
+                                                String[] requiredParams, HttpServletRequest request,
+                                                HttpServletResponse response) {
+        // Set response content type
+        response.setContentType("text/plain");
+
+        // Get all parameter names from the request
+        Enumeration<String> parameterNames = request.getParameterNames();
+
+        while (parameterNames.hasMoreElements()) {
+            String paramName = parameterNames.nextElement();
+            String[] paramValues = request.getParameterValues(paramName);
+
+            // Print parameter name and its values
+            System.out.println("Parameter: " + paramName);
+            if (paramValues.length == 0) {
+                System.out.println("No values");
+                continue;
+            }
+            if (!defaultRawDto.containsKey(paramName)) {
+                System.err.println("Invalid parameter name " + paramName);
+            } else {
+                System.out.println("Valid parameter name " + paramName);
+
+                StringBuilder sb = new StringBuilder();
+                for (String value : paramValues) {
+                    sb.append(value);
+                    sb.append(" ");
+                }
+                System.out.println("Value: " + sb);
+
+                defaultRawDto.put(paramName, sb.toString());
+            }
+        }
+
+        return validateParams(defaultRawDto, requiredParams, response);
+    }
+
+    public static Map<String, String> validateParams(Map<String, String> defaultRawDto, String[] requiredParams,
+                                                     HttpServletResponse response) {
+        // validate the data
+        for (String requiredParam : requiredParams) {
+            if (defaultRawDto.get(requiredParam).isEmpty()) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return null;
+            }
+        }
+        return defaultRawDto;
     }
 }

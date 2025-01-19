@@ -1,7 +1,7 @@
 package xmw.exa.models.semesters;
 
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
+import java.util.Enumeration;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import xmw.exa.db.DB;
@@ -36,7 +36,7 @@ public class SemestersServlet extends ExaServlet {
         out.flush();
     }
 
-    @Override
+      @Override
     public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Util.deleteItem(db.semesters(), request, response);
     }

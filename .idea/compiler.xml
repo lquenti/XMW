@@ -6,9 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="StudIP" />
-        <module name="EXA" />
         <module name="User" />
+        <module name="LoggerClient" />
+        <module name="StudIP" />
+        <module name="Logger" />
+        <module name="EXA" />
       </profile>
     </annotationProcessing>
   </component>
