@@ -66,19 +66,31 @@ public class XMLDatabase {
     public boolean registerStudentToCourse(String userId, String courseId, String semester) {
         try {
             // XQuery to check if the user already has a schedule
-            String checkScheduleQuery = String.format(
+            String checkSchedulesQuery = String.format(
                     "let $schedules := /StudIP/Schedules/Schedule[@username='%s']\n" +
                             "return exists($schedules)",
                     userId
             );
-            boolean userHasSchedule;
+            boolean userHasSchedules;
             synchronized (lock) {
-                userHasSchedule = Boolean.parseBoolean(new XQuery(checkScheduleQuery).execute(context));
+                userHasSchedules = Boolean.parseBoolean(new XQuery(checkSchedulesQuery).execute(context));
             }
 
             String xquery;
 
-            if (userHasSchedule) {
+            if (userHasSchedules) {
+                // XQuery to check if the user already has a schedule
+                String checkScheduleQuery = String.format(
+                        "let $course := /StudIP/Schedules/Schedule[@username='%s']/Course[@id='%s' semester='%s']\n" +
+                                "return exists(course)",
+                        userId, courseId, semester
+                );
+                boolean userHasSchedule;
+                synchronized (lock) {
+                    userHasSchedule = Boolean.parseBoolean(new XQuery(checkScheduleQuery).execute(context));
+                }
+                if(userHasSchedule)
+                    return false;
                 // User has an existing <Schedule>, add the course to it
                 xquery = String.format(
                         "let $schedule := /StudIP/Schedules/Schedule[@username='%s']\n" +
@@ -109,8 +121,7 @@ public class XMLDatabase {
         try {
             // XQuery to find and remove the specific exam for the user
             String xquery = String.format(
-                    "declare namespace ns = 'http://example.com/schema';\n" +
-                            "let $course := /StudIP/Schedules/Schedule[@username='%s']/Course[@id='%s' and @semester='%s']\n" +
+                    "let $course := /StudIP/Schedules/Schedule[@username='%s']/Course[@id='%s' and @semester='%s']\n" +
                             "return delete node $course",
                     userId, courseId, semester
             );
@@ -161,7 +172,7 @@ public class XMLDatabase {
         NodeList nodeList = tmp.getElementsByTagName("Lecture");
 
         for (int i = 0; i < nodeList.getLength(); i++) {
-            Element lecture = (Element) nodeList.item(i);
+            Element lecture = (Element) nodeList.item(i);// XQuery to check if the user already has a schedule
 
             Map<String, String> lectureMap = new HashMap<>();
             lectureMap.put("CourseID", lecture.getAttribute("course"));
@@ -373,6 +384,18 @@ public class XMLDatabase {
             String xquery;
 
             if (examExists) {
+                // XQuery to check if the user already has a schedule
+                String checkScheduleQuery = String.format(
+                        "let $course := /StudIP/Exams/Registration[@username='%s']/Exam[@id='%s']\n" +
+                                "return exists(course)",
+                        userId, examId
+                );
+                boolean userIsRegistered;
+                synchronized (lock) {
+                    userIsRegistered = Boolean.parseBoolean(new XQuery(checkScheduleQuery).execute(context));
+                }
+                if(userIsRegistered)
+                    return false;
                 // If the exam exists, register the user for the exam
                 xquery = String.format(
                         "let $exam := /StudIP/Exams/Registration[@username='%s']\n" +
@@ -506,6 +529,17 @@ public class XMLDatabase {
                 );
             } else {
                 // If the exam does not exist, create a new exam entry and register the user
+                try {
+                    xquery = String.format(
+                            "let $exam := /StudIP/Grades/Grade[@username='%s']/Exam[@id='%s']\n" +
+                                    "delete node $exam",
+                            studentId, examId
+                    );
+                    synchronized (lock) {
+                        new XQuery(xquery).execute(context);
+                    }
+                }catch (Exception _){}
+
                 xquery = String.format(
                         "insert node <Grade username='%s'><Exam id='%s'>%s</Exam></Grade> into /StudIP/Grades",
                         studentId, examId, grade

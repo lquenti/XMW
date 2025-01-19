@@ -10,6 +10,60 @@
     <style>
         <% String css = StylingConstant.CSS; %>
         <%= css %>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #fdfdfe;
+            color: #1c1c1d;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            color: #0366d6;
+            text-shadow: 3px 3px 0 #ffcc00;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #03c03c;
+            text-decoration: none;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        th, td {
+            border: 3px solid #ff8c00;
+            padding: 10px;
+            text-align: center;
+            font-size: 1.2em;
+            background-color: #fffacd;
+            color: #1c1c1d;
+        }
+
+        th {
+            background-color: #ffd700;
+            color: #3a3a3a;
+            font-weight: bold;
+            font-style: italic;
+            border-bottom: 5px double #ff4500;
+        }
+
+        tr:hover {
+            background-color: #afe9af;
+            cursor: pointer;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #faebd7;
+        }
     </style>
 </head>
 <br>
