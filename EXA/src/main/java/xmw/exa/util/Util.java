@@ -102,7 +102,7 @@ public class Util {
                         String value = paramValues[i];
                         sb.append(value);
                         if (i < paramValues.length - 1) {
-                            sb.append(" ");
+                            sb.append(";");
                         }
                     }
                 } else {
