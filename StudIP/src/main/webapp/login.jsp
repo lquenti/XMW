@@ -1,4 +1,4 @@
-<%@ page import="xmw.studip.StylingConstant" %>
+<%@ page import="xmw.StylingConstant" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>

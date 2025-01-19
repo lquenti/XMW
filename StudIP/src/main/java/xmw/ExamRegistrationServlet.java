@@ -1,4 +1,4 @@
-package xmw.studip;
+package xmw;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

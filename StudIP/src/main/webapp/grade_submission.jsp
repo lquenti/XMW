@@ -1,7 +1,7 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="xmw.studip.StylingConstant" %>
+<%@ page import="xmw.StylingConstant" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,11 +1,10 @@
-package xmw.studip;
+package xmw;
 
 import org.basex.core.BaseXException;
 import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.XQuery;
 import org.basex.core.Context;
 import org.basex.query.QueryException;
-import org.basex.query.QueryProcessor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
