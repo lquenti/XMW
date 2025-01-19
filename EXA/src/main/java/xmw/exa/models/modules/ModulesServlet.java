@@ -49,7 +49,8 @@ public class ModulesServlet extends ExaServlet {
         if (module == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
-        };
+        }
+        ;
 
         // Add the module
         boolean success = db.modules().create(module);
@@ -63,6 +64,52 @@ public class ModulesServlet extends ExaServlet {
         response.setContentType("application/xml");
 
         // Return the module
+        PrintWriter out = response.getWriter();
+        out.println(DB.marshal(module));
+        out.flush();
+    }
+
+    @Override
+    public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        final String[] requiredParams = {"credits", "course", "name", "studies"};
+        Map<String, String> defaultRawDto = new HashMap<>();
+        defaultRawDto.put("credits", "");
+        defaultRawDto.put("course", "");
+        defaultRawDto.put("name", "");
+        defaultRawDto.put("studies", "");
+        defaultRawDto.put("description", "No description provided");
+
+        defaultRawDto = Util.makeUpdatedDto(requiredParams, defaultRawDto, request, response);
+
+        if (defaultRawDto == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        // verify that module exists
+        var module = db.modules().get(defaultRawDto.get("id"));
+        if (module == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        // create the updated module
+        module = makeModule(request, response, defaultRawDto, requiredParams);
+        if (module == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        // update the module
+        module = db.modules().update(module);
+
+        if (module == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/xml");
         PrintWriter out = response.getWriter();
         out.println(DB.marshal(module));
         out.flush();
@@ -103,6 +150,12 @@ public class ModulesServlet extends ExaServlet {
         Module module = new Module();
         module.setCredits(rawDto.get("credits"));
         module.setCourse(course);
+
+        if (rawDto.containsKey("id")) {
+            module.setId(rawDto.get("id"));
+        }
+
+        module.getNameOrStudiesOrDescription().clear();
 
         Name name = new Name();
         name.setContent(rawDto.get("name"));
