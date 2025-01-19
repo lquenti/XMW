@@ -101,17 +101,10 @@ public class ExamsServlet extends ExaServlet {
             return;
         }
 
+        response.setStatus(HttpServletResponse.SC_CREATED);
         // Create PrintWriter for response
         PrintWriter out = response.getWriter();
-
-        // Print the RawDto
-        out.println("Course: " + rawDto.get("course"));
-        out.println("Date: " + rawDto.get("date"));
-        out.println("Is online: " + rawDto.get("is_online"));
-        out.println("Is written: " + rawDto.get("is_written"));
-        out.println("Room or link: " + rawDto.get("room_or_link"));
-
-        // Close the PrintWriter
+        out.println(DB.marshal(exam));
         out.close();
     }
 
