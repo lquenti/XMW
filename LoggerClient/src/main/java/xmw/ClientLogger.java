@@ -23,7 +23,7 @@ public class ClientLogger {
     private static final int KEEPALVE_ALEEP_MS = 5000;
     private static final int QUEUE_FLUSH_MS = 5000;
 
-    private synchronized static ClientLogger getInstance() {
+    public synchronized static ClientLogger getInstance() {
         if (instance == null) {
             instance = new ClientLogger();
         }
