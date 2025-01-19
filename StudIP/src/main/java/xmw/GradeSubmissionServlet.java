@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static xmw.Utils.joinListOfMaps;
+
 // Servlet to handle grade input by lecturers
 @WebServlet("/inputGrades")
 public class GradeSubmissionServlet extends HttpServlet {
@@ -97,13 +99,8 @@ public class GradeSubmissionServlet extends HttpServlet {
 
             List<Map<String, String>> exams = xmlDatabase.getExamsAsLecturer(Utils.getLoggedInUserId(request));
             List<Map<String, String>> courses = xmlDatabase.getCourses();
-            for (Map<String, String> exam : exams) {
-                for (Map<String, String> course : courses){
-                    if (exam.get("CourseID").equals(course.get("CourseID"))) {
-                        exam.putAll(course);
-                    }
-                }
-            }
+            joinListOfMaps(exams, courses, "CourseID", "CourseID");
+
 
             List<Map<String, String>> students = xmlDatabase.getStudents();
             for(Map<String, String> student: students){

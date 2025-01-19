@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 public class Utils {
     public static void log(HttpServletRequest request, HttpServletResponse response, ClientLogger logger, String Type, String Desc) throws ServletException, IOException {
@@ -23,6 +25,15 @@ public class Utils {
         if(userId == null)
             userId = "";
         logger.addEvent(new Event("StudIP", userId, Type, Desc));
+    }
+
+    public static void joinListOfMaps(List<Map<String, String>> map1, List<Map<String, String>> map2, String key1, String key2){
+        for (Map<String, String> m1 : map1) {
+            for (Map<String, String> m2 : map2) {
+                if(m1.get(key1).equals(m2.get(key2)))
+                    m1.putAll(m2);
+            }
+        }
     }
 
     /**

@@ -20,6 +20,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 
+import static xmw.Utils.joinListOfMaps;
+
 public class XMLDatabase {
     private static XMLDatabase instance;
     private static final String DB_NAME = "StudDB";
@@ -588,12 +590,7 @@ public class XMLDatabase {
     public List<Map<String, String>> getExamsAsLecturer(String LecturerId) throws Exception {
         List<Map<String, String>> exams = getExams();
         List<Map<String, String>> courses = getCourses();
-        for(Map<String, String> exam: exams){
-            for(Map<String, String> course: courses){
-                if(exam.get("CourseID").equals(course.get("CourseID")))
-                    exam.putAll(course);
-            }
-        }
+        joinListOfMaps(exams, courses, "CourseID", "CourseID");
 
         List<Map<String, String>> currentExams = new ArrayList<>();
         for(Map<String, String> exam: exams){
@@ -655,5 +652,56 @@ public class XMLDatabase {
                 registerStudentToCourse(lecturerUsername, course.get("CourseID"), course.get("Semester"));
             }
         }catch (Exception _){}
+    }
+
+    public List<Map<String, String>> getModules() throws IOException {
+        String content = getContentFromUrl(AppContextListener.EXA_URL + "exams?format=xml");
+        return processModules(content);
+    }
+
+    private List<Map<String, String>> processModules(String xmlString) {
+        List<Map<String, String>> moduleList = new ArrayList<>();
+
+        try {
+            // Parse the XML string into a DOM document
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(new java.io.ByteArrayInputStream(xmlString.getBytes()));
+
+            // Normalize the document
+            document.getDocumentElement().normalize();
+
+            // Get all <exam> elements
+            Element tmp = (Element) document.getElementsByTagName("Modules").item(0);
+            NodeList moduleNodes = tmp.getElementsByTagName("Module");
+
+            for (int i = 0; i < moduleNodes.getLength(); i++) {
+                Element moduleElement = (Element) moduleNodes.item(i);
+
+                Map<String, String> moduleData = new HashMap<>();
+
+                // Extract data from the <exam> element and its children
+                moduleData.put("ModuleName", moduleElement.getElementsByTagName("Name").item(0).getTextContent());
+                moduleData.put("ModuleID", moduleElement.getAttribute("id"));
+                moduleData.put("Credits", moduleElement.getAttribute("credits"));
+                moduleData.put("CourseID", moduleElement.getAttribute("course"));
+                moduleData.put("Description", moduleElement.getElementsByTagName("Description").item(0).getTextContent());
+                NodeList studies = moduleElement.getElementsByTagName("Studies");
+                StringBuilder studyString = new StringBuilder();
+                for(int j=0; j< studies.getLength(); j++){
+                    Element e = (Element) studies.item(j);
+                    studyString.append(e.getTextContent());
+                    if(j+1< studies.getLength())
+                        studyString.append("\n");
+                }
+                moduleData.put("Studies", studyString.toString());
+                moduleList.add(moduleData);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return moduleList;
     }
 }

@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.*;
 
+import static xmw.Utils.joinListOfMaps;
+
 @WebServlet("/schedule")
 public class ScheduleServlet extends HttpServlet {
 
@@ -37,14 +39,8 @@ public class ScheduleServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        for(Map<String, String> s: schedule){
-            for(Map<String, String> course: courses){
-                if(s.get("CourseID").equals(course.get("CourseID"))){
-                    s.putAll(course);
-                }
-            }
-        }
-
+        joinListOfMaps(schedule, courses, "CourseID", "CourseID");
+        
         List<Map<String, String>> completeSchedule = new ArrayList<>();
         for(Map<String, String> s: schedule){
             List<Map<String, String>> tmp = convertSchedule(s);
