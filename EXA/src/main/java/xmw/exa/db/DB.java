@@ -24,6 +24,8 @@ import org.basex.core.cmd.Close;
 import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.XQuery;
 
+import xmw.ClientLogger;
+import xmw.Event;
 import xmw.exa.db.repository.BaseXmlRepository;
 import xmw.exa.models.courses.CourseRepository;
 import xmw.exa.models.courses.CourseUtil;
@@ -72,6 +74,8 @@ public class DB {
     }
 
     private void initializeDatabase() throws BaseXException {
+        ClientLogger.getInstance()
+                .addEvent(new Event("Exa", "root", "InitializeDatabase", "Initializing database"));
         try {
             // Close any existing context first
             if (context != null) {
