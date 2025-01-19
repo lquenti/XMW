@@ -4,6 +4,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import xmw.ClientLogger;
+import xmw.Event;
 import xmw.user.db.UserDB;
 import xmw.user.utils.ServletUtils;
 
@@ -37,6 +39,7 @@ public class GetSingleUsernameServlet extends HttpServlet {
         }
         String result = UserDB.getUserByUsername(username, false);
         res.setContentType("application/xml");
+        ClientLogger.getInstance().addEvent(new Event("User", "root", "GetSingleUsername", "User " + username + " successfully returned"));
         try (PrintWriter out = res.getWriter()) {
             out.write(result);
             out.flush();

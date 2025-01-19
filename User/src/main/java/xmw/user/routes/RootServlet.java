@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import xmw.ClientLogger;
+import xmw.Event;
 import xmw.user.utils.DOMUtils;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -425,6 +427,7 @@ public class RootServlet extends HttpServlet {
         formElem.setTextContent("Also a test form is available unter ./form");
         root.appendChild(formElem);
 
+        ClientLogger.getInstance().addEvent(new Event("User", "root", "Root", "RootDOM successfully generated"));
         return doc;
     }
 

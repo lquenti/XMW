@@ -59,7 +59,6 @@ public class CreateNewUserServlet extends HttpServlet {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error reading POST data");
             return;
         }
-
         CreateNewUserServlet.doAdd(xml, req, res);
     }
 }

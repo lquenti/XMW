@@ -4,6 +4,8 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import xmw.ClientLogger;
+import xmw.Event;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -101,14 +103,17 @@ public class DTDValidatorUtils {
     }
 
     public static boolean validateWithPassword(String xml) throws IOException {
+        ClientLogger.getInstance().addEvent(new Event("User", "root", "DTDWithPassword", "Doing DTD validation w/ password"));
         return validateXMLSnippet(xml, DTD_WITH_PASSWORD);
     }
 
     public static boolean validateWithoutPassword(String xml) throws IOException {
+        ClientLogger.getInstance().addEvent(new Event("User", "root", "DTDWithoutPassword", "Doing DTD validation w/o password"));
         return validateXMLSnippet(xml, DTD_WITHOUT_PASSWORD);
     }
 
     public static boolean validateBulkRequest(String xml) throws IOException {
+        ClientLogger.getInstance().addEvent(new Event("User", "root", "DTDBulk", "Doing DTD validation for bulk request"));
         return validateXMLSnippet(xml, DTD_BULK_REQUEST);
     }
 }

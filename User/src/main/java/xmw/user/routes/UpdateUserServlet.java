@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.xml.sax.SAXException;
+import xmw.ClientLogger;
+import xmw.Event;
 import xmw.user.db.UserDB;
 import xmw.user.utils.DTDValidatorUtils;
 import xmw.user.utils.ServletUtils;
@@ -66,6 +68,7 @@ public class UpdateUserServlet extends HttpServlet {
             return;
         }
 
+        ClientLogger.getInstance().addEvent(new Event("User", "root", "Update", "Updating user " + username));
         // delete user
         UserDB.deleteUser(username);
 
