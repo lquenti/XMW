@@ -94,7 +94,7 @@ public class SemestersServlet extends ExaServlet {
 
         // Update the semester
         semester = db.semesters().update(semester);
-        if (semester != null) {
+        if (semester == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
