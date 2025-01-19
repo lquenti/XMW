@@ -1,4 +1,4 @@
-<!ELEMENT root (Courses|Exams|Lecturers|Lectures|Semesters)*>
+<!ELEMENT root (Courses|Exams|Lecturers|Lectures|Semesters|Modules)*>
         <!ELEMENT Courses (Course)*>
         <!ELEMENT Course (name|faculty|max_students)*>
         <!ATTLIST Course
@@ -35,3 +35,13 @@
         <!ELEMENT Semester (name|start|end)*>
         <!ATTLIST Semester
                 id ID #REQUIRED>
+        <!ELEMENT Modules (Module)*>
+        <!ELEMENT Module (name|Studies|Description)*>
+        <!ATTLIST Module
+                id ID #REQUIRED
+                credits CDATA #REQUIRED
+                course IDREF #REQUIRED>
+        <!ELEMENT Studies (Study)*>
+        <!ELEMENT Study (#PCDATA)*>
+        <!ELEMENT Description (#PCDATA)>
+

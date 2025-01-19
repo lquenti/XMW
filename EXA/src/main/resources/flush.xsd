@@ -1,168 +1,208 @@
 <schema
-        targetNamespace='http://www.w3.org/namespace/'
-        xmlns:t='http://www.w3.org/namespace/' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.w3.org/2000/10/XMLSchema" xmlns="http://www.w3.org/2001/XMLSchema">
+  xmlns='http://www.w3.org/2001/XMLSchema'
+  targetNamespace='http://www.w3.org/namespace/'
+  xmlns:t='http://www.w3.org/namespace/'>
 
-    <element name='root'>
-        <complexType>
-            <choice minOccurs='0' maxOccurs='unbounded'>
-                <element ref='t:Courses'/>
-                <element ref='t:Exams'/>
-                <element ref='t:Lecturers'/>
-                <element ref='t:Lectures'/>
-                <element ref='t:Semesters'/>
-            </choice>
-        </complexType>
-    </element>
+ <element name='root'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:Courses'/>
+    <element ref='t:Exams'/>
+    <element ref='t:Lecturers'/>
+    <element ref='t:Lectures'/>
+    <element ref='t:Semesters'/>
+    <element ref='t:Modules'/>
+   </choice>
+  </complexType>
+ </element>
 
-    <element name='Courses'>
-        <complexType>
-            <sequence minOccurs='0' maxOccurs='unbounded'>
-                <element ref='t:Course'/>
-            </sequence>
-        </complexType>
-    </element>
+ <element name='Courses'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:Course'/>
+   </sequence>
+  </complexType>
+ </element>
 
-    <element name='Course'>
-        <complexType>
-            <choice minOccurs='0' maxOccurs='unbounded'>
-                <element ref='t:name'/>
-                <element ref='t:faculty'/>
-                <element ref='t:max_students'/>
-            </choice>
-            <attribute name='id' type='ID' use='required'/>
-            <attribute name='lecturer' type='IDREF' use='required'/>
-            <attribute name='semester' type='IDREF' use='required'/>
-        </complexType>
-    </element>
+ <element name='Course'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:name'/>
+    <element ref='t:faculty'/>
+    <element ref='t:max_students'/>
+   </choice>
+   <attribute name='id' type='ID' use='required'/>
+   <attribute name='lecturer' type='IDREF' use='required'/>
+   <attribute name='semester' type='IDREF' use='required'/>
+  </complexType>
+ </element>
 
-    <element name='name'>
-        <complexType mixed='true'>
-        </complexType>
-    </element>
+ <element name='name'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
 
-    <element name='faculty'>
-        <complexType mixed='true'>
-        </complexType>
-    </element>
+ <element name='faculty'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
 
-    <element name='max_students'>
-        <complexType mixed='true'>
-        </complexType>
-    </element>
+ <element name='max_students'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
 
-    <element name='Exams'>
-        <complexType>
-            <sequence minOccurs='0' maxOccurs='unbounded'>
-                <element ref='t:Exam'/>
-            </sequence>
-        </complexType>
-    </element>
+ <element name='Exams'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:Exam'/>
+   </sequence>
+  </complexType>
+ </element>
 
-    <element name='Exam'>
-        <complexType>
-            <choice minOccurs='0' maxOccurs='unbounded'>
-                <element ref='t:date'/>
-                <element ref='t:is_online'/>
-                <element ref='t:is_written'/>
-                <element ref='t:room_or_link'/>
-            </choice>
-            <attribute name='id' type='ID' use='required'/>
-            <attribute name='course' type='IDREF' use='required'/>
-        </complexType>
-    </element>
+ <element name='Exam'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:date'/>
+    <element ref='t:is_online'/>
+    <element ref='t:is_written'/>
+    <element ref='t:room_or_link'/>
+   </choice>
+   <attribute name='id' type='ID' use='required'/>
+   <attribute name='course' type='IDREF' use='required'/>
+  </complexType>
+ </element>
 
-    <element name='date'>
-        <complexType mixed='true'>
-        </complexType>
-    </element>
+ <element name='date'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
 
-    <element name='is_online'>
-        <complexType mixed='true'>
-        </complexType>
-    </element>
+ <element name='is_online'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
 
-    <element name='is_written'>
-        <complexType mixed='true'>
-        </complexType>
-    </element>
+ <element name='is_written'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
 
-    <element name='room_or_link'>
-        <complexType mixed='true'>
-        </complexType>
-    </element>
+ <element name='room_or_link'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
 
-    <element name='Lecturers'>
-        <complexType>
-            <sequence minOccurs='0' maxOccurs='unbounded'>
-                <element ref='t:Lecturer'/>
-            </sequence>
-        </complexType>
-    </element>
+ <element name='Lecturers'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:Lecturer'/>
+   </sequence>
+  </complexType>
+ </element>
 
-    <element name='Lecturer'>
-        <complexType>
-            <choice minOccurs='0' maxOccurs='unbounded'>
-                <element ref='t:firstname'/>
-                <element ref='t:name'/>
-            </choice>
-            <attribute name='faculty' type='string' use='optional'/>
-            <attribute name='id' type='ID' use='required'/>
-            <attribute name='username' type='string' use='required'/>
-        </complexType>
-    </element>
+ <element name='Lecturer'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:firstname'/>
+    <element ref='t:name'/>
+   </choice>
+   <attribute name='faculty' type='string' use='optional'/>
+   <attribute name='id' type='ID' use='required'/>
+   <attribute name='username' type='string' use='required'/>
+  </complexType>
+ </element>
 
-    <element name='firstname'>
-        <complexType mixed='true'>
-        </complexType>
-    </element>
+ <element name='firstname'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
 
-    <element name='Lectures'>
-        <complexType>
-            <sequence minOccurs='0' maxOccurs='unbounded'>
-                <element ref='t:Lecture'/>
-            </sequence>
-        </complexType>
-    </element>
+ <element name='Lectures'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:Lecture'/>
+   </sequence>
+  </complexType>
+ </element>
 
-    <element name='Lecture'>
-        <complexType>
-            <choice minOccurs='0' maxOccurs='unbounded'>
-                <element ref='t:start'/>
-                <element ref='t:end'/>
-                <element ref='t:room_or_link'/>
-            </choice>
-            <attribute name='course' type='IDREF' use='required'/>
-            <attribute name='id' type='ID' use='required'/>
-        </complexType>
-    </element>
+ <element name='Lecture'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:start'/>
+    <element ref='t:end'/>
+    <element ref='t:room_or_link'/>
+   </choice>
+   <attribute name='course' type='IDREF' use='required'/>
+   <attribute name='id' type='ID' use='required'/>
+  </complexType>
+ </element>
 
-    <element name='start'>
-        <complexType mixed='true'>
-        </complexType>
-    </element>
+ <element name='start'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
 
-    <element name='end'>
-        <complexType mixed='true'>
-        </complexType>
-    </element>
+ <element name='end'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
 
-    <element name='Semesters'>
-        <complexType>
-            <sequence minOccurs='0' maxOccurs='unbounded'>
-                <element ref='t:Semester'/>
-            </sequence>
-        </complexType>
-    </element>
+ <element name='Semesters'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:Semester'/>
+   </sequence>
+  </complexType>
+ </element>
 
-    <element name='Semester'>
-        <complexType>
-            <choice minOccurs='0' maxOccurs='unbounded'>
-                <element ref='t:name'/>
-                <element ref='t:start'/>
-                <element ref='t:end'/>
-            </choice>
-            <attribute name='id' type='ID' use='required'/>
-        </complexType>
-    </element>
+ <element name='Semester'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:name'/>
+    <element ref='t:start'/>
+    <element ref='t:end'/>
+   </choice>
+   <attribute name='id' type='ID' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='Modules'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:Module'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='Module'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:name'/>
+    <element ref='t:Studies'/>
+    <element ref='t:Description'/>
+   </choice>
+   <attribute name='id' type='ID' use='required'/>
+   <attribute name='credits' type='string' use='required'/>
+   <attribute name='course' type='IDREF' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='Studies'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:Study'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='Study'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
+
+ <element name='Description'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
 </schema>

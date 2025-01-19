@@ -2174,4 +2174,18 @@
             <end>2026-09-30T00:00:00</end>
         </Semester>
     </Semesters>
+    <Modules>
+        <Module id="module-1" credits="5" course="course-1">
+            <name>
+                Introduction to Computer Science
+            </name>
+            <Studies>
+                <Study>Computer Science</Study>
+                <Study>Data Science</Study>
+            </Studies>
+            <Description>
+                A module on the basics of computer science.
+            </Description>
+        </Module>
+    </Modules>
 </root>

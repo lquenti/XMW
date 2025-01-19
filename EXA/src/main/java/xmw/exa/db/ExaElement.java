@@ -5,5 +5,6 @@ public enum ExaElement {
     LECTURERS,
     LECTURES,
     EXAMS,
-    SEMESTERS
+    SEMESTERS,
+    MODULES,
 }
