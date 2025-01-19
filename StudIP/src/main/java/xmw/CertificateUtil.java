@@ -1,4 +1,4 @@
-package xmw.studip;
+package xmw;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,7 +13,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

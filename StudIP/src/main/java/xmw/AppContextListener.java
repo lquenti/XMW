@@ -1,4 +1,4 @@
-package xmw.studip;
+package xmw;
 
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
@@ -50,6 +50,8 @@ public class AppContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         // Initialize the XMLDatabase object and store it in the context
+
+        ClientLogger logger = new ClientLogger();
 
         createDirectoryIfNotExists(BASE_FOLDER);
         createDirectoryIfNotExists(USER_FOLDER);

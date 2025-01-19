@@ -15,12 +15,24 @@ public class ClientLogger {
     private HttpURLConnection connection;
     private final Object lock = new Object();
 
+    private static ClientLogger instance;
+
+    private ClientLogger() {
+    }
+
     private static final int KEEPALVE_ALEEP_MS = 5000;
     private static final int QUEUE_FLUSH_MS = 5000;
 
+    public synchronized static ClientLogger getInstance() {
+        if (instance == null) {
+            instance = new ClientLogger();
+            instance.run();
+        }
+        return instance;
+    }
+
     public static void main(String[] args) throws InterruptedException {
-        ClientLogger logger = new ClientLogger();
-        logger.run();
+        ClientLogger logger = ClientLogger.getInstance();
         int cnt = 0;
         // Example of adding a real event
         while (true) {
