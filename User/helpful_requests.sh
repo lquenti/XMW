@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # auth
-curl -X POST -d "username=hbrosen&password=hunter2" http://localhost:8080/User_war_exploded/auth
+curl -X POST -d "username=hbrosen&password=hunter2" http://localhost:8080/user/auth
 
 # create
 
 # No PW
 curl -X POST \
-  http://localhost:8080/User_war_exploded/create \
+  http://localhost:8080/user/create \
   -H 'Content-Type: application/xml' \
   -d '<User username="hbrosen2">
        <name>Brosenne</name>
@@ -19,7 +19,7 @@ curl -X POST \
 
 # PW
 curl -X POST \
-  http://localhost:8080/User_war_exploded/create \
+  http://localhost:8080/user/create \
   -H 'Content-Type: application/xml' \
   -d '<User username="hbrosen2">
        <name>Brosenne</name>
@@ -32,7 +32,7 @@ curl -X POST \
 
 # invlaid xml
 curl -X POST \
-  http://localhost:8080/User_war_exploded/create \
+  http://localhost:8080/user/create \
   -H 'Content-Type: application/xml' \
   -d '<User username="hbrosen2">
        <name>Brosenne</name>
@@ -47,7 +47,7 @@ curl -X POST \
 
 # valid
 curl -X POST \
-  http://localhost:8080/User_war_exploded/update/hbrosen \
+  http://localhost:8080/user/update/hbrosen \
   -H 'Content-Type: application/xml' \
   -d '<User username="hbrosen">
        <name>Brosenne</name>
@@ -60,7 +60,7 @@ curl -X POST \
 
 # invalid xml
 curl -X POST \
-  http://localhost:8080/User_war_exploded/update/hbrosen \
+  http://localhost:8080/user/update/hbrosen \
   -H 'Content-Type: application/xml' \
   -d '<User username="hbrosen">
        <name>Brosenne</name>
@@ -73,7 +73,7 @@ curl -X POST \
 
 # username does not exist
 curl -X POST \
-  http://localhost:8080/User_war_exploded/update/hbrose \
+  http://localhost:8080/user/update/hbrose \
   -H 'Content-Type: application/xml' \
   -d '<User username="hbrose">
        <name>Brosenne</name>
@@ -86,7 +86,7 @@ curl -X POST \
 
 # password missing
 curl -X POST \
-  http://localhost:8080/User_war_exploded/update/hbrosen \
+  http://localhost:8080/user/update/hbrosen \
   -H 'Content-Type: application/xml' \
   -d '<User username="hbrosen">
        <name>Brosenne</name>
@@ -98,7 +98,7 @@ curl -X POST \
 
 # Bulk post
 curl -X POST \
-  http://localhost:8080/User_war_exploded/bulk \
+  http://localhost:8080/user/bulk \
   -H 'Content-Type: application/xml' \
   -d '<Users>
       <User username="hbrosen"/>

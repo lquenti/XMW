@@ -4,6 +4,7 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 import org.basex.query.QueryException;
+import xmw.ClientLogger;
 import xmw.user.db.UserDB;
 
 import java.io.IOException;
@@ -71,6 +72,7 @@ public class UserContextListener implements ServletContextListener {
         createDirectoryIfNotExists(USER_FOLDER);
         createDbFileIfNotExists(USER_PATH, USER_DB);
         loadDatabase();
+        startLogger();
     }
     private void createDirectoryIfNotExists(String directoryPath) {
         Path path = Paths.get(directoryPath);
@@ -115,6 +117,11 @@ public class UserContextListener implements ServletContextListener {
         //period = 1000 * 5;
         // Start after `period` time
         timer.scheduleAtFixedRate(task, period, period);
+    }
+
+    private void startLogger() {
+        // this implicitly already inits
+        ClientLogger.getInstance();
     }
 
     @Override

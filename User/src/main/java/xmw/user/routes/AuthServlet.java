@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.basex.query.QueryException;
+import xmw.ClientLogger;
+import xmw.Event;
 import xmw.user.db.UserDB;
 import xmw.user.utils.ServletUtils;
 
@@ -37,6 +39,7 @@ public class AuthServlet extends HttpServlet {
             return;
         }
         if (authenticated) {
+            ClientLogger.getInstance().addEvent(new Event("User", "root", "Authenticate", "User " + username + " successfully authenticated"));
             String result = UserDB.getUserByUsername(username, false);
             res.setContentType("application/xml");
             try (PrintWriter out = res.getWriter()) {
@@ -48,6 +51,7 @@ public class AuthServlet extends HttpServlet {
 
             }
         } else {
+            ClientLogger.getInstance().addEvent(new Event("User", "root", "Authenticate", "User " + username + " failed to authenticate"));
             res.sendError(HttpServletResponse.SC_FORBIDDEN, "Wrong Username or Password");
         }
     }

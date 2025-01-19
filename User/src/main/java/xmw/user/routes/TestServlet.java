@@ -4,6 +4,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import xmw.ClientLogger;
+import xmw.Event;
 import xmw.user.db.UserDB;
 import xmw.user.utils.DTDValidatorUtils;
 
@@ -40,6 +42,9 @@ public class TestServlet extends HttpServlet {
                          </User>
                         """
             ));
+            ClientLogger.getInstance().addEvent(new Event("ser1", "us1", "ty1", "desc"));
+            ClientLogger.getInstance().addEvent(new Event("ser2", "us2", "ty2", "desc"));
+            ClientLogger.getInstance().addEvent(new Event("ser3", "us3", "ty3", "desc"));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

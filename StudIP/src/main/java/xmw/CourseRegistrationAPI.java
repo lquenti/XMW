@@ -46,11 +46,16 @@ public class CourseRegistrationAPI extends HttpServlet {
                 return;
             }
 
+
+
             // Perform the operation
             boolean success;
             if (isRegister) {
+                Utils.log(request, response, (ClientLogger) getServletContext().getAttribute("logger"), "RegistrationApiEvent", "Api call to register student "+userId+" to course" + courseId, false);
                 success = xmlDatabase.registerStudentToCourse(userId, courseId, semester);
             } else {
+                Utils.log(request, response, (ClientLogger) getServletContext().getAttribute("logger"), "DeregistrationApiEvent", "Api call to deregister student "+userId+" to course" + courseId, false);
+
                 success = xmlDatabase.deregisterStudentFromCourse(userId, courseId, semester);
             }
 

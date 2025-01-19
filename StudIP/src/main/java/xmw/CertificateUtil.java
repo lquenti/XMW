@@ -24,10 +24,11 @@ public class CertificateUtil extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            Utils.log(request, response, (ClientLogger) getServletContext().getAttribute("logger"), "GenerateCertificateEvent", "Generating certificate for user", true);
             XMLDatabase xmlDatabase = (XMLDatabase) getServletContext().getAttribute("xmlDatabase");
 
             // Fetch user and grade data
-            String userId = AuthUtil.getLoggedInUserId(request);
+            String userId = Utils.getLoggedInUserId(request);
             Map<String, String> userInfo = xmlDatabase.getUserInfo(userId);
             List<Map<String, String>> grades = xmlDatabase.getGrades(userId);
             List<Map<String, String>> exams = xmlDatabase.getExams();

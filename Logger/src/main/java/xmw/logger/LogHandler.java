@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 class LogHandler extends DefaultHandler {
-    private String service, user, type, desc;
+    private String service, user, type, desc, timestamp;
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
@@ -21,6 +21,7 @@ class LogHandler extends DefaultHandler {
             service = attributes.getValue("service");
             user = attributes.getValue("user");
             type = attributes.getValue("type");
+            timestamp = attributes.getValue("timestamp");
         }
     }
 
@@ -32,7 +33,7 @@ class LogHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) {
         if ("Event".equals(qName)) {
-            EventRingBuffer.getInstance().push(new EventRingBuffer.Event(service, user, type, desc));
+            EventRingBuffer.getInstance().push(new EventRingBuffer.Event(service, user, type, desc, timestamp));
         }
     }
 }

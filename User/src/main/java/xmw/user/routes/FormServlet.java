@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import xmw.ClientLogger;
+import xmw.Event;
 import xmw.user.db.UserDB;
 import xmw.user.utils.DOMUtils;
 import xmw.user.utils.GroupMappings;
@@ -160,6 +162,7 @@ public class FormServlet extends HttpServlet {
         submitButton.setAttribute("type", "submit");
         submitButton.setTextContent("Create User");
         form.appendChild(submitButton);
+        ClientLogger.getInstance().addEvent(new Event("User", "root", "Form", "FormDOM generated"));
 
         return doc;
     }
@@ -279,6 +282,7 @@ public class FormServlet extends HttpServlet {
 
         // if we got here we succeeded
         res.setContentType("application/xml");
+        ClientLogger.getInstance().addEvent(new Event("User", "root", "Form", "Form successfully saved"));
         try (PrintWriter out = res.getWriter()) {
             out.write(xml);
             out.flush();

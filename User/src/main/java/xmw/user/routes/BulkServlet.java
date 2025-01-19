@@ -4,6 +4,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import xmw.ClientLogger;
+import xmw.Event;
 import xmw.user.db.UserDB;
 import xmw.user.utils.BulkUsernameExtractor;
 import xmw.user.utils.DTDValidatorUtils;
@@ -20,6 +22,7 @@ public class BulkServlet  extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
         String result = UserDB.getAllUsers(false);
         res.setContentType("application/xml");
+        ClientLogger.getInstance().addEvent(new Event("User", "root", "Bulk", "Bulk returning all users"));
         try (PrintWriter out = res.getWriter()) {
             out.write(result);
             out.flush();
@@ -59,6 +62,7 @@ public class BulkServlet  extends HttpServlet {
         // query for the usernames
         String result = UserDB.getSpecificBulkUsers(usernames, false);
         res.setContentType("application/xml");
+        ClientLogger.getInstance().addEvent(new Event("User", "root", "Bulk", "Bulk returning " + usernames.size() + " users"));
         try (PrintWriter out = res.getWriter()) {
             out.write(result);
             out.flush();

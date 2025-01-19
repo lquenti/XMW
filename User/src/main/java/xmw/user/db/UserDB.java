@@ -6,6 +6,8 @@ import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.XQuery;
 import org.basex.query.QueryException;
 import org.basex.query.QueryProcessor;
+import xmw.ClientLogger;
+import xmw.Event;
 import xmw.user.utils.UserContextListener;
 
 import java.io.IOException;
@@ -38,10 +40,12 @@ public class UserDB {
             proc.execute();
             proc.close();
         }
+        ClientLogger.getInstance().addEvent(new Event("UserDB", "root", "FlushToDisk", "Flush XML database to disk"));
     }
 
     public static boolean authenticate(String username, String password) throws QueryException {
         String authQuery = "//User[@username = '" + username + "' and password/text() = '" + password + "']";
+        ClientLogger.getInstance().addEvent(new Event("UserDB", "root", "AuthenticateQuery", "Authenticating user " + username));
         synchronized (lock) {
             QueryProcessor proc = new QueryProcessor(authQuery, instance.ctx);
             return !proc.value().isEmpty();
@@ -50,6 +54,7 @@ public class UserDB {
 
     public static boolean usernameExist(String username) throws IOException {
         String authQuery = "//User[@username = '" + username + "']";
+        ClientLogger.getInstance().addEvent(new Event("UserDB", "root", "UsernameExistQuery", "Checking whether " + username + " exists"));
         synchronized (lock) {
             QueryProcessor proc = new QueryProcessor(authQuery, instance.ctx);
             try {
@@ -77,6 +82,7 @@ public class UserDB {
                       </User>
                     """;
         }
+        ClientLogger.getInstance().addEvent(new Event("UserDB", "root", "GetUserByUsername", "Getting " + username + " object"));
         synchronized (lock) {
             return new XQuery(authQuery).execute(instance.ctx);
         }
@@ -85,6 +91,7 @@ public class UserDB {
     // expects to be checked before that we have no duplication
     public static void addUserNode(String xml) {
         String query = "insert node " + xml + " into /Users";
+        ClientLogger.getInstance().addEvent(new Event("UserDB", "root", "AddUser", "Adding new User object"));
         synchronized (lock) {
             QueryProcessor proc = new QueryProcessor(query, instance.ctx);
             try {
@@ -99,6 +106,7 @@ public class UserDB {
     // expects to be checked before that it exists
     public static void deleteUser(String username) {
         String query = "delete node /Users/User[@username = '" + username + "']";
+        ClientLogger.getInstance().addEvent(new Event("UserDB", "root", "DeleteUser", "Deleting user " + username));
         synchronized (lock) {
             QueryProcessor proc = new QueryProcessor(query, instance.ctx);
             try {
@@ -132,6 +140,7 @@ public class UserDB {
                     </Users>
                     """;
         }
+        ClientLogger.getInstance().addEvent(new Event("UserDB", "root", "GetAllUsers", "Getting all users" + (with_password ? " with password" : " without password")));
         synchronized (lock) {
             return new XQuery(authQuery).execute(instance.ctx);
         }
@@ -157,6 +166,7 @@ public class UserDB {
                     + "}"
                     + "</Users>";
         }
+        ClientLogger.getInstance().addEvent(new Event("UserDB", "root", "GetAllUsersOfGroup", "Getting all users of group " + groupname + (with_password ? " with password" : " without password")));
         synchronized (lock) {
             return new XQuery(authQuery).execute(instance.ctx);
         }
@@ -165,29 +175,30 @@ public class UserDB {
     public static String getSpecificBulkUsers(List<String> usernames, boolean with_password) throws BaseXException {
         String formattedUsernames = String.join("\", \"", usernames);
         formattedUsernames = "(\"" + formattedUsernames + "\")";
+        ClientLogger.getInstance().addEvent(new Event("UserDB", "root", "GetAllUsersOfGroup", "Running selected bulk of " + usernames.size() + " users"));
 
         String authQuery = "declare variable $usernames := " + formattedUsernames + ";\n";
         if (with_password) {
             authQuery += """
-            /Users/User[@username = $usernames]
-            """;
+                    /Users/User[@username = $usernames]
+                    """;
         } else {
             authQuery += """
-                <Users>
-                {
-                for $user in /Users/User[@username = $usernames]
-                return
-                <User>
-                { for $attr in $user/@* return $attr }
-                {
-                  for $child in $user/*
-                  where not(local-name() = "password")
-                  return $child
-                }
-                </User>
-                }
-                </Users>
-                """;
+                    <Users>
+                    {
+                    for $user in /Users/User[@username = $usernames]
+                    return
+                    <User>
+                    { for $attr in $user/@* return $attr }
+                    {
+                      for $child in $user/*
+                      where not(local-name() = "password")
+                      return $child
+                    }
+                    </User>
+                    }
+                    </Users>
+                    """;
         }
         synchronized (lock) {
             return new XQuery(authQuery).execute(instance.ctx);

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ClientLogger {
     private final List<Event> eventQueue = Collections.synchronizedList(new LinkedList<>());
-    private static final String SERVER_URL = "http://localhost:8080/Logger_war_exploded/log";
+    private static final String SERVER_URL = "http://localhost:8080/logger/log";
     private HttpURLConnection connection;
     private final Object lock = new Object();
 
