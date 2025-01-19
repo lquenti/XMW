@@ -18,38 +18,6 @@ function CourseDetailComponent() {
     const { data: lecturesData, isLoading: lecturesLoading } = useLectures()
     const { data: modulesData, isLoading: modulesLoading } = useModules()
 
-    if (coursesLoading || lecturersLoading || examsLoading || lecturesLoading || modulesLoading) {
-        return (
-            <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-            </div>
-        )
-    }
-
-    if (!coursesData || !lecturersData || !examsData || !lecturesData || !modulesData) {
-        return (
-            <div className="p-4 bg-yellow-50 text-yellow-600 rounded-lg">
-                No data available
-            </div>
-        )
-    }
-
-    const courses = parseCoursesXml(coursesData)
-    const lecturers = parseLecturersXml(lecturersData)
-    const exams = parseExamsXml(examsData)
-    const lectures = parseLecturesXml(lecturesData)
-    const modules = parseModulesXml(modulesData)
-
-    const course = courses.find(c => c.id === courseId)
-    const lecturer = lecturers.find(l => l.id === course?.lecturer)
-    const courseExams = exams.filter(e => e.course === courseId)
-    const courseLectures = lectures.filter(l => l.course === courseId)
-    const courseModule = modules.find(m => m.course === courseId)
-
-    // Debug logging
-    console.log('Raw Lectures Data:', lectures.filter(l => l.course === courseId))
-    console.log('Raw Exams Data:', exams.filter(e => e.course === courseId))
-
     // Helper function to parse date strings
     const parseDate = (dateStr: string | null): Date | null => {
         if (!dateStr) return null
@@ -98,6 +66,47 @@ function CourseDetailComponent() {
             minute: '2-digit'
         })
     }
+
+    if (coursesLoading || lecturersLoading || examsLoading || lecturesLoading || modulesLoading) {
+        return (
+            <div className="flex items-center justify-center min-h-[400px]">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            </div>
+        )
+    }
+
+    if (!coursesData || !lecturersData || !examsData || !lecturesData || !modulesData) {
+        return (
+            <div className="p-4 bg-yellow-50 text-yellow-600 rounded-lg">
+                No data available
+            </div>
+        )
+    }
+
+    const courses = parseCoursesXml(coursesData)
+    const lecturers = parseLecturersXml(lecturersData)
+    const exams = parseExamsXml(examsData)
+    const lectures = parseLecturesXml(lecturesData)
+    const modules = parseModulesXml(modulesData)
+
+    const course = courses.find(c => c.id === courseId)
+    const lecturer = lecturers.find(l => l.id === course?.lecturer)
+    const courseExams = exams.filter(e => e.course === courseId)
+    const courseLectures = lectures
+        .filter(l => l.course === courseId)
+        .sort((a, b) => {
+            const dateA = parseDate(a.start)
+            const dateB = parseDate(b.start)
+            if (!dateA && !dateB) return 0
+            if (!dateA) return 1
+            if (!dateB) return -1
+            return dateA.getTime() - dateB.getTime()
+        })
+    const courseModule = modules.find(m => m.course === courseId)
+
+    // Debug logging
+    console.log('Raw Lectures Data:', lectures.filter(l => l.course === courseId))
+    console.log('Raw Exams Data:', exams.filter(e => e.course === courseId))
 
     if (!course) {
         return (

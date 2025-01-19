@@ -117,7 +117,7 @@ function LayoutComponent() {
           </div>
         </div>
       </footer>
-      <TanStackRouterDevtools />
+      {import.meta.env.DEV && <TanStackRouterDevtools />}
     </div>
   )
 }
