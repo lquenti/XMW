@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jetbrains.annotations.Nullable;
+import xmw.ClientLogger;
+import xmw.Event;
 import xmw.exa.db.DB;
 import xmw.exa.util.ExaServlet;
 import xmw.exa.util.Util;
@@ -28,6 +30,8 @@ public class CoursesServlet extends ExaServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
+            Event event = new Event("Exa:courses:all", "root", "GET", "Get all courses");
+            ClientLogger.getInstance().addEvent(event);
             // Get all data
             List<Course> courses = db.courses().all();
             Courses coursesElement = new Courses();
