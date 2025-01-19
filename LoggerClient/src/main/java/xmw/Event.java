@@ -1,7 +1,10 @@
 package xmw;
 
 public class Event {
-    private String service, user, type, desc;
+    private final String service;
+    private final String user;
+    private final String type;
+    private final String desc;
 
     public Event(String service, String user, String type, String desc) {
         this.service = service;
