@@ -8,6 +8,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.Serial;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static xmw.Utils.joinListOfMaps;
@@ -40,7 +44,7 @@ public class ScheduleServlet extends HttpServlet {
         }
 
         joinListOfMaps(schedule, courses, "CourseID", "CourseID");
-        
+
         List<Map<String, String>> completeSchedule = new ArrayList<>();
         for(Map<String, String> s: schedule){
             List<Map<String, String>> tmp = convertSchedule(s);
@@ -50,8 +54,22 @@ public class ScheduleServlet extends HttpServlet {
         completeSchedule.removeFirst();
         completeSchedule.sort(mapComparator);
 
+        for(var s: completeSchedule){
+            s.put("Begin", convertIsoToFormattedString(s.get("Begin")));
+            s.put("End", convertIsoToFormattedString(s.get("End")));
+        }
+
         request.setAttribute("schedules", completeSchedule);
         request.getRequestDispatcher("/schedule.jsp").forward(request, response);
+    }
+
+    public static String convertIsoToFormattedString(String isoTimestamp) {
+        // Parse the time string into a LocalDateTime object
+        LocalDateTime dateTime = LocalDateTime.parse(isoTimestamp);
+
+        // Format the LocalDateTime object
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+        return dateTime.format(formatter);
     }
 
     public Comparator<Map<String, String>> mapComparator =
