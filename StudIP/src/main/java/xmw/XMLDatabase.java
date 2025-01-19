@@ -699,11 +699,8 @@ public class XMLDatabase {
         connection.setDoOutput(true);
 
         Document doc;
-        System.out.println(loginApiUrl);
-        System.out.println(connection.getResponseCode());
         if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
             String xmlResponse = new String(connection.getInputStream().readAllBytes());
-            System.out.println(xmlResponse);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder;
             try {
@@ -726,7 +723,8 @@ public class XMLDatabase {
             for (Map<String, String> course : courses) {
                 String lecturerId = course.get("LecturerID");
                 String lecturerUsername = getUserNameFromID(lecturerId);
-                System.out.println(lecturerUsername);
+                if(lecturerUsername.isEmpty())
+                    continue;
                 registerStudentToCourse(lecturerUsername, course.get("CourseID"), course.get("Semester"));
             }
         }catch (Exception _){}
