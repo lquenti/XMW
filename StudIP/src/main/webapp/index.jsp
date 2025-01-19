@@ -18,7 +18,6 @@
   <li><a href="schedule">View Schedule</a></li>
   <li><a href="flex">FlexNever</a></li>
   <li><a href="examRegistration">Register for Exams</a></li>
-  <li><a href="flex">Show Exams</a></li>
   <li><a href="grades">Show Grades</a></li>
   <li><a href="inputGrades">Submit Grades</a></li>
 </ul>

@@ -91,6 +91,9 @@ public class GradeSubmissionServlet extends HttpServlet {
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
                 return;
             }
+            
+            Utils.log(request, response, (ClientLogger) getServletContext().getAttribute("logger"), "SiteVisitedEvent", "Updating lecturer courses", true);
+            xmlDatabase.registerLecturersToCourse();
 
             List<Map<String, String>> exams = xmlDatabase.getExamsAsLecturer(Utils.getLoggedInUserId(request));
             List<Map<String, String>> courses = xmlDatabase.getCourses();

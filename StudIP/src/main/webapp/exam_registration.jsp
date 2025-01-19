@@ -32,9 +32,10 @@
                 if (exams != null) {
                     for (Map<String, String> exam : exams) {
                         String examId = exam.get("ExamId");
+                        String date = exam.get("date");
                         String name = exam.get("CourseName");
             %>
-            <option value="<%= examId %>"><%= name %></option>
+            <option value="<%= examId %>"><%= name + " --- " + date %></option>
             <%
                 }
             } else {

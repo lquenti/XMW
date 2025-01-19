@@ -696,13 +696,14 @@ public class XMLDatabase {
         URL url = new URL(loginApiUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
-        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         connection.setDoOutput(true);
 
         Document doc;
+        System.out.println(loginApiUrl);
+        System.out.println(connection.getResponseCode());
         if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
             String xmlResponse = new String(connection.getInputStream().readAllBytes());
-
+            System.out.println(xmlResponse);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder;
             try {
@@ -717,5 +718,17 @@ public class XMLDatabase {
            return currentUser.getAttribute("username");
         }
         return "";
+    }
+
+    protected void registerLecturersToCourse() {
+        try {
+            List<Map<String, String>> courses = getCourses();
+            for (Map<String, String> course : courses) {
+                String lecturerId = course.get("LecturerID");
+                String lecturerUsername = getUserNameFromID(lecturerId);
+                System.out.println(lecturerUsername);
+                registerStudentToCourse(lecturerUsername, course.get("CourseID"), course.get("Semester"));
+            }
+        }catch (Exception _){}
     }
 }
