@@ -56,12 +56,55 @@ public class LecturesServlet extends ExaServlet {
         if (lecture == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
-        };
+        }
 
         // Add the lecture to the database
         db.lectures().create(lecture);
 
         response.setStatus(HttpServletResponse.SC_CREATED);
+        response.setContentType("application/xml");
+        PrintWriter out = response.getWriter();
+        out.println(DB.marshal(lecture));
+        out.flush();
+    }
+
+    @Override
+    public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        final String[] requiredParams = {"course", "start", "end", "room"};
+        Map<String, String> defaultRawDto = new HashMap<>();
+        defaultRawDto.put("course", "");
+        defaultRawDto.put("start", "");
+        defaultRawDto.put("end", "");
+        defaultRawDto.put("room", "");
+
+        defaultRawDto = Util.makeUpdatedDto(requiredParams, defaultRawDto, request, response);
+
+        if (defaultRawDto == null) {
+            return;
+        }
+
+        // verify that the lecture exists
+        var lecture = db.lectures().get(defaultRawDto.get("id"));
+        if (lecture == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Lecture does not exist");
+            return;
+        }
+
+        // Create the lecture
+        lecture = makeLecture(request, response, defaultRawDto, requiredParams);
+        if (lecture == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        // Update the lecture
+        lecture = db.lectures().update(lecture);
+        if (lecture == null) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to update lecture");
+            return;
+        }
+
+        response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/xml");
         PrintWriter out = response.getWriter();
         out.println(DB.marshal(lecture));
@@ -91,6 +134,12 @@ public class LecturesServlet extends ExaServlet {
 
         // Create the lecture
         var lecture = new Lecture();
+
+        if (rawDto.containsKey("id")) {
+            lecture = db.lectures().get(rawDto.get("id"));
+        }
+        lecture.getStartOrEndOrRoomOrLink().clear();
+
         lecture.setCourse(course);
         Start start = new Start();
         start.setContent(rawDto.get("start"));

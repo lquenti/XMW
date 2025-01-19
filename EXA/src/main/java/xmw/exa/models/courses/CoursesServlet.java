@@ -149,9 +149,10 @@ public class CoursesServlet extends ExaServlet {
             course = db.courses().get(rawDto.get("id"));
         }
 
+        course.getNameOrFacultyOrMaxStudents().clear();
+
         course.setLecturer(lecturer);
         course.setSemester(semester);
-        course.getNameOrFacultyOrMaxStudents().clear();
         // Name, Faculty, MaxStudents
         Name name = new Name();
         name.setContent(rawDto.get("name"));
