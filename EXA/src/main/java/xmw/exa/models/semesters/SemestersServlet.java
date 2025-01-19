@@ -47,7 +47,8 @@ public class SemestersServlet extends ExaServlet {
         if (semester == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
-        };
+        }
+        ;
 
         // Add the semester
         boolean success = db.semesters().create(semester);
@@ -57,6 +58,48 @@ public class SemestersServlet extends ExaServlet {
         }
 
         response.setStatus(HttpServletResponse.SC_CREATED);
+        response.setContentType("application/xml");
+        PrintWriter out = response.getWriter();
+        out.println(DB.marshal(semester));
+        out.flush();
+    }
+
+    @Override
+    public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        final String[] requiredParams = {"name", "start", "end"};
+        Map<String, String> defaultRawDto = new HashMap<>();
+        defaultRawDto.put("name", "");
+        defaultRawDto.put("start", "");
+        defaultRawDto.put("end", "");
+
+        defaultRawDto = Util.makeUpdatedDto(requiredParams, defaultRawDto, request, response);
+
+        if (defaultRawDto == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        // verify that the semester exists
+        var semester = db.semesters().get(defaultRawDto.get("id"));
+        if (semester == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        semester = makeSemester(request, response, defaultRawDto, requiredParams);
+        if (semester == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        // Update the semester
+        semester = db.semesters().update(semester);
+        if (semester != null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
+        }
+
+        response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/xml");
         PrintWriter out = response.getWriter();
         out.println(DB.marshal(semester));
@@ -95,13 +138,18 @@ public class SemestersServlet extends ExaServlet {
             }
         }
 
-        if (exists) {
+        // Create the semester
+        Semester semester = new Semester();
+
+        if (rawDto.containsKey("id")) {
+            semester = db.semesters().get(rawDto.get("id"));
+        } else if (exists) {
             response.setStatus(HttpServletResponse.SC_CONFLICT);
             return null;
         }
 
-        // Create the semester
-        Semester semester = new Semester();
+        semester.getNameOrStartOrEnd().clear();
+
         Name name = new Name();
         name.setContent(rawDto.get("name"));
         semester.getNameOrStartOrEnd().add(name);
