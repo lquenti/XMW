@@ -33,11 +33,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>dev.datlag.nanoid</groupId>
-            <artifactId>nanoid</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-        <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>6.1.0</version>
@@ -101,6 +96,11 @@
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
             <version>4.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aventrix.jnanoid</groupId>
+            <artifactId>jnanoid</artifactId>
+            <version>2.0.0</version>
         </dependency>
     </dependencies>
 

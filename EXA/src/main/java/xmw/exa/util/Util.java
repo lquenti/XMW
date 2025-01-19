@@ -1,5 +1,6 @@
 package xmw.exa.util;
 
+import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jetbrains.annotations.Nullable;
@@ -12,14 +13,15 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Map;
-import java.util.UUID;
 
 public class Util {
+    private static final char[] CUSTOM_ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
+
     private Util() {
     }
 
     public static String generateId() {
-        return UUID.randomUUID().toString();
+        return NanoIdUtils.randomNanoId(NanoIdUtils.DEFAULT_NUMBER_GENERATOR, CUSTOM_ALPHABET, 21);
     }
 
     public static String getPathParameter(final String redirectURL, HttpServletRequest request, HttpServletResponse response) throws IOException {
