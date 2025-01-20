@@ -30,8 +30,8 @@ public class CoursesServlet extends ExaServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            Event event = new Event("Exa:courses:all", "root", "GET", "Get all courses");
-            ClientLogger.getInstance().addEvent(event);
+//            Event event = new Event("Exa", "root", "GET", "Requested All Courses");
+//            ClientLogger.getInstance().addEvent(event);
             // Get all data
             List<Course> courses = db.courses().all();
             Courses coursesElement = new Courses();

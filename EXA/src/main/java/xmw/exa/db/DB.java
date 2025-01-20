@@ -103,7 +103,9 @@ public class DB {
                                 ("/flush.dtd").openStream(),
                         new File(Config.APPLICATION_STORAGE_PATH + "/flush.dtd").toPath());
 
-                System.out.println("Copied flush.xml and flush.dtd to " + Config.APPLICATION_STORAGE_PATH);
+                Event event = new Event("EXA", "root", "INFO",
+                        "Copied flush.xml and flush.dtd to " + Config.APPLICATION_STORAGE_PATH);
+                ClientLogger.getInstance().addEvent(event);
             }
 
             var xml = Files.readString(flushFile.toPath());

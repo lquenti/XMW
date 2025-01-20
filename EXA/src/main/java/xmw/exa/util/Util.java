@@ -4,6 +4,8 @@ import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jetbrains.annotations.Nullable;
+import xmw.ClientLogger;
+import xmw.Event;
 import xmw.exa.db.repository.BaseXmlRepository;
 
 import java.io.IOException;
@@ -139,19 +141,24 @@ public class Util {
             String[] paramValues = request.getParameterValues(paramName);
 
             // Print parameter name and its values
-            System.out.println("Parameter: " + paramName);
+            Event event = new Event("DTO Mapper", "root", "INFO", "Parameter: " + paramName);
+            ClientLogger.getInstance().addEvent(event);
             if (paramValues.length == 0) {
-                System.out.println("No values");
+                event = new Event("DTO Mapper", "root", "DEBUG", "No values");
+                ClientLogger.getInstance().addEvent(event);
                 continue;
             }
             if (!defaultRawDto.containsKey(paramName)) {
-                System.err.println("Invalid parameter name " + paramName);
+                event = new Event("DTO Mapper", "root", "ERROR", "Invalid parameter name " + paramName);
+                ClientLogger.getInstance().addEvent(event);
             } else {
-                System.out.println("Valid parameter name " + paramName);
+                event = new Event("DTO Mapper", "root", "DEBUG", "Valid parameter name " + paramName);
+                ClientLogger.getInstance().addEvent(event);
 
                 StringBuilder sb = new StringBuilder();
                 if (paramValues.length > 1) {
-                    System.out.println("Multiple values");
+                    event = new Event("DTO Mapper", "root", "DEBUG", "Multiple values");
+                    ClientLogger.getInstance().addEvent(event);
                     for (int i = 0; i < paramValues.length; i++) {
                         String value = paramValues[i];
                         sb.append(value);
@@ -163,7 +170,8 @@ public class Util {
                     sb.append(paramValues[0]);
                 }
 
-                System.out.println("Value: " + sb);
+                event = new Event("DTO Mapper", "root", "DEBUG", "Value: " + sb);
+                ClientLogger.getInstance().addEvent(event);
 
                 defaultRawDto.put(paramName, sb.toString());
             }
