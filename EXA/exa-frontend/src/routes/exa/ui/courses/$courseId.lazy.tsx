@@ -4,7 +4,8 @@ import { useExams } from '../../../../lib/use-exams'
 import { useLecturers } from '../../../../lib/use-lecturers'
 import { useLectures } from '../../../../lib/use-lectures'
 import { useModules } from '../../../../lib/use-modules'
-import { parseCoursesXml, parseExamsXml, parseLecturersXml, parseLecturesXml, parseModulesXml } from '../../../../lib/utils'
+import { AuthorizationState, useAuthorizationState, parseCoursesXml, parseExamsXml, parseLecturersXml, parseLecturesXml, parseModulesXml } from '../../../../lib/utils'
+import { toast } from 'sonner'
 
 export const Route = createLazyFileRoute('/exa/ui/courses/$courseId')({
     component: CourseDetailComponent,
@@ -12,6 +13,7 @@ export const Route = createLazyFileRoute('/exa/ui/courses/$courseId')({
 
 function CourseDetailComponent() {
     const { courseId } = Route.useParams()
+    const { state: authState } = useAuthorizationState()
     const { data: coursesData, isLoading: coursesLoading } = useCourses()
     const { data: lecturersData, isLoading: lecturersLoading } = useLecturers()
     const { data: examsData, isLoading: examsLoading } = useExams()
@@ -66,6 +68,9 @@ function CourseDetailComponent() {
             minute: '2-digit'
         })
     }
+
+    // Helper function to check if user can edit
+    const canEdit = authState === AuthorizationState.Admin || authState === AuthorizationState.Lecturer
 
     if (coursesLoading || lecturersLoading || examsLoading || lecturesLoading || modulesLoading) {
         return (
@@ -143,6 +148,42 @@ function CourseDetailComponent() {
                             {course.faculty}
                         </span>
                     </div>
+
+                    {/* Add action buttons for admin/lecturer */}
+                    {canEdit && (
+                        <div className="mb-8 flex flex-wrap gap-4">
+                            {!courseModule && (
+                                <button
+                                    onClick={() => toast.info('Module creation form coming soon')}
+                                    className="inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                                >
+                                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                    </svg>
+                                    Add Module Description
+                                </button>
+                            )}
+                            <button
+                                onClick={() => toast.info('Lecture creation form coming soon')}
+                                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            >
+                                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                                Add Lecture
+                            </button>
+                            <Link
+                                to="/exa/ui/exams/new"
+                                search={{ courseId }}
+                                className="inline-flex items-center px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                            >
+                                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                                Add Exam
+                            </Link>
+                        </div>
+                    )}
 
                     <div className="grid grid-cols-1 gap-8">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

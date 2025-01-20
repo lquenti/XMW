@@ -11,8 +11,11 @@ export const useAuthorizationState = create<{
   state: AuthorizationState
   setState: (state: AuthorizationState) => void
 }>((set) => ({
-  state: AuthorizationState.Guest,
-  setState: (state) => set({ state }),
+  state: localStorage.getItem('authState') as AuthorizationState || AuthorizationState.Guest,
+  setState: (state) => {
+    localStorage.setItem('authState', state)
+    set({ state })
+  },
 }))
 
 // Add new types and functions
