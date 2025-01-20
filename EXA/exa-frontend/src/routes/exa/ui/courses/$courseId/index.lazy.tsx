@@ -1,5 +1,4 @@
 import { createLazyFileRoute, Link} from '@tanstack/react-router'
-import { toast } from 'sonner'
 import { parseLecturesXml, parseExamsXml, parseCoursesXml, parseLecturersXml, useAuthorizationState, parseModulesXml } from '../../../../../lib/utils'
 import { useCourses } from '../../../../../lib/use-courses'
 import { useLecturers } from '../../../../../lib/use-lecturers'
@@ -210,8 +209,9 @@ function CourseDetailComponent() {
                   Add Module Description
                 </Link>
               )}
-              <button
-                onClick={() => toast.info('Lecture creation form coming soon')}
+              <Link
+                to="/exa/ui/lecture/new/$courseId"
+                params={{ courseId }}
                 className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 <svg
@@ -228,7 +228,7 @@ function CourseDetailComponent() {
                   />
                 </svg>
                 Add Lecture
-              </button>
+              </Link>
               <Link
                 to="/exa/ui/exams/new"
                 search={{ courseId }}
