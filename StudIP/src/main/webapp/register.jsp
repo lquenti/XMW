@@ -1,6 +1,7 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.List" %>
 <%@ page import="xmw.StylingConstant" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,13 +35,26 @@
         %>
     </select><br><br>
 
+    <label for="semesterId">Select Semester:</label>
+    <select id="semesterId" name="semesterId">
+        <%
+            courses = (List<Map<String, String>>) request.getAttribute("courses");
+            for (Map<String, String> course: courses) {
+                String semester = course.get("Semester");
+        %>
+        <option value="<%= semester %>"><%= semester %></option>
+        <%
+            }
+        %>
+    </select><br><br>
+
     <label for="action">Action:</label>
     <select id="action" name="action">
         <option value="register">Register</option>
         <option value="deregister">Deregister</option>
     </select><br><br>
 
-    <button type="submit">Register</button>
+    <button type="submit">Submit</button>
 </form>
 
 <p>${message}</p>
