@@ -76,16 +76,16 @@
                     for (Map<String, String> student : studentsForExam) {
                         String studentId = student.get("username");
                         String studentName = student.get("name");
-        %>
-        <tr class="student-row" data-exam-id="<%= examId %>">
-            <td><%= examId %></td>
-            <td><%= studentId %></td>
-            <td><%= studentName %></td>
-            <td>
-                <input type="text" name="grades[<%= examId %>][<%= studentId %>]" placeholder="Enter grade">
-            </td>
-        </tr>
-        <%
+                        %>
+                        <tr class="student-row" data-exam-id="<%= examId %>">
+                            <td><%= examId %></td>
+                            <td><%= studentId %></td>
+                            <td><%= studentName %></td>
+                            <td>
+                                <input type="text" name="grades[<%= examId %>][<%= studentId %>]" placeholder="Enter grade">
+                            </td>
+                        </tr>
+                        <%
                     }
                 }
             }

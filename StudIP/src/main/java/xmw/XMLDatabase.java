@@ -81,7 +81,7 @@ public class XMLDatabase {
             if (userHasSchedules) {
                 // XQuery to check if the user already has a schedule
                 String checkScheduleQuery = String.format(
-                        "let $course := /StudIP/Schedules/Schedule[@username='%s']/Course[@id='%s' semester='%s']\n" +
+                        "let $course := /StudIP/Schedules/Schedule[@username='%s']/Course[@id='%s', semester='%s']\n" +
                                 "return exists(course)",
                         userId, courseId, semester
                 );
@@ -426,8 +426,7 @@ public class XMLDatabase {
         try {
             // XQuery to find and remove the specific exam for the user
             String xquery = String.format(
-                    "declare namespace ns = 'http://example.com/schema';\n" +
-                            "let $exam := /StudIP/Exams/Registration[@username='%s']/Exam[@id='%s']\n" +
+                    "let $exam := /StudIP/Exams/Registration[@username='%s']/Exam[@id='%s']\n" +
                             "return delete node $exam",
                     userId, examId
             );
@@ -448,8 +447,7 @@ public class XMLDatabase {
         try {
             // XQuery to retrieve all Exam IDs for the given user
             String xquery = String.format(
-                    "declare namespace ns = 'http://example.com/schema';\n" +
-                            "for $exam in /StudIP/Exams/Registration[@username='%s']/Exam\n" +
+                    "for $exam in /StudIP/Exams/Registration[@username='%s']/Exam\n" +
                             "return data($exam/@id)",
                     userId
             );
