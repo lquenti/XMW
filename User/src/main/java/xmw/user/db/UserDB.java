@@ -175,6 +175,7 @@ public class UserDB {
     public static String getSpecificBulkUsers(List<String> usernames, boolean with_password) throws BaseXException {
         String formattedUsernames = String.join("\", \"", usernames);
         formattedUsernames = "(\"" + formattedUsernames + "\")";
+        // ("username1", "username2", ..., "usernameN")
         ClientLogger.getInstance().addEvent(new Event("UserDB", "root", "GetAllUsersOfGroup", "Running selected bulk of " + usernames.size() + " users"));
 
         String authQuery = "declare variable $usernames := " + formattedUsernames + ";\n";
@@ -189,12 +190,8 @@ public class UserDB {
                     for $user in /Users/User[@username = $usernames]
                     return
                     <User>
-                    { for $attr in $user/@* return $attr }
-                    {
-                      for $child in $user/*
-                      where not(local-name() = "password")
-                      return $child
-                    }
+                    { $user/@* }
+                    { $user/*[not(local-name() = "password")] }
                     </User>
                     }
                     </Users>

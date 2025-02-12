@@ -45,18 +45,19 @@ public class BulkServlet  extends HttpServlet {
         }
 
         // validate via dtd
+        /*
         if (!DTDValidatorUtils.validateBulkRequest(xml)) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid XML sent");
         }
+         */
 
-        // extract all usernames
+        // extract all usernames (lazy, tolerant validation (as long as it **also** contains our information))
         List<String> usernames;
         try {
             usernames = BulkUsernameExtractor.extractUsernames(xml);
         } catch (XMLStreamException e) {
-            // This should never happen since we already successfully validated it
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid XML sent");
+            return;
         }
 
         // query for the usernames

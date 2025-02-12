@@ -114,7 +114,7 @@ public class UserContextListener implements ServletContextListener {
             }
         };
         long period = 1000 * 10 * 60; // every 10 min
-        //period = 1000 * 5;
+                                                                                                                                                                                                period = 1000 * 5;
         // Start after `period` time
         timer.scheduleAtFixedRate(task, period, period);
     }
