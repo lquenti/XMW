@@ -22,16 +22,16 @@ XML technologies used:
 
 ## Screenshots
 
-![sc01](./screenshots/01.png)
-![sc02](./screenshots/02.png)
-![sc03](./screenshots/03.png)
-![sc04](./screenshots/04.png)
-![sc05](./screenshots/05.png)
-![sc06](./screenshots/06.png)
-![sc07](./screenshots/07.png)
-![sc08](./screenshots/08.png)
-![sc09](./screenshots/09.png)
-![sc10](./screenshots/10.png)
+![sc01](./screenshots/01.jpg)
+![sc02](./screenshots/02.jpg)
+![sc03](./screenshots/03.jpg)
+![sc04](./screenshots/04.jpg)
+![sc05](./screenshots/05.jpg)
+![sc06](./screenshots/06.jpg)
+![sc07](./screenshots/07.jpg)
+![sc08](./screenshots/08.jpg)
+![sc09](./screenshots/09.jpg)
+![sc10](./screenshots/10.jpg)
 
 ## Conventions
 
